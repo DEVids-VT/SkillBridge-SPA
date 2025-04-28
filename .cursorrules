@@ -1,0 +1,76 @@
+{
+  "general": {
+    "project_description": "React SPA Template using Vite, TypeScript, TailwindCSS, Shadcn UI, React Router, and i18next. Optimized for kickstarting projects with AI (Cursor).",
+    "preferred_libraries": [
+      "react",
+      "react-router-dom",
+      "tailwindcss",
+      "@/components/ui (Shadcn UI)",
+      "clsx",
+      "tailwind-merge",
+      "lucide-react",
+      "react-i18next"
+    ],
+    "avoid_libraries": [
+      "Material UI",
+      "Bootstrap",
+      "jQuery",
+      "other UI component libraries unless explicitly asked"
+    ],
+    "code_style_guidelines": [
+      "Follow Prettier formatting rules (.prettierrc). Run 'npm run format' before finalizing changes.",
+      "Follow ESLint rules (eslint.config.js). Run 'npm run lint' before finalizing changes.",
+      "Use functional components with hooks.",
+      "Prefer TypeScript over JavaScript.",
+      "Use named exports for components and functions, default export for pages.",
+      "Keep components small and focused."
+    ]
+  },
+  "components": {
+    "location": "src/components/",
+    "naming_convention": "PascalCase (e.g., MyComponent.tsx)",
+    "structure": [
+      "Place reusable UI elements in src/components/ui (primarily Shadcn components).",
+      "Place layout components (Header, Footer, Layout) in src/components/layout/.",
+      "Create subdirectories for related components if needed (e.g., src/components/feature/...)."
+    ],
+    "import_aliases": [
+      "Use '@/components/...' alias for imports."
+    ]
+  },
+  "pages": {
+    "location": "src/pages/",
+    "naming_convention": "PascalCase (e.g., HomePage.tsx)",
+    "structure": [
+      "Each page represents a distinct view accessible via React Router.",
+      "Pages should primarily compose layout and feature components."
+    ],
+    "routing": {
+      "configuration_file": "src/App.tsx",
+      "guidelines": "Use React Router v7+ conventions."
+    }
+  },
+  "styling": {
+    "preferred_method": "TailwindCSS utility classes.",
+    "css_modules": "Avoid unless absolutely necessary for complex, isolated styles.",
+    "inline_styles": "Avoid inline styles.",
+    "shadcn_ui": "Utilize Shadcn UI components from '@/components/ui' for common UI patterns. Use 'clsx' and 'tailwind-merge' for conditional/combined classes."
+  },
+  "state_management": {
+    "preferred_method": "React Hooks (useState, useContext) for local/shared state. Consider Zustand or Jotai for complex global state if needed (ask first).",
+    "avoid": ["Redux (unless specifically requested)"]
+  },
+  "internationalization": {
+    "library": "react-i18next",
+    "configuration": "Check i18n setup files (likely in src/ or src/lib).",
+    "usage": "Use the 't' function from 'useTranslation' hook for all user-facing strings."
+  },
+  "documentation": {
+    "location": "docs/",
+    "guidelines": "Refer to docs/README.md and docs/AI_COLLABORATION.md for project details and AI interaction guidelines."
+  },
+  "steps_templates": {
+    "location": "steps/",
+    "usage": "Use templates like FEATURE_TEMPLATE.md to structure requests for new features or complex changes."
+  }
+} 

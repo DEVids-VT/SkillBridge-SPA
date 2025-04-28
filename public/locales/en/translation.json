@@ -1,0 +1,75 @@
+{
+  "appName": "Endorsify",
+  "home": "Home",
+  "dashboard": "Dashboard",
+  "login": "Login",
+  "register": "Register",
+  "loginTitle": "Login",
+  "registerTitle": "Register",
+  "email": "Email",
+  "password": "Password",
+  "submitLogin": "Login",
+  "copyright": "All Rights Reserved",
+  
+  "landingPage": {
+    "hero": {
+      "title": "Bridge the Gap Between Learning and Employment",
+      "subtitle": "Connect with industry-validated courses and certifications that truly matter to employers",
+      "primaryCta": "Get Started",
+      "secondaryCta": "Explore Courses"
+    },
+    "problem": {
+      "title": "The Problem",
+      "point1": "Companies struggle to find candidates with verified, practical skills",
+      "point2": "Existing courses often fail to meet real-world business needs",
+      "point3": "Hiring processes are slow and costly due to skills mismatches"
+    },
+    "solution": {
+      "title": "Our Solution",
+      "description": "Endorsify creates a closed feedback loop between skills development and industry validation — drastically improving the efficiency of talent acquisition and career growth.",
+      "cta": "Learn More"
+    },
+    "features": {
+      "title": "How Endorsify Works",
+      "subtitle": "A seamless ecosystem combining education, validation, and employment",
+      "feature1": {
+        "title": "Course Upload & Management",
+        "description": "Experts and companies upload courses tailored to industry needs"
+      },
+      "feature2": {
+        "title": "Evaluation & Approval",
+        "description": "Companies review and validate courses, ensuring relevance and quality"
+      },
+      "feature3": {
+        "title": "Learning & Certificates",
+        "description": "Learners complete courses and earn industry-endorsed certificates"
+      },
+      "feature4": {
+        "title": "Skills Validation",
+        "description": "Employers trust the certifications, leading to faster, better hiring"
+      }
+    },
+    "audience": {
+      "title": "Who Benefits from Endorsify",
+      "learners": {
+        "title": "For Learners",
+        "point1": "Young professionals seeking qualification upgrades",
+        "point2": "Career changers needing practical, recognized skills",
+        "point3": "Students aiming for industry readiness",
+        "cta": "Start Learning"
+      },
+      "companies": {
+        "title": "For Companies",
+        "point1": "HR departments verifying candidate skills",
+        "point2": "Enterprises filling skill gaps faster",
+        "point3": "Educational institutions updating curricula for modern business needs",
+        "cta": "Partner With Us"
+      }
+    },
+    "cta": {
+      "title": "Ready to Validate Skills and Transform Hiring?",
+      "subtitle": "Join Endorsify today and be part of the future of workforce readiness",
+      "primaryButton": "Get Started Today"
+    }
+  }
+} 

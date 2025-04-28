@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 // } from "@/components/ui/dropdown-menu";
 // import { useTheme } from "@/providers/ThemeProvider";
 // import { Language, useLanguage } from "@/providers/LanguageProvider";
-import { Globe, Menu, X } from "lucide-react";
+import { Globe, Menu, X, Award } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -21,6 +21,7 @@ export function Header() {
 
   const navItems = [
     { to: "/", label: t("home") },
+    { to: "/dashboard", label: t("dashboard") },
     { to: "/login", label: t("login") },
     { to: "/register", label: t("register") },
     // Add more navigation items here
@@ -41,8 +42,8 @@ export function Header() {
             onClick={() => setMobileMenuOpen(false)}
           >
             {/* You can replace text with an SVG logo */}
-            <Globe className="h-6 w-6 mr-2 text-primary" /> 
-            <span className="font-bold">{t("appName")}</span>
+            <Award className="h-6 w-6 mr-2 text-primary" /> 
+            <span className="font-bold">{t("appName", "Endorsify")}</span>
           </Link>
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-4">

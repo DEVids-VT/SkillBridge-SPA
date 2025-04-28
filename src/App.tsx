@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage'; // Assuming this exists
 import LoginPage from './pages/LoginPage'; // Assuming this exists
 import RegisterPage from './pages/RegisterPage'; // Assuming this exists
+import LandingPage from './pages/LandingPage'; // Import the new LandingPage component
 // Remove useState, logos, App.css, Button if no longer needed directly here
 // Keep Layout import if it exists
 import Layout from './components/layout/Layout'; // Import the Layout component
@@ -17,7 +18,8 @@ function App() {
         {/* Route that uses the Layout component */}
         <Route element={<Layout />}>
           {/* Child routes rendered within the Layout's Outlet */}
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboard" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           {/* Add other routes that should have the Header/Footer layout here */}

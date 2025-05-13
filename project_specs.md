@@ -1,7 +1,7 @@
-# Endorsify Technical Specification
+# SkillBridge Technical Specification
 
 ## Project Overview
-Endorsify is a platform where companies and experts can upload courses, while companies can evaluate and approve them to streamline the employee application process. The certificates issued have real value because they often come directly from the source companies and are validated by other industry players. The platform bridges education, certification, and employment into a single ecosystem.
+SkillBridge is a platform where companies and experts can upload courses, while companies can evaluate and approve them to streamline the employee application process. The certificates issued have real value because they often come directly from the source companies and are validated by other industry players. The platform bridges education, certification, and employment into a single ecosystem.
 
 **Target Audience**:
 

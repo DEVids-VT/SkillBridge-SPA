@@ -1,5 +1,5 @@
 {
-  "appName": "Endorsify",
+  "appName": "SkillBridge",
   "home": "Home",
   "dashboard": "Dashboard",
   "login": "Login",
@@ -16,7 +16,9 @@
       "title": "Bridge the Gap Between Learning and Employment",
       "subtitle": "Connect with industry-validated courses and certifications that truly matter to employers",
       "primaryCta": "Get Started",
-      "secondaryCta": "Explore Courses"
+      "secondaryCta": "Explore Courses",
+      "newTitle": "SkillBridge",
+      "newSubtitle": "your bridge to success"
     },
     "problem": {
       "title": "The Problem",
@@ -26,11 +28,11 @@
     },
     "solution": {
       "title": "Our Solution",
-      "description": "Endorsify creates a closed feedback loop between skills development and industry validation — drastically improving the efficiency of talent acquisition and career growth.",
+      "description": "SkillBridge creates a closed feedback loop between skills development and industry validation — drastically improving the efficiency of talent acquisition and career growth.",
       "cta": "Learn More"
     },
     "features": {
-      "title": "How Endorsify Works",
+      "title": "How SkillBridge Works",
       "subtitle": "A seamless ecosystem combining education, validation, and employment",
       "feature1": {
         "title": "Course Upload & Management",
@@ -50,7 +52,7 @@
       }
     },
     "audience": {
-      "title": "Who Benefits from Endorsify",
+      "title": "Who Benefits from SkillBridge",
       "learners": {
         "title": "For Learners",
         "point1": "Young professionals seeking qualification upgrades",
@@ -68,7 +70,7 @@
     },
     "cta": {
       "title": "Ready to Validate Skills and Transform Hiring?",
-      "subtitle": "Join Endorsify today and be part of the future of workforce readiness",
+      "subtitle": "Join SkillBridge today and be part of the future of workforce readiness",
       "primaryButton": "Get Started Today"
     }
   }

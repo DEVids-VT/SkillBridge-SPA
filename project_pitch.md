@@ -1,9 +1,9 @@
-Endorsify
+SkillBridge
 Project Description
-Endorsify is a next-generation platform that connects companies, experts, and learners through validated, real-world skills certifications.
+SkillBridge is a next-generation platform that connects companies, experts, and learners through validated, real-world skills certifications.
 We bridge the gap between education and employment by offering courses created and approved by industry leaders, ensuring that candidates are truly ready for the demands of the job market.
 
-In a world where traditional diplomas often lack immediate industry relevance, Endorsify provides certificates with real value, endorsed directly by companies.
+In a world where traditional diplomas often lack immediate industry relevance, SkillBridge provides certificates with real value, endorsed directly by companies.
 
 The Problem
 Companies struggle to find candidates with verified, practical skills.
@@ -23,7 +23,7 @@ Learners complete courses and earn industry-endorsed certificates.
 
 Employers trust the certifications, leading to faster, better hiring.
 
-Endorsify creates a closed feedback loop between skills development and industry validation — drastically improving the efficiency of talent acquisition and career growth.
+SkillBridge creates a closed feedback loop between skills development and industry validation — drastically improving the efficiency of talent acquisition and career growth.
 
 Target Audience
 Learners:
@@ -62,6 +62,6 @@ Learners demand faster, verifiable paths to career advancement.
 
 Companies seek lower-risk, higher-certainty hiring pipelines.
 
-Endorsify is building the future of workforce readiness.
+SkillBridge is building the future of workforce readiness.
 
-🚀 Endorsify: Validate Skills. Empower Careers. Transform Hiring.
+🚀 SkillBridge: Validate Skills. Empower Careers. Transform Hiring.

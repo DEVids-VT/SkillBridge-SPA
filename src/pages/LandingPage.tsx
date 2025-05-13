@@ -91,24 +91,7 @@ const LandingPage = () => {
               </Button>
             </div>
           </div>
-          
-          {/* Highlight Cards over video */}
-          <div className="flex flex-col justify-center items-center md:flex-row gap-4 mt-12">
-            <Card className="bg-white backdrop-blur-md border-white">
-              <CardContent className="p-6">
-                <GraduationCap className="h-10 w-10 text-blue-400 mb-4" />
-                <h3 className="text-xl font-bold text-black mb-2">За стажанти</h3>
-                <p className="text-black">Получи достъп до реални проекти и директен път към работа</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-white backdrop-blur-md border-white">
-              <CardContent className="p-6">
-                <Building className="h-10 w-10 text-blue-400 mb-4" />
-                <h3 className="text-xl font-bold text-black mb-2">За компании</h3>
-                <p className="text-black">Намерете талантливи кадри чрез реални проектни задания</p>
-              </CardContent>
-            </Card>
-          </div>
+        
         </div>
       </section>
 

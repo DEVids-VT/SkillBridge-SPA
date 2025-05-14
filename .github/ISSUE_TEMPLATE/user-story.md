@@ -7,15 +7,6 @@ assignees: ''
 
 ---
 
----
-name: 🧩 User Story
-about: Create a new feature based on a user story
-title: "[User Story] "
-labels: enhancement, user story
-assignees: ''
-
----
-
 ## 🧩 User Story
 
 **As a** [type of user],  

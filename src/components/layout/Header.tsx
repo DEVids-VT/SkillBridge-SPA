@@ -51,8 +51,8 @@ export function Header() {
               className="flex items-center text-lg font-semibold text-foreground transition-colors hover:text-foreground/80"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {/* Logo with updated styling */}
-              <span className="font-bold text-blue-600">SkillBridge</span>
+              {/* Logo image */}
+              <img src="/images/sblogosmall.svg" alt="SkillBridge" className="h-8" />
             </Link>
             {/* Desktop Navigation */}
             <nav className="hidden md:flex gap-6">

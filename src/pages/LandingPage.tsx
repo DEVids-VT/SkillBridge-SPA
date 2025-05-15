@@ -68,7 +68,7 @@ const LandingPage = () => {
           <div className="max-w-3xl mx-auto text-center">
             <div className="flex justify-center mb-6">
               <img 
-                src="/images/logo3.png" 
+                src="/images/svgsblogo.svg" 
                 alt="SkillBridge Logo" 
                 className="h-16 md:h-24"
               />

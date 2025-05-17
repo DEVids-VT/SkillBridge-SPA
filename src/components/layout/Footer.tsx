@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Github, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -15,10 +14,10 @@ export function Footer() {
 
   return (
     <footer className="mt-auto border-t border-border/40 bg-background/80 backdrop-blur-lg">
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 lg:px-8 py-6">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} {t("appName")} - {t("copyright")}
+            &copy; {currentYear} {t("appName", "SkillBridge")} - {t("copyright", "Всички права запазени")}
           </p>
 
           <div className="flex gap-2">

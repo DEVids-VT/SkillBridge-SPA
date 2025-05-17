@@ -1,0 +1,92 @@
+/* Page transition effects */
+.page-transition-container {
+  position: relative;
+  width: 100%;
+}
+
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* Slide transitions */
+.slide-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+}
+
+.slide-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* Scale transitions */
+.scale-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.scale-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+}
+
+.scale-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.scale-exit-active {
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+}
+
+/* Add a slight blur effect during transitions */
+.blur-transition-enter {
+  filter: blur(8px);
+}
+
+.blur-transition-enter-active {
+  filter: blur(0);
+  transition: filter 500ms ease-in-out;
+}
+
+.blur-transition-exit {
+  filter: blur(0);
+}
+
+.blur-transition-exit-active {
+  filter: blur(8px);
+  transition: filter 300ms ease-in-out;
+} 

@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage'; // Assuming this exists
 import LoginPage from './pages/LoginPage'; // Assuming this exists
 import RegisterPage from './pages/RegisterPage'; // Assuming this exists
 import LandingPage from './pages/LandingPage'; // Import the new LandingPage component
-import JobBoardPage from './pages/JobBoardPage'; // Import the new JobBoardPage component
 import ProjectBoard from './pages/ProjectsBoard'; // Import the new ProjectPage component
+import CoursesPage from './pages/CoursesPage'; // Import the CoursesPage component
+import EventsPage from './pages/EventsPage'; // Import the EventsPage component
+import CompaniesPage from './pages/CompaniesPage'; // Import the CompaniesPage component
+import AboutPage from './pages/AboutPage'; // Import the AboutPage component
 // Remove useState, logos, App.css, Button if no longer needed directly here
 // Keep Layout import if it exists
 import Layout from './components/layout/Layout'; // Import the Layout component
@@ -23,9 +25,11 @@ function App() {
           <Route element={<Layout />}>
             {/* Child routes rendered within the Layout's Outlet */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/dashboard" element={<HomePage />} />
-            <Route path="/projects" element={<JobBoardPage />} />
-            <Route path="/jobs" element={<ProjectBoard />} />
+            <Route path="/projects" element={<ProjectBoard />} />
+            <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/companies" element={<CompaniesPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             {/* Add other routes that should have the Header/Footer layout here */}

@@ -14,11 +14,11 @@ export function Header() {
   const isEnglish = currentLanguage.startsWith('en');
 
   const navItems = [
-    { to: "/projects", label: t("projects", "Проекти") },
-    { to: "/jobs", label: t("jobs", "Работни места") },
-    { to: "/companies", label: t("companies", "Компании") },
-    { to: "/events", label: t("events", "Събития") },
-    { to: "/about", label: t("about", "За SkillBridge") },
+    { to: "/projects", label: t("Find a job", "Започни работа") },
+    { to: "/courses", label: t("Courses", "Обучения") },
+    { to: "/events", label: t("Events", "Събития") },
+    { to: "/companies", label: t("Partners", "Партньори") },
+    { to: "/about", label: t("About SkillBridge", "За SkillBridge") },
   ];
 
   // Function to toggle between English and Bulgarian

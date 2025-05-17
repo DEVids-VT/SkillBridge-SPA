@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'; // Assuming this exists
 import RegisterPage from './pages/RegisterPage'; // Assuming this exists
 import LandingPage from './pages/LandingPage'; // Import the new LandingPage component
 import JobBoardPage from './pages/JobBoardPage'; // Import the new JobBoardPage component
+import ProjectBoard from './pages/ProjectsBoard'; // Import the new ProjectPage component
 // Remove useState, logos, App.css, Button if no longer needed directly here
 // Keep Layout import if it exists
 import Layout from './components/layout/Layout'; // Import the Layout component
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<HomePage />} />
             <Route path="/projects" element={<JobBoardPage />} />
+            <Route path="/jobs" element={<ProjectBoard />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             {/* Add other routes that should have the Header/Footer layout here */}

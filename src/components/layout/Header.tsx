@@ -15,6 +15,7 @@ export function Header() {
 
   const navItems = [
     { to: "/projects", label: t("projects", "Проекти") },
+    { to: "/jobs", label: t("jobs", "Работни места") },
     { to: "/companies", label: t("companies", "Компании") },
     { to: "/events", label: t("events", "Събития") },
     { to: "/about", label: t("about", "За SkillBridge") },

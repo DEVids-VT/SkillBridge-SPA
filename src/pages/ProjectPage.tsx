@@ -4,72 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Building2, Clock, Tag, Users, Globe, MapPin, DollarSign, Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { spacing, layouts } from "@/lib/design-system";
-
-// Mock project data (replace with actual data fetching)
-const projectData = {
-  id: 1,
-  title: "Mobile App Development for Health Tech Platform",
-  description: "We are seeking a talented React Native developer to build a cross-platform mobile application for our health tech startup. The project involves integrating with health APIs and creating an intuitive user interface that helps users track their health metrics and connect with healthcare providers.",
-  company: {
-    name: "TechCorp Solutions",
-    logo: "/images/companies/company1.webp",
-    description: "A leading technology solutions provider focused on digital transformation and healthcare innovation.",
-    location: "San Francisco, CA",
-    website: "https://techcorp.example.com",
-    size: "50-200 employees",
-    founded: "2018",
-    industry: "Healthcare Technology"
-  },
-  postedDate: "2024-03-15",
-  deadline: "2024-06-30",
-  categories: ["Mobile Development", "Healthcare", "React Native", "API Integration"],
-  requirements: [
-    "3+ years of experience with React Native",
-    "Strong understanding of mobile app architecture",
-    "Experience with healthcare APIs and data security",
-    "Knowledge of TypeScript and modern JavaScript",
-    "Experience with state management solutions"
-  ],
-  benefits: [
-    "Competitive compensation package",
-    "Remote work opportunity",
-    "Flexible working hours",
-    "Professional development budget",
-    "Healthcare coverage"
-  ],
-  projectDetails: {
-    duration: "6 months",
-    budget: "$50,000 - $75,000",
-    teamSize: "3-5 people",
-    location: "Remote",
-    experienceLevel: "Mid to Senior"
-  }
-};
-
-// Mock related projects
-const relatedProjects = [
-  {
-    id: 2,
-    title: "Healthcare Analytics Dashboard",
-    company: "MedTech Solutions",
-    postedDate: "2024-03-10",
-    categories: ["Healthcare", "Data Analytics"]
-  },
-  {
-    id: 3,
-    title: "Patient Management System",
-    company: "HealthCare Plus",
-    postedDate: "2024-03-12",
-    categories: ["Healthcare", "System Development"]
-  },
-  {
-    id: 4,
-    title: "Medical Records API Integration",
-    company: "Digital Health",
-    postedDate: "2024-03-14",
-    categories: ["Healthcare", "API Integration"]
-  }
-];
+import { projectData, relatedProjects } from "@/data/mock-data";
 
 export default function ProjectPage() {
   const { t } = useTranslation();

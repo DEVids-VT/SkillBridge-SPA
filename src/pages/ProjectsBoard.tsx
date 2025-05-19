@@ -3,6 +3,11 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, Briefcase, TrendingUp, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Clock, MapPin, Building2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { relatedProjects } from "@/data/mock-data";
 
 // Mock company logos (would be replaced with actual images in production)
 const companyLogos = [

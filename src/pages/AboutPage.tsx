@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,10 +14,16 @@ import {
   MapPin,
   Mail,
   Phone,
-  Globe
+  Globe,
+  CheckCircle,
+  ExternalLink,
+  Linkedin,
+  Twitter,
+  Github
 } from "lucide-react";
 import { spacing, layouts } from "@/lib/design-system";
 import { cn } from "@/lib/utils";
+import { teamMembers } from "@/data/mock-data";
 
 // Team member type
 interface TeamMember {
@@ -28,41 +35,6 @@ interface TeamMember {
   twitter?: string;
   github?: string;
 }
-
-// Mock team data
-const teamMembers: TeamMember[] = [
-  {
-    name: "Sarah Johnson",
-    role: "Founder & CEO",
-    image: "/images/team/sarah.jpg",
-    bio: "With over 15 years of experience in tech and education, Sarah founded Endorsify to bridge the gap between talent and opportunity.",
-    linkedin: "https://linkedin.com/in/sarahjohnson",
-    twitter: "https://twitter.com/sarahjohnson"
-  },
-  {
-    name: "David Chen",
-    role: "CTO",
-    image: "/images/team/david.jpg",
-    bio: "David leads our engineering team with expertise in scalable architectures, AI, and creating seamless user experiences.",
-    linkedin: "https://linkedin.com/in/davidchen",
-    github: "https://github.com/davidchen"
-  },
-  {
-    name: "Miguel Rodriguez",
-    role: "Head of Partnerships",
-    image: "/images/team/miguel.jpg",
-    bio: "Miguel builds and maintains our extensive partner network, developing strategic relationships with companies and institutions.",
-    linkedin: "https://linkedin.com/in/miguelrodriguez",
-    twitter: "https://twitter.com/miguelrodriguez"
-  },
-  {
-    name: "Aisha Patel",
-    role: "Director of Education",
-    image: "/images/team/aisha.jpg",
-    bio: "Aisha curates our educational content and courses, ensuring we provide cutting-edge learning experiences.",
-    linkedin: "https://linkedin.com/in/aishapatel"
-  }
-];
 
 // Core values
 const coreValues = [

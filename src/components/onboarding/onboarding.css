@@ -1,0 +1,77 @@
+/* Role selection cards */
+.role-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Form step transitions */
+.form-step-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.form-step-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.form-step-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.form-step-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Progress bar animation */
+@keyframes progress-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.progress-bar-fill {
+  animation: progress-fill 0.5s ease-out forwards;
+}
+
+/* Form validation styles */
+.input-error {
+  border-color: rgb(239, 68, 68);
+  animation: shake 0.4s 1 linear;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .step-form-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

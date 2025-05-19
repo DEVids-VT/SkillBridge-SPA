@@ -5,7 +5,7 @@ import { Menu, X, Briefcase } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useOnboarding } from '@/pages/welcome/OnboardingContext';
+import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
 import { RoutePage } from '@/types/enums/RoutePage';
 
 export function Header() {

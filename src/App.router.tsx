@@ -8,7 +8,7 @@ import CompaniesPage from './pages/CompaniesPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import WelcomePage from './pages/WelcomePage';
+import WelcomePage from './pages/welcome/WelcomePage';
 import Layout from './components/layout/Layout';
 import WelcomeLayout from './pages/welcome/WelcomeLayout';
 import AuthorizeRoute from './components/authorize-route/AuthorizeRoute';

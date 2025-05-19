@@ -21,6 +21,7 @@ export function Header() {
     { to: '/events', label: t('Events', 'Събития') },
     { to: '/companies', label: t('Partners', 'Партньори') },
     { to: '/about', label: t('About SkillBridge', 'За SkillBridge') },
+    { to: '/details', label: t('Project details', 'Детали за проекта') }
   ];
 
   // Function to toggle between English and Bulgarian

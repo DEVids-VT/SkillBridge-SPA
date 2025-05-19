@@ -7,4 +7,5 @@ export enum RoutePage {
   ABOUT = '/about',
   LOGIN = '/login',
   REGISTER = '/register',
+  DETAILS = '/details' // TODO: Remove this
 }

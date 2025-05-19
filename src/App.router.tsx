@@ -9,6 +9,7 @@ import CompaniesPage from './pages/CompaniesPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ProjectPage from './pages/ProjectPage'; // TODO: Remove this
 import Layout from './components/layout/Layout';
 import AuthorizeRoute from './components/authorize-route/AuthorizeRoute';
 
@@ -29,6 +30,7 @@ export const router = createBrowserRouter(
       <Route path={RoutePage.EVENTS} element={<EventsPage />} />
       <Route path={RoutePage.COMPANIES} element={<CompaniesPage />} />
       <Route path={RoutePage.ABOUT} element={<AboutPage />} />
+      <Route path={RoutePage.DETAILS} element={<ProjectPage />} /> //TODO: Remove
 
       {/* Auth routes */}
       <Route path={RoutePage.LOGIN} element={<LoginPage />} />

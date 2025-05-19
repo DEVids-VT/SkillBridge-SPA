@@ -1,14 +1,15 @@
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, GraduationCap, Building, Award, Users, Briefcase, FileCheck } from "lucide-react";
+import { ArrowRight, CheckCircle, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const LandingPage = () => {
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   // Ensure video plays automatically when component mounts
   useEffect(() => {
@@ -19,28 +20,127 @@ const LandingPage = () => {
     }
   }, []);
 
-  const features = [
-    {
-      icon: FileCheck,
-      title: "Реални проектни задания",
-      description: "Компаниите публикуват истински проекти с ясни изисквания и очаквания"
+  // Categories with sample counts and image paths
+  const jobCategories = [
+    { 
+      id: "development", 
+      name: t("categories.development", "Development"), 
+      count: 1026, 
+      color: "bg-blue-100 text-blue-700",
+      description: t("categories.developmentDesc", "Build digital products with cutting-edge technologies"),
+      skills: [
+        t("skills.backend", "Backend"), 
+        t("skills.frontend", "Frontend"), 
+        t("skills.mobile", "Mobile"), 
+        t("skills.fullstack", "Fullstack")
+      ]
     },
-    {
-      icon: Briefcase,
-      title: "Развивай портфолио",
-      description: "Кандидатите избират проекти и изграждат решения под提醒大家 на ментори"
+    { 
+      id: "design", 
+      name: t("categories.design", "Design"), 
+      count: 458, 
+      color: "bg-purple-100 text-purple-700",
+      description: t("categories.designDesc", "Create beautiful user experiences and visual identities"),
+      skills: [
+        t("skills.uiDesign", "UI Design"), 
+        t("skills.uxDesign", "UX Design"), 
+        t("skills.graphicDesign", "Graphic Design"), 
+        t("skills.productDesign", "Product Design")
+      ]
     },
-    {
-      icon: Award,
-      title: "Онбординг курсове",
-      description: "Одобрените кандидати преминават фирмени курсове, валидиращи знания и умения"
+    { 
+      id: "marketing", 
+      name: t("categories.marketing", "Marketing"), 
+      count: 326, 
+      color: "bg-green-100 text-green-700",
+      description: t("categories.marketingDesc", "Drive growth and engagement through creative campaigns"),
+      skills: [
+        t("skills.digitalMarketing", "Digital Marketing"), 
+        t("skills.seo", "SEO"), 
+        t("skills.socialMedia", "Social Media"), 
+        t("skills.contentMarketing", "Content Marketing")
+      ]
     },
-    {
-      icon: Building,
-      title: "Директен път към работа",
-      description: "Успешно завършилите получават възможност за интервю и стаж с потенциал за наемане"
-    }
+    { 
+      id: "content", 
+      name: t("categories.content", "Content Creation"), 
+      count: 294, 
+      color: "bg-yellow-100 text-yellow-700",
+      description: t("categories.contentDesc", "Craft compelling stories across various media formats"),
+      skills: [
+        t("skills.contentWriting", "Content Writing"), 
+        t("skills.videoProduction", "Video Production"), 
+        t("skills.podcasts", "Podcasts"), 
+        t("skills.photography", "Photography")
+      ]
+    },
+    { 
+      id: "architecture", 
+      name: t("categories.architecture", "Architecture"), 
+      count: 142, 
+      color: "bg-gray-100 text-gray-700",
+      description: t("categories.architectureDesc", "Design innovative spaces and sustainable structures"),
+      skills: [
+        t("skills.residential", "Residential"), 
+        t("skills.commercial", "Commercial"), 
+        t("skills.interiorDesign", "Interior Design"), 
+        t("skills.landscape", "Landscape")
+      ]
+    },
+    { 
+      id: "agencies", 
+      name: t("categories.agencies", "Agencies"), 
+      count: 231, 
+      color: "bg-red-100 text-red-700",
+      description: t("categories.agenciesDesc", "Collaborate with full-service creative and technical agencies"),
+      skills: [
+        t("skills.creativeAgencies", "Creative Agencies"), 
+        t("skills.digitalAgencies", "Digital Agencies"), 
+        t("skills.advertising", "Advertising"), 
+        t("skills.prAgencies", "PR Agencies")
+      ]
+    },
   ];
+
+  // Subcategories for each main category
+  const subcategories = {
+    development: [
+      { id: "backend", name: t("skills.backend", "Backend"), count: 182, icon: "🔧" },
+      { id: "frontend", name: t("skills.frontend", "Frontend"), count: 244, icon: "🎨" },
+      { id: "fullstack", name: t("skills.fullstack", "Fullstack"), count: 156, icon: "🔄" },
+      { id: "mobile", name: t("skills.mobile", "Mobile Dev"), count: 128, icon: "📱" },
+    ],
+    design: [
+      { id: "ui", name: t("skills.uiDesign", "UI Design"), count: 142, icon: "🖌️" },
+      { id: "ux", name: t("skills.uxDesign", "UX Design"), count: 124, icon: "🧠" },
+      { id: "graphic", name: t("skills.graphicDesign", "Graphic Design"), count: 86, icon: "🎭" },
+      { id: "product", name: t("skills.productDesign", "Product Design"), count: 68, icon: "📱" },
+    ],
+    marketing: [
+      { id: "digital", name: t("skills.digitalMarketing", "Digital Marketing"), count: 108, icon: "💻" },
+      { id: "seo", name: t("skills.seo", "SEO"), count: 76, icon: "🔍" },
+      { id: "social", name: t("skills.socialMedia", "Social Media"), count: 64, icon: "📱" },
+      { id: "content-marketing", name: t("skills.contentMarketing", "Content Marketing"), count: 48, icon: "📝" },
+    ],
+    content: [
+      { id: "writing", name: t("skills.contentWriting", "Content Writing"), count: 96, icon: "✍️" },
+      { id: "video", name: t("skills.videoProduction", "Video Production"), count: 78, icon: "🎥" },
+      { id: "podcasts", name: t("skills.podcasts", "Podcasts"), count: 42, icon: "🎙️" },
+      { id: "photography", name: t("skills.photography", "Photography"), count: 38, icon: "📷" },
+    ],
+    architecture: [
+      { id: "residential", name: t("skills.residential", "Residential"), count: 54, icon: "🏠" },
+      { id: "commercial", name: t("skills.commercial", "Commercial"), count: 36, icon: "🏢" },
+      { id: "interior", name: t("skills.interiorDesign", "Interior Design"), count: 30, icon: "🛋️" },
+      { id: "landscape", name: t("skills.landscape", "Landscape"), count: 22, icon: "🌳" },
+    ],
+    agencies: [
+      { id: "creative", name: t("skills.creativeAgencies", "Creative Agencies"), count: 84, icon: "🎨" },
+      { id: "digital", name: t("skills.digitalAgencies", "Digital Agencies"), count: 76, icon: "💻" },
+      { id: "advertising", name: t("skills.advertising", "Advertising"), count: 42, icon: "📣" },
+      { id: "pr", name: t("skills.prAgencies", "PR Agencies"), count: 29, icon: "🔊" },
+    ],
+  };
 
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
@@ -58,304 +158,182 @@ const LandingPage = () => {
             poster="/placeholder-poster.jpg"
           >
             <source src="/videos/bridgevideo3.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
+            {t("videoNotSupported", "Your browser does not support the video tag.")}
           </video>
           <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-white z-10"></div>
         </div>
 
-        {/* Content Positioned on top of video */}
-        <div className="container px-4 lg:px-8 mx-auto relative z-30 py-16 md:py-24">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="flex justify-center mb-6">
-              <img 
-                src="/images/svgsblogo.svg" 
-                alt="SkillBridge Logo" 
-                className="h-16 md:h-24"
-              />
-            </div>
-            <p className="text-xl md:text-2xl mt-2 mb-6 text-black font-medium">
-              {t("landingPage.hero.newSubtitle", "Платформа за стажове чрез реални фирмени проекти и верифицирани пътища към наемане")}
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button asChild size="lg" className="gap-2 bg-blue-600 hover:bg-blue-700 font-medium">
-                <Link to="/register">
-                  {t("landingPage.hero.primaryCta", "Започни сега")}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-black text-black bg-transparent hover:bg-white/20 font-medium">
-                <Link to="/projects">
-                  {t("landingPage.hero.secondaryCta", "Разгледай проекти")}
-                </Link>
-              </Button>
+        {/* Content Positioned on top of video - Hero Section */}
+        <div className="container px-4 lg:px-8 mx-auto relative z-30 flex flex-col h-full">
+          <div className="flex-1 flex flex-col items-center justify-center pt-20 pb-16">
+            <div className="w-full max-w-4xl mx-auto text-center">
+              <div className="flex justify-center mb-6">
+                <img 
+                  src="/images/svgsblogo.svg" 
+                  alt={t("logoAlt", "SkillBridge Logo")} 
+                  className="h-20 md:h-28 drop-shadow-lg"
+                />
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-700 drop-shadow-md">
+                {t("landingPage.hero.title", "Bridge the Gap Between Learning and Employment")}
+              </h1>
+              
+              <p className="text-xl md:text-2xl mt-2 mb-8 text-gray-500 font-medium max-w-3xl mx-auto drop-shadow-md">
+                {t("landingPage.hero.newSubtitle", "Platform for internships through real company projects and verified paths to employment")}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                <Button asChild size="lg" className="gap-2 bg-blue-600 hover:bg-blue-700 font-medium text-white border-2 border-blue-500 shadow-lg">
+                  <Link to="/register">
+                    {t("landingPage.hero.primaryCta", "Get Started")}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="border-2 border-gray-500 text-gray-500 bg-transparent hover:bg-white/20 font-medium shadow-lg">
+                  <Link to="/projects">
+                    {t("landingPage.hero.secondaryCta", "Explore Projects")}
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
-        
-        </div>
-      </section>
 
-      {/* Problem/Solution Section */}
-      <section className="py-16 bg-white">
-        <div className="container px-4 lg:px-8 mx-auto">
-          <div className="flex flex-col md:flex-row gap-12 items-center">
-            <div className="md:w-1/2 space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight">
-                {t("landingPage.problem.title", "Проблемът, който решаваме")}
-              </h2>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
-                  <p className="text-lg">Компаниите трудно намират подходящи стажанти и начинаещи кадри с реални практически умения.</p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
-                  <p className="text-lg">Младежи и кариерно ориентирани кандидати нямат лесен достъп до смислени стажове.</p>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="h-6 w-6 text-blue-600 mt-1 flex-shrink-0" />
-                  <p className="text-lg">Традиционните курсове не осигуряват пряка връзка с реален бизнес опит и наемане.</p>
-                </li>
-              </ul>
-            </div>
-            <div className="md:w-1/2 space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight">
-                {t("landingPage.solution.title", "Нашето решение")}
-              </h2>
-              <p className="text-lg">
-                SkillBridge е платформа, в която компаниите публикуват реални проектни задания, 
-                достъпни като project board с project requirement задания. Кандидати избират задание, 
-                разработват решение и го качват в системата. Одобрените кандидати получават достъп до 
-                фирмен курс за култура и onboarding с валидационни тестове.
-              </p>
-              <p className="text-lg">
-                След курса резултатите се изпращат към компанията, която може да покани най-добрите 
-                за интервю и наемане.
-              </p>
-              <Button asChild className="gap-2 bg-blue-600 hover:bg-blue-700 mt-4 font-medium">
-                <Link to="/about">
-                  {t("landingPage.solution.cta", "Научи повече")}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+          {/* Featured Categories Preview - Teaser before main categories section */}
+          <div className="relative pb-16 md:pb-24 w-full">
+            <div className="w-full px-4 lg:px-0 mx-auto">
+              <div className="flex flex-col items-center">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-500 text-center mb-8 drop-shadow-md">
+                  {t("topCategories", "Top Categories")}
+                </h2>
+                
+                <div className="flex justify-center items-center w-full">
+                  <div className="flex flex-wrap w-full max-w-4xl gap-4">
+                    {jobCategories.slice(0, 3).map((category) => (
+                      <Link
+                        to={`/categories/${category.id}`}
+                        key={category.id}
+                        className="group flex flex-col items-center justify-center p-4 rounded-xl bg-white/90 backdrop-blur shadow-lg hover:bg-white transition-all hover:scale-105 hover:shadow-xl w-1/2 md:w-1/4 flex-grow m-2"
+                        style={{ minWidth: "150px", maxWidth: "250px", flex: "1 0 auto" }}
+                      >
+                        <div className={cn("w-12 h-12 rounded-full overflow-hidden flex items-center justify-center mb-2", category.color.split(" ")[0])}>
+                          <span className="text-xl font-bold">{category.name.charAt(0)}</span>
+                        </div>
+                        <h3 className="text-sm md:text-base font-semibold text-center line-clamp-1">{category.name}</h3>
+                        <p className="text-xs text-gray-500">{category.count}+ {t("projects", "projects")}</p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Transition curve element for smooth flow to categories section */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-blue-50 rounded-t-[50%] z-20"></div>
       </section>
 
-      {/* Key Features Section */}
-      <section className="py-16 bg-blue-50">
+      {/* Categories Section - Full Featured */}
+      <section className="py-16 bg-blue-50 relative z-30">
         <div className="container px-4 lg:px-8 mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              <span className="text-blue-600">{t("landingPage.features.title", "Как работи SkillBridge")}</span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+              <span className="text-blue-600">{t("landingPage.categories.title", "Discover Projects by Category")}</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              {t("landingPage.features.subtitle", "От проектно задание до наемане в четири стъпки")}
+              {t("landingPage.categories.subtitle", "Explore opportunities in different industries and find your path")}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
-              <Card key={index} className="overflow-hidden border-border/40 h-full">
-                <CardContent className={cn(
-                  "p-6 flex flex-col items-center text-center h-full",
-                  index % 2 === 0 ? "bg-blue-50" : "bg-white"
-                )}>
-                  <div className="mb-4 p-3 rounded-full bg-blue-100">
-                    <feature.icon className="h-8 w-8 text-blue-600" />
+
+          {/* Categories grid with enhanced card design */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {jobCategories.map((category) => (
+              <div
+                key={category.id}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all hover:border-blue-300 group transform hover:-translate-y-1"
+              >
+                {/* Category header */}
+                <div className="p-6 border-b border-gray-100 flex items-center gap-4">
+                  <div className={cn("w-14 h-14 rounded-lg overflow-hidden flex items-center justify-center", category.color.split(" ")[0])}>
+                    <span className="text-2xl font-bold">{category.name.charAt(0)}</span>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {t(`landingPage.features.feature${index + 1}.title`, feature.title)}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {t(`landingPage.features.feature${index + 1}.description`, feature.description)}
+                  <div>
+                    <h3 className="font-semibold text-lg text-gray-900">{category.name}</h3>
+                    <p className="text-sm text-gray-500">{category.count} {t("projects", "projects")}</p>
+                  </div>
+                </div>
+                
+                {/* Category details */}
+                <div className="p-6">
+                  <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                    {category.name}
+                  </h2>
+                  <p className="text-gray-600 mb-4 line-clamp-3">
+                    {category.description}
                   </p>
-                </CardContent>
-              </Card>
+                  
+                  {/* Skills tags */}
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {category.skills.map((skill, index) => (
+                      <span 
+                        key={index} 
+                        className={cn(
+                          "px-3 py-1 rounded-full text-xs font-medium",
+                          category.color
+                        )}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  {/* Action button */}
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <span className="text-sm text-gray-500">
+                      {category.count} {t("availableProjects", "available projects")}
+                    </span>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                      asChild
+                    >
+                      <Link to={`/categories/${category.id}`}>
+                        {t("viewProjects", "View Projects")}
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Target Audience Section */}
-      <section className="py-16 bg-white">
-        <div className="container px-4 lg:px-8 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              <span className="text-blue-600">{t("landingPage.audience.title", "За кого е SkillBridge")}</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* For Learners */}
-            <div className="bg-background rounded-lg shadow-sm p-8 border border-border/40">
-              <div className="flex flex-col items-center text-center">
-                <GraduationCap className="h-12 w-12 text-blue-600 mb-4" />
-                <h3 className="text-2xl font-bold mb-4">
-                  {t("landingPage.audience.learners.title", "B2C - За кандидати")}
-                </h3>
-                <ul className="space-y-3 text-left">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-lg">Студенти, завършващи, търсещи смислена входна точка към индустрията.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-lg">Преквалифициращи се кадри, търсещи път към нова кариера.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-lg">Самоуки разработчици, дизайнери, маркетинг стажанти и други.</span>
-                  </li>
-                </ul>
-                <Button asChild className="mt-6 gap-2 bg-blue-600 hover:bg-blue-700 font-medium">
-                  <Link to="/register">
-                    {t("landingPage.audience.learners.cta", "Регистрирай се")}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-
-            {/* For Companies */}
-            <div className="bg-background rounded-lg shadow-sm p-8 border border-border/40">
-              <div className="flex flex-col items-center text-center">
-                <Building className="h-12 w-12 text-blue-600 mb-4" />
-                <h3 className="text-2xl font-bold mb-4">
-                  {t("landingPage.audience.companies.title", "B2B - За компании")}
-                </h3>
-                <ul className="space-y-3 text-left">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-lg">Технологични компании, стартъпи, агенции и корпорации, търсещи начинаещи кадри.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-lg">HR екипи, които искат да въведат предефиниран процес за стажове и наемане.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-lg">Организации, търсещи иновативен подход към привличането на таланти.</span>
-                  </li>
-                </ul>
-                <Button asChild className="mt-6 gap-2 bg-blue-600 hover:bg-blue-700 font-medium">
-                  <Link to="/business">
-                    {t("landingPage.audience.companies.cta", "Станете партньор")}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How it Works / Customer Journey */}
-      <section className="py-16 bg-blue-50">
-        <div className="container px-4 lg:px-8 mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              <span className="text-blue-600">{t("landingPage.journey.title", "Пътят на потребителя")}</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              {t("landingPage.journey.subtitle", "От регистрация до успешно наемане")}
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="bg-white">
-              <CardContent className="pt-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <span className="text-blue-600 font-bold">1</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Задание</h3>
-                </div>
-                <p>Фирмата качва проектно задание – с цели, срокове, изисквания.</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white">
-              <CardContent className="pt-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <span className="text-blue-600 font-bold">2</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Разработка</h3>
-                </div>
-                <p>Кандидатите избират проект и качват решение – във вид на код, презентация, видео и др.</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white">
-              <CardContent className="pt-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <span className="text-blue-600 font-bold">3</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Одобрение</h3>
-                </div>
-                <p>Фирмата преглежда и одобрява кандидати – получават достъп до фирмен курс.</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white">
-              <CardContent className="pt-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <span className="text-blue-600 font-bold">4</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Обучение</h3>
-                </div>
-                <p>Курсът съдържа видеа + тестове – валидиращи знания и soft skills.</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white">
-              <CardContent className="pt-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <span className="text-blue-600 font-bold">5</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Резултати</h3>
-                </div>
-                <p>След завършване платформата споделя резултатите и изпраща сертификати.</p>
-              </CardContent>
-            </Card>
-            
-            <Card className="bg-white">
-              <CardContent className="pt-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                    <span className="text-blue-600 font-bold">6</span>
-                  </div>
-                  <h3 className="text-xl font-semibold">Наемане</h3>
-                </div>
-                <p>Фирмата решава дали да направи оферта за стаж или директно наемане.</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
       {/* Final CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-blue-600 text-white relative">
+        {/* Top curved transition */}
+        <div className="absolute top-0 left-0 right-0 h-16 bg-blue-50 rounded-b-[50%] -translate-y-full"></div>
+        
         <div className="container px-4 lg:px-8 mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">
-            <span>{t("landingPage.cta.title", "Готови ли сте да промените процеса на стажове и наемане?")}</span>
+            <span>{t("landingPage.cta.title", "Ready to Transform the Internship and Hiring Process?")}</span>
           </h2>
           <p className="text-xl max-w-3xl mx-auto mb-8 text-white/90">
-            {t("landingPage.cta.subtitle", "Присъединете се към SkillBridge днес и бъдете част от бъдещето на обучението и наемането")}
+            {t("landingPage.cta.subtitle", "Join SkillBridge today and be part of the future of education and hiring")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="gap-2 bg-white text-blue-600 hover:bg-white/90 font-medium">
               <Link to="/register">
-                {t("landingPage.cta.primaryButton", "Започни сега")}
+                {t("landingPage.cta.primaryButton", "Get Started Now")}
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="gap-2 border-white text-white hover:bg-white/10 font-medium">
               <Link to="/projects">
-                {t("landingPage.cta.secondaryButton", "Разгледай проекти")}
+                {t("landingPage.cta.secondaryButton", "Explore Projects")}
               </Link>
             </Button>
           </div>

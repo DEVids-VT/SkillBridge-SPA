@@ -1,24 +1,26 @@
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export function Header() {
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+
   // Current language
   const currentLanguage = i18n.language || 'en';
   const isEnglish = currentLanguage.startsWith('en');
 
   const navItems = [
-    { to: "/projects", label: t("Find a job", "Започни работа") },
-    { to: "/courses", label: t("Courses", "Обучения") },
-    { to: "/events", label: t("Events", "Събития") },
-    { to: "/companies", label: t("Partners", "Партньори") },
-    { to: "/about", label: t("About SkillBridge", "За SkillBridge") },
+    { to: '/projects', label: t('Find a job', 'Започни работа') },
+    { to: '/courses', label: t('Courses', 'Обучения') },
+    { to: '/events', label: t('Events', 'Събития') },
+    { to: '/companies', label: t('Partners', 'Партньори') },
+    { to: '/about', label: t('About SkillBridge', 'За SkillBridge') },
   ];
 
   // Function to toggle between English and Bulgarian
@@ -31,9 +33,7 @@ export function Header() {
     <>
       {/* Beta Announcement Banner */}
       <div className="w-full bg-blue-600 text-white py-2 text-center font-medium flex items-center justify-center gap-2">
-        <span>
-          {isEnglish ? 'SkillBridge ' : 'SkillBridge '}
-        </span>
+        <span>{isEnglish ? 'SkillBridge ' : 'SkillBridge '}</span>
         <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold bg-white text-blue-700 transform -rotate-6 border-2 border-white shadow-md relative hover:scale-110 transition-transform duration-300 animate-pulse">
           <span className="absolute inset-0 rounded-md border border-blue-300 opacity-50"></span>
           <span className="relative z-10 tracking-wider">BETA</span>
@@ -42,7 +42,7 @@ export function Header() {
           {isEnglish ? ' - Try now completely free!' : ' - Изпробвай сега напълно безплатно!'}
         </span>
       </div>
-      
+
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
         <div className="container mx-auto px-4 lg:px-8 flex h-16 items-center justify-between">
           {/* Logo and Desktop Navigation */}
@@ -72,9 +72,9 @@ export function Header() {
           {/* Controls: Language, Theme, Mobile Menu Toggle */}
           <div className="flex items-center gap-4">
             {/* Language Switcher Button */}
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="text-sm font-medium"
               onClick={toggleLanguage}
             >
@@ -82,13 +82,25 @@ export function Header() {
             </Button>
 
             {/* Create Profile Button */}
-            <Button 
-              variant="default" 
-              size="sm" 
-              className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
-            >
-              {t('createProfile', 'Създай профил')}
-            </Button>
+            {isAuthenticated ? (
+              <Button
+                variant="default"
+                size="sm"
+                className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
+                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+              >
+                {t('logout', 'Излез')}
+              </Button>
+            ) : (
+              <Button
+                variant="default"
+                size="sm"
+                className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
+                onClick={() => loginWithRedirect()}
+              >
+                {t('createProfile', 'Създай профил')}
+              </Button>
+            )}
 
             {/* Mobile Menu Toggle */}
             <Button
@@ -125,4 +137,4 @@ export function Header() {
   );
 }
 
-export default Header; 
+export default Header;

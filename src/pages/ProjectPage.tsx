@@ -10,7 +10,7 @@ export default function ProjectPage() {
   const { t } = useTranslation();
 
   return (
-    <div className={cn(spacing.container, spacing.headerOffset, "py-8")}>
+    <div className={cn(spacing.container, spacing.headerOffset, "py-4 md:py-8")}>
       {/* Header section */}
       <div className={layouts.pageHeader}>
         <div className={layouts.pageHeaderBackground}></div>
@@ -21,19 +21,19 @@ export default function ProjectPage() {
       </div>
 
       {/* Main content */}
-      <div className="grid grid-cols-12 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 max-w-7xl mx-auto">
         {/* Left sidebar - Company Profile */}
-        <div className="col-span-3">
-          <div className="bg-white rounded-xl shadow-sm p-6 sticky top-24">
+        <div className="lg:col-span-3 order-2 lg:order-1">
+          <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 sticky top-24">
             <div className="flex flex-col items-center mb-6">
-              <div className="w-20 h-20 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center mb-4">
-                <Building2 className="h-10 w-10 text-gray-500" />
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center mb-4">
+                <Building2 className="h-8 w-8 md:h-10 md:w-10 text-gray-500" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900">{projectData.company.name}</h3>
+              <h3 className="text-base md:text-lg font-semibold text-gray-900">{projectData.company.name}</h3>
               <p className="text-sm text-gray-600 text-center mt-2">{projectData.company.description}</p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <MapPin className="h-4 w-4" />
                 <span>{projectData.company.location}</span>
@@ -61,15 +61,15 @@ export default function ProjectPage() {
         </div>
 
         {/* Main content */}
-        <div className="col-span-6">
-          <div className="bg-white rounded-xl shadow-sm p-8">
-            <div className="flex items-start gap-6 mb-6">
-              <div className="w-16 h-16 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center">
-                <Building2 className="h-8 w-8 text-gray-500" />
+        <div className="lg:col-span-6 order-1 lg:order-2">
+          <div className="bg-white rounded-xl shadow-sm p-4 md:p-8">
+            <div className="flex items-start gap-4 md:gap-6 mb-6">
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center">
+                <Building2 className="h-6 w-6 md:h-8 md:w-8 text-gray-500" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">{projectData.title}</h2>
-                <div className="flex items-center gap-4 text-sm text-gray-600">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">{projectData.title}</h2>
+                <div className="flex flex-wrap items-center gap-2 md:gap-4 text-sm text-gray-600">
                   <span className="flex items-center gap-1">
                     <Building2 className="h-4 w-4" />
                     {projectData.company.name}
@@ -87,7 +87,7 @@ export default function ProjectPage() {
             </div>
 
             {/* Project Details */}
-            <div className="grid grid-cols-2 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-gray-500" />
                 <div>
@@ -165,11 +165,11 @@ export default function ProjectPage() {
             </div>
 
             {/* Action buttons */}
-            <div className="flex gap-4">
-              <Button size="lg" className="flex-1">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" className="w-full sm:flex-1">
                 Apply Now
               </Button>
-              <Button size="lg" variant="outline" className="flex-1">
+              <Button size="lg" variant="outline" className="w-full sm:flex-1">
                 Save Project
               </Button>
             </div>
@@ -177,8 +177,8 @@ export default function ProjectPage() {
         </div>
 
         {/* Right sidebar - Related Projects */}
-        <div className="col-span-3">
-          <div className="bg-white rounded-xl shadow-sm p-6 sticky top-24">
+        <div className="lg:col-span-3 order-3">
+          <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 sticky top-24">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Projects</h3>
             <div className="space-y-4">
               {relatedProjects.map((project) => (

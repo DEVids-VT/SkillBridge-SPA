@@ -181,7 +181,7 @@ export default function ProjectPage() {
           <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 sticky top-24">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Projects</h3>
             <div className="space-y-4">
-              {relatedProjects.map((project) => (
+              {relatedProjects.slice(0, 3).map((project) => (
                 <div key={project.id} className="p-4 border rounded-lg hover:border-blue-500 transition-colors cursor-pointer">
                   <h4 className="font-medium text-gray-900 mb-2">{project.title}</h4>
                   <p className="text-sm text-gray-600 mb-2">{project.company}</p>

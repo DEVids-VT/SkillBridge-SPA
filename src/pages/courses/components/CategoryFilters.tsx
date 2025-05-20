@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
 import { CategoryFilter } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface CategoryFiltersProps {
   categories: CategoryFilter[];
@@ -12,26 +12,22 @@ export const CategoryFilters = ({
   selectedCategory,
   setSelectedCategory,
 }: CategoryFiltersProps) => {
+  const { t } = useTranslation();
   return (
-    <div>
-      <h4 className="text-sm font-medium mb-3">Category</h4>
-      <div className="space-y-2">
-        {categories.map((category) => (
-          <div key={category.id} className="flex items-center">
-            <input
-              type="radio"
-              id={`category-${category.id}`}
-              name="category"
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500"
-              checked={selectedCategory === category.id}
-              onChange={() => setSelectedCategory(category.id)}
-            />
-            <label htmlFor={`category-${category.id}`} className="ml-2 text-sm text-gray-700">
-              {category.name}
-            </label>
-          </div>
-        ))}
-      </div>
+    <div className="space-y-2">
+      {categories.map((category) => (
+        <button
+          key={category.id}
+          className={`w-full text-left px-4 py-2 rounded-md transition-colors ${
+            selectedCategory === category.id
+              ? 'bg-blue-100 text-blue-700 font-semibold'
+              : 'hover:bg-gray-100 text-gray-700'
+          }`}
+          onClick={() => setSelectedCategory(category.id)}
+        >
+          {t(category.name)}
+        </button>
+      ))}
     </div>
   );
 };

@@ -55,7 +55,7 @@ export const typography = {
 // Common layouts
 export const layouts = {
   pageHeader: 'text-center mb-16 relative',
-  pageHeaderBackground: 'absolute -top-44 left-0 right-0 h-52 bg-gradient-to-r from-blue-50 to-purple-50 rounded-b-3xl -z-10',
+  pageHeaderBackground: 'absolute -top-10 left-0 right-0 h-20 bg-gradient-to-r from-blue-50 to-purple-50 rounded-b-3xl -z-10',
   pageTitle: `${typography.heading[1]} mb-6`,
   pageDescription: 'text-lg text-gray-600 max-w-3xl mx-auto mb-10',
   grid: {

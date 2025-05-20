@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { cards, components } from '@/lib/design-system';
+import { useTranslation } from 'react-i18next';
 
 export interface CourseProps {
   id: number;
@@ -38,6 +39,7 @@ export function CourseCard({
   onClick,
 }: CourseProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { t } = useTranslation();
 
   // Generate category color
   const getCategoryColor = (category: string) => {

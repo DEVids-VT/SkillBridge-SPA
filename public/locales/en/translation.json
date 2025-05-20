@@ -16,6 +16,97 @@
   "videoNotSupported": "Your browser does not support the video tag.",
   "logoAlt": "SkillBridge Logo",
   
+  "productLaunchEvent": {
+    "title": "SkillBridge Product Launch Meetup",
+    "date": "December 15, 2023",
+    "time": "6:00 PM - 9:00 PM",
+    "location": "Tech Innovation Hub",
+    "address": "123 Main Street, Sofia, Bulgaria",
+    "isVirtual": "Hybrid Event (In-person & Virtual)",
+    "description": "Join us for the official launch of SkillBridge - our revolutionary platform connecting students with real-world company projects. Be the first to see our platform in action, network with industry professionals, and learn how SkillBridge is transforming the internship experience.",
+    "agenda": {
+      "title": "Event Agenda",
+      "items": [
+        "6:00 PM - Registration & Networking",
+        "6:30 PM - Welcome & Introduction",
+        "7:00 PM - Product Demo",
+        "7:45 PM - Q&A Session",
+        "8:15 PM - Networking & Refreshments"
+      ]
+    },
+    "speakers": {
+      "title": "Featured Speakers",
+      "description": "Learn from industry experts and the minds behind SkillBridge"
+    },
+    "register": "Register for Event",
+    "addToCalendar": "Add to Calendar",
+    "shareEvent": "Share Event",
+    "joinVirtually": "Join Virtually"
+  },
+  
+  "aiCourse": {
+    "title": "Modern Software Development with AI",
+    "description": "Master AI-assisted development with tools like GitHub Copilot, Claude, ChatGPT. Learn about MPC servers, no-code/low-code platforms, and modern IDEs that will revolutionize your workflow and productivity as a developer.",
+    "overview": "Course Overview",
+    "longDescription": "This comprehensive course will transform the way you develop software by leveraging the latest AI tools and technologies. You'll learn how to use AI assistants to write better code, understand MPC (Multi-Party Computation) server technology, explore no-code and low-code platforms, and master modern IDEs that boost your productivity.",
+    "instructor": "Your Instructor",
+    "instructorName": "Alex Mitchell",
+    "instructorBio": "Alex has over 15 years of software development experience and is a pioneer in AI-assisted development techniques. He's worked with major tech companies to implement AI tools into their development workflows and is passionate about teaching others how to leverage these powerful technologies.",
+    "whatYouWillLearn": "What You'll Learn",
+    "learningPoints": [
+      "How to effectively use AI coding assistants like GitHub Copilot, ChatGPT, and Claude",
+      "Understanding MPC (Multi-Party Computation) servers and their applications",
+      "No-code and low-code platform development for rapid prototyping",
+      "Mastering modern IDEs and productivity tools",
+      "Best practices for prompt engineering when working with code-focused LLMs",
+      "Building a complete project using AI-assisted development techniques"
+    ],
+    "courseContent": "Course Content",
+    "modules": [
+      {
+        "title": "Introduction to AI-Assisted Development",
+        "length": "1.5 hours",
+        "lessons": 5
+      },
+      {
+        "title": "Mastering GitHub Copilot & LLMs for Coding",
+        "length": "2.5 hours",
+        "lessons": 8
+      },
+      {
+        "title": "Understanding MPC Servers",
+        "length": "2 hours",
+        "lessons": 6
+      },
+      {
+        "title": "No-Code & Low-Code Development",
+        "length": "3 hours",
+        "lessons": 10
+      },
+      {
+        "title": "Modern IDEs & Productivity Tools",
+        "length": "2 hours",
+        "lessons": 7
+      },
+      {
+        "title": "Capstone Project: Building with AI Assistance",
+        "length": "1 hour",
+        "lessons": 3
+      }
+    ],
+    "requirements": "Requirements",
+    "requirementsList": [
+      "Basic programming knowledge in any language",
+      "No previous AI experience required",
+      "Computer capable of running modern IDEs",
+      "Open mind and willingness to learn new ways of developing software"
+    ],
+    "enrolled": "You are already enrolled in this course",
+    "continueLearning": "Continue Learning",
+    "downloadResources": "Download Resources",
+    "discussionForum": "Discussion Forum"
+  },
+  
   "categories": {
     "development": "Development",
     "developmentDesc": "Build digital products with cutting-edge technologies",
@@ -28,7 +119,9 @@
     "architecture": "Architecture",
     "architectureDesc": "Design innovative spaces and sustainable structures",
     "agencies": "Agencies",
-    "agenciesDesc": "Collaborate with full-service creative and technical agencies"
+    "agenciesDesc": "Collaborate with full-service creative and technical agencies",
+    "business": "Business",
+    "dataScience": "Data Science"
   },
   
   "skills": {
@@ -89,5 +182,26 @@
       "primaryButton": "Get Started Now",
       "secondaryButton": "Explore Projects"
     }
+  },
+  
+  "courses": {
+    "filters": "Filters",
+    "clearAll": "Clear All",
+    "filter": "Filter",
+    "sort": "Sort",
+    "showingResults": "Showing {{count}} results",
+    "sortBy": "Sort by:",
+    "mostPopular": "Most Popular",
+    "highestRated": "Highest Rated",
+    "newest": "Newest",
+    "priceLowToHigh": "Price: Low to High",
+    "priceHighToLow": "Price: High to Low",
+    "headerTitle1": "Expand",
+    "headerTitle2": "Your Knowledge",
+    "headerDescription": "Browse our library of expert-led courses designed to enhance your skills and advance your career in tech, design, business, and more.",
+    "free": "Free",
+    "students": "students",
+    "viewCourse": "View Course",
+    "allCategories": "All Categories"
   }
 } 

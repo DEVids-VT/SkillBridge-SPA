@@ -1,8 +1,25 @@
 import { Course, CategoryFilter, LevelFilter, PriceFilter } from './types';
 
+export const aiDevelopmentCourse: Course = {
+  id: 1,
+  title: 'Modern Software Development with AI',
+  instructor: 'Alex Mitchell',
+  description: 'Master AI-assisted development with tools like GitHub Copilot, Claude, ChatGPT. Learn about MPC servers, no-code/low-code platforms, and modern IDEs that will revolutionize your workflow and productivity as a developer.',
+  image: '/images/courses/ai-development.jpg',
+  category: 'Development',
+  level: 'All Levels',
+  duration: '12 hours',
+  studentsCount: 45230,
+  rating: 4.9,
+  price: 0, // Free course
+  originalPrice: 129.99,
+  tags: ['AI Development', 'GitHub Copilot', 'Modern IDEs', 'Low-Code', 'MPC Servers', 'LLMs'],
+};
+
 export const coursesData: Course[] = [
+  aiDevelopmentCourse,
   {
-    id: 1,
+    id: 2,
     title: 'Complete Web Development Bootcamp 2023',
     instructor: 'Dr. Angela Yu',
     description:
@@ -18,7 +35,7 @@ export const coursesData: Course[] = [
     tags: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js', 'MongoDB'],
   },
   {
-    id: 2,
+    id: 3,
     title: 'UX/UI Design Essentials: Adobe XD & Figma',
     instructor: 'Daniel Scott',
     description:
@@ -34,7 +51,7 @@ export const coursesData: Course[] = [
     tags: ['Figma', 'Adobe XD', 'UI Design', 'UX Design', 'Wireframing'],
   },
   {
-    id: 3,
+    id: 4,
     title: 'Digital Marketing Strategy: SEO, Social Media & More',
     instructor: 'Sarah Johnson',
     description:
@@ -49,16 +66,33 @@ export const coursesData: Course[] = [
     originalPrice: 129.99,
     tags: ['SEO', 'Social Media', 'Content Marketing', 'PPC', 'Analytics'],
   },
+  // Free course
+  {
+    id: 5,
+    title: 'Introduction to Open Source & Git',
+    instructor: 'Jane Doe',
+    description:
+      'A practical, hands-on introduction to open source collaboration and Git version control. Perfect for beginners!',
+    image: '/images/courses/git.jpg',
+    category: 'Development',
+    level: 'Beginner',
+    duration: '8 hours',
+    studentsCount: 21000,
+    rating: 4.9,
+    price: 0,
+    originalPrice: 0,
+    tags: ['Git', 'Open Source', 'Collaboration', 'Version Control'],
+  },
 ] as const;
 
 // Category filter options
 export const categories: CategoryFilter[] = [
-  { id: 'all', name: 'All Categories' },
-  { id: 'development', name: 'Development' },
-  { id: 'design', name: 'Design' },
-  { id: 'marketing', name: 'Marketing' },
-  { id: 'business', name: 'Business' },
-  { id: 'data-science', name: 'Data Science' },
+  { id: 'all', name: 'courses.allCategories' },
+  { id: 'development', name: 'categories.development' },
+  { id: 'design', name: 'categories.design' },
+  { id: 'marketing', name: 'categories.marketing' },
+  { id: 'business', name: 'categories.business' },
+  { id: 'data-science', name: 'categories.dataScience' },
 ];
 
 // Level filter options

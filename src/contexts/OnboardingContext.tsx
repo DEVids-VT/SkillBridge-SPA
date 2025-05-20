@@ -1,5 +1,10 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
-import { UserOnboardingData, UserRole, CompanyFormData, CandidateFormData } from '@/types/user/UserOnboarding';
+import {
+  UserOnboardingData,
+  UserRole,
+  CompanyFormData,
+  CandidateFormData,
+} from '@/types/user/UserOnboarding';
 
 // Initial onboarding data
 const initialOnboardingState: UserOnboardingData = {

@@ -14,7 +14,7 @@ export function WelcomePage() {
   const navigate = useNavigate();
   const { onboardingData, setRole } = useOnboarding();
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(onboardingData.role);
-  
+
   // If onboarding is already completed, redirect to projects
   useEffect(() => {
     if (onboardingData.completed) {
@@ -34,7 +34,7 @@ export function WelcomePage() {
 
     return selectedRole === 'company' ? <CompanyFormSteps /> : <CandidateFormSteps />;
   };
-  
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4">
       <div className="container mx-auto max-w-6xl flex flex-col items-center">

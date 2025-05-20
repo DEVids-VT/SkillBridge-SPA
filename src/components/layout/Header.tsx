@@ -1,19 +1,25 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Briefcase } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
+import { RoutePage } from '@/types/enums/RoutePage';
 
 export function Header() {
   const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+  const { onboardingData } = useOnboarding();
 
   // Current language
   const currentLanguage = i18n.language || 'en';
   const isEnglish = currentLanguage.startsWith('en');
+
+  // Check if the user has completed onboarding
+  const hasCompletedOnboarding = isAuthenticated && onboardingData.completed;
 
   const navItems = [
     { to: '/projects', label: t('Find a job', 'Започни работа') },
@@ -79,18 +85,29 @@ export function Header() {
               onClick={toggleLanguage}
             >
               {isEnglish ? 'EN' : 'БГ'}
-            </Button>
-
-            {/* Create Profile Button */}
+            </Button>{' '}
+            {/* Auth Controls */}
             {isAuthenticated ? (
-              <Button
-                variant="default"
-                size="sm"
-                className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
-                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
-              >
-                {t('logout', 'Излез')}
-              </Button>
+              <div className="flex items-center gap-3">
+                {' '}
+                {/* Projects button - only shown if onboarding is complete */}
+                {hasCompletedOnboarding && (
+                  <Link to={RoutePage.PROJECTS}>
+                    <Button variant="ghost" size="sm" className="flex items-center gap-1">
+                      <Briefcase className="h-4 w-4" />
+                      {t('findProjects', 'Find Projects')}
+                    </Button>
+                  </Link>
+                )}
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
+                  onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+                >
+                  {t('logout', 'Излез')}
+                </Button>
+              </div>
             ) : (
               <Button
                 variant="default"
@@ -101,7 +118,6 @@ export function Header() {
                 {t('createProfile', 'Създай профил')}
               </Button>
             )}
-
             {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"

@@ -20,7 +20,7 @@ export const providerConfig: Auth0ProviderOptions = {
   cacheLocation: 'localstorage',
   authorizationParams: {
     redirect_uri: window.location.origin,
-    // audience: 'https://localhost:7091',
-    scope: 'openid profile email',
+    audience: 'http://skillbridgeapi',
+    scope: 'openid profile email default:company default:candidate',
   },
 };

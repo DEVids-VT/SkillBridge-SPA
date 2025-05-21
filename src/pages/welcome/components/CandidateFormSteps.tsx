@@ -9,6 +9,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext';
 import { RoutePage } from '@/types/enums/RoutePage';
 import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
+import { colors } from '@/lib/design-system';
 
 // Skills/interests areas
 const skillAreas = [

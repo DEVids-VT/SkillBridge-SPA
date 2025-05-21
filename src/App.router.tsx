@@ -7,7 +7,7 @@ import CompaniesPage from './pages/companies/CompaniesPage.tsx';
 import AboutPage from './pages/about/AboutPage.tsx';
 import WelcomePage from './pages/welcome/WelcomePage';
 import Layout from './components/layout/Layout';
-import WelcomeLayout from './pages/welcome/WelcomeLayout';
+import WelcomeLayout from './pages/welcome/components/WelcomeLayout.tsx';
 import AuthorizeRoute from './components/authorize-route/AuthorizeRoute';
 import ProjectsBoardPage from './pages/projects/ProjectsBoardPage.tsx';
 

@@ -15,6 +15,9 @@ interface StepFormWrapperProps {
   onPrev: () => void;
   isNextDisabled?: boolean;
   isLastStep?: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
+  errorMessage?: string;
 }
 
 export function StepFormWrapper({
@@ -26,6 +29,9 @@ export function StepFormWrapper({
   onPrev,
   isNextDisabled = false,
   isLastStep = false,
+  isLoading = false,
+  isError = false,
+  errorMessage,
 }: StepFormWrapperProps) {
   const { t } = useTranslation();
   const progress = (currentStep / totalSteps) * 100;
@@ -57,14 +63,17 @@ export function StepFormWrapper({
           />
         </div>
       </CardHeader>
-
-      <CardContent className="pt-3">{children}</CardContent>
-
+      <CardContent className="pt-3">{children}</CardContent>{' '}
+      {isError && errorMessage && (
+        <div className="mx-7 mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md">
+          {errorMessage}
+        </div>
+      )}
       <CardFooter className="flex justify-between pt-6 pb-6">
         <Button
           variant="outline"
           onClick={onPrev}
-          disabled={currentStep === 1}
+          disabled={currentStep === 1 || isLoading}
           className="gap-2 px-4"
           style={{ borderColor: colors.neutral[300] }}
         >
@@ -74,14 +83,18 @@ export function StepFormWrapper({
 
         <Button
           onClick={onNext}
-          disabled={isNextDisabled}
+          disabled={isNextDisabled || isLoading}
           className="gap-2 px-5"
           style={{
             backgroundColor: isLastStep ? colors.primary[600] : colors.primary[600],
             borderColor: isLastStep ? colors.primary[600] : colors.primary[600],
           }}
         >
-          {isLastStep ? (
+          {isLoading ? (
+            <>
+              <span className="animate-pulse">{t('loading', 'Loading...')}</span>
+            </>
+          ) : isLastStep ? (
             <>
               {t('complete', 'Complete')}
               <Check className="h-4 w-4" />

@@ -10,6 +10,7 @@ import { X } from 'lucide-react';
 import StepFormWrapper from './StepFormWrapper';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { RoutePage } from '@/types/enums/RoutePage';
+import { useCreateCompany } from '../hooks/useCreateCompany';
 import { cn } from '@/lib/utils';
 
 // Industry options
@@ -122,7 +123,10 @@ export function CompanyFormSteps() {
   };
 
   // Handle file upload
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, field: 'logo' | 'banner') => {
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    field: 'logo' | 'banner'
+  ) => {
     if (event.target.files && event.target.files[0]) {
       updateCompanyData({ [field]: event.target.files[0] });
     }
@@ -149,7 +153,8 @@ export function CompanyFormSteps() {
   const filteredTechnologies = techInput
     ? technologyOptions.filter(
         (tech) =>
-          tech.toLowerCase().includes(techInput.toLowerCase()) && !selectedTechnologies.includes(tech)
+          tech.toLowerCase().includes(techInput.toLowerCase()) &&
+          !selectedTechnologies.includes(tech)
       )
     : [];
 
@@ -206,16 +211,26 @@ export function CompanyFormSteps() {
     setErrors(newErrors);
     return isValid;
   };
+  // API mutation for creating a company
+  const createCompanyMutation = useCreateCompany();
 
   // Handle next step
-  const handleNext = () => {
+  const handleNext = async () => {
     if (validateStep()) {
       if (currentStep < totalSteps) {
         setCurrentStep(currentStep + 1);
       } else {
-        // Complete onboarding on final step
-        completeOnboarding();
-        navigate(RoutePage.PROJECTS);
+        try {
+          // Submit company data to API
+          await createCompanyMutation.mutateAsync(formData);
+
+          // Complete onboarding process
+          completeOnboarding();
+          navigate(RoutePage.PROJECTS);
+        } catch (error) {
+          console.error('Error creating company:', error);
+          // You can handle the error here - e.g., show a notification
+        }
       }
     }
   };
@@ -399,7 +414,10 @@ export function CompanyFormSteps() {
                 />
                 {errors.employeesInBulgaria && (
                   <p className="text-red-500 text-sm mt-1">
-                    {t('employeesInBulgariaRequired', 'Please specify the number of employees in Bulgaria')}
+                    {t(
+                      'employeesInBulgariaRequired',
+                      'Please specify the number of employees in Bulgaria'
+                    )}
                   </p>
                 )}
               </div>
@@ -429,7 +447,9 @@ export function CompanyFormSteps() {
                   <Switch
                     id="hasOfficesInBulgaria"
                     checked={formData.hasOfficesInBulgaria}
-                    onCheckedChange={(checked: boolean) => handleChange('hasOfficesInBulgaria', checked)}
+                    onCheckedChange={(checked: boolean) =>
+                      handleChange('hasOfficesInBulgaria', checked)
+                    }
                   />
                   <Label htmlFor="hasOfficesInBulgaria">
                     {t('hasOfficesInBulgaria', 'Has offices in Bulgaria')}
@@ -449,7 +469,10 @@ export function CompanyFormSteps() {
                       const locations = e.target.value.split('\n').filter((loc) => loc.trim());
                       handleChange('bulgarianOffices', locations);
                     }}
-                    placeholder={t('bulgarianOfficesPlaceholder', 'Enter each location on a new line')}
+                    placeholder={t(
+                      'bulgarianOfficesPlaceholder',
+                      'Enter each location on a new line'
+                    )}
                     rows={3}
                   />
                 </div>
@@ -463,15 +486,16 @@ export function CompanyFormSteps() {
           <div className="space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="technologies">
-                  {t('technologies', 'Technologies')}
-                </Label>
+                <Label htmlFor="technologies">{t('technologies', 'Technologies')}</Label>
                 <div className="space-y-2">
                   <Input
                     id="technologies"
                     value={techInput}
                     onChange={(e) => setTechInput(e.target.value)}
-                    placeholder={t('technologiesPlaceholder', 'Search or type to add technologies...')}
+                    placeholder={t(
+                      'technologiesPlaceholder',
+                      'Search or type to add technologies...'
+                    )}
                   />
                   {filteredTechnologies.length > 0 && (
                     <div className="mt-2 space-y-1">
@@ -488,11 +512,7 @@ export function CompanyFormSteps() {
                   )}
                   <div className="flex flex-wrap gap-2 mt-2">
                     {selectedTechnologies.map((tech) => (
-                      <Badge
-                        key={tech}
-                        variant="secondary"
-                        className="flex items-center gap-1"
-                      >
+                      <Badge key={tech} variant="secondary" className="flex items-center gap-1">
                         {tech}
                         <button
                           type="button"
@@ -508,14 +528,15 @@ export function CompanyFormSteps() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="whyWorkWithUs">
-                  {t('whyWorkWithUs', 'Why work with us?')}
-                </Label>
+                <Label htmlFor="whyWorkWithUs">{t('whyWorkWithUs', 'Why work with us?')}</Label>
                 <Textarea
                   id="whyWorkWithUs"
                   value={formData.whyWorkWithUs}
                   onChange={(e) => handleChange('whyWorkWithUs', e.target.value)}
-                  placeholder={t('whyWorkWithUsPlaceholder', 'Tell potential candidates why they should join your company...')}
+                  placeholder={t(
+                    'whyWorkWithUsPlaceholder',
+                    'Tell potential candidates why they should join your company...'
+                  )}
                   rows={4}
                 />
               </div>
@@ -540,9 +561,7 @@ export function CompanyFormSteps() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="contactPhone">
-                  {t('contactPhone', 'Contact Phone')}
-                </Label>
+                <Label htmlFor="contactPhone">{t('contactPhone', 'Contact Phone')}</Label>
                 <Input
                   id="contactPhone"
                   type="tel"
@@ -552,9 +571,7 @@ export function CompanyFormSteps() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="contactPerson">
-                  {t('contactPerson', 'Contact Person')}
-                </Label>
+                <Label htmlFor="contactPerson">{t('contactPerson', 'Contact Person')}</Label>
                 <Input
                   id="contactPerson"
                   value={formData.contactPerson}
@@ -570,9 +587,7 @@ export function CompanyFormSteps() {
           <div className="space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="logo">
-                  {t('companyLogo', 'Company Logo')}
-                </Label>
+                <Label htmlFor="logo">{t('companyLogo', 'Company Logo')}</Label>
                 <Input
                   id="logo"
                   type="file"
@@ -585,9 +600,7 @@ export function CompanyFormSteps() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="banner">
-                  {t('companyBanner', 'Company Banner')}
-                </Label>
+                <Label htmlFor="banner">{t('companyBanner', 'Company Banner')}</Label>
                 <Input
                   id="banner"
                   type="file"
@@ -626,7 +639,6 @@ export function CompanyFormSteps() {
         return null;
     }
   };
-
   return (
     <StepFormWrapper
       title={t('companyOnboarding', 'Company Onboarding')}
@@ -635,6 +647,13 @@ export function CompanyFormSteps() {
       onNext={handleNext}
       onPrev={handlePrev}
       isLastStep={currentStep === totalSteps}
+      isLoading={currentStep === totalSteps && createCompanyMutation.isPending}
+      isError={createCompanyMutation.isError}
+      errorMessage={
+        createCompanyMutation.isError
+          ? t('errorCreatingCompany', 'Error creating company. Please try again.')
+          : undefined
+      }
     >
       {renderStepContent()}
     </StepFormWrapper>

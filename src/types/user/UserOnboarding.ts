@@ -6,6 +6,21 @@ export interface CompanyFormData {
   companySize: string;
   website: string;
   logo?: File | null;
+  banner?: File | null;
+  about?: string;
+  activities?: string;
+  sector?: string;
+  headquarters?: string;
+  technologies?: string[];
+  yearEstablished?: number;
+  hasOfficesInBulgaria?: boolean;
+  bulgarianOffices?: string[];
+  employeesInBulgaria?: number;
+  globalEmployees?: number;
+  whyWorkWithUs?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  contactPerson?: string;
 }
 
 export interface CandidateFormData {

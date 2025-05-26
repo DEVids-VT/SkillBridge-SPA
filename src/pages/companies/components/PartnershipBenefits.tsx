@@ -1,14 +1,16 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Briefcase, TrendingUp, Award } from 'lucide-react';
 
 export const PartnershipBenefits = () => {
+  const { t } = useTranslation('companies');
+  
   return (
-    <div className="bg-blue-50 rounded-xl p-8 lg:p-12 mb-16">
+    <div className="bg-blue-50 rounded-xl p-8 lg:p-12 mb-16 mt-12">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-4">Partnership Program Benefits</h2>
+        <h2 className="text-2xl font-bold mb-4">{t('partnershipBenefits.title')}</h2>
         <p className="text-gray-600 mb-8">
-          Join our partner network to access exclusive resources, collaboration opportunities, and
-          gain visibility in the tech community.
+          {t('partnershipBenefits.description')}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -50,7 +52,7 @@ export const PartnershipBenefits = () => {
         </div>
 
         <Button size="lg" className="px-8">
-          Become a Partner
+          {t('partnershipBenefits.learnMore')}
         </Button>
       </div>
     </div>

@@ -24,7 +24,6 @@ export function Header() {
   const navItems = [
     { to: '/projects', label: t('Find a job', 'Започни работа') },
     { to: '/courses', label: t('Courses', 'Обучения') },
-    { to: '/events', label: t('Events', 'Събития') },
     { to: '/companies', label: t('Partners', 'Партньори') },
     { to: '/about', label: t('About SkillBridge', 'За SkillBridge') },
   ];

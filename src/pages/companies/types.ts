@@ -9,7 +9,7 @@ export interface Company {
   website: string;
   yearFounded: number;
   employeeCount: string;
-  partnershipLevel: 'Gold' | 'Silver' | 'Bronze';
+  partnershipLevel: string;
   partnerSince: number;
   tags: string[];
   featured?: boolean;

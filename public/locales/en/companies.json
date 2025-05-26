@@ -1,0 +1,52 @@
+{
+  "pageTitle": "Our Partner Companies",
+  "pageDescription": "Discover our partner companies that provide real-world projects and employment opportunities",
+  "viewProfile": "View Profile",
+  "learnMore": "Learn More",
+  "loadMore": "Load More Companies",
+  "companies": {
+    "melon": {
+      "name": "Melon AD",
+      "description": "A leading software development company specializing in custom solutions for enterprise clients across various industries.",
+      "industry": "Software Development",
+      "location": "Sofia, Bulgaria",
+      "partnershipLevel": "Gold Partner"
+    },
+    "worldbank": {
+      "name": "World Bank",
+      "description": "International financial institution providing loans and grants to governments for capital projects and policy development.",
+      "industry": "Finance",
+      "location": "Washington, DC",
+      "partnershipLevel": "Silver Partner"
+    },
+    "bulai": {
+      "name": "Bulai Solutions",
+      "description": "Bulgarian AI innovation company focused on developing machine learning and natural language processing solutions.",
+      "industry": "Artificial Intelligence",
+      "location": "Sofia, Bulgaria",
+      "partnershipLevel": "Gold Partner"
+    },
+    "oximo": {
+      "name": "Oximo Technologies",
+      "description": "Digital transformation consultancy helping organizations implement and optimize business processes through technology.",
+      "industry": "IT Consulting",
+      "location": "Plovdiv, Bulgaria",
+      "partnershipLevel": "Bronze Partner"
+    }
+  },
+  "filters": {
+    "searchPlaceholder": "Search companies...",
+    "allIndustries": "All Industries",
+    "allPartners": "All Partners",
+    "goldPartners": "Gold Partners",
+    "silverPartners": "Silver Partners",
+    "bronzePartners": "Bronze Partners"
+  },
+  "noResults": "No companies match your current filters.",
+  "resetFilters": "Reset Filters",
+  "partnershipBenefits": {
+    "title": "Partnership Benefits",
+    "description": "Join our network of partner companies to access top talent and contribute to the development of future professionals.",
+    "learnMore": "Learn More About Partnership"
+  }
+} 

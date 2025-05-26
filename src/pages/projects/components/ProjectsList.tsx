@@ -10,24 +10,38 @@ interface ProjectsListProps {
 
 export const ProjectsList = ({ projects, categories, onLoadMore }: ProjectsListProps) => {
   return (
-    <>
-      {/* Project cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+    <div className="flex flex-col">
+      {/* Project count */}
+      <div className="text-sm text-gray-500 mb-4">
+        Showing <span className="font-medium text-gray-700">{projects.length}</span> projects
+      </div>
+      
+      {/* Project cards list */}
+      <div className="flex flex-col gap-4 mb-8">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} categories={categories} />
         ))}
       </div>
 
       {/* Load more button */}
-      <div className="flex justify-center">
-        <Button
-          variant="outline"
-          className="px-8 py-2 rounded-full border-blue-600 text-blue-600 hover:bg-blue-50"
-          onClick={onLoadMore}
-        >
-          Load More Projects
-        </Button>
-      </div>
-    </>
+      {projects.length > 0 && (
+        <div className="flex justify-center mt-2 mb-8">
+          <Button
+            variant="outline"
+            className="px-6 py-1.5 rounded-md border-gray-300 text-gray-700 hover:bg-gray-50"
+            onClick={onLoadMore}
+          >
+            Load More
+          </Button>
+        </div>
+      )}
+      
+      {/* Empty state */}
+      {projects.length === 0 && (
+        <div className="py-12 text-center">
+          <p className="text-gray-500">No projects found matching your criteria.</p>
+        </div>
+      )}
+    </div>
   );
 };

@@ -184,6 +184,14 @@
     }
   },
   
+  "companiesPage": {
+    "title": "Partner Companies",
+    "subtitle": "Discover our partner companies offering endorsements and opportunities.",
+    "searchPlaceholder": "Search companies by name, industry or keywords...",
+    "topCompanies": "Top Companies",
+    "partners": "Premium Partners"
+  },
+  
   "courses": {
     "filters": "Filters",
     "clearAll": "Clear All",
@@ -203,5 +211,106 @@
     "students": "students",
     "viewCourse": "View Course",
     "allCategories": "All Categories"
+  },
+  
+  "coursesPage": {
+    "hero": {
+      "title1": "Unlock",
+      "titleHighlight": "Company Courses",
+      "title2": "by Completing Real Projects",
+      "description": "With SkillBridge, you don't just work on real projects - you gain exclusive access to company-specific courses that prepare you for immediate employment. Master the exact skills companies are looking for.",
+      "projectsButton": "View Available Projects",
+      "learnMore": "How It Works"
+    },
+    "stats": {
+      "companies": "50+",
+      "companiesLabel": "Partner Companies",
+      "courses": "120+",
+      "coursesLabel": "Exclusive Courses",
+      "employed": "78%",
+      "employedLabel": "Employment Rate"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Learn how our unique process connects project completion to exclusive learning opportunities and direct employment paths.",
+      "step1": {
+        "title": "Complete a Project",
+        "description": "Choose and complete a real-world project assignment from our projects board."
+      },
+      "step2": {
+        "title": "Get Approved",
+        "description": "Have your project submission reviewed and approved by the company."
+      },
+      "step3": {
+        "title": "Access Exclusive Course",
+        "description": "Gain access to company-specific courses designed to deepen your knowledge."
+      },
+      "step4": {
+        "title": "Employment Opportunity",
+        "description": "After course completion, get considered for direct employment opportunities."
+      }
+    },
+    "videoDemo": {
+      "title": "See the SkillBridge Journey",
+      "description": "Watch how students go from project completion to employment through our platform."
+    },
+    "benefits": {
+      "title": "Why Company Courses Matter",
+      "subtitle": "Unlike generic online courses, our company-specific training provides unique advantages for your career:",
+      "direct": {
+        "title": "Direct Industry Relevance",
+        "description": "Learn exactly what companies need, taught by the professionals who work there every day."
+      },
+      "certification": {
+        "title": "Company-Validated Certification",
+        "description": "Receive certifications that carry real weight with employers because they come directly from them."
+      },
+      "culture": {
+        "title": "Cultural Onboarding",
+        "description": "Understand company culture, values, and working methods before you even start."
+      },
+      "employment": {
+        "title": "Fast-Track to Employment",
+        "description": "Skip lengthy interview processes when companies already know your capabilities and fit."
+      }
+    },
+    "featured": {
+      "title": "Featured Content",
+      "courses": "Courses",
+      "companies": "Companies"
+    },
+    "sampleCourses": {
+      "react": "Learn advanced React patterns, state management strategies, and performance optimization techniques directly from our engineering team.",
+      "ux": "Master the research methodologies we use in our design process, from user interviews to usability testing and analysis.",
+      "marketing": "Develop comprehensive content marketing strategies that drive engagement, focusing on our proven multi-channel approach."
+    },
+    "projectRequired": "Project Required",
+    "requiredProject": "Required Project",
+    "unlockAccess": "Unlock Access",
+    "coursesAvailable": "courses",
+    "projectsAvailable": "projects",
+    "viewCompany": "View Company Profile",
+    "cta": {
+      "title": "Ready to Start Your Journey?",
+      "description": "Begin by exploring our project board and find opportunities that match your skills and interests. Complete a project to unlock exclusive company courses.",
+      "button": "Explore Available Projects"
+    }
+  },
+  
+  "projectsPage": {
+    "title": "Project Requirements Board",
+    "subtitle": "Find your next project challenge from various industries. Connect with innovative companies looking for your talent and expertise.",
+    "searchPlaceholder": "Search projects by keyword or company name",
+    "trending": "Trending: Mobile App, UX/UI, Content Strategy",
+    "activeProjects": "500+ active projects",
+    "filters": {
+      "allCategories": "All Categories",
+      "development": "Development",
+      "design": "Design",
+      "marketing": "Marketing",
+      "content": "Content",
+      "architecture": "Architecture"
+    },
+    "loadMore": "Load More Projects"
   }
 } 

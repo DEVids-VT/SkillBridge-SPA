@@ -103,12 +103,9 @@ export const levels: LevelFilter[] = [
   { id: 'advanced', name: 'Advanced' },
 ];
 
-// Price filter options
+// Note: In the new concept, courses are accessed after completing projects,
+// so price filters are no longer necessary. They are kept here for reference.
 export const priceRanges: PriceFilter[] = [
   { id: 'all', name: 'All Prices' },
-  { id: 'free', name: 'Free', range: [0, 0] },
-  { id: 'paid', name: 'Paid', range: [0.01, 999999] },
-  { id: 'under-50', name: 'Under $50', range: [0.01, 49.99] },
-  { id: '50-100', name: '$50 - $100', range: [50, 100] },
-  { id: 'over-100', name: 'Over $100', range: [100.01, 999999] },
+  { id: 'free', name: 'Free', range: [0, 0] }
 ];

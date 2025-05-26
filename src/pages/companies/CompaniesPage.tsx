@@ -2,18 +2,14 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import { spacing } from '@/lib/design-system';
-import { CompaniesHeader } from './components/CompaniesHeader';
-import { FeaturedCompanies } from './components/FeaturedCompanies';
-import { FilterSection } from './components/FilterSection';
-import { CompaniesList } from './components/CompaniesList';
-import { PartnershipBenefits } from './components/PartnershipBenefits';
-import { companiesData, industryFilters, partnershipLevelFilters } from './companiesData';
+import { CompaniesPageHeader, CompaniesList } from './components';
+import { companiesData } from './newCompaniesData';
+import { Company } from './types';
 
 const CompaniesPage = () => {
-  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedIndustry, setSelectedIndustry] = useState('all');
-  const [selectedPartnershipLevel, setSelectedPartnershipLevel] = useState('all');
+  const [selectedIndustry] = useState('all');
+  const [selectedPartnershipLevel] = useState('all');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +19,13 @@ const CompaniesPage = () => {
 
   // Filter companies based on selections
   const filteredCompanies = companiesData.filter((company) => {
-    // Filter by industry (simplified matching)
+    // Filter by search query
+    const searchMatch = searchQuery === '' || 
+      company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      company.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      company.industry.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // Filter by industry
     const industryMatch =
       selectedIndustry === 'all' ||
       company.industry.toLowerCase().includes(selectedIndustry.toLowerCase());
@@ -33,8 +35,8 @@ const CompaniesPage = () => {
       selectedPartnershipLevel === 'all' ||
       company.partnershipLevel.toLowerCase() === selectedPartnershipLevel.toLowerCase();
 
-    // Return if both conditions are met
-    return industryMatch && partnershipMatch;
+    // Return if all conditions are met
+    return searchMatch && industryMatch && partnershipMatch;
   });
 
   const handleLoadMore = () => {
@@ -45,41 +47,21 @@ const CompaniesPage = () => {
   return (
     <div className={cn(spacing.container, spacing.headerOffset, 'py-8')}>
       {/* Header section */}
-      <CompaniesHeader
+      <CompaniesPageHeader
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         handleSearch={handleSearch}
       />
-      {/* Featured companies section */}
-      <FeaturedCompanies
-        companies={companiesData}
-        onViewCompanyDetails={(company) => {
-          console.log('Viewing company details:', company);
-          // Here you would typically open a modal or navigate to a detail page
-        }}
-      />
 
-      {/* Filter section */}
-      <FilterSection
-        industryFilters={industryFilters}
-        selectedIndustry={selectedIndustry}
-        setSelectedIndustry={setSelectedIndustry}
-        partnershipLevelFilters={partnershipLevelFilters}
-        selectedPartnershipLevel={selectedPartnershipLevel}
-        setSelectedPartnershipLevel={setSelectedPartnershipLevel}
-      />
       {/* Companies list */}
       <CompaniesList
         companies={filteredCompanies}
         loadMore={handleLoadMore}
-        onViewCompanyDetails={(company) => {
+        onViewCompanyDetails={(company: Company) => {
           console.log('Viewing company details:', company);
           // Here you would typically open a modal or navigate to a detail page
         }}
       />
-
-      {/* Partnership benefits section */}
-      <PartnershipBenefits />
     </div>
   );
 };

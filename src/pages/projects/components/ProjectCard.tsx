@@ -88,7 +88,7 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
           size="sm" 
           className="flex-shrink-0 self-start mt-1"
         >
-          Apply
+          Details
         </Button>
       </div>
       

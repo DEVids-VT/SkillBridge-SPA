@@ -20,12 +20,11 @@ export const CompaniesHeader = ({
     <div className={layouts.pageHeader}>
       <div className={layouts.pageHeaderBackground}></div>
       <h1 className={layouts.pageTitle}>
-        <span className="text-blue-600">Our Partner</span>{' '}
-        <span className="text-gray-600">Companies</span>
+        <span className="text-blue-600">{t('companiesPage.title1')}</span>{' '}
+        <span className="text-gray-600">{t('companiesPage.title2')}</span>
       </h1>
       <p className={layouts.pageDescription}>
-        Discover our network of partner companies that collaborate with us to create opportunities,
-        drive innovation, and support talent development.
+        {t('companiesPage.subtitle')}
       </p>
 
       {/* Search bar */}
@@ -33,10 +32,7 @@ export const CompaniesHeader = ({
         <div className="relative flex items-center">
           <Input
             type="text"
-            placeholder={t(
-              'searchCompaniesPlaceholder',
-              'Search companies by name, industry, or location'
-            )}
+            placeholder={t('companiesPage.searchPlaceholder')}
             className="h-14 pl-6 pr-12 rounded-full shadow-sm"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -51,10 +47,10 @@ export const CompaniesHeader = ({
         </div>
         <div className="flex justify-center gap-4 mt-4 text-sm text-gray-500">
           <span className="flex items-center gap-1">
-            <Building2 size={14} /> {t('topCompanies', '500+ partner companies')}
+            <Building2 size={14} /> {t('companiesPage.topCompanies')}
           </span>
           <span className="flex items-center gap-1">
-            <TrendingUp size={14} /> {t('companiesTrending', 'Trending: Tech, Healthcare, Finance')}
+            <TrendingUp size={14} /> {t('companiesPage.partners')}
           </span>
         </div>
       </form>

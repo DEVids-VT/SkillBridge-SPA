@@ -20,7 +20,8 @@ export const ProjectsHeader = ({ searchQuery, setSearchQuery }: ProjectsHeaderPr
     <div className={layouts.pageHeader}>
       <div className={layouts.pageHeaderBackground}></div>
       <h1 className={layouts.pageTitle}>
-        <span className="text-blue-600">{t('projectsPage.title')}</span>
+        <span className="text-blue-600">{t('projectsPage.title1')}</span>{' '}
+        <span className="text-gray-600">{t('projectsPage.title2')}</span>
       </h1>
       <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-10">
         {t('projectsPage.subtitle')}

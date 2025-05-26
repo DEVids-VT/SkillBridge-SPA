@@ -135,7 +135,7 @@ export function CompanyCard({
             variant="default"
             className="flex-1"
           >
-            View Profile
+            View Offers
           </Button>
           <Button 
             variant="outline"

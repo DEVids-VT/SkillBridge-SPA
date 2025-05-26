@@ -304,12 +304,18 @@
     "trending": "Популярни: Мобилни приложения, UX/UI, Контент стратегия",
     "activeProjects": "500+ активни проекта",
     "filters": {
-      "allCategories": "Всички Категории",
+      "title": "Филтри",
+      "categories": "Категории",
+      "allCategories": "Всички категории",
       "development": "Разработка",
       "design": "Дизайн",
       "marketing": "Маркетинг",
       "content": "Съдържание",
-      "architecture": "Архитектура"
+      "architecture": "Архитектура",
+      "clear": "Изчисти",
+      "otherOptions": "Други опции",
+      "mostRecent": "Най-нови",
+      "upcoming": "Предстоящи"
     },
     "loadMore": "Зареди още проекти"
   },

@@ -306,12 +306,18 @@
     "trending": "Trending: Mobile App, UX/UI, Content Strategy",
     "activeProjects": "500+ active projects",
     "filters": {
+      "title": "Filters",
+      "categories": "Categories",
       "allCategories": "All Categories",
       "development": "Development",
       "design": "Design",
       "marketing": "Marketing",
       "content": "Content",
-      "architecture": "Architecture"
+      "architecture": "Architecture",
+      "clear": "Clear",
+      "otherOptions": "Other Options",
+      "mostRecent": "Most Recent",
+      "upcoming": "Upcoming"
     },
     "loadMore": "Load More Projects"
   }

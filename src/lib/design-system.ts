@@ -4,7 +4,7 @@
 export const colors = {
   primary: {
     50: '#f0f6ff',
-    100: '#e0edff', 
+    100: '#e0edff',
     500: '#3b82f6', // Main blue
     600: '#2563eb',
     700: '#1d4ed8',
@@ -55,7 +55,8 @@ export const typography = {
 // Common layouts
 export const layouts = {
   pageHeader: 'text-center mb-16 relative',
-  pageHeaderBackground: 'absolute -top-10 left-0 right-0 h-20 bg-gradient-to-r from-blue-50 to-purple-50 rounded-b-3xl -z-10',
+  pageHeaderBackground:
+    'absolute -top-10 left-0 right-0 h-20 bg-gradient-to-r from-blue-50 to-purple-50 rounded-b-3xl -z-10',
   pageTitle: `${typography.heading[1]} mb-6`,
   pageDescription: 'text-lg text-gray-600 max-w-3xl mx-auto mb-10',
   grid: {
@@ -84,4 +85,4 @@ export const components = {
     gray: 'bg-gray-100 text-gray-700',
     red: 'bg-red-100 text-red-700',
   },
-}; 
+};

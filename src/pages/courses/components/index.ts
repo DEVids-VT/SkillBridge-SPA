@@ -9,4 +9,4 @@ export * from './CoursesHeader';
 export * from './FilterSection';
 export * from './PriceFilters';
 export * from './CoursesList';
-export * from './LevelFilters'; 
+export * from './LevelFilters';

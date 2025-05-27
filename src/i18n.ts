@@ -16,18 +16,18 @@ i18n
     fallbackLng: 'en',
     debug: true,
     supportedLngs: ['en', 'bg'],
-    
+
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
-    
+
     ns: ['translation', 'companies'],
     defaultNS: 'translation',
-    
+
     // Backend configuration
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
   });
 
-export default i18n; 
+export default i18n;

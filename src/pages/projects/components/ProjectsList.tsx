@@ -15,7 +15,7 @@ export const ProjectsList = ({ projects, categories, onLoadMore }: ProjectsListP
       <div className="text-sm text-gray-500 mb-4">
         Showing <span className="font-medium text-gray-700">{projects.length}</span> projects
       </div>
-      
+
       {/* Project cards list */}
       <div className="flex flex-col gap-4 mb-8">
         {projects.map((project) => (
@@ -35,7 +35,7 @@ export const ProjectsList = ({ projects, categories, onLoadMore }: ProjectsListP
           </Button>
         </div>
       )}
-      
+
       {/* Empty state */}
       {projects.length === 0 && (
         <div className="py-12 text-center">

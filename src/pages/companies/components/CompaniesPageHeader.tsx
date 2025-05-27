@@ -22,9 +22,7 @@ export const CompaniesPageHeader = ({
       <h1 className={layouts.pageTitle}>
         <span className="text-blue-600">{t('companiesPage.title')}</span>
       </h1>
-      <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-10">
-        {t('companiesPage.subtitle')}
-      </p>
+      <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-10">{t('companiesPage.subtitle')}</p>
 
       {/* Search bar */}
       <form onSubmit={handleSearch} className="max-w-3xl mx-auto relative">
@@ -55,4 +53,4 @@ export const CompaniesPageHeader = ({
       </form>
     </div>
   );
-}; 
+};

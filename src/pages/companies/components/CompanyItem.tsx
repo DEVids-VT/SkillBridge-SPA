@@ -11,15 +11,7 @@ interface CompanyItemProps {
 
 export const CompanyItem = ({ company, onViewDetails }: CompanyItemProps) => {
   const { t } = useTranslation('companies');
-  const {
-    name,
-    logo,
-    description,
-    industry,
-    location,
-    website,
-    partnershipLevel,
-  } = company;
+  const { name, logo, description, industry, location, website, partnershipLevel } = company;
 
   const handleViewDetails = () => {
     if (onViewDetails) {
@@ -30,11 +22,11 @@ export const CompanyItem = ({ company, onViewDetails }: CompanyItemProps) => {
   // Get partnership level color
   const getPartnershipLevelClass = (level: string) => {
     const levelClasses: Record<string, string> = {
-      'Gold': 'bg-yellow-100 text-yellow-700',
-      'Silver': 'bg-gray-200 text-gray-700',
-      'Bronze': 'bg-amber-100 text-amber-700',
+      Gold: 'bg-yellow-100 text-yellow-700',
+      Silver: 'bg-gray-200 text-gray-700',
+      Bronze: 'bg-amber-100 text-amber-700',
     };
-    
+
     return levelClasses[level] || 'bg-gray-100 text-gray-700';
   };
 
@@ -45,21 +37,19 @@ export const CompanyItem = ({ company, onViewDetails }: CompanyItemProps) => {
       {/* Company logo */}
       <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center border border-gray-200">
         {logo ? (
-          <img 
-            src={logo} 
-            alt={`${name} logo`}
-            className="w-full h-full object-contain p-2"
-          />
+          <img src={logo} alt={`${name} logo`} className="w-full h-full object-contain p-2" />
         ) : (
           <Building className="h-10 w-10 text-gray-400" />
         )}
       </div>
-      
+
       {/* Company info */}
       <div className="flex-1">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
           <div>
-            <h3 className="text-xl font-bold text-gray-900">{t(`companies.${companyKey}.name`, name)}</h3>
+            <h3 className="text-xl font-bold text-gray-900">
+              {t(`companies.${companyKey}.name`, name)}
+            </h3>
             <div className="flex flex-wrap items-center gap-x-4 text-sm text-gray-500 mt-1">
               <span>{t(`companies.${companyKey}.industry`, industry)}</span>
               <span className="flex items-center gap-1">
@@ -68,32 +58,30 @@ export const CompanyItem = ({ company, onViewDetails }: CompanyItemProps) => {
               </span>
             </div>
           </div>
-          
+
           {/* Partnership level */}
-          <div className={cn(
-            "text-xs font-medium px-3 py-1 rounded-full self-start md:self-center",
-            getPartnershipLevelClass(partnershipLevel)
-          )}>
+          <div
+            className={cn(
+              'text-xs font-medium px-3 py-1 rounded-full self-start md:self-center',
+              getPartnershipLevelClass(partnershipLevel)
+            )}
+          >
             {t(`companies.${companyKey}.partnershipLevel`, `${partnershipLevel} Partner`)}
           </div>
         </div>
-        
+
         {/* Description */}
         <p className="mt-3 text-gray-700 line-clamp-2">
           {t(`companies.${companyKey}.description`, description)}
         </p>
-        
+
         {/* Actions */}
         <div className="mt-4 flex gap-2">
-          <Button 
-            variant="default" 
-            size="sm"
-            onClick={handleViewDetails}
-          >
+          <Button variant="default" size="sm" onClick={handleViewDetails}>
             {t('viewProfile')}
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="sm"
             className="gap-1"
             onClick={() => window.open(website, '_blank')}
@@ -105,4 +93,4 @@ export const CompanyItem = ({ company, onViewDetails }: CompanyItemProps) => {
       </div>
     </div>
   );
-}; 
+};

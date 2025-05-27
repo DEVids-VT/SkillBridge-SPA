@@ -12,7 +12,9 @@
 .fade-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+  transition:
+    opacity 500ms ease-in-out,
+    transform 500ms ease-in-out;
 }
 
 .fade-exit {
@@ -23,7 +25,9 @@
 .fade-exit-active {
   opacity: 0;
   transform: translateY(-20px);
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  transition:
+    opacity 300ms ease-in-out,
+    transform 300ms ease-in-out;
 }
 
 /* Slide transitions */
@@ -35,7 +39,9 @@
 .slide-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+  transition:
+    opacity 500ms ease-in-out,
+    transform 500ms ease-in-out;
 }
 
 .slide-exit {
@@ -46,7 +52,9 @@
 .slide-exit-active {
   opacity: 0;
   transform: translateX(-100%);
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  transition:
+    opacity 300ms ease-in-out,
+    transform 300ms ease-in-out;
 }
 
 /* Scale transitions */
@@ -58,7 +66,9 @@
 .scale-enter-active {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+  transition:
+    opacity 500ms ease-in-out,
+    transform 500ms ease-in-out;
 }
 
 .scale-exit {
@@ -69,7 +79,9 @@
 .scale-exit-active {
   opacity: 0;
   transform: scale(1.1);
-  transition: opacity 300ms ease-in-out, transform 300ms ease-in-out;
+  transition:
+    opacity 300ms ease-in-out,
+    transform 300ms ease-in-out;
 }
 
 /* Add a slight blur effect during transitions */
@@ -89,4 +101,4 @@
 .blur-transition-exit-active {
   filter: blur(8px);
   transition: filter 300ms ease-in-out;
-} 
+}

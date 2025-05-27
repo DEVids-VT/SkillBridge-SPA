@@ -3,34 +3,33 @@ import { Play } from 'lucide-react';
 
 export const HowItWorksSection = () => {
   const { t } = useTranslation();
-  
+
   // How it works steps
   const steps = [
     {
       number: 1,
       title: t('coursesPage.howItWorks.step1.title'),
-      description: t('coursesPage.howItWorks.step1.description')
+      description: t('coursesPage.howItWorks.step1.description'),
     },
     {
       number: 2,
       title: t('coursesPage.howItWorks.step2.title'),
-      description: t('coursesPage.howItWorks.step2.description')
+      description: t('coursesPage.howItWorks.step2.description'),
     },
     {
       number: 3,
       title: t('coursesPage.howItWorks.step3.title'),
-      description: t('coursesPage.howItWorks.step3.description')
+      description: t('coursesPage.howItWorks.step3.description'),
     },
     {
       number: 4,
       title: t('coursesPage.howItWorks.step4.title'),
-      description: t('coursesPage.howItWorks.step4.description')
-    }
+      description: t('coursesPage.howItWorks.step4.description'),
+    },
   ];
 
   return (
     <section className="mb-16">
-      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {steps.map((step) => (
           <div key={step.number} className="relative">
@@ -44,7 +43,7 @@ export const HowItWorksSection = () => {
           </div>
         ))}
       </div>
-      
+
       {/* Video demonstration placeholder */}
       <div className="mt-10 rounded-xl overflow-hidden bg-gray-100 aspect-video relative cursor-pointer group">
         <div className="absolute inset-0 flex items-center justify-center">
@@ -59,4 +58,4 @@ export const HowItWorksSection = () => {
       </div>
     </section>
   );
-}; 
+};

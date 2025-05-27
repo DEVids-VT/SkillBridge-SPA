@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check, Users, Briefcase, FolderGit2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
@@ -18,9 +18,9 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[600px] md:min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full z-0">
+    <section className="relative min-h-[700px] overflow-hidden">
+      {/* Video Background - only on right side for larger screens */}
+      <div className="absolute inset-0 md:w-1/2 md:left-1/2 h-full z-0">
         <video
           ref={videoRef}
           className="absolute top-0 left-0 w-full h-full object-cover"
@@ -33,58 +33,140 @@ export const HeroSection = () => {
           <source src="/videos/bridgevideo3.mp4" type="video/mp4" />
           {t('videoNotSupported', 'Your browser does not support the video tag.')}
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-white z-10"></div>
-      </div>
+        <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-l from-white via-white/80 to-white z-10"></div>
 
-      {/* Content Positioned on top of video - Hero Section */}
-      <div className="container px-4 lg:px-8 mx-auto relative z-30 flex flex-col h-full">
-        <div className="flex-1 flex flex-col items-center justify-center pt-20 pb-16">
-          <div className="w-full max-w-4xl mx-auto text-center">
-            <div className="flex justify-center mb-6">
-              <img
-                src="/images/svgsblogo.svg"
-                alt={t('logoAlt', 'SkillBridge Logo')}
-                className="h-20 md:h-28 drop-shadow-lg"
-              />
-            </div>
-
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gray-700 drop-shadow-md">
-              {t('landingPage.hero.title', 'Bridge the Gap Between Learning and Employment')}
-            </h1>
-
-            <p className="text-xl md:text-2xl mt-2 mb-8 text-gray-500 font-medium max-w-3xl mx-auto drop-shadow-md">
-              {t(
-                'landingPage.hero.newSubtitle',
-                'Platform for internships through real company projects and verified paths to employment'
-              )}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Button
-                asChild
-                size="lg"
-                className="gap-2 bg-blue-600 hover:bg-blue-700 font-medium text-white border-2 border-blue-500 shadow-lg"
-              >
-                <Link to="/register">
-                  {t('landingPage.hero.primaryCta', 'Get Started')}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-2 border-gray-500 text-gray-500 bg-transparent hover:bg-white/20 font-medium shadow-lg"
-              >
-                <Link to="/projects">{t('landingPage.hero.secondaryCta', 'Explore Projects')}</Link>
-              </Button>
+        {/* Right side statistics card */}
+        <div className="hidden md:block absolute inset-0 z-20">
+          {/* Company stat card */}
+          <div className="absolute top-[40%] right-[10%] transform rotate-6 hover:rotate-0 transition-transform">
+            <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-blue-100 w-52">
+              <div className="flex items-center mb-2">
+                <div className="p-2 bg-blue-100 rounded-full mr-3">
+                  <Briefcase className="h-5 w-5 text-blue-600" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-800">200+</h3>
+              </div>
+              <p className="text-gray-600 font-medium">Партньорски компании</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Transition curve element for smooth flow to categories section */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-blue-50 rounded-t-[50%] z-20"></div>
+      {/* Center statistics cards - positioned between text and video */}
+      <div className="hidden md:block absolute z-20 inset-0">
+        {/* Students stat card - positioned at center-right */}
+        <div className="absolute top-[20%] left-[45%] transform -rotate-6 hover:rotate-0 transition-transform">
+          <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-blue-100 w-52">
+            <div className="flex items-center mb-2">
+              <div className="p-2 bg-blue-100 rounded-full mr-3">
+                <Users className="h-5 w-5 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-800">1000+</h3>
+            </div>
+            <p className="text-gray-600 font-medium">Активни студенти в платформата</p>
+          </div>
+        </div>
+
+        {/* Projects stat card - positioned at bottom-center */}
+        <div className="absolute bottom-[12%] left-[52%] transform rotate-3 hover:rotate-0 transition-transform">
+          <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-blue-100 w-52">
+            <div className="flex items-center mb-2">
+              <div className="p-2 bg-blue-100 rounded-full mr-3">
+                <FolderGit2 className="h-5 w-5 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-800">500+</h3>
+            </div>
+            <p className="text-gray-600 font-medium">Реализирани проекти</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="container px-6 lg:px-8 mx-auto relative z-30 h-full [&_*]:!transition-none [&_*]:!transform-none">
+        <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+          <div className="flex flex-col justify-center py-16 md:py-24">
+            <div className="max-w-xl">
+              <div className="flex items-center space-x-2 mb-6">
+                <div className="flex items-center  bg-blue-100 rounded-xl px-2 py-1">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-200 p-1 text-blue-600">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10 3L4.5 8.5L2 6"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span className="ml-2 text-sm font-medium text-blue-600">
+                    #1 Стажантска платформа
+                  </span>
+                </div>
+              </div>
+
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-gray-900 leading-[1.1]">
+                Мостът между образованието и успеха
+              </h1>
+
+              <p className="text-xl md:text-2xl mb-10 text-gray-600 max-w-3xl leading-relaxed">
+                От студенти за студенти - където знанието среща възможности и ражда кариера
+              </p>
+
+              <div className="flex flex-wrap gap-4 mb-12">
+                <Button
+                  asChild
+                  size="lg"
+                  className="gap-2 bg-blue-600 text-white rounded-md px-6 py-6 text-base font-medium !transition-none !transform-none hover:!bg-blue-600 hover:!scale-100 hover:!shadow-none"
+                >
+                  <Link
+                    to="/register"
+                    className="!transition-none hover:!opacity-100 hover:!no-underline"
+                  >
+                    Започни сега
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-gray-300 text-gray-700 bg-white rounded-md px-6 py-6 text-base font-medium !transition-none !transform-none hover:!bg-white hover:!scale-100 hover:!shadow-none"
+                >
+                  <Link
+                    to="/projects"
+                    className="!transition-none hover:!opacity-100 hover:!no-underline"
+                  >
+                    Разгледай проекти
+                  </Link>
+                </Button>
+              </div>
+
+              {/* Feature list */}
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <Check className="h-5 w-5 text-blue-600 mr-2" />
+                  <span className="text-gray-600 font-medium">Стажове във водещи компании</span>
+                </div>
+                <div className="flex items-center">
+                  <Check className="h-5 w-5 text-blue-600 mr-2" />
+                  <span className="text-gray-600 font-medium">Реални проекти с менторство</span>
+                </div>
+                <div className="flex items-center">
+                  <Check className="h-5 w-5 text-blue-600 mr-2" />
+                  <span className="text-gray-600 font-medium">Безплатни курсове и събития</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

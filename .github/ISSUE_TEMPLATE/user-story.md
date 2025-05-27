@@ -4,7 +4,6 @@ about: A user story issue template.
 title: ''
 labels: user story
 assignees: ''
-
 ---
 
 ## 🧩 User Story

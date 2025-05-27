@@ -15,7 +15,7 @@
   "viewProjects": "View Projects",
   "videoNotSupported": "Your browser does not support the video tag.",
   "logoAlt": "SkillBridge Logo",
-  
+
   "productLaunchEvent": {
     "title": "SkillBridge Product Launch Meetup",
     "date": "December 15, 2023",
@@ -43,7 +43,7 @@
     "shareEvent": "Share Event",
     "joinVirtually": "Join Virtually"
   },
-  
+
   "aiCourse": {
     "title": "Modern Software Development with AI",
     "description": "Master AI-assisted development with tools like GitHub Copilot, Claude, ChatGPT. Learn about MPC servers, no-code/low-code platforms, and modern IDEs that will revolutionize your workflow and productivity as a developer.",
@@ -106,7 +106,7 @@
     "downloadResources": "Download Resources",
     "discussionForum": "Discussion Forum"
   },
-  
+
   "categories": {
     "development": "Development",
     "developmentDesc": "Build digital products with cutting-edge technologies",
@@ -123,7 +123,7 @@
     "business": "Business",
     "dataScience": "Data Science"
   },
-  
+
   "skills": {
     "backend": "Backend",
     "frontend": "Frontend",
@@ -150,15 +150,13 @@
     "advertising": "Advertising",
     "prAgencies": "PR Agencies"
   },
-  
+
   "landingPage": {
     "hero": {
-      "title": "Bridge the Gap Between Learning and Employment",
-      "subtitle": "Connect with industry-validated courses and certifications that truly matter to employers",
+      "title": "#1 Internship Platform in Bulgaria",
+      "subtitle": "By students for students - where knowledge meets opportunities and careers are born",
       "primaryCta": "Get Started",
-      "secondaryCta": "Explore Projects",
-      "newTitle": "SkillBridge",
-      "newSubtitle": "Platform for internships through real company projects and verified paths to employment"
+      "secondaryCta": "Explore Projects"
     },
     "problem": {
       "title": "The Problem We Solve",
@@ -183,7 +181,7 @@
       "secondaryButton": "Explore Projects"
     }
   },
-  
+
   "companiesPage": {
     "title": "Partner Companies",
     "subtitle": "Discover our partner companies offering endorsements and opportunities.",
@@ -191,7 +189,7 @@
     "topCompanies": "Top Companies",
     "partners": "Premium Partners"
   },
-  
+
   "courses": {
     "filters": "Filters",
     "clearAll": "Clear All",
@@ -212,7 +210,7 @@
     "viewCourse": "View Course",
     "allCategories": "All Categories"
   },
-  
+
   "coursesPage": {
     "hero": {
       "title1": "Unlock",
@@ -296,7 +294,7 @@
       "button": "Explore Available Projects"
     }
   },
-  
+
   "projectsPage": {
     "title": "Project Requirements Board",
     "subtitle": "Find your next project challenge from various industries. Connect with innovative companies looking for your talent and expertise.",
@@ -313,4 +311,4 @@
     },
     "loadMore": "Load More Projects"
   }
-} 
+}

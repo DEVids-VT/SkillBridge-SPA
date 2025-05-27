@@ -1,11 +1,6 @@
 import { cn } from '@/lib/utils';
 import { spacing } from '@/lib/design-system';
-import { 
-  HeroSection,
-  HowItWorksSection,
-  BenefitsSection,
-  CallToAction
-} from './components';
+import { HeroSection, HowItWorksSection, BenefitsSection, CallToAction } from './components';
 
 const CoursesPage = () => {
   return (

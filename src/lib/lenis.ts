@@ -16,7 +16,13 @@ const defaultOptions = {
 // Create and initialize a Lenis instance
 export const initSmoothScroll = (
   options = {},
-  scrollFn?: (props: { scroll: number; limit: number; velocity: number; direction: number; progress: number }) => void
+  scrollFn?: (props: {
+    scroll: number;
+    limit: number;
+    velocity: number;
+    direction: number;
+    progress: number;
+  }) => void
 ) => {
   // Merge default options with provided options
   const lenis = new Lenis({
@@ -56,7 +62,7 @@ export const handleSmoothScroll = () => {
       e.preventDefault();
       const targetId = link.getAttribute('href');
       if (!targetId || targetId === '#') return;
-      
+
       scrollTo(targetId);
     });
   });
@@ -67,4 +73,4 @@ declare global {
   interface Window {
     __lenis: Lenis;
   }
-} 
+}

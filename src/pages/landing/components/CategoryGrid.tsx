@@ -16,7 +16,7 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
       <div className="container px-4 lg:px-8 mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            <span className="text-blue-600">
+            <span className="text-black">
               {t('landingPage.categories.title', 'Discover Projects by Category')}
             </span>
           </h2>

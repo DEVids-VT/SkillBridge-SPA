@@ -62,15 +62,15 @@ This document explains the primary folder structure used in this template.
 
 ## Key Directories Explained
 
-*   **`docs/`**: Contains all project documentation. Essential reading!
-*   **`public/`**: Static assets that are copied directly to the build output without processing.
-*   **`src/`**: The heart of the application.
-    *   **`src/assets/`**: Images, fonts, etc., that are imported into components and processed by Vite.
-    *   **`src/components/`**: Core directory for UI building blocks.
-        *   `layout/`: Components defining the overall page structure.
-        *   `ui/`: Primarily for Shadcn UI components added via the CLI.
-    *   **`src/lib/`**: Shared utility functions, constants, or helper modules.
-    *   **`src/pages/`**: Components representing application pages, typically mapped 1:1 with routes.
-    *   **`src/providers/`**: (Optional) For React Context API providers.
-    *   **`src/services/`**: (Optional) For abstracting API calls.
-*   **`steps/`**: Contains markdown templates to help structure complex requests for the AI. 
+- **`docs/`**: Contains all project documentation. Essential reading!
+- **`public/`**: Static assets that are copied directly to the build output without processing.
+- **`src/`**: The heart of the application.
+  - **`src/assets/`**: Images, fonts, etc., that are imported into components and processed by Vite.
+  - **`src/components/`**: Core directory for UI building blocks.
+    - `layout/`: Components defining the overall page structure.
+    - `ui/`: Primarily for Shadcn UI components added via the CLI.
+  - **`src/lib/`**: Shared utility functions, constants, or helper modules.
+  - **`src/pages/`**: Components representing application pages, typically mapped 1:1 with routes.
+  - **`src/providers/`**: (Optional) For React Context API providers.
+  - **`src/services/`**: (Optional) For abstracting API calls.
+- **`steps/`**: Contains markdown templates to help structure complex requests for the AI.

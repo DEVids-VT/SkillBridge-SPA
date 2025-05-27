@@ -1,6 +1,6 @@
-import { layouts } from "@/lib/design-system";
-import { EventCard } from "@/components/ui/EventCard";
-import { EventProps } from "../types";
+import { layouts } from '@/lib/design-system';
+import { EventCard } from '@/components/ui/EventCard';
+import { EventProps } from '../types';
 
 interface EventsListProps {
   events: EventProps[];

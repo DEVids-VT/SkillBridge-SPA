@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 export const CoursesHook = () => {
   const { t } = useTranslation();
-  
+
   return (
     <section className="py-16 bg-blue-50 relative z-30">
       <div className="container px-4 lg:px-8 mx-auto">
@@ -15,18 +15,19 @@ export const CoursesHook = () => {
               <span className="text-yellow-300">{t('coursesPage.hero.titleHighlight')}</span>{' '}
               {t('coursesPage.hero.title2')}
             </h1>
-            <p className="text-lg opacity-90 mb-6">
-              {t('coursesPage.hero.description')}
-            </p>
+            <p className="text-lg opacity-90 mb-6">{t('coursesPage.hero.description')}</p>
             <div className="flex flex-wrap gap-4">
               <Button className="bg-white text-blue-700 hover:bg-gray-100" asChild>
                 <a href="/projects">{t('coursesPage.hero.projectsButton')}</a>
               </Button>
-              <Button variant="outline" className="bg-transparent text-white border-white hover:bg-white/10">
+              <Button
+                variant="outline"
+                className="bg-transparent text-white border-white hover:bg-white/10"
+              >
                 {t('coursesPage.hero.learnMore')}
               </Button>
             </div>
-            
+
             {/* Stats */}
             <div className="flex flex-wrap gap-8 mt-8">
               <div>
@@ -43,7 +44,7 @@ export const CoursesHook = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Decorative element */}
           <div className="absolute right-0 top-0 w-1/3 h-full opacity-20">
             <GraduationCap className="w-full h-full" />
@@ -52,4 +53,4 @@ export const CoursesHook = () => {
       </div>
     </section>
   );
-}; 
+};

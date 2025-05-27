@@ -19,11 +19,7 @@ export const CompaniesList = ({
   return (
     <div className="space-y-6">
       {companies.map((company) => (
-        <CompanyItem
-          key={company.id}
-          company={company}
-          onViewDetails={onViewCompanyDetails}
-        />
+        <CompanyItem key={company.id} company={company} onViewDetails={onViewCompanyDetails} />
       ))}
 
       {companies.length > 0 && loadMore && (
@@ -48,4 +44,4 @@ export const CompaniesList = ({
       )}
     </div>
   );
-}; 
+};

@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { EventType, EventFilter } from "../types";
+import { Button } from '@/components/ui/button';
+import { EventType, EventFilter } from '../types';
 
 interface EventTypeFiltersProps {
   filters: EventFilter[];
-  selectedEventType: "all" | EventType;
-  setSelectedEventType: (type: "all" | EventType) => void;
+  selectedEventType: 'all' | EventType;
+  setSelectedEventType: (type: 'all' | EventType) => void;
 }
 
 export const EventTypeFilters = ({
@@ -17,7 +17,7 @@ export const EventTypeFilters = ({
       {filters.map((filter) => (
         <Button
           key={filter.id}
-          variant={selectedEventType === filter.id ? "default" : "outline"}
+          variant={selectedEventType === filter.id ? 'default' : 'outline'}
           size="sm"
           className="rounded-full"
           onClick={() => setSelectedEventType(filter.id)}

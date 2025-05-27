@@ -14,7 +14,7 @@ export function LenisProvider({ children, options = {} }: LenisProviderProps) {
   useEffect(() => {
     // Create a new Lenis instance
     const lenis = initSmoothScroll(options);
-    
+
     // Store the Lenis instance
     lenisRef.current = lenis;
     window.__lenis = lenis;
@@ -31,4 +31,4 @@ export function LenisProvider({ children, options = {} }: LenisProviderProps) {
   return <>{children}</>;
 }
 
-export default LenisProvider; 
+export default LenisProvider;

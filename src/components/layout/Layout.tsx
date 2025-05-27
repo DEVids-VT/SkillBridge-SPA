@@ -2,11 +2,13 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Header from './Header'; // Assuming Header.tsx is in the same directory
 import Footer from './Footer'; // Assuming Footer.tsx is in the same directory
-import EnhancedPageTransition, { scrollToTopOnTransition } from '../transitions/EnhancedPageTransition';
+import EnhancedPageTransition, {
+  scrollToTopOnTransition,
+} from '../transitions/EnhancedPageTransition';
 
 export function Layout() {
   const location = useLocation();
-  
+
   // Scroll to top on route change
   useEffect(() => {
     // Use the smooth scrolling from Lenis if available, otherwise fallback
@@ -16,7 +18,7 @@ export function Layout() {
       scrollToTopOnTransition();
     }
   }, [location.pathname]);
-  
+
   return (
     <div className="flex flex-col min-h-screen font-rubik">
       <Header />
@@ -30,4 +32,4 @@ export function Layout() {
   );
 }
 
-export default Layout; 
+export default Layout;

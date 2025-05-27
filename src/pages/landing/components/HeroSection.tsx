@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Check, Users, Briefcase, FolderGit2 } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
@@ -34,51 +34,6 @@ export const HeroSection = () => {
           {t('videoNotSupported', 'Your browser does not support the video tag.')}
         </video>
         <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-l from-white via-white/80 to-white z-10"></div>
-
-        {/* Right side statistics card */}
-        <div className="hidden md:block absolute inset-0 z-20">
-          {/* Company stat card */}
-          <div className="absolute top-[40%] right-[10%] transform rotate-6 hover:rotate-0 transition-transform">
-            <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-blue-100 w-52">
-              <div className="flex items-center mb-2">
-                <div className="p-2 bg-blue-100 rounded-full mr-3">
-                  <Briefcase className="h-5 w-5 text-blue-600" />
-                </div>
-                <h3 className="text-lg font-bold text-gray-800">200+</h3>
-              </div>
-              <p className="text-gray-600 font-medium">Партньорски компании</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Center statistics cards - positioned between text and video */}
-      <div className="hidden md:block absolute z-20 inset-0">
-        {/* Students stat card - positioned at center-right */}
-        <div className="absolute top-[20%] left-[45%] transform -rotate-6 hover:rotate-0 transition-transform">
-          <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-blue-100 w-52">
-            <div className="flex items-center mb-2">
-              <div className="p-2 bg-blue-100 rounded-full mr-3">
-                <Users className="h-5 w-5 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-800">1000+</h3>
-            </div>
-            <p className="text-gray-600 font-medium">Активни студенти в платформата</p>
-          </div>
-        </div>
-
-        {/* Projects stat card - positioned at bottom-center */}
-        <div className="absolute bottom-[12%] left-[52%] transform rotate-3 hover:rotate-0 transition-transform">
-          <div className="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg border border-blue-100 w-52">
-            <div className="flex items-center mb-2">
-              <div className="p-2 bg-blue-100 rounded-full mr-3">
-                <FolderGit2 className="h-5 w-5 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-800">500+</h3>
-            </div>
-            <p className="text-gray-600 font-medium">Реализирани проекти</p>
-          </div>
-        </div>
       </div>
 
       {/* Content */}
@@ -87,27 +42,13 @@ export const HeroSection = () => {
           <div className="flex flex-col justify-center py-16 md:py-24">
             <div className="max-w-xl">
               <div className="flex items-center space-x-2 mb-6">
-                <div className="flex items-center  bg-blue-100 rounded-xl px-2 py-1">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-200 p-1 text-blue-600">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10 3L4.5 8.5L2 6"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
+                <div className="flex items-center">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 p-1 text-blue-600">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </span>
-                  <span className="ml-2 text-sm font-medium text-blue-600">
-                    #1 Стажантска платформа
-                  </span>
+                  <span className="ml-2 text-sm font-medium text-blue-600">№1 Стажантска платформа </span>
                 </div>
               </div>
 
@@ -125,10 +66,7 @@ export const HeroSection = () => {
                   size="lg"
                   className="gap-2 bg-blue-600 text-white rounded-md px-6 py-6 text-base font-medium !transition-none !transform-none hover:!bg-blue-600 hover:!scale-100 hover:!shadow-none"
                 >
-                  <Link
-                    to="/register"
-                    className="!transition-none hover:!opacity-100 hover:!no-underline"
-                  >
+                  <Link to="/register" className="!transition-none hover:!opacity-100 hover:!no-underline">
                     Започни сега
                     <ArrowRight className="h-4 w-4 ml-1" />
                   </Link>
@@ -139,12 +77,7 @@ export const HeroSection = () => {
                   size="lg"
                   className="border-2 border-gray-300 text-gray-700 bg-white rounded-md px-6 py-6 text-base font-medium !transition-none !transform-none hover:!bg-white hover:!scale-100 hover:!shadow-none"
                 >
-                  <Link
-                    to="/projects"
-                    className="!transition-none hover:!opacity-100 hover:!no-underline"
-                  >
-                    Разгледай проекти
-                  </Link>
+                  <Link to="/projects" className="!transition-none hover:!opacity-100 hover:!no-underline">Разгледай проекти</Link>
                 </Button>
               </div>
 

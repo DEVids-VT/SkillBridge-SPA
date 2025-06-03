@@ -78,8 +78,11 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
         </div>
 
         {/* Apply button */}
-        <Button size="sm" className="flex-shrink-0 self-start mt-1">
-          Apply
+        <Button 
+          size="sm" 
+          className="flex-shrink-0 self-start mt-1"
+        >
+          Details
         </Button>
       </div>
 

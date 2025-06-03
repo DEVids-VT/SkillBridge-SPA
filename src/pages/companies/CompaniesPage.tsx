@@ -40,11 +40,6 @@ const CompaniesPage = () => {
     return searchMatch && industryMatch && partnershipMatch;
   });
 
-  const handleLoadMore = () => {
-    console.log('Loading more companies...');
-    // This would load more companies from an API in a real application
-  };
-
   return (
     <div className={cn(spacing.container, spacing.headerOffset, 'py-8')}>
       {/* Header section */}
@@ -57,7 +52,6 @@ const CompaniesPage = () => {
       {/* Companies list */}
       <CompaniesList
         companies={filteredCompanies}
-        loadMore={handleLoadMore}
         onViewCompanyDetails={(company: Company) => {
           console.log('Viewing company details:', company);
           // Here you would typically open a modal or navigate to a detail page

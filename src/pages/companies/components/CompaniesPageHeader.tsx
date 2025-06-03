@@ -14,13 +14,13 @@ export const CompaniesPageHeader = ({
   handleSearch,
 }: CompaniesPageHeaderProps) => {
   const { t } = useTranslation();
-  const { t: tCompanies } = useTranslation('companies');
 
   return (
     <div className={layouts.pageHeader}>
       <div className={layouts.pageHeaderBackground}></div>
       <h1 className={layouts.pageTitle}>
-        <span className="text-blue-600">{t('companiesPage.title')}</span>
+        <span className="text-blue-600">{t('companiesPage.title1')}</span>{' '}
+        <span className="text-gray-600">{t('companiesPage.title2')}</span>
       </h1>
       <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-10">{t('companiesPage.subtitle')}</p>
 

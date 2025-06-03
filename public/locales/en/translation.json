@@ -183,7 +183,8 @@
   },
 
   "companiesPage": {
-    "title": "Partner Companies",
+    "title1": "Partner",
+    "title2": "Companies",
     "subtitle": "Discover our partner companies offering endorsements and opportunities.",
     "searchPlaceholder": "Search companies by name, industry or keywords...",
     "topCompanies": "Top Companies",
@@ -296,18 +297,25 @@
   },
 
   "projectsPage": {
-    "title": "Project Requirements Board",
+    "title1": "Project",
+    "title2": "Requirements Board",
     "subtitle": "Find your next project challenge from various industries. Connect with innovative companies looking for your talent and expertise.",
     "searchPlaceholder": "Search projects by keyword or company name",
     "trending": "Trending: Mobile App, UX/UI, Content Strategy",
     "activeProjects": "500+ active projects",
     "filters": {
+      "title": "Filters",
+      "categories": "Categories",
       "allCategories": "All Categories",
       "development": "Development",
       "design": "Design",
       "marketing": "Marketing",
       "content": "Content",
-      "architecture": "Architecture"
+      "architecture": "Architecture",
+      "clear": "Clear",
+      "otherOptions": "Other Options",
+      "mostRecent": "Most Recent",
+      "upcoming": "Upcoming"
     },
     "loadMore": "Load More Projects"
   }

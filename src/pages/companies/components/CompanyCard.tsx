@@ -130,8 +130,11 @@ export function CompanyCard({
 
         {/* Action buttons */}
         <div className="mt-auto pt-4 flex gap-2">
-          <Button variant="default" className="flex-1">
-            View Profile
+          <Button 
+            variant="default"
+            className="flex-1"
+          >
+            View Offers
           </Button>
           <Button variant="outline" className="flex-1">
             Partnership

@@ -91,10 +91,13 @@ const ProjectsPage = () => {
   };
 
   return (
-    <div className={cn(spacing.headerOffset, 'py-8')}>
-      <ProjectsHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-
-      <div className={cn(spacing.container, 'mt-6')}>
+    <div className={cn(spacing.headerOffset, "py-8 mx-4 md:mx-8 lg:mx-16 xl:mx-24 2xl:mx-32")}>
+      <ProjectsHeader 
+        searchQuery={searchQuery} 
+        setSearchQuery={setSearchQuery} 
+      />
+      
+      <div className={cn(spacing.container, "mt-6")}>
         {/* Mobile filter toggle */}
         <div className="lg:hidden mb-4">
           <Button

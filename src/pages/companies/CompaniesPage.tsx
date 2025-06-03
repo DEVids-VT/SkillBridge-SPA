@@ -20,11 +20,12 @@ const CompaniesPage = () => {
   // Filter companies based on selections
   const filteredCompanies = companiesData.filter((company) => {
     // Filter by search query
-    const searchMatch = searchQuery === '' || 
+    const searchMatch =
+      searchQuery === '' ||
       company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       company.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       company.industry.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     // Filter by industry
     const industryMatch =
       selectedIndustry === 'all' ||

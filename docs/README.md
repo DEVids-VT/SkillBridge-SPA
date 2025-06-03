@@ -6,15 +6,15 @@ This template is designed to provide a solid foundation for building Single Page
 
 ## Core Technologies
 
-*   **Framework:** React 19
-*   **Build Tool:** Vite
-*   **Language:** TypeScript
-*   **Styling:** TailwindCSS v4 + CSS Variables
-*   **UI Components:** Shadcn UI (using `components.json`)
-*   **Routing:** React Router v7+
-*   **Internationalization (i18n):** react-i18next
-*   **Linting:** ESLint
-*   **Formatting:** Prettier
+- **Framework:** React 19
+- **Build Tool:** Vite
+- **Language:** TypeScript
+- **Styling:** TailwindCSS v4 + CSS Variables
+- **UI Components:** Shadcn UI (using `components.json`)
+- **Routing:** React Router v7+
+- **Internationalization (i18n):** react-i18next
+- **Linting:** ESLint
+- **Formatting:** Prettier
 
 ## Purpose
 
@@ -34,8 +34,8 @@ The goal of this template is to:
 
 ## Key Documentation
 
-*   **`docs/AI_COLLABORATION.md`:** Essential guidelines for working effectively with Cursor in this project.
-*   **`docs/FOLDER_STRUCTURE.md`:** Explanation of the project's directory layout.
-*   **`.cursorrules`:** Configuration file providing direct instructions to the Cursor AI.
+- **`docs/AI_COLLABORATION.md`:** Essential guidelines for working effectively with Cursor in this project.
+- **`docs/FOLDER_STRUCTURE.md`:** Explanation of the project's directory layout.
+- **`.cursorrules`:** Configuration file providing direct instructions to the Cursor AI.
 
-We hope this template helps you build amazing applications faster, with seamless AI integration! 
+We hope this template helps you build amazing applications faster, with seamless AI integration!

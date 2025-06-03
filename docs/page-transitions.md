@@ -16,10 +16,7 @@ The application uses two primary approaches for smooth transitions:
 The `EnhancedPageTransition` component in `src/components/transitions/EnhancedPageTransition.tsx` provides configurable transitions between pages:
 
 ```tsx
-<EnhancedPageTransition 
-  transitionType="fade" 
-  withBlur={true}
->
+<EnhancedPageTransition transitionType="fade" withBlur={true}>
   {/* Your content */}
 </EnhancedPageTransition>
 ```
@@ -35,9 +32,7 @@ The `EnhancedPageTransition` component in `src/components/transitions/EnhancedPa
 The `PageTransition` component in `src/components/transitions/PageTransition.tsx` provides a simpler inline-style based transition:
 
 ```tsx
-<PageTransition>
-  {/* Your content */}
-</PageTransition>
+<PageTransition>{/* Your content */}</PageTransition>
 ```
 
 ## CSS Transitions
@@ -70,6 +65,7 @@ To change the default transition effect:
 ```
 
 Available transition types:
+
 - `fade` (default)
 - `slide`
 - `scale`
@@ -96,4 +92,4 @@ The page transitions work seamlessly with Lenis smooth scroll:
 1. Wrap page content in a div with the `page-wrapper` class for consistent animations
 2. Use the same animation timing across the application
 3. Consider the user's motion preferences via the `prefers-reduced-motion` media query
-4. Avoid overly dramatic animations that might distract or cause motion sickness 
+4. Avoid overly dramatic animations that might distract or cause motion sickness

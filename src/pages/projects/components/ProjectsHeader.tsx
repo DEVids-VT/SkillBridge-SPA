@@ -23,9 +23,7 @@ export const ProjectsHeader = ({ searchQuery, setSearchQuery }: ProjectsHeaderPr
         <span className="text-blue-600">{t('projectsPage.title1')}</span>{' '}
         <span className="text-gray-600">{t('projectsPage.title2')}</span>
       </h1>
-      <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-10">
-        {t('projectsPage.subtitle')}
-      </p>
+      <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-10">{t('projectsPage.subtitle')}</p>
 
       {/* Search bar */}
       <form onSubmit={handleSearch} className="max-w-3xl mx-auto relative">

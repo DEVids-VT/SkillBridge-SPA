@@ -11,7 +11,10 @@ export const CoursesHeader = () => {
         <span className="text-gray-600">{t('courses.headerTitle2', 'Your Knowledge')}</span>
       </h1>
       <p className={layouts.pageDescription}>
-        {t('courses.headerDescription', 'Browse our library of expert-led courses designed to enhance your skills and advance your career in tech, design, business, and more.')}
+        {t(
+          'courses.headerDescription',
+          'Browse our library of expert-led courses designed to enhance your skills and advance your career in tech, design, business, and more.'
+        )}
       </p>
     </div>
   );

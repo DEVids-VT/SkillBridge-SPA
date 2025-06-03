@@ -6,7 +6,8 @@ export const companiesData: Company[] = [
     id: 1,
     name: 'Melon AD',
     logo: '/images/companies/melon_ad_logo.jpg',
-    description: 'We are a software development company focused on building teams & delivering meaningful solutions. We provide dedicated development teams and control over application development projects.',
+    description:
+      'We are a software development company focused on building teams & delivering meaningful solutions. We provide dedicated development teams and control over application development projects.',
     industry: 'Software Development',
     location: 'Veliko Tarnovo, Bulgaria',
     website: 'https://www.melontech.com',
@@ -21,7 +22,8 @@ export const companiesData: Company[] = [
     id: 2,
     name: 'Wealth Bulgaria',
     logo: '/images/companies/wblogo.webp',
-    description: 'Independent website created by a group of students in 2022 as a common project to promote free market ideas. Our team consists of young people with experience in various fields, focusing on business and investment topics.',
+    description:
+      'Independent website created by a group of students in 2022 as a common project to promote free market ideas. Our team consists of young people with experience in various fields, focusing on business and investment topics.',
     industry: 'Finance',
     location: 'Bulgaria',
     website: 'https://www.wealthbulgaria.com',
@@ -36,7 +38,8 @@ export const companiesData: Company[] = [
     id: 3,
     name: 'BUL-AI',
     logo: '/images/companies/bulailogo.png',
-    description: 'BUL-AI – Bulgarian Artificial Intelligence is a brand focused on AI development. As AI technology gains global attention and popularity, we focus on making it more accessible and usable by students and employees at all levels.',
+    description:
+      'BUL-AI – Bulgarian Artificial Intelligence is a brand focused on AI development. As AI technology gains global attention and popularity, we focus on making it more accessible and usable by students and employees at all levels.',
     industry: 'Artificial Intelligence',
     location: 'Varna, Bulgaria',
     website: 'https://www.bulai.com',
@@ -50,7 +53,8 @@ export const companiesData: Company[] = [
     id: 5,
     name: 'ICT Cluster Varna',
     logo: '/images/companies/ictlogo.jpg',
-    description: 'Creating opportunities. Building talents. Realizing the potential of the region. ICT Cluster - Varna unites organizations and experts sharing the idea of developing Varna as a natural hub for IT and innovations in the Black Sea region.',
+    description:
+      'Creating opportunities. Building talents. Realizing the potential of the region. ICT Cluster - Varna unites organizations and experts sharing the idea of developing Varna as a natural hub for IT and innovations in the Black Sea region.',
     industry: 'IT Cluster',
     location: 'Varna, Bulgaria',
     website: 'https://www.ictcluster.bg',

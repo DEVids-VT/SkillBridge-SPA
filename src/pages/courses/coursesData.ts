@@ -4,7 +4,8 @@ export const aiDevelopmentCourse: Course = {
   id: 1,
   title: 'Modern Software Development with AI',
   instructor: 'Alex Mitchell',
-  description: 'Master AI-assisted development with tools like GitHub Copilot, Claude, ChatGPT. Learn about MPC servers, no-code/low-code platforms, and modern IDEs that will revolutionize your workflow and productivity as a developer.',
+  description:
+    'Master AI-assisted development with tools like GitHub Copilot, Claude, ChatGPT. Learn about MPC servers, no-code/low-code platforms, and modern IDEs that will revolutionize your workflow and productivity as a developer.',
   image: '/images/courses/ai-development.jpg',
   category: 'Development',
   level: 'All Levels',
@@ -107,5 +108,5 @@ export const levels: LevelFilter[] = [
 // so price filters are no longer necessary. They are kept here for reference.
 export const priceRanges: PriceFilter[] = [
   { id: 'all', name: 'All Prices' },
-  { id: 'free', name: 'Free', range: [0, 0] }
+  { id: 'free', name: 'Free', range: [0, 0] },
 ];

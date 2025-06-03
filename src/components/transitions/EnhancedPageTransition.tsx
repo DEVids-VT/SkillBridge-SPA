@@ -54,4 +54,4 @@ export const scrollToTopOnTransition = () => {
   });
 };
 
-export default EnhancedPageTransition; 
+export default EnhancedPageTransition;

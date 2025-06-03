@@ -7,10 +7,10 @@ type CompanyMarqueeProps = {
 
 export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
   const { t } = useTranslation();
-  
+
   // Create duplicate lists to ensure enough items for the animation
   const allCompanies = [...companies, ...companies, ...companies];
-  
+
   return (
     <section className="py-12 bg-gradient-to-r from-blue-50 to-indigo-50">
       <div className="container px-4 lg:px-8 mx-auto">
@@ -19,10 +19,13 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
             {t('landingPage.partners.title', 'Trusted by Leading Organizations')}
           </h3>
           <p className="text-gray-500 max-w-2xl mx-auto">
-            {t('landingPage.partners.subtitle', 'Join these forward-thinking companies that partner with us')}
+            {t(
+              'landingPage.partners.subtitle',
+              'Join these forward-thinking companies that partner with us'
+            )}
           </p>
         </div>
-        
+
         {/* Marquee container with matching margins */}
         <div className="relative overflow-hidden mx-auto">
           {/* First row - left to right */}
@@ -45,8 +48,11 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
                 </li>
               ))}
             </ul>
-            
-            <ul className="flex items-center justify-start [&_li]:mx-4 md:[&_li]:mx-6 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
+
+            <ul
+              className="flex items-center justify-start [&_li]:mx-4 md:[&_li]:mx-6 [&_img]:max-w-none animate-infinite-scroll"
+              aria-hidden="true"
+            >
               {allCompanies.map((company, index) => (
                 <li key={`row1-dup-${company.id}-${index}`} className="flex-shrink-0">
                   <div className="group flex flex-col items-center space-y-2">
@@ -65,7 +71,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
               ))}
             </ul>
           </div>
-          
+
           {/* Second row - right to left (reversed direction) */}
           <div className="w-full inline-flex flex-nowrap overflow-hidden mt-8 [mask-image:_linear-gradient(to_right,transparent_0,_black_100px,_black_calc(100%-100px),transparent_100%)]">
             <ul className="flex items-center justify-start [&_li]:mx-4 md:[&_li]:mx-6 [&_img]:max-w-none animate-infinite-scroll-reverse">
@@ -86,8 +92,11 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
                 </li>
               ))}
             </ul>
-            
-            <ul className="flex items-center justify-start [&_li]:mx-4 md:[&_li]:mx-6 [&_img]:max-w-none animate-infinite-scroll-reverse" aria-hidden="true">
+
+            <ul
+              className="flex items-center justify-start [&_li]:mx-4 md:[&_li]:mx-6 [&_img]:max-w-none animate-infinite-scroll-reverse"
+              aria-hidden="true"
+            >
               {allCompanies.map((company, index) => (
                 <li key={`row2-dup-${company.id}-${index}`} className="flex-shrink-0">
                   <div className="group flex flex-col items-center space-y-2">
@@ -110,4 +119,4 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
       </div>
     </section>
   );
-}; 
+};

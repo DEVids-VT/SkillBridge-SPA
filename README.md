@@ -4,13 +4,13 @@ This template provides a production-ready foundation for building React Single P
 
 It includes:
 
-*   React 19, Vite, TypeScript
-*   TailwindCSS v4 with CSS Variables
-*   Shadcn UI (`components.json` setup)
-*   React Router v7+
-*   react-i18next for internationalization
-*   ESLint + Prettier for code consistency
-*   AI Collaboration files (`.cursorrules`, `docs/`, `steps/`)
+- React 19, Vite, TypeScript
+- TailwindCSS v4 with CSS Variables
+- Shadcn UI (`components.json` setup)
+- React Router v7+
+- react-i18next for internationalization
+- ESLint + Prettier for code consistency
+- AI Collaboration files (`.cursorrules`, `docs/`, `steps/`)
 
 ## Getting Started
 
@@ -18,8 +18,8 @@ It includes:
 2.  **Install Dependencies:** `npm install`
 3.  **Run Development Server:** `npm run dev`
 4.  **Lint & Format:**
-    *   `npm run lint` (Checks and fixes lint issues)
-    *   `npm run format` (Formats code with Prettier)
+    - `npm run lint` (Checks and fixes lint issues)
+    - `npm run format` (Formats code with Prettier)
 
 ## Full Documentation
 
@@ -27,13 +27,13 @@ For detailed information on the project structure, technologies used, configurat
 
 Key documents include:
 
-*   `docs/AI_COLLABORATION.md`: How to work effectively with Cursor.
-*   `docs/FOLDER_STRUCTURE.md`: Explanation of the directory layout.
-*   `.cursorrules`: Directives for the Cursor AI.
+- `docs/AI_COLLABORATION.md`: How to work effectively with Cursor.
+- `docs/FOLDER_STRUCTURE.md`: Explanation of the directory layout.
+- `.cursorrules`: Directives for the Cursor AI.
 
 ---
 
-*Original Vite README content below might be outdated or less relevant.* 
+_Original Vite README content below might be outdated or less relevant._
 
 ## Expanding the ESLint configuration
 
@@ -56,15 +56,15 @@ export default tseslint.config({
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default tseslint.config({
   plugins: {
@@ -78,5 +78,5 @@ export default tseslint.config({
     ...reactX.configs['recommended-typescript'].rules,
     ...reactDom.configs.recommended.rules,
   },
-})
+});
 ```

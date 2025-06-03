@@ -12,10 +12,9 @@ const LandingPage = () => {
     <div className="flex flex-col min-h-screen overflow-hidden">
       <HeroSection />
       <CategoryGrid categories={jobCategories} />
-      
+
       {/* Company logos marquee */}
       <CompanyMarquee companies={companiesData} />
-      
     </div>
   );
 };

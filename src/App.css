@@ -12,10 +12,10 @@
 }
 
 /* Smooth transitions for interactive elements */
-a, 
-button, 
-select, 
-input, 
+a,
+button,
+select,
+input,
 textarea {
   transition: all 0.3s ease;
 }
@@ -25,7 +25,10 @@ textarea {
 .grid > div,
 .rounded-lg,
 .rounded-xl {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .card:hover,
@@ -36,7 +39,9 @@ textarea {
 
 /* Image transitions */
 img {
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
 }
 
 /* Hover animation for navigation */
@@ -89,7 +94,8 @@ nav a:hover::after {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {

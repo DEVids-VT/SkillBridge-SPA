@@ -97,6 +97,12 @@ export default {
           from: { transform: 'translateX(-100%)' },
           to: { transform: 'translateX(0)' },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '25%': { transform: 'translateY(-3px) rotate(0.5deg)' },
+          '50%': { transform: 'translateY(-6px) rotate(-0.5deg)' },
+          '75%': { transform: 'translateY(-3px) rotate(0.5deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -105,6 +111,7 @@ export default {
         'collapsible-up': 'collapsible-up 0.2s ease-out',
         'infinite-scroll': 'infinite-scroll 25s linear infinite',
         'infinite-scroll-reverse': 'infinite-scroll-reverse 25s linear infinite',
+        float: 'float 6s ease-in-out infinite',
       },
     },
   },

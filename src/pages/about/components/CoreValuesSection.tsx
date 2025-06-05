@@ -1,41 +1,44 @@
 import { BookOpen, Briefcase, Code, GraduationCap, LineChart, Users } from 'lucide-react';
 import { spacing } from '@/lib/design-system';
-
-// Student benefits data
-const studentBenefits = [
-  {
-    icon: <Briefcase className="h-6 w-6" />,
-    title: 'Real Business Cases',
-    description: 'Work on actual projects that companies need solved, not theoretical exercises.',
-  },
-  {
-    icon: <GraduationCap className="h-6 w-6" />,
-    title: 'Skill Development',
-    description: 'Learn by doing in a real business environment with practical challenges.',
-  },
-  {
-    icon: <Users className="h-6 w-6" />,
-    title: 'Supportive Platform',
-    description: 'Access a user-friendly platform designed to guide and support your growth.',
-  },
-  {
-    icon: <LineChart className="h-6 w-6" />,
-    title: 'Direct Opportunities',
-    description: 'Get direct access to internship and job offers from participating companies.',
-  },
-  {
-    icon: <Code className="h-6 w-6" />,
-    title: 'Project Portfolio',
-    description: 'Build a portfolio of completed real-world projects to showcase your abilities.',
-  },
-  {
-    icon: <BookOpen className="h-6 w-6" />,
-    title: 'Structured Feedback',
-    description: 'Receive detailed feedback and guidance to continuously improve your skills.',
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export const StudentsSection = () => {
+  const { t } = useTranslation();
+
+  // Student benefits data
+  const studentBenefits = [
+    {
+      icon: <Briefcase className="h-6 w-6" />,
+      title: t('aboutPage.students.benefits.realBusinessCases.title'),
+      description: t('aboutPage.students.benefits.realBusinessCases.description'),
+    },
+    {
+      icon: <GraduationCap className="h-6 w-6" />,
+      title: t('aboutPage.students.benefits.skillDevelopment.title'),
+      description: t('aboutPage.students.benefits.skillDevelopment.description'),
+    },
+    {
+      icon: <Users className="h-6 w-6" />,
+      title: t('aboutPage.students.benefits.supportivePlatform.title'),
+      description: t('aboutPage.students.benefits.supportivePlatform.description'),
+    },
+    {
+      icon: <LineChart className="h-6 w-6" />,
+      title: t('aboutPage.students.benefits.directOpportunities.title'),
+      description: t('aboutPage.students.benefits.directOpportunities.description'),
+    },
+    {
+      icon: <Code className="h-6 w-6" />,
+      title: t('aboutPage.students.benefits.projectPortfolio.title'),
+      description: t('aboutPage.students.benefits.projectPortfolio.description'),
+    },
+    {
+      icon: <BookOpen className="h-6 w-6" />,
+      title: t('aboutPage.students.benefits.structuredFeedback.title'),
+      description: t('aboutPage.students.benefits.structuredFeedback.description'),
+    },
+  ];
+
   return (
     <section className="bg-green-50 py-16 md:py-24">
       <div className={spacing.container}>
@@ -44,11 +47,10 @@ export const StudentsSection = () => {
             <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center">
               <GraduationCap className="h-6 w-6 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-green-900">For Students</h2>
+            <h2 className="text-3xl font-bold text-green-900">{t('aboutPage.students.title')}</h2>
           </div>
           <p className="text-gray-700 text-lg">
-            SkillBridge provides students with the tools, opportunities, and real-world experience 
-            needed to launch successful careers in their chosen fields.
+            {t('aboutPage.students.subtitle')}
           </p>
         </div>
 
@@ -69,27 +71,27 @@ export const StudentsSection = () => {
 
         {/* How it works for students */}
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-green-100">
-          <h3 className="text-2xl font-bold text-green-900 mb-6 text-center">How It Works for You</h3>
+          <h3 className="text-2xl font-bold text-green-900 mb-6 text-center">{t('aboutPage.students.howItWorksTitle')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">1</div>
-              <h4 className="font-semibold mb-2">Browse Cases</h4>
-              <p className="text-sm text-gray-600">Find real business challenges that match your skills and interests</p>
+              <h4 className="font-semibold mb-2">{t('aboutPage.students.steps.browseCases.title')}</h4>
+              <p className="text-sm text-gray-600">{t('aboutPage.students.steps.browseCases.description')}</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">2</div>
-              <h4 className="font-semibold mb-2">Apply & Solve</h4>
-              <p className="text-sm text-gray-600">Work on the case using your knowledge and creativity</p>
+              <h4 className="font-semibold mb-2">{t('aboutPage.students.steps.applySolve.title')}</h4>
+              <p className="text-sm text-gray-600">{t('aboutPage.students.steps.applySolve.description')}</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">3</div>
-              <h4 className="font-semibold mb-2">Get Evaluated</h4>
-              <p className="text-sm text-gray-600">Receive AI-powered assessment and detailed feedback</p>
+              <h4 className="font-semibold mb-2">{t('aboutPage.students.steps.getEvaluated.title')}</h4>
+              <p className="text-sm text-gray-600">{t('aboutPage.students.steps.getEvaluated.description')}</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-green-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">4</div>
-              <h4 className="font-semibold mb-2">Get Hired</h4>
-              <p className="text-sm text-gray-600">Top performers get direct contact from interested companies</p>
+              <h4 className="font-semibold mb-2">{t('aboutPage.students.steps.getHired.title')}</h4>
+              <p className="text-sm text-gray-600">{t('aboutPage.students.steps.getHired.description')}</p>
             </div>
           </div>
         </div>

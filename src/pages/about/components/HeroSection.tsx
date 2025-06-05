@@ -11,16 +11,15 @@ export const HeroSection = () => {
     <div className={layouts.pageHeader}>
       <div className={layouts.pageHeaderBackground}></div>
       <h1 className={layouts.pageTitle}>
-        <span className="text-blue-600">About</span>{' '}
-        <span className="text-gray-600">SkillBridge</span>
+        <span className="text-blue-600">{t('about')}</span>{' '}
+        <span className="text-gray-600">{t('appName')}</span>
       </h1>
       <p className={layouts.pageDescription}>
-        Empowering careers, connecting talent, and building a community of growth-minded
-        professionals.
+        {t('aboutPage.hero.subtitle')}
       </p>
       <div className="flex justify-center gap-4">
-        <Button>Our Story</Button>
-        <Button variant="outline">Join Our Team</Button>
+        <Button>{t('aboutPage.hero.ourStory')}</Button>
+        <Button variant="outline">{t('aboutPage.hero.joinOurTeam')}</Button>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 // Team member type
 interface TeamMember {
@@ -13,49 +14,50 @@ interface TeamMember {
   github?: string;
 }
 
-// Mock team data
-const teamMembers: TeamMember[] = [
-  {
-    name: 'David Petkov',
-    role: 'Founder & CEO',
-    image: '/images/team/sarah.jpg',
-    bio: 'With over 15 years of experience in tech and education, David founded Endorsify to bridge the gap between talent and opportunity.',
-    linkedin: 'https://linkedin.com/in/davidpetkov',
-    twitter: 'https://twitter.com/davidpetkov',
-  },
-  {
-    name: 'David Hristov',
-    role: 'CTO',
-    image: '/images/team/david.jpg',
-    bio: 'David leads our engineering team with expertise in scalable architectures, AI, and creating seamless user experiences.',
-    linkedin: 'https://linkedin.com/in/davidhristov',
-    github: 'https://github.com/davidhristov',
-  },
-  {
-    name: 'Trayan Vasilev',
-    role: 'Frontend Developer',
-    image: '/images/team/miguel.jpg',
-    bio: 'Trayan specializes in creating beautiful and intuitive user interfaces, focusing on modern frontend technologies and user experience design.',
-    linkedin: 'https://linkedin.com/in/trayanvasilev',
-    twitter: 'https://twitter.com/trayanvasilev',
-  },
-  {
-    name: 'Kristian',
-    role: 'Director of Education',
-    image: '/images/team/aisha.jpg',
-    bio: 'Kristian curates our educational content and courses, ensuring we provide cutting-edge learning experiences.',
-    linkedin: 'https://linkedin.com/in/kristian',
-  },
-];
-
 export const TeamSection = () => {
+  const { t } = useTranslation();
+
+  // Mock team data using translations
+  const teamMembers: TeamMember[] = [
+    {
+      name: t('aboutPage.team.members.david_petkov.name'),
+      role: t('aboutPage.team.members.david_petkov.role'),
+      image: '/images/team/sarah.jpg',
+      bio: t('aboutPage.team.members.david_petkov.bio'),
+      linkedin: 'https://linkedin.com/in/davidpetkov',
+      twitter: 'https://twitter.com/davidpetkov',
+    },
+    {
+      name: t('aboutPage.team.members.david_hristov.name'),
+      role: t('aboutPage.team.members.david_hristov.role'),
+      image: '/images/team/david.jpg',
+      bio: t('aboutPage.team.members.david_hristov.bio'),
+      linkedin: 'https://linkedin.com/in/davidhristov',
+      github: 'https://github.com/davidhristov',
+    },
+    {
+      name: t('aboutPage.team.members.trayan_vasilev.name'),
+      role: t('aboutPage.team.members.trayan_vasilev.role'),
+      image: '/images/team/miguel.jpg',
+      bio: t('aboutPage.team.members.trayan_vasilev.bio'),
+      linkedin: 'https://linkedin.com/in/trayanvasilev',
+      twitter: 'https://twitter.com/trayanvasilev',
+    },
+    {
+      name: t('aboutPage.team.members.kristian.name'),
+      role: t('aboutPage.team.members.kristian.role'),
+      image: '/images/team/aisha.jpg',
+      bio: t('aboutPage.team.members.kristian.bio'),
+      linkedin: 'https://linkedin.com/in/kristian',
+    },
+  ];
+
   return (
     <section className={cn(spacing.container, spacing.section)}>
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl font-bold mb-4">Meet Our Team</h2>
+        <h2 className="text-3xl font-bold mb-4">{t('aboutPage.team.title')}</h2>
         <p className="text-gray-600">
-          We're a diverse group of passionate individuals committed to building a platform that
-          makes a difference.
+          {t('aboutPage.team.subtitle')}
         </p>
       </div>
 
@@ -189,10 +191,6 @@ export const TeamSection = () => {
             );
           }
         })}
-      </div>
-
-      <div className="text-center mt-12">
-        <Button variant="outline">View Full Team</Button>
       </div>
     </section>
   );

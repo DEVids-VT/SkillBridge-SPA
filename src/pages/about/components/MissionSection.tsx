@@ -2,38 +2,41 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Building, Clock, Target, TrendingUp, Users } from 'lucide-react';
 import { spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 export const CompaniesSection = () => {
+  const { t } = useTranslation();
+
   const businessBenefits = [
     {
       icon: <Clock className="h-6 w-6" />,
-      title: 'Save Time & Resources',
-      description: 'Automated candidate evaluation eliminates manual screening processes.'
+      title: t('aboutPage.companies.benefits.saveTime.title'),
+      description: t('aboutPage.companies.benefits.saveTime.description')
     },
     {
       icon: <Target className="h-6 w-6" />,
-      title: 'Objective Assessment',
-      description: 'AI-powered evaluation provides unbiased candidate analysis.'
+      title: t('aboutPage.companies.benefits.objectiveAssessment.title'),
+      description: t('aboutPage.companies.benefits.objectiveAssessment.description')
     },
     {
       icon: <TrendingUp className="h-6 w-6" />,
-      title: 'Faster Selection',
-      description: 'Streamlined process reduces time-to-hire significantly.'
+      title: t('aboutPage.companies.benefits.fasterSelection.title'),
+      description: t('aboutPage.companies.benefits.fasterSelection.description')
     },
     {
       icon: <Users className="h-6 w-6" />,
-      title: 'Long-term Connections',
-      description: 'Build lasting relationships with emerging professionals.'
+      title: t('aboutPage.companies.benefits.longTermConnections.title'),
+      description: t('aboutPage.companies.benefits.longTermConnections.description')
     },
     {
       icon: <Building className="h-6 w-6" />,
-      title: 'Innovative Reputation',
-      description: 'Build reputation as an innovative employer in the market.'
+      title: t('aboutPage.companies.benefits.innovativeReputation.title'),
+      description: t('aboutPage.companies.benefits.innovativeReputation.description')
     },
     {
       icon: <ArrowRight className="h-6 w-6" />,
-      title: 'Reduced Costs',
-      description: 'Significantly reduce recruitment costs and overhead expenses.'
+      title: t('aboutPage.companies.benefits.reducedCosts.title'),
+      description: t('aboutPage.companies.benefits.reducedCosts.description')
     }
   ];
 
@@ -45,11 +48,10 @@ export const CompaniesSection = () => {
             <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center">
               <Building className="h-6 w-6 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-blue-900">For Companies</h2>
+            <h2 className="text-3xl font-bold text-blue-900">{t('aboutPage.companies.title')}</h2>
           </div>
           <p className="text-gray-700 text-lg">
-            SkillBridge provides companies with efficient, automated tools to discover, evaluate, 
-            and connect with the best emerging talent in the market.
+            {t('aboutPage.companies.subtitle')}
           </p>
         </div>
 
@@ -70,27 +72,27 @@ export const CompaniesSection = () => {
 
         {/* How it works for companies */}
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-blue-100">
-          <h3 className="text-2xl font-bold text-blue-900 mb-6 text-center">How It Works for You</h3>
+          <h3 className="text-2xl font-bold text-blue-900 mb-6 text-center">{t('aboutPage.companies.howItWorksTitle')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-blue-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">1</div>
-              <h4 className="font-semibold mb-2">Define Need</h4>
-              <p className="text-sm text-gray-600">Specify your requirements for junior positions or projects</p>
+              <h4 className="font-semibold mb-2">{t('aboutPage.companies.steps.defineNeed.title')}</h4>
+              <p className="text-sm text-gray-600">{t('aboutPage.companies.steps.defineNeed.description')}</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-blue-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">2</div>
-              <h4 className="font-semibold mb-2">Auto-Generate</h4>
-              <p className="text-sm text-gray-600">Platform creates tailored business cases for evaluation</p>
+              <h4 className="font-semibold mb-2">{t('aboutPage.companies.steps.autoGenerate.title')}</h4>
+              <p className="text-sm text-gray-600">{t('aboutPage.companies.steps.autoGenerate.description')}</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-blue-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">3</div>
-              <h4 className="font-semibold mb-2">Review Results</h4>
-              <p className="text-sm text-gray-600">AI evaluates candidates and provides detailed analytics</p>
+              <h4 className="font-semibold mb-2">{t('aboutPage.companies.steps.reviewResults.title')}</h4>
+              <p className="text-sm text-gray-600">{t('aboutPage.companies.steps.reviewResults.description')}</p>
             </div>
             <div className="text-center">
               <div className="w-12 h-12 rounded-full bg-blue-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">4</div>
-              <h4 className="font-semibold mb-2">Connect</h4>
-              <p className="text-sm text-gray-600">Get matched with top performers for direct recruitment</p>
+              <h4 className="font-semibold mb-2">{t('aboutPage.companies.steps.connect.title')}</h4>
+              <p className="text-sm text-gray-600">{t('aboutPage.companies.steps.connect.description')}</p>
             </div>
           </div>
         </div>

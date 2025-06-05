@@ -1,6 +1,7 @@
 export enum RoutePage {
   HOME = '/',
   PROJECTS = '/projects',
+  PROJECT_DETAIL = '/projects/:id',
   COURSES = '/courses',
   EVENTS = '/events',
   COMPANIES = '/companies',

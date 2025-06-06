@@ -10,6 +10,7 @@ import Layout from './components/layout/Layout';
 import WelcomeLayout from './pages/welcome/WelcomeLayout';
 import AuthorizeRoute from './components/authorize-route/AuthorizeRoute';
 import ProjectsBoardPage from './pages/projects/ProjectsBoardPage.tsx';
+import ProjectPage from './pages/projects/ProjectPage.tsx';
 
 export const router = createBrowserRouter(
   createRoutesFromChildren(
@@ -22,6 +23,14 @@ export const router = createBrowserRouter(
           element={
             <AuthorizeRoute>
               <ProjectsBoardPage />
+            </AuthorizeRoute>
+          }
+        />
+        <Route
+          path={RoutePage.PROJECT_DETAIL}
+          element={
+            <AuthorizeRoute>
+              <ProjectPage />
             </AuthorizeRoute>
           }
         />

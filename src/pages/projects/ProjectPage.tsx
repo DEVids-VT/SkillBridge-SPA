@@ -2,10 +2,10 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Building2, Clock, Tag, Users, Globe, MapPin, DollarSign, Briefcase } from "lucide-react";
+import { Calendar, Building2, Clock, Tag, Users, Globe, MapPin, DollarSign, Briefcase, FileText, Coffee, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { spacing, layouts } from "@/lib/design-system";
-import { projectData, relatedProjects } from "@/data/mock-data";
+import { projectData } from "@/data/mock-data";
 
 export default function ProjectPage() {
   const { t } = useTranslation();
@@ -27,47 +27,9 @@ export default function ProjectPage() {
       </div>
 
       {/* Main content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 max-w-7xl mx-auto">
-        {/* Left sidebar - Company Profile */}
-        <div className="lg:col-span-3 order-2 lg:order-1">
-          <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 sticky top-24">
-            <div className="flex flex-col items-center mb-6">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center mb-4">
-                <Building2 className="h-8 w-8 md:h-10 md:w-10 text-gray-500" />
-              </div>
-              <h3 className="text-base md:text-lg font-semibold text-gray-900">{projectData.company.name}</h3>
-              <p className="text-sm text-gray-600 text-center mt-2">{projectData.company.description}</p>
-            </div>
-
-            <div className="space-y-3 md:space-y-4">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <MapPin className="h-4 w-4" />
-                <span>{projectData.company.location}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Globe className="h-4 w-4" />
-                <a href={projectData.company.website} className="text-blue-600 hover:underline">
-                  {projectData.company.website}
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Users className="h-4 w-4" />
-                <span>{projectData.company.size}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Briefcase className="h-4 w-4" />
-                <span>{projectData.company.industry}</span>
-              </div>
-            </div>
-
-            <Button className="w-full mt-6" variant="outline">
-              View Company Profile
-            </Button>
-          </div>
-        </div>
-
+      <div className="grid grid-cols-1 lg:grid-cols-9 gap-4 lg:gap-8 max-w-7xl mx-auto">
         {/* Main content */}
-        <div className="lg:col-span-6 order-1 lg:order-2">
+        <div className="lg:col-span-6 order-1">
           <div className="bg-white rounded-xl shadow-sm p-4 md:p-8">
             <div className="flex items-start gap-4 md:gap-6 mb-6">
               <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center">
@@ -104,22 +66,15 @@ export default function ProjectPage() {
               <div className="flex items-center gap-2">
                 <DollarSign className="h-4 w-4 text-gray-500" />
                 <div>
-                  <p className="text-sm text-gray-500">Budget</p>
-                  <p className="font-medium">{projectData.projectDetails.budget}</p>
+                  <p className="text-sm text-gray-500">Salary Upon Completion</p>
+                  <p className="font-medium">$4,500 - $6,000</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <Users className="h-4 w-4 text-gray-500" />
                 <div>
-                  <p className="text-sm text-gray-500">Team Size</p>
-                  <p className="font-medium">{projectData.projectDetails.teamSize}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-gray-500" />
-                <div>
-                  <p className="text-sm text-gray-500">Location</p>
-                  <p className="font-medium">{projectData.projectDetails.location}</p>
+                  <p className="text-sm text-gray-500">Maximum Intern Capacity</p>
+                  <p className="font-medium">3/10 enrolled <span className="text-green-600">(7 seats left)</span></p>
                 </div>
               </div>
             </div>
@@ -141,25 +96,66 @@ export default function ProjectPage() {
             {/* Description */}
             <div className="prose max-w-none mb-8">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Project Description</h3>
-              <p className="text-gray-600">{projectData.description}</p>
+              <p className="text-gray-600 mb-4">{projectData.description}</p>
+              <p className="text-gray-600">
+                This internship opportunity offers hands-on experience in a real-world business environment. 
+                You'll work directly with our development team to build innovative solutions while learning 
+                industry best practices and modern development workflows.
+              </p>
             </div>
 
-            {/* Requirements */}
+            {/* Business Context & Learning Opportunities */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Requirements</h3>
-              <ul className="space-y-2">
-                {projectData.requirements.map((requirement, index) => (
-                  <li key={index} className="flex items-start gap-2 text-gray-600">
-                    <span className="text-blue-600">•</span>
-                    {requirement}
-                  </li>
-                ))}
-              </ul>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">What You'll Learn & Experience</h3>
+              
+              <div className="space-y-6">
+                <div>
+                  <h4 className="flex items-center gap-2 font-medium text-gray-900 mb-2">
+                    <Lightbulb className="h-4 w-4 text-yellow-500" />
+                    Business Logic & Problem Solving
+                  </h4>
+                  <ul className="space-y-1 ml-6">
+                    <li className="text-gray-600">• Understanding customer needs and translating them into technical requirements</li>
+                    <li className="text-gray-600">• Working with real business constraints and deadlines</li>
+                    <li className="text-gray-600">• Learning to balance technical excellence with business priorities</li>
+                    <li className="text-gray-600">• Participating in product planning and feature prioritization discussions</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="flex items-center gap-2 font-medium text-gray-900 mb-2">
+                    <Coffee className="h-4 w-4 text-brown-500" />
+                    Company Culture & Traditions
+                  </h4>
+                  <ul className="space-y-1 ml-6">
+                    <li className="text-gray-600">• Daily stand-ups with collaborative problem-solving approach</li>
+                    <li className="text-gray-600">• Weekly code review sessions with constructive feedback culture</li>
+                    <li className="text-gray-600">• Monthly innovation hours for personal project exploration</li>
+                    <li className="text-gray-600">• Open communication policy with direct access to senior developers</li>
+                    <li className="text-gray-600">• Learning-first mindset where questions are always encouraged</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="flex items-center gap-2 font-medium text-gray-900 mb-2">
+                    <FileText className="h-4 w-4 text-blue-500" />
+                    Code Style & Development Practices
+                  </h4>
+                  <ul className="space-y-1 ml-6">
+                    <li className="text-gray-600">• Clean, self-documenting code with comprehensive comments</li>
+                    <li className="text-gray-600">• Test-driven development (TDD) methodology</li>
+                    <li className="text-gray-600">• Git workflow with feature branches and pull request reviews</li>
+                    <li className="text-gray-600">• Agile development practices with 2-week sprint cycles</li>
+                    <li className="text-gray-600">• Code documentation and technical writing standards</li>
+                    <li className="text-gray-600">• Performance optimization and accessibility best practices</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             {/* Benefits */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Benefits</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Benefits & Opportunities</h3>
               <ul className="space-y-2">
                 {projectData.benefits.map((benefit, index) => (
                   <li key={index} className="flex items-start gap-2 text-gray-600">
@@ -167,13 +163,21 @@ export default function ProjectPage() {
                     {benefit}
                   </li>
                 ))}
+                <li className="flex items-start gap-2 text-gray-600">
+                  <span className="text-green-600">•</span>
+                  Potential for full-time employment upon successful completion
+                </li>
+                <li className="flex items-start gap-2 text-gray-600">
+                  <span className="text-green-600">•</span>
+                  Industry networking opportunities and professional references
+                </li>
               </ul>
             </div>
 
             {/* Action buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="w-full sm:flex-1">
-                Apply Now
+                Start Now
               </Button>
               <Button size="lg" variant="outline" className="w-full sm:flex-1">
                 Save Project
@@ -182,28 +186,37 @@ export default function ProjectPage() {
           </div>
         </div>
 
-        {/* Right sidebar - Related Projects */}
-        <div className="lg:col-span-3 order-3">
+        {/* Right sidebar - Company Profile */}
+        <div className="lg:col-span-3 order-2">
           <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 sticky top-24">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Projects</h3>
-            <div className="space-y-4">
-              {relatedProjects.slice(0, 3).map((project) => (
-                <div key={project.id} className="p-4 border rounded-lg hover:border-blue-500 transition-colors cursor-pointer">
-                  <h4 className="font-medium text-gray-900 mb-2">{project.title}</h4>
-                  <p className="text-sm text-gray-600 mb-2">{project.company}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.categories.map((category, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
-                        {category}
-                      </Badge>
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">
-                    Posted: {new Date(project.postedDate).toLocaleDateString()}
-                  </p>
-                </div>
-              ))}
+            <div className="flex flex-col items-center mb-6">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center mb-4">
+                <Building2 className="h-8 w-8 md:h-10 md:w-10 text-gray-500" />
+              </div>
+              <h3 className="text-base md:text-lg font-semibold text-gray-900">{projectData.company.name}</h3>
+              <p className="text-sm text-gray-600 text-center mt-2">{projectData.company.description}</p>
             </div>
+
+            <div className="space-y-3 md:space-y-4">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Globe className="h-4 w-4" />
+                <a href={projectData.company.website} className="text-blue-600 hover:underline">
+                  {projectData.company.website}
+                </a>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Users className="h-4 w-4" />
+                <span>{projectData.company.size}</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Briefcase className="h-4 w-4" />
+                <span>{projectData.company.industry}</span>
+              </div>
+            </div>
+
+            <Button className="w-full mt-6" variant="outline">
+              View Company Profile
+            </Button>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+    <section className="py-16">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">

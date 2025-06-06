@@ -9,4 +9,5 @@ export enum RoutePage {
   LOGIN = '/login',
   REGISTER = '/register',
   WELCOME = '/welcome',
+  DESCRIBE_CANDIDATE = '/describe-candidate',
 }

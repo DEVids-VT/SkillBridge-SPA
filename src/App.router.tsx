@@ -11,6 +11,7 @@ import WelcomeLayout from './pages/welcome/WelcomeLayout';
 import AuthorizeRoute from './components/authorize-route/AuthorizeRoute';
 import ProjectsBoardPage from './pages/projects/ProjectsBoardPage.tsx';
 import ProjectPage from './pages/projects/ProjectPage.tsx';
+import DescribeCandidatePage from './pages/candidate/DescribeCandidatePage';
 
 export const router = createBrowserRouter(
   createRoutesFromChildren(
@@ -33,11 +34,12 @@ export const router = createBrowserRouter(
               <ProjectPage />
             </AuthorizeRoute>
           }
-        />
+        />{' '}
         <Route path={RoutePage.COURSES} element={<CoursesPage />} />
         <Route path={RoutePage.EVENTS} element={<EventsPage />} />
         <Route path={RoutePage.COMPANIES} element={<CompaniesPage />} />
         <Route path={RoutePage.ABOUT} element={<AboutPage />} />
+        <Route path={RoutePage.DESCRIBE_CANDIDATE} element={<DescribeCandidatePage />} />
         {/* Auth routes */}
         {/* Fallback route */}
         <Route path="*" element={<Navigate to={RoutePage.HOME} replace />} />

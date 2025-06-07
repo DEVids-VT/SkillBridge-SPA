@@ -3,7 +3,7 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Loader2 } from 'lucide-react';
 import { colors } from '@/lib/design-system';
 
 interface StepFormWrapperProps {
@@ -15,6 +15,7 @@ interface StepFormWrapperProps {
   onPrev: () => void;
   isNextDisabled?: boolean;
   isLastStep?: boolean;
+  isLoading?: boolean;
   onBackToRoleSelection?: () => void;
 }
 
@@ -27,6 +28,7 @@ export function StepFormWrapper({
   onPrev,
   isNextDisabled = false,
   isLastStep = false,
+  isLoading = false,
   onBackToRoleSelection,
 }: StepFormWrapperProps) {
   const { t } = useTranslation();
@@ -71,19 +73,25 @@ export function StepFormWrapper({
           style={{ borderColor: colors.neutral[300] }}
         >
           <ArrowLeft className="h-4 w-4" />
-          {currentStep === 1 && onBackToRoleSelection ? t('changeRole', 'Change Role') : t('previous', 'Previous')}
-        </Button>
-
+          {currentStep === 1 && onBackToRoleSelection
+            ? t('changeRole', 'Change Role')
+            : t('previous', 'Previous')}
+        </Button>{' '}
         <Button
           onClick={onNext}
-          disabled={isNextDisabled}
+          disabled={isNextDisabled || isLoading}
           className="gap-2 px-5"
           style={{
             backgroundColor: isLastStep ? colors.primary[600] : colors.primary[600],
             borderColor: isLastStep ? colors.primary[600] : colors.primary[600],
           }}
         >
-          {isLastStep ? (
+          {isLoading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              {t('processing', 'Processing...')}
+            </>
+          ) : isLastStep ? (
             <>
               {t('complete', 'Complete')}
               <Check className="h-4 w-4" />

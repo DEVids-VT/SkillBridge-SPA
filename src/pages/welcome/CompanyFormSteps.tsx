@@ -7,6 +7,8 @@ import { Textarea } from '@/components/ui/textarea';
 import StepFormWrapper from './StepFormWrapper';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { RoutePage } from '@/types/enums/RoutePage';
+import { useBecomeCompany } from '@/hooks/useRoleMutations';
+import { useCreateCompany } from '@/hooks/useCreateCompany';
 
 // Industry options
 const industries = [
@@ -32,9 +34,13 @@ interface CompanyFormStepsProps {
 export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { updateCompanyData, onboardingData, completeOnboarding } = useOnboarding();
+  const { updateCompanyData, onboardingData, completeOnboarding, refreshUserRoles } =
+    useOnboarding();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const becomeCompanyMutation = useBecomeCompany();
+  const createCompanyMutation = useCreateCompany();
 
   // Form validation states
   const [errors, setErrors] = useState({
@@ -42,6 +48,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
     industry: false,
     companySize: false,
     website: false,
+    contactInfo: false,
   });
 
   // Form data from context
@@ -52,10 +59,19 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
     website: '',
     logo: null,
   };
-
   // Handle form field changes
-  const handleChange = (field: string, value: string) => {
-    updateCompanyData({ [field]: value });
+  const handleChange = (field: string, value: string | number) => {
+    // Handle numeric fields
+    if (
+      field === 'yearEstablished' ||
+      field === 'employeesInBulgaria' ||
+      field === 'globalEmployees'
+    ) {
+      const numValue = value === '' ? undefined : Number(value);
+      updateCompanyData({ [field]: numValue });
+    } else {
+      updateCompanyData({ [field]: value });
+    }
 
     // Clear error for the field being edited
     if (errors[field as keyof typeof errors]) {
@@ -69,7 +85,6 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
       updateCompanyData({ logo: event.target.files[0] });
     }
   };
-
   // Validate current step
   const validateStep = () => {
     let isValid = true;
@@ -95,22 +110,68 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
         newErrors.website = true;
         isValid = false;
       }
+    } else if (currentStep === 3) {
+      // At least one contact method should be provided
+      const hasContactInfo =
+        (formData.contactEmail && formData.contactEmail.trim()) ||
+        (formData.contactPerson && formData.contactPerson.trim());
+
+      if (!hasContactInfo) {
+        newErrors.contactInfo = true;
+        isValid = false;
+      } else {
+        newErrors.contactInfo = false;
+      }
     }
 
     setErrors(newErrors);
     return isValid;
-  };
-
-  // Handle next step
-  const handleNext = () => {
+  }; // Handle next step
+  const handleNext = async () => {
     if (validateStep()) {
       if (currentStep < totalSteps) {
         setCurrentStep(currentStep + 1);
       } else {
-        // Complete onboarding on final step
-        // The completeOnboarding function will check if the user has the required role in Auth0
-        completeOnboarding();
-        navigate(RoutePage.PROJECTS);
+        // On final step, submit the form and complete onboarding
+        try {
+          setIsSubmitting(true);
+
+          // First, register as a company in Auth0 role
+          console.log('Registering company role with Auth0...');
+          await becomeCompanyMutation.mutateAsync(); // Then create the company profile in our backend
+          console.log('Creating company profile in backend...', formData);
+
+          // Convert any form fields as needed before submission
+          const submissionData = {
+            ...formData,
+            yearEstablished: formData.yearEstablished
+              ? Number(formData.yearEstablished)
+              : undefined,
+            employeesInBulgaria: formData.employeesInBulgaria
+              ? Number(formData.employeesInBulgaria)
+              : undefined,
+            globalEmployees: formData.globalEmployees
+              ? Number(formData.globalEmployees)
+              : undefined,
+          };
+
+          await createCompanyMutation.mutateAsync(submissionData);
+
+          // Refresh auth token to get updated roles
+          console.log('Refreshing authentication token...');
+          await refreshUserRoles();
+
+          // Complete onboarding now that we have submitted the form and refreshed the token
+          completeOnboarding();
+
+          // Navigate to projects page
+          navigate(RoutePage.PROJECTS);
+        } catch (error) {
+          console.error('Error during company registration:', error);
+          // You might want to show an error message to the user
+        } finally {
+          setIsSubmitting(false);
+        }
       }
     }
   };
@@ -144,8 +205,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                   {t('companyNameRequired', 'Company name is required')}
                 </p>
               )}
-            </div>
-
+            </div>{' '}
             <div className="space-y-2">
               <Label htmlFor="industry">
                 {t('industry', 'Industry')}
@@ -171,6 +231,58 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                   {t('industryRequired', 'Please select your industry')}
                 </p>
               )}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="activities">
+                {t('activities', 'Company Activities')} ({t('optional', 'optional')})
+              </Label>
+              <Textarea
+                id="activities"
+                placeholder={t('activitiesPlaceholder', 'Describe your company activities...')}
+                value={formData.activities || ''}
+                onChange={(e) => handleChange('activities', e.target.value)}
+                rows={2}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="headquarters">
+                {t('headquarters', 'Headquarters Location')} ({t('optional', 'optional')})
+              </Label>
+              <Input
+                id="headquarters"
+                placeholder={t('headquartersPlaceholder', 'e.g., San Francisco, CA')}
+                value={formData.headquarters || ''}
+                onChange={(e) => handleChange('headquarters', e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="yearEstablished">
+                {t('yearEstablished', 'Year Established')} ({t('optional', 'optional')})
+              </Label>
+              <Input
+                id="yearEstablished"
+                type="number"
+                placeholder="2000"
+                value={formData.yearEstablished || ''}
+                onChange={(e) => handleChange('yearEstablished', e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="technologies">
+                {t('technologies', 'Technologies Used')} ({t('optional', 'optional')})
+              </Label>
+              <Input
+                id="technologies"
+                placeholder="e.g., React, TypeScript, Node.js"
+                value={formData.technologies?.join(', ') || ''}
+                onChange={(e) => {
+                  const techArray = e.target.value.split(', ').filter(Boolean);
+                  updateCompanyData({ technologies: techArray });
+                }}
+              />
+              <p className="text-sm text-muted-foreground">
+                {t('technologiesHelp', 'Separate multiple technologies with commas')}
+              </p>
             </div>
           </div>
         );
@@ -224,9 +336,75 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 </p>
               )}
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="employeesWorldwide">
+                {t('globalEmployees', 'Employees Worldwide')} ({t('optional', 'optional')})
+              </Label>
+              <Input
+                id="employeesWorldwide"
+                type="number"
+                placeholder="e.g., 500"
+                value={formData.globalEmployees || ''}
+                onChange={(e) => handleChange('globalEmployees', e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="hasOfficesInBulgaria">
+                {t('hasOfficesInBulgaria', 'Offices in Bulgaria')} ({t('optional', 'optional')})
+              </Label>
+              <div className="flex items-center space-x-3">
+                {' '}
+                <input
+                  type="checkbox"
+                  id="hasOfficesInBulgaria"
+                  checked={formData.hasOfficesInBulgaria || false}
+                  onChange={(e) => updateCompanyData({ hasOfficesInBulgaria: e.target.checked })}
+                />
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  {t('hasOfficesInBulgaria', 'Company has offices in Bulgaria')}
+                </span>
+              </div>
+            </div>
+
+            {formData.hasOfficesInBulgaria && (
+              <div className="space-y-2">
+                <Label htmlFor="employeesInBulgaria">
+                  {t('employeesInBulgaria', 'Employees in Bulgaria')} ({t('optional', 'optional')})
+                </Label>
+                <Input
+                  id="employeesInBulgaria"
+                  type="number"
+                  placeholder="e.g., 50"
+                  value={formData.employeesInBulgaria || ''}
+                  onChange={(e) => handleChange('employeesInBulgaria', e.target.value)}
+                />
+              </div>
+            )}
+
+            {formData.hasOfficesInBulgaria && (
+              <div className="space-y-2">
+                <Label htmlFor="bulgarianOffices">
+                  {t('bulgarianOffices', 'Bulgarian Office Locations')} ({t('optional', 'optional')}
+                  )
+                </Label>{' '}
+                <Input
+                  id="bulgarianOffices"
+                  placeholder="e.g., Sofia, Plovdiv"
+                  value={formData.bulgarianOffices?.join(', ') || ''}
+                  onChange={(e) => {
+                    const officesArray = e.target.value.split(', ');
+                    updateCompanyData({ bulgarianOffices: officesArray });
+                  }}
+                />
+                <p className="text-sm text-muted-foreground">
+                  {t('bulgarianOfficesHelp', 'Separate multiple locations with commas')}
+                </p>
+              </div>
+            )}
           </div>
         );
-
       case 3:
         return (
           <div className="space-y-4">
@@ -241,13 +419,74 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             </div>
 
             <div className="space-y-2 mt-4">
-              <Label htmlFor="summary">
-                {t('companySummary', 'Company Summary')} ({t('optional', 'optional')})
+              <Label htmlFor="about">
+                {t('companyAbout', 'About Company')} ({t('optional', 'optional')})
               </Label>
               <Textarea
-                id="summary"
-                placeholder={t('companySummaryPlaceholder', 'Tell us about your company...')}
-                rows={4}
+                id="about"
+                placeholder={t('companyAboutPlaceholder', 'Tell us about your company...')}
+                rows={3}
+                value={formData.about || ''}
+                onChange={(e) => handleChange('about', e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="contactPerson">
+                {t('contactPerson', 'Contact Person')}
+                <span className="text-red-500 ml-1">*</span>
+              </Label>
+              <Input
+                id="contactPerson"
+                value={formData.contactPerson || ''}
+                onChange={(e) => handleChange('contactPerson', e.target.value)}
+                className={errors.contactInfo ? 'border-red-500' : ''}
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div className="space-y-2">
+              {' '}
+              <Label htmlFor="contactEmail">
+                {t('contactEmail', 'Contact Email')}
+                <span className="text-red-500 ml-1">*</span>
+              </Label>
+              <Input
+                id="contactEmail"
+                type="email"
+                value={formData.contactEmail || ''}
+                onChange={(e) => handleChange('contactEmail', e.target.value)}
+                className={errors.contactInfo ? 'border-red-500' : ''}
+                placeholder="contact@example.com"
+              />
+              {errors.contactInfo && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('contactInfoRequired', 'At least one contact method is required')}
+                </p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="contactPhone">
+                {t('contactPhone', 'Contact Phone')} ({t('optional', 'optional')})
+              </Label>
+              <Input
+                id="contactPhone"
+                value={formData.contactPhone || ''}
+                onChange={(e) => handleChange('contactPhone', e.target.value)}
+                placeholder="+1 234 567 890"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="whyWorkWithUs">
+                {t('whyWorkWithUs', 'Why Work With Us')} ({t('optional', 'optional')})
+              </Label>
+              <Textarea
+                id="whyWorkWithUs"
+                value={formData.whyWorkWithUs || ''}
+                onChange={(e) => handleChange('whyWorkWithUs', e.target.value)}
+                placeholder="Tell candidates why they should work with your company..."
+                rows={3}
               />
             </div>
           </div>
@@ -257,7 +496,6 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
         return null;
     }
   };
-
   return (
     <StepFormWrapper
       title={t('companyProfileSetup', 'Company Profile Setup')}
@@ -266,6 +504,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
       onNext={handleNext}
       onPrev={handlePrev}
       isLastStep={currentStep === totalSteps}
+      isLoading={isSubmitting}
       onBackToRoleSelection={onBackToRoleSelection}
     >
       {renderStepContent()}

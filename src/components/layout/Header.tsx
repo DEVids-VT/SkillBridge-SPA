@@ -27,25 +27,33 @@ export function Header() {
       return {
         route: RoutePage.COMPANY_PROFILE,
         icon: LayoutDashboard,
-        label: t('companyProfile', 'Company Profile')
+        label: t('companyProfile', 'Company Profile'),
       };
     } else if (onboardingData.role === 'candidate') {
       return {
         route: RoutePage.CANDIDATE_PROFILE,
         icon: User,
-        label: t('candidateProfile', 'Candidate Profile')
+        label: t('candidateProfile', 'Candidate Profile'),
       };
     }
     return null;
   };
-
   const profileInfo = getProfileInfo();
-
+  // Define navigation items based on authentication state and onboarding completion
   const navItems = [
-    { to: '/projects', label: t('Find a job', 'Започни работа') },
-    { to: '/courses', label: t('Courses', 'Обучения') },
-    { to: '/companies', label: t('Partners', 'Партньори') },
-    { to: '/about', label: t('About SkillBridge', 'За SkillBridge') },
+    // Show all navigation items only to authenticated users who completed onboarding
+    ...(isAuthenticated && onboardingData.completed
+      ? [
+          { to: '/projects', label: t('Find a job', 'Започни работа') },
+          { to: '/courses', label: t('Courses', 'Обучения') },
+          { to: '/companies', label: t('Partners', 'Партньори') },
+          { to: '/about', label: t('About SkillBridge', 'За SkillBridge') },
+        ]
+      : // Show only About and Partners links to non-authenticated users
+        [
+          { to: '/companies', label: t('Partners', 'Партньори') },
+          { to: '/about', label: t('About SkillBridge', 'За SkillBridge') },
+        ]),
   ];
 
   // Function to toggle between English and Bulgarian
@@ -134,7 +142,7 @@ export function Header() {
                 className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
                 onClick={() => loginWithRedirect()}
               >
-                {t('createProfile', 'Създай профил')}
+                {t('createProfile', 'Влез')}
               </Button>
             )}
             {/* Mobile Menu Toggle */}
@@ -164,7 +172,7 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
-              
+
               {/* Profile link in mobile menu */}
               {hasCompletedOnboarding && profileInfo && (
                 <Link

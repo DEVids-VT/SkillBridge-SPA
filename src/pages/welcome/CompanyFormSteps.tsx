@@ -108,6 +108,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
         setCurrentStep(currentStep + 1);
       } else {
         // Complete onboarding on final step
+        // The completeOnboarding function will check if the user has the required role in Auth0
         completeOnboarding();
         navigate(RoutePage.PROJECTS);
       }

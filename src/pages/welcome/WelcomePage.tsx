@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import RoleSelector from './RoleSelector';
 import CompanyFormSteps from './CompanyFormSteps';
-import CandidateFormSteps from './CandidateFormSteps';
 import { UserRole } from '@/types/user/UserOnboarding';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { RoutePage } from '@/types/enums/RoutePage';
@@ -33,32 +32,33 @@ export function WelcomePage() {
     setSelectedRole(null);
     resetOnboarding();
   };
-
   // Render form based on selected role
+  // Now we only need to handle company form steps as candidate onboarding is completed immediately
   const renderForm = () => {
     if (!selectedRole) return null;
 
-    return selectedRole === 'company' ? 
-      <CompanyFormSteps onBackToRoleSelection={handleBackToRoleSelection} /> : 
-      <CandidateFormSteps onBackToRoleSelection={handleBackToRoleSelection} />;
+    // Only company role needs form steps now
+    return selectedRole === 'company' ? (
+      <CompanyFormSteps onBackToRoleSelection={handleBackToRoleSelection} />
+    ) : null;
   };
 
   return (
     <div className="min-h-screen relative">
       {/* Background */}
       <div className="absolute inset-0 bg-gray-50"></div>
-      
+
       <WelcomeSection className="relative z-10">
         {/* Logo Badge */}
         <div className="flex justify-center mb-6">
           <div className="inline-flex items-center justify-center px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 rounded-full backdrop-blur-sm border border-blue-200/50">
-            <img 
-              src="/images/sblogosmall.svg" 
-              alt="SkillBridge" 
-              className="h-6 object-contain mr-2" 
+            <img
+              src="/images/sblogosmall.svg"
+              alt="SkillBridge"
+              className="h-6 object-contain mr-2"
             />
             <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
-              {t('welcomeBadge', 'Let\'s Get Started')}
+              {t('welcomeBadge', "Let's Get Started")}
             </span>
           </div>
         </div>
@@ -70,7 +70,6 @@ export function WelcomePage() {
               Welcome to <span className="text-blue-600">SkillBridge</span>!
             </span>
           </h1>
-          
         </div>
 
         {/* Main Content */}
@@ -79,9 +78,7 @@ export function WelcomePage() {
             {!selectedRole ? (
               <RoleSelector onRoleSelect={handleRoleSelect} />
             ) : (
-              <div className="flex justify-center w-full">
-                {renderForm()}
-              </div>
+              <div className="flex justify-center w-full">{renderForm()}</div>
             )}
           </div>
         </div>

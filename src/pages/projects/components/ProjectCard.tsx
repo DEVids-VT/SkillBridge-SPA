@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Briefcase, Calendar, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 import { Project, CategoryFilter } from '../types';
 
 interface ProjectCardProps {
@@ -90,13 +91,13 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
               <Badge variant="secondary" className="bg-gray-50 text-xs font-normal text-gray-700">
                 +{project.skills.length - 3} more
               </Badge>
-            )}
+            )}{' '}
           </div>
         </div>
-        {/* Apply button */}
-        <Button size="sm" className="flex-shrink-0 self-start mt-1">
-          Details
-        </Button>
+        {/* Details button */}
+        <Link to={`/projects/${project.id}`} className="flex-shrink-0 self-start mt-1">
+          <Button size="sm">Details</Button>
+        </Link>
       </div>
 
       {/* Deadline */}

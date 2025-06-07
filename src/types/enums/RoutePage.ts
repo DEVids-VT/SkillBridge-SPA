@@ -10,4 +10,6 @@ export enum RoutePage {
   REGISTER = '/register',
   WELCOME = '/welcome',
   DESCRIBE_CANDIDATE = '/describe-candidate',
+  COMPANY_PROFILE = '/company/profile',
+  CANDIDATE_PROFILE = '/candidate/profile',
 }

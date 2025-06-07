@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Briefcase } from 'lucide-react';
+import { Menu, X, LayoutDashboard, User } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -20,6 +20,26 @@ export function Header() {
 
   // Check if the user has completed onboarding
   const hasCompletedOnboarding = isAuthenticated && onboardingData.completed;
+
+  // Get the appropriate profile route and icon based on user role
+  const getProfileInfo = () => {
+    if (onboardingData.role === 'company') {
+      return {
+        route: RoutePage.COMPANY_PROFILE,
+        icon: LayoutDashboard,
+        label: t('companyProfile', 'Company Profile')
+      };
+    } else if (onboardingData.role === 'candidate') {
+      return {
+        route: RoutePage.CANDIDATE_PROFILE,
+        icon: User,
+        label: t('candidateProfile', 'Candidate Profile')
+      };
+    }
+    return null;
+  };
+
+  const profileInfo = getProfileInfo();
 
   const navItems = [
     { to: '/projects', label: t('Find a job', 'Започни работа') },
@@ -89,12 +109,12 @@ export function Header() {
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 {' '}
-                {/* Projects button - only shown if onboarding is complete */}
-                {hasCompletedOnboarding && (
-                  <Link to={RoutePage.PROJECTS}>
+                {/* Profile button - only shown if onboarding is complete and role-specific */}
+                {hasCompletedOnboarding && profileInfo && (
+                  <Link to={profileInfo.route}>
                     <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                      <Briefcase className="h-4 w-4" />
-                      {t('findProjects', 'Find Projects')}
+                      <profileInfo.icon className="h-4 w-4" />
+                      <span className="hidden sm:inline">{profileInfo.label}</span>
                     </Button>
                   </Link>
                 )}
@@ -144,6 +164,18 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
+              
+              {/* Profile link in mobile menu */}
+              {hasCompletedOnboarding && profileInfo && (
+                <Link
+                  to={profileInfo.route}
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <profileInfo.icon className="h-4 w-4" />
+                  {profileInfo.label}
+                </Link>
+              )}
             </nav>
           </div>
         )}

@@ -18,3 +18,27 @@ export interface FormErrors {
   relevantTechnologies?: string;
   description?: string;
 }
+
+// Candidate profile related types
+export interface CandidateProfile {
+  id: string;
+  name: string;
+  // Add more candidate profile fields as needed
+}
+
+export interface PreferredCandidate {
+  roleTitle: string;
+}
+
+export interface CandidateFormData {
+  name: string;
+  email: string;
+  phone: string;
+  location: string;
+  skills: string[];
+  experience: string;
+  education: string;
+  roleTitle?: string;
+}
+
+// Add more candidate-related types here

@@ -15,6 +15,7 @@ interface StepFormWrapperProps {
   onPrev: () => void;
   isNextDisabled?: boolean;
   isLastStep?: boolean;
+  onBackToRoleSelection?: () => void;
 }
 
 export function StepFormWrapper({
@@ -26,11 +27,12 @@ export function StepFormWrapper({
   onPrev,
   isNextDisabled = false,
   isLastStep = false,
+  onBackToRoleSelection,
 }: StepFormWrapperProps) {
   const { t } = useTranslation();
   const progress = (currentStep / totalSteps) * 100;
   return (
-    <Card className="w-full max-w-3xl shadow-lg bg-white/95 backdrop-blur-sm border-0">
+    <Card className="w-full max-w-3xl mx-auto shadow-lg bg-white/95 backdrop-blur-sm border-0">
       <CardHeader className="pb-5">
         <CardTitle className="text-2xl" style={{ color: colors.neutral[800] }}>
           {title}
@@ -63,13 +65,13 @@ export function StepFormWrapper({
       <CardFooter className="flex justify-between pt-6 pb-6">
         <Button
           variant="outline"
-          onClick={onPrev}
-          disabled={currentStep === 1}
+          onClick={currentStep === 1 && onBackToRoleSelection ? onBackToRoleSelection : onPrev}
+          disabled={currentStep === 1 && !onBackToRoleSelection}
           className="gap-2 px-4"
           style={{ borderColor: colors.neutral[300] }}
         >
           <ArrowLeft className="h-4 w-4" />
-          {t('previous', 'Previous')}
+          {currentStep === 1 && onBackToRoleSelection ? t('changeRole', 'Change Role') : t('previous', 'Previous')}
         </Button>
 
         <Button

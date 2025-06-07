@@ -25,7 +25,11 @@ const industries = [
 // Company size options
 const companySizes = ['1-10', '11-50', '51-200', '201-500', '501-1000', '1000+'];
 
-export function CompanyFormSteps() {
+interface CompanyFormStepsProps {
+  onBackToRoleSelection: () => void;
+}
+
+export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { updateCompanyData, onboardingData, completeOnboarding } = useOnboarding();
@@ -261,6 +265,7 @@ export function CompanyFormSteps() {
       onNext={handleNext}
       onPrev={handlePrev}
       isLastStep={currentStep === totalSteps}
+      onBackToRoleSelection={onBackToRoleSelection}
     >
       {renderStepContent()}
     </StepFormWrapper>

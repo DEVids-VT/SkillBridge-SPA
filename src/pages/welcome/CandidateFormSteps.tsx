@@ -29,7 +29,11 @@ const skillAreas = [
   'AR/VR',
 ];
 
-export function CandidateFormSteps() {
+interface CandidateFormStepsProps {
+  onBackToRoleSelection: () => void;
+}
+
+export function CandidateFormSteps({ onBackToRoleSelection }: CandidateFormStepsProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { updateCandidateData, onboardingData, completeOnboarding } = useOnboarding();
@@ -305,6 +309,7 @@ export function CandidateFormSteps() {
       onNext={handleNext}
       onPrev={handlePrev}
       isLastStep={currentStep === totalSteps}
+      onBackToRoleSelection={onBackToRoleSelection}
     >
       {renderStepContent()}
     </StepFormWrapper>

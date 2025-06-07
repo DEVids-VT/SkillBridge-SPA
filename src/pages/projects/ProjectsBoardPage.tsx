@@ -2,20 +2,23 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
-import { Filter } from 'lucide-react';
+import { Filter, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 import { ProjectsHeader } from './components/ProjectsHeader';
 import { ProjectsList } from './components/ProjectsList';
 import { FilterSidebar } from './components/FilterSidebar';
-import { projectRequirements } from './projectsData';
 import { CategoryFilter } from './types';
+import { useFetchProjects } from './hooks/useFetchProjects';
 
 const ProjectsPage = () => {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  // Fetch projects from API
+  const { data: apiProjects, isLoading, error } = useFetchProjects();
 
   const categories: CategoryFilter[] = [
     { id: 'all', name: t('projectsPage.filters.allCategories') },
@@ -45,15 +48,23 @@ const ProjectsPage = () => {
       color: 'bg-gray-100 text-gray-700',
     },
   ];
-
-  // Handle search
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Searching for:', searchQuery);
-  };
+  // Note: Search is handled client-side through the filteredProjects variable
+  // Transform API projects to match the format expected by our components
+  const projects =
+    apiProjects?.map((project) => ({
+      id: project.id,
+      company: project.companyName,
+      logo: `/images/companies/${project.companyName.toLowerCase().replace(/\s/g, '_')}_logo.png`, // Fallback logo path
+      title: project.title,
+      description: project.description,
+      category: project.category || 'development', // Default category if not provided
+      skills: project.skills.map((skill) => skill.name),
+      postedDate: new Date(project.createdAt).toLocaleDateString(),
+      deadline: new Date(project.deadline).toLocaleDateString(),
+    })) || [];
 
   // Filter projects based on selected category and search query
-  const filteredProjects = projectRequirements.filter((project) => {
+  const filteredProjects = projects.filter((project) => {
     // Category filter
     if (selectedCategory !== 'all' && project.category !== selectedCategory) {
       return false;
@@ -66,7 +77,7 @@ const ProjectsPage = () => {
         project.title.toLowerCase().includes(query) ||
         project.company.toLowerCase().includes(query) ||
         project.description.toLowerCase().includes(query) ||
-        project.skills.some((skill) => skill.toLowerCase().includes(query))
+        project.skills.some((skill: string) => skill.toLowerCase().includes(query))
       );
     }
 
@@ -77,26 +88,15 @@ const ProjectsPage = () => {
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
   };
-
   // Clear all filters
   const handleClearFilters = () => {
     setSelectedCategory('all');
     setSearchQuery('');
   };
-
-  // Handle loading more projects
-  const handleLoadMore = () => {
-    console.log('Loading more projects...');
-    // Here you would implement pagination or add more projects to the list
-  };
-
   return (
     <div className={cn(spacing.container, spacing.headerOffset, 'py-8')}>
-      <ProjectsHeader 
-        searchQuery={searchQuery} 
-        setSearchQuery={setSearchQuery} 
-      />
-      
+      <ProjectsHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
       <div className="mt-6">
         {/* Mobile filter toggle */}
         <div className="lg:hidden mb-4">
@@ -129,11 +129,24 @@ const ProjectsPage = () => {
 
           {/* Main content */}
           <div className="flex-1">
-            <ProjectsList
-              projects={filteredProjects}
-              categories={categories}
-              onLoadMore={handleLoadMore}
-            />
+            {isLoading ? (
+              <div className="flex items-center justify-center h-64">
+                <div className="flex flex-col items-center space-y-4">
+                  <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
+                  <p className="text-lg font-medium text-gray-600">
+                    {t('loading', 'Loading projects...')}
+                  </p>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="p-8 text-center">
+                <p className="text-red-500 font-medium">
+                  {t('errorLoadingProjects', 'Error loading projects. Please try again later.')}
+                </p>
+              </div>
+            ) : (
+              <ProjectsList projects={filteredProjects} categories={categories} />
+            )}
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@ import StepFormWrapper from './StepFormWrapper';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { RoutePage } from '@/types/enums/RoutePage';
 import { useBecomeCompany } from '@/hooks/useRoleMutations';
-import { useCreateCompany } from '@/hooks/useCreateCompany';
+import { useCreateCompany } from './hooks/useCreateCompany';
 
 // Industry options
 const industries = [

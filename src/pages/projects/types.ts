@@ -1,6 +1,6 @@
 // Types for projects
 export interface Project {
-  id: number;
+  id: string;
   company: string;
   logo: string;
   title: string;

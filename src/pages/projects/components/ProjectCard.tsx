@@ -31,11 +31,28 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
   return (
     <div className="bg-white border border-gray-100 rounded-lg p-5 shadow-sm hover:shadow transition-all hover:border-blue-200">
       <div className="flex items-center gap-4">
+        {' '}
         {/* Company logo */}
-        <div className="w-10 h-10 rounded-md bg-gray-100 flex-shrink-0 flex items-center justify-center">
-          <Briefcase className="w-5 h-5 text-gray-400" />
+        <div className="w-10 h-10 rounded-md bg-gray-100 flex-shrink-0 flex items-center justify-center overflow-hidden">
+          {project.logo ? (
+            <img
+              src={project.logo}
+              alt={`${project.company} logo`}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                // Replace broken image with Briefcase icon
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.parentElement?.classList.add('flex');
+                const icon = document.createElement('div');
+                icon.innerHTML =
+                  '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>';
+                e.currentTarget.parentElement?.appendChild(icon);
+              }}
+            />
+          ) : (
+            <Briefcase className="w-5 h-5 text-gray-400" />
+          )}
         </div>
-
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
@@ -76,12 +93,8 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
             )}
           </div>
         </div>
-
         {/* Apply button */}
-        <Button 
-          size="sm" 
-          className="flex-shrink-0 self-start mt-1"
-        >
+        <Button size="sm" className="flex-shrink-0 self-start mt-1">
           Details
         </Button>
       </div>

@@ -10,10 +10,10 @@ interface ProjectsHeaderProps {
 
 export const ProjectsHeader = ({ searchQuery, setSearchQuery }: ProjectsHeaderProps) => {
   const { t } = useTranslation();
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
+    // The search query is already being updated via the input's onChange
+    // No need to do anything else here as filtering is handled in the parent component
   };
 
   return (

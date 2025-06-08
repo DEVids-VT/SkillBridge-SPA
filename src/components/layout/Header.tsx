@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { Menu, X, LayoutDashboard, User } from 'lucide-react';
+import { Menu, X, LayoutDashboard, User, Plus } from 'lucide-react';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
 import { RoutePage } from '@/types/enums/RoutePage';
@@ -39,6 +38,9 @@ export function Header() {
     return null;
   };
   const profileInfo = getProfileInfo();
+
+  // Check if user is a company
+  const isCompany = onboardingData.role === 'company';
   // Define navigation items based on authentication state and onboarding completion
   const navItems = [
     // Show all navigation items only to authenticated users who completed onboarding
@@ -117,7 +119,22 @@ export function Header() {
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 {' '}
-                {/* Profile button - only shown if onboarding is complete and role-specific */}
+                {/* Profile button - only shown if onboarding is complete and role-specific */}{' '}
+                {/* Post New Project button - only visible for companies */}{' '}
+                {hasCompletedOnboarding && isCompany && (
+                  <Link to={RoutePage.DESCRIBE_CANDIDATE}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center gap-1 border-blue-500 text-blue-600"
+                    >
+                      <Plus className="h-4 w-4" />
+                      <span className="hidden sm:inline">
+                        {t('postNewProject', 'Post New Project')}
+                      </span>
+                    </Button>
+                  </Link>
+                )}
                 {hasCompletedOnboarding && profileInfo && (
                   <Link to={profileInfo.route}>
                     <Button variant="ghost" size="sm" className="flex items-center gap-1">
@@ -171,8 +188,17 @@ export function Header() {
                 >
                   {item.label}
                 </Link>
-              ))}
-
+              ))}{' '}
+              {/* Post New Project link in mobile menu - only visible for companies */}
+              {hasCompletedOnboarding && isCompany && (
+                <Link
+                  to={RoutePage.DESCRIBE_CANDIDATE}
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-blue-600 hover:bg-blue-50"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t('postNewProject', 'Post New Project')}
+                </Link>
+              )}
               {/* Profile link in mobile menu */}
               {hasCompletedOnboarding && profileInfo && (
                 <Link

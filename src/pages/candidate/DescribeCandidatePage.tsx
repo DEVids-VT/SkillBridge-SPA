@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -17,6 +18,8 @@ import Notification from './components/Notification';
 import { layouts, spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import { useCreateProject } from '@/hooks/useCreateProject';
+import { ProjectRequest } from '@/types/project/project';
 
 // Initial form state
 const initialFormState: CandidateForm = {
@@ -31,6 +34,7 @@ const initialFormState: CandidateForm = {
 
 export default function DescribeCandidatePage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<CandidateForm>(initialFormState);
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [formProgress, setFormProgress] = useState(0);
@@ -46,6 +50,9 @@ export default function DescribeCandidatePage() {
     title: '',
     message: '',
   });
+  
+  // Use the createProject mutation
+  const createProject = useCreateProject();
 
   // Calculate progress based on required fields
   useEffect(() => {
@@ -154,30 +161,61 @@ export default function DescribeCandidatePage() {
     setFormErrors(errors);
     return isValid;
   };
-
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
-      setIsSubmitting(true); // Log form data to console (as per requirements)
+      setIsSubmitting(true);
       console.log('Candidate Requirements Submitted:', formData);
+      
+      // Prepare data for API request
+      const projectData: ProjectRequest = {
+        roleTitle: formData.roleTitle,
+        yearsOfExperience: Number(formData.yearsExperience),
+        seniorityLevel: formData.seniorityLevel,
+        requiredSkills: formData.requiredSkills.split(',').map(skill => skill.trim()),
+        relevantTechnologies: formData.relevantTechnologies.split(',').map(tech => tech.trim()),
+        industryExperience: formData.industryExperience ? 
+          formData.industryExperience.split(',').map(exp => exp.trim()) : 
+          [],
+        description: formData.description
+      };
+      
+      // Call the API
+      createProject.mutate(projectData, {
+        onSuccess: (data) => {
+          console.log('Project created successfully:', data);
+          setIsSubmitting(false);
+          
+          // Reset form after successful submission
+          setFormData(initialFormState);
 
-      // Simulate API call with a timeout
-      setTimeout(() => {
-        setIsSubmitting(false);
-        // Reset form after successful submission
-        setFormData(initialFormState);
-
-        // Show success notification
-        setNotification({
-          show: true,
-          type: 'success',
-          title: 'Success!',
-          message:
-            "Your candidate requirements have been submitted. We'll find the perfect match for your needs!",
-        });
-      }, 1500);
+          // Show success notification
+          setNotification({
+            show: true,
+            type: 'success',
+            title: 'Success!',
+            message: "Your candidate requirements have been submitted. We'll find the perfect match for your needs!"
+          });
+          
+          // Redirect to the project detail page after a short delay
+          setTimeout(() => {
+            navigate(`/projects/${data.id}`);
+          }, 2000);
+        },
+        onError: (error) => {
+          setIsSubmitting(false);
+          // Show error notification
+          setNotification({
+            show: true,
+            type: 'error',
+            title: 'Error',
+              message: error.message || 'An error occurred while submitting your request.',
+            });
+          },
+        }
+      );
     }
   };
   return (

@@ -1,47 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router-dom';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { 
-  Building2, 
-  Mail, 
-  Phone, 
-  MapPin, 
+import { RoutePage } from '@/types/enums/RoutePage';
+import {
+  Building2,
+  Mail,
+  MapPin,
   Calendar,
   Clock,
   DollarSign,
-  FileText,
-  Edit,
-  Camera,
   Briefcase,
   Tag,
   Users,
   Globe,
   Plus,
-  TrendingUp
+  TrendingUp,
+  Loader2,
+  AlertCircle,
+  Edit,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { spacing, layouts, cards, colors } from '@/lib/design-system';
+import { spacing, layouts } from '@/lib/design-system';
+import { useCompanyProfile } from './hooks/useCompanyProfile';
+import { useCompanyProjects } from './hooks/useCompanyProjects';
 
 interface CompanyProfile {
   companyName: string;
   industry: string;
   website: string;
-  email: string;
-  phone: string;
   address: string;
   city: string;
   country: string;
   companySize: string;
   description: string;
   logo: string;
+  contactInfo: string;
 }
 
-interface CompanyProject {
-  id: number;
+interface UICompanyProject {
+  id: string;
   title: string;
   description: string;
   category: string;
@@ -57,124 +58,120 @@ interface CompanyProject {
 
 export function CompanyProfilePage() {
   const { t } = useTranslation();
-  const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
+
+  // Fetch company profile data
+  const {
+    data: apiCompanyData,
+    isLoading: isLoadingProfile,
+    error: profileError,
+  } = useCompanyProfile(); // Set up local state for company data
   const [companyData, setCompanyData] = useState<CompanyProfile>({
-    companyName: 'TechCorp Solutions',
-    industry: 'Technology & Software',
-    website: 'https://techcorp.com',
-    email: 'contact@techcorp.com',
-    phone: '+1 (555) 123-4567',
-    address: '123 Tech Street',
-    city: 'San Francisco',
-    country: 'United States',
-    companySize: '50-200 employees',
-    description: 'Leading technology company specializing in innovative software solutions for businesses worldwide.',
-    logo: '/images/companies/techcorp-logo.webp'
+    companyName: '',
+    industry: '',
+    website: '',
+    address: '',
+    city: '',
+    country: '',
+    companySize: '',
+    description: '',
+    logo: '',
+    contactInfo: '',
   });
-
-  // Mock active projects data
-  const activeProjects: CompanyProject[] = [
-    {
-      id: 1,
-      title: 'Mobile App Development',
-      description: 'Looking for a talented React Native developer to build a cross-platform mobile application for our health tech startup.',
-      category: 'development',
-      skills: ['React Native', 'JavaScript', 'API Integration', 'UI/UX'],
-      postedDate: '2023-05-15',
-      deadline: '2023-06-30',
-      budget: '$4,500 - $6,000',
-      applicants: 12,
-      maxApplicants: 20,
-      status: 'active',
-      priority: 'high'
-    },
-    {
-      id: 2,
-      title: 'UI/UX Design for Dashboard',
-      description: 'Seeking an experienced designer to create modern, user-friendly interface for our analytics dashboard.',
-      category: 'design',
-      skills: ['Figma', 'UI/UX', 'Design System', 'Prototyping'],
-      postedDate: '2023-05-20',
-      deadline: '2023-07-15',
-      budget: '$3,000 - $4,500',
-      applicants: 8,
-      maxApplicants: 15,
-      status: 'active',
-      priority: 'medium'
+  // Fetch company projects once we have the company ID
+  const { data: apiProjects } = useCompanyProjects(apiCompanyData?.id);
+  // Update local state when API data is loaded
+  useEffect(() => {
+    if (apiCompanyData) {
+      setCompanyData({
+        companyName: apiCompanyData.name,
+        industry: apiCompanyData.sector,
+        website: apiCompanyData.websiteUrl,
+        address: apiCompanyData.headOfficeLocation,
+        city: apiCompanyData.bulgarianOfficeLocations,
+        country: '',
+        companySize: `${apiCompanyData.employeesWorldwide} employees worldwide, ${apiCompanyData.employeesInBulgaria} in Bulgaria`,
+        description: apiCompanyData.about,
+        logo: apiCompanyData.logoUrl || '/images/companies/techcorp-logo.webp',
+        contactInfo: apiCompanyData.contactInfo || 'Not provided',
+      });
     }
-  ];
+  }, [apiCompanyData]); // Helper function to determine a project category based on skills
+  const determineCategory = (
+    skills: { id: string; name: string; description: string }[]
+  ): string => {
+    const skillNames = skills.map((skill) => skill.name.toLowerCase());
 
-  // Mock past campaigns data
-  const pastCampaigns: CompanyProject[] = [
-    {
-      id: 3,
-      title: 'E-commerce Platform Redesign',
-      description: 'Complete redesign of our e-commerce platform with modern UI/UX principles and improved user experience.',
-      category: 'design',
-      skills: ['Figma', 'UI/UX', 'React', 'CSS', 'User Research'],
-      postedDate: '2023-02-01',
-      deadline: '2023-03-30',
-      budget: '$8,000',
-      applicants: 25,
-      maxApplicants: 25,
-      status: 'completed',
-      priority: 'high'
-    },
-    {
-      id: 4,
-      title: 'API Integration Project',
-      description: 'Integration of multiple third-party APIs for data synchronization and automation.',
-      category: 'development',
-      skills: ['Node.js', 'API Integration', 'Database', 'Testing'],
-      postedDate: '2023-01-10',
-      deadline: '2023-02-28',
-      budget: '$5,500',
-      applicants: 18,
-      maxApplicants: 20,
-      status: 'completed',
-      priority: 'medium'
-    },
-    {
-      id: 5,
-      title: 'Content Strategy Development',
-      description: 'Comprehensive content strategy for social media and blog to increase brand awareness.',
-      category: 'marketing',
-      skills: ['Content Strategy', 'SEO', 'Social Media', 'Analytics'],
-      postedDate: '2022-11-15',
-      deadline: '2022-12-31',
-      budget: '$2,800',
-      applicants: 15,
-      maxApplicants: 15,
-      status: 'completed',
-      priority: 'low'
+    if (
+      skillNames.some((s) =>
+        ['react', 'javascript', 'typescript', 'node', 'api', 'backend', 'frontend'].includes(s)
+      )
+    ) {
+      return 'development';
+    } else if (skillNames.some((s) => ['design', 'ui', 'ux', 'figma', 'photoshop'].includes(s))) {
+      return 'design';
+    } else if (
+      skillNames.some((s) => ['marketing', 'social media', 'seo', 'content'].includes(s))
+    ) {
+      return 'marketing';
+    } else if (
+      skillNames.some((s) => ['architecture', 'system design', 'infrastructure'].includes(s))
+    ) {
+      return 'architecture';
+    } else {
+      return 'content';
     }
-  ];
-
-  const handleInputChange = (field: keyof CompanyProfile, value: string) => {
-    setCompanyData(prev => ({
-      ...prev,
-      [field]: value
-    }));
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    // Here you would save the data to your backend
-    console.log('Saving company data:', companyData);
-  };
-
-  const getCategoryColor = (category: string) => {
-    const categoryColors: { [key: string]: string } = {
-      development: 'bg-blue-100 text-blue-700',
-      design: 'bg-purple-100 text-purple-700',
-      marketing: 'bg-green-100 text-green-700',
-      content: 'bg-yellow-100 text-yellow-700',
-      architecture: 'bg-gray-100 text-gray-700',
+  // Transform API project data to match the UI requirements
+  const transformProject = (project: any): UICompanyProject => {
+    // Map status number to string status
+    const statusMap: { [key: number]: 'active' | 'completed' | 'closed' } = {
+      0: 'active',
+      1: 'active',
+      2: 'completed',
+      3: 'closed',
     };
-    return categoryColors[category] || 'bg-gray-100 text-gray-700';
+
+    // Assign a random priority for UI display purposes
+    const priorities = ['high', 'medium', 'low'];
+    const randomPriority = priorities[Math.floor(Math.random() * priorities.length)] as
+      | 'high'
+      | 'medium'
+      | 'low';
+
+    return {
+      id: project.id,
+      title: project.title,
+      description: project.description,
+      category: determineCategory(project.skills), // Determine a category based on skills
+      skills: project.skills.map(
+        (skill: { id: string; name: string; description: string }) => skill.name
+      ),
+      postedDate: project.createdAt,
+      deadline: project.deadline,
+      budget: '$3,000 - $6,000', // Placeholder as this isn't in the API
+      applicants: Math.floor(Math.random() * 20) + 1, // Placeholder
+      maxApplicants: 20, // Placeholder
+      status: statusMap[project.status] || 'active',
+      priority: randomPriority,
+    };
   };
 
-  const getPriorityColor = (priority: string) => {
+  // Process API projects data
+  const activeProjects = apiProjects
+    ? apiProjects
+        .filter((project) => project.status === 0 || project.status === 1)
+        .map(transformProject)
+    : [];
+
+  const pastCampaigns = apiProjects
+    ? apiProjects
+        .filter((project) => project.status === 2 || project.status === 3)
+        .map(transformProject)
+    : []; // UI helper functions for styling
+
+  const getPriorityColor = (priority: string): string => {
     const priorityColors: { [key: string]: string } = {
       high: 'bg-red-100 text-red-700',
       medium: 'bg-yellow-100 text-yellow-700',
@@ -183,7 +180,7 @@ export function CompanyProfilePage() {
     return priorityColors[priority] || 'bg-gray-100 text-gray-700';
   };
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string): string => {
     const statusColors: { [key: string]: string } = {
       active: 'bg-green-100 text-green-700',
       completed: 'bg-blue-100 text-blue-700',
@@ -191,25 +188,68 @@ export function CompanyProfilePage() {
     };
     return statusColors[status] || 'bg-gray-100 text-gray-700';
   };
+  // Loading and error states
+  if (isLoadingProfile) {
+    return (
+      <div
+        className={cn(
+          spacing.container,
+          spacing.headerOffset,
+          'py-8 flex flex-col items-center justify-center min-h-[60vh]'
+        )}
+      >
+        <Loader2 className="h-12 w-12 animate-spin text-blue-600 mb-4" />
+        <p className="text-lg font-medium text-gray-600">
+          {t('loadingCompanyProfile', 'Loading company profile...')}
+        </p>
+      </div>
+    );
+  }
+
+  if (profileError) {
+    return (
+      <div
+        className={cn(
+          spacing.container,
+          spacing.headerOffset,
+          'py-8 flex flex-col items-center justify-center min-h-[60vh]'
+        )}
+      >
+        <div className="h-12 w-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mb-4">
+          <AlertCircle className="h-6 w-6" />
+        </div>
+        <p className="text-lg font-medium text-gray-900 mb-2">
+          {t('errorLoadingProfile', 'Error Loading Profile')}
+        </p>
+        <p className="text-gray-600 max-w-md text-center">
+          {t('unableToLoadProfile', 'Unable to load company profile. Please try again later.')}
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className={cn(spacing.container, spacing.headerOffset, "py-8")}>
+    <div className={cn(spacing.container, spacing.headerOffset, 'py-8')}>
       {/* Page Header */}
       <div className={layouts.pageHeader}>
-        <div className={layouts.pageHeaderBackground}></div>
+        <div className={layouts.pageHeaderBackground}></div>{' '}
         <h1 className={layouts.pageTitle}>
           <span className="text-blue-600">{t('company', 'Company')}</span>{' '}
           <span className="text-gray-600">{t('profile', 'Profile')}</span>
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          {t('manageCompanyProfile', 'Manage your company information and track your project campaigns')}
+          {t(
+            'viewCompanyProfile',
+            'View your company information and track your project campaigns'
+          )}
         </p>
       </div>
 
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Company Information Section */}
         <Card className="p-6 md:p-8">
-          <div className="flex items-center justify-between mb-6">
+          {' '}
+          <div className="flex items-center mb-6">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-blue-100 rounded-lg">
                 <Building2 className="h-5 w-5 text-blue-600" />
@@ -218,45 +258,23 @@ export function CompanyProfilePage() {
                 {t('companyInformation', 'Company Information')}
               </h2>
             </div>
-            <div className="flex items-center gap-2">
-              {isEditing && (
-                <span className="text-sm text-blue-600 flex items-center gap-1">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
-                  {t('savingChanges', 'Saving changes')}
-                </span>
-              )}
-              <Button
-                variant={isEditing ? "default" : "outline"}
-                size="sm"
-                onClick={isEditing ? handleSave : () => setIsEditing(true)}
-                className="flex items-center gap-2"
-              >
-                <Edit className="h-4 w-4" />
-                {isEditing ? t('save', 'Save') : t('edit', 'Edit')}
-              </Button>
-            </div>
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             {/* Company Logo */}
             <div className="lg:col-span-1">
+              {' '}
               <div className="flex flex-col items-center">
-                <div className="relative group">
+                <div className="relative">
                   <div className="w-32 h-32 rounded-lg overflow-hidden bg-gray-100 border-4 border-white shadow-lg">
-                    <img 
-                      src={companyData.logo} 
-                      alt="Company Logo" 
+                    <img
+                      src={companyData.logo}
+                      alt="Company Logo"
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         e.currentTarget.src = `https://ui-avatars.com/api/?name=${companyData.companyName}&background=3b82f6&color=fff&size=200`;
                       }}
                     />
                   </div>
-                  {isEditing && (
-                    <button className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Camera className="h-6 w-6 text-white" />
-                    </button>
-                  )}
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-gray-900 text-center">
                   {companyData.companyName}
@@ -268,89 +286,38 @@ export function CompanyProfilePage() {
             {/* Form Fields */}
             <div className="lg:col-span-3">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {' '}
                 {/* Company Name */}
                 <div className="space-y-2">
                   <Label htmlFor="companyName" className="text-sm font-medium text-gray-700">
                     {t('companyName', 'Company Name')}
                   </Label>
-                  {isEditing ? (
-                    <Input
-                      id="companyName"
-                      value={companyData.companyName}
-                      onChange={(e) => handleInputChange('companyName', e.target.value)}
-                      className="w-full"
-                    />
-                  ) : (
-                    <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
-                      {companyData.companyName}
-                    </div>
-                  )}
+                  <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    {companyData.companyName}
+                  </div>
                 </div>
-
                 {/* Industry */}
                 <div className="space-y-2">
                   <Label htmlFor="industry" className="text-sm font-medium text-gray-700">
                     {t('industry', 'Industry')}
                   </Label>
-                  {isEditing ? (
-                    <Input
-                      id="industry"
-                      value={companyData.industry}
-                      onChange={(e) => handleInputChange('industry', e.target.value)}
-                      className="w-full"
-                    />
-                  ) : (
-                    <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
-                      {companyData.industry}
-                    </div>
-                  )}
+                  <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    {companyData.industry}
+                  </div>
                 </div>
-
-                {/* Email */}
+                {/* Contact Info */}
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                    {t('emailAddress', 'Email Address')}
+                  <Label htmlFor="contactInfo" className="text-sm font-medium text-gray-700">
+                    {t('contactInfo', 'Contact Information')}
                   </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    {isEditing ? (
-                      <Input
-                        id="email"
-                        type="email"
-                        value={companyData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="pl-10 w-full"
-                      />
-                    ) : (
-                      <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                        {companyData.email}
-                      </div>
-                    )}
+                    <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                      {companyData.contactInfo}
+                    </div>
                   </div>
                 </div>
-
-                {/* Phone */}
-                <div className="space-y-2">
-                  <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
-                    {t('phoneNumber', 'Phone Number')}
-                  </Label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    {isEditing ? (
-                      <Input
-                        id="phone"
-                        value={companyData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                        className="pl-10 w-full"
-                      />
-                    ) : (
-                      <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                        {companyData.phone}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
+                <div className="space-y-2">{/* Empty div to maintain grid layout */}</div>{' '}
                 {/* Website */}
                 <div className="space-y-2">
                   <Label htmlFor="website" className="text-sm font-medium text-gray-700">
@@ -358,21 +325,11 @@ export function CompanyProfilePage() {
                   </Label>
                   <div className="relative">
                     <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    {isEditing ? (
-                      <Input
-                        id="website"
-                        value={companyData.website}
-                        onChange={(e) => handleInputChange('website', e.target.value)}
-                        className="pl-10 w-full"
-                      />
-                    ) : (
-                      <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                        {companyData.website}
-                      </div>
-                    )}
+                    <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                      {companyData.website}
+                    </div>
                   </div>
-                </div>
-
+                </div>{' '}
                 {/* Company Size */}
                 <div className="space-y-2">
                   <Label htmlFor="companySize" className="text-sm font-medium text-gray-700">
@@ -380,21 +337,11 @@ export function CompanyProfilePage() {
                   </Label>
                   <div className="relative">
                     <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    {isEditing ? (
-                      <Input
-                        id="companySize"
-                        value={companyData.companySize}
-                        onChange={(e) => handleInputChange('companySize', e.target.value)}
-                        className="pl-10 w-full"
-                      />
-                    ) : (
-                      <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                        {companyData.companySize}
-                      </div>
-                    )}
+                    <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                      {companyData.companySize}
+                    </div>
                   </div>
-                </div>
-
+                </div>{' '}
                 {/* Address & Location */}
                 <div className="space-y-2 md:col-span-2">
                   <Label htmlFor="address" className="text-sm font-medium text-gray-700">
@@ -403,43 +350,16 @@ export function CompanyProfilePage() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                     <div className="relative">
                       <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                      {isEditing ? (
-                        <Input
-                          id="address"
-                          value={companyData.address}
-                          onChange={(e) => handleInputChange('address', e.target.value)}
-                          className="pl-10 w-full"
-                          placeholder="Street address"
-                        />
-                      ) : (
-                        <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                          {companyData.address}
-                        </div>
-                      )}
+                      <div className="pl-10 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        {companyData.address}
+                      </div>
                     </div>
-                    {isEditing ? (
-                      <>
-                        <Input
-                          value={companyData.city}
-                          onChange={(e) => handleInputChange('city', e.target.value)}
-                          placeholder="City"
-                        />
-                        <Input
-                          value={companyData.country}
-                          onChange={(e) => handleInputChange('country', e.target.value)}
-                          placeholder="Country"
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
-                          {companyData.city}
-                        </div>
-                        <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
-                          {companyData.country}
-                        </div>
-                      </>
-                    )}
+                    <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                      {companyData.city}
+                    </div>
+                    <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                      {companyData.country}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -460,8 +380,12 @@ export function CompanyProfilePage() {
               <Badge variant="secondary" className="bg-green-100 text-green-700">
                 {activeProjects.length} {t('active', 'Active')}
               </Badge>
-            </div>
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+            </div>{' '}
+            <Button
+              size="sm"
+              className="bg-blue-600 hover:bg-blue-700"
+              onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
+            >
               <Plus className="h-4 w-4 mr-2" />
               {t('postNewProject', 'Post New Project')}
             </Button>
@@ -469,7 +393,10 @@ export function CompanyProfilePage() {
 
           <div className="space-y-4">
             {activeProjects.map((project) => (
-              <div key={project.id} className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100">
+              <div
+                key={project.id}
+                className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100"
+              >
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
@@ -480,9 +407,7 @@ export function CompanyProfilePage() {
                     </div>
                     <p className="text-gray-600 mb-3">{project.description}</p>
                   </div>
-                  <Badge className={getStatusColor(project.status)}>
-                    {project.status}
-                  </Badge>
+                  <Badge className={getStatusColor(project.status)}>{project.status}</Badge>
                 </div>
 
                 {/* Project Stats */}
@@ -501,7 +426,9 @@ export function CompanyProfilePage() {
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Users className="h-4 w-4" />
-                    <span>{project.applicants}/{project.maxApplicants} applicants</span>
+                    <span>
+                      {project.applicants}/{project.maxApplicants} applicants
+                    </span>
                   </div>
                 </div>
 
@@ -514,7 +441,7 @@ export function CompanyProfilePage() {
                     </span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
+                    <div
                       className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${(project.applicants / project.maxApplicants) * 100}%` }}
                     ></div>
@@ -562,21 +489,23 @@ export function CompanyProfilePage() {
 
           <div className="space-y-4">
             {pastCampaigns.map((campaign) => (
-              <div key={campaign.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div
+                key={campaign.id}
+                className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+              >
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <h3 className="font-semibold text-gray-900">{campaign.title}</h3>
                     <p className="text-sm text-gray-600 mt-1">{campaign.description}</p>
                   </div>
-                  <Badge className={getStatusColor(campaign.status)}>
-                    {campaign.status}
-                  </Badge>
+                  <Badge className={getStatusColor(campaign.status)}>{campaign.status}</Badge>
                 </div>
-                
+
                 <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-3">
                   <span className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    {new Date(campaign.postedDate).toLocaleDateString()} - {new Date(campaign.deadline).toLocaleDateString()}
+                    {new Date(campaign.postedDate).toLocaleDateString()} -{' '}
+                    {new Date(campaign.deadline).toLocaleDateString()}
                   </span>
                   <span className="flex items-center gap-1">
                     <DollarSign className="h-3 w-3" />
@@ -610,4 +539,4 @@ export function CompanyProfilePage() {
   );
 }
 
-export default CompanyProfilePage; 
+export default CompanyProfilePage;

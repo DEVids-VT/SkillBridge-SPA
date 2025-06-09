@@ -17,6 +17,20 @@
   "videoNotSupported": "Your browser does not support the video tag.",
   "logoAlt": "SkillBridge Logo",
 
+  "navigation": {
+    "projects": "Projects",
+    "courses": "Courses",
+    "partners": "Partners",
+    "about": "About SkillBridge",
+    "companyProfile": "Company Profile",
+    "candidateProfile": "Candidate Profile",
+    "postNewProject": "Post New Project",
+    "logout": "Logout",
+    "login": "Login",
+    "toggleMenu": "Toggle menu",
+    "betaBanner": " - Try now completely free!"
+  },
+
   "welcome": {
     "badge": "Let's Get Started",
     "title": "Welcome to {{appName}}!",

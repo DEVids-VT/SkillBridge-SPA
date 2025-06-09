@@ -23,6 +23,20 @@
   "videoNotSupported": "Вашият браузър не поддържа видео тагове.",
   "logoAlt": "SkillBridge Лого",
 
+  "navigation": {
+    "projects": "Проекти",
+    "courses": "Курсове",
+    "partners": "Партньори",
+    "about": "За SkillBridge",
+    "companyProfile": "Фирмен Профил",
+    "candidateProfile": "Профил на Кандидат",
+    "postNewProject": "Публикувай Нов Проект",
+    "logout": "Излез",
+    "login": "Влез",
+    "toggleMenu": "Превключи меню",
+    "betaBanner": " - Изпробвай сега напълно безплатно!"
+  },
+
   "welcome": {
     "badge": "Да започнем",
     "title": "Добре дошли в {{appName}}!",

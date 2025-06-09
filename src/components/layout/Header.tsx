@@ -26,13 +26,13 @@ export function Header() {
       return {
         route: RoutePage.COMPANY_PROFILE,
         icon: LayoutDashboard,
-        label: t('companyProfile', 'Company Profile'),
+        label: t('navigation.companyProfile', 'Company Profile'),
       };
     } else if (onboardingData.role === 'candidate') {
       return {
         route: RoutePage.CANDIDATE_PROFILE,
         icon: User,
-        label: t('candidateProfile', 'Candidate Profile'),
+        label: t('navigation.candidateProfile', 'Candidate Profile'),
       };
     }
     return null;
@@ -46,15 +46,15 @@ export function Header() {
     // Show all navigation items only to authenticated users who completed onboarding
     ...(isAuthenticated && onboardingData.completed
       ? [
-          { to: '/projects', label: t('Find a job', 'Започни работа') },
-          { to: '/courses', label: t('Courses', 'Обучения') },
-          { to: '/companies', label: t('Partners', 'Партньори') },
-          { to: '/about', label: t('About SkillBridge', 'За SkillBridge') },
+          { to: '/projects', label: t('navigation.projects', 'Projects') },
+          { to: '/courses', label: t('navigation.courses', 'Courses') },
+          { to: '/companies', label: t('navigation.partners', 'Partners') },
+          { to: '/about', label: t('navigation.about', 'About SkillBridge') },
         ]
       : // Show only About and Partners links to non-authenticated users
         [
-          { to: '/companies', label: t('Partners', 'Партньори') },
-          { to: '/about', label: t('About SkillBridge', 'За SkillBridge') },
+          { to: '/companies', label: t('navigation.partners', 'Partners') },
+          { to: '/about', label: t('navigation.about', 'About SkillBridge') },
         ]),
   ];
 
@@ -68,13 +68,13 @@ export function Header() {
     <>
       {/* Beta Announcement Banner */}
       <div className="w-full bg-blue-600 text-white py-2 text-center font-medium flex items-center justify-center gap-2">
-        <span>{isEnglish ? 'SkillBridge ' : 'SkillBridge '}</span>
+        <span>SkillBridge </span>
         <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold bg-white text-blue-700 transform -rotate-6 border-2 border-white shadow-md relative hover:scale-110 transition-transform duration-300 animate-pulse">
           <span className="absolute inset-0 rounded-md border border-blue-300 opacity-50"></span>
           <span className="relative z-10 tracking-wider">BETA</span>
         </span>
         <span>
-          {isEnglish ? ' - Try now completely free!' : ' - Изпробвай сега напълно безплатно!'}
+          {t('navigation.betaBanner', ' - Try now completely free!')}
         </span>
       </div>
 
@@ -88,7 +88,7 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               {/* Logo image */}
-              <img src="/images/sblogosmall.svg" alt="SkillBridge" className="h-8" />
+              <img src="/images/sblogosmall.svg" alt={t('logoAlt', 'SkillBridge Logo')} className="h-8" />
             </Link>
             {/* Desktop Navigation */}
             <nav className="hidden md:flex gap-6">
@@ -130,7 +130,7 @@ export function Header() {
                     >
                       <Plus className="h-4 w-4" />
                       <span className="hidden sm:inline">
-                        {t('postNewProject', 'Post New Project')}
+                        {t('navigation.postNewProject', 'Post New Project')}
                       </span>
                     </Button>
                   </Link>
@@ -149,7 +149,7 @@ export function Header() {
                   className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >
-                  {t('logout', 'Излез')}
+                  {t('navigation.logout', 'Logout')}
                 </Button>
               </div>
             ) : (
@@ -159,7 +159,7 @@ export function Header() {
                 className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
                 onClick={() => loginWithRedirect()}
               >
-                {t('createProfile', 'Влез')}
+                {t('navigation.login', 'Login')}
               </Button>
             )}
             {/* Mobile Menu Toggle */}
@@ -168,7 +168,7 @@ export function Header() {
               size="icon"
               className="md:hidden rounded-full"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
+              aria-label={t('navigation.toggleMenu', 'Toggle menu')}
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -196,7 +196,7 @@ export function Header() {
                   className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-blue-600 hover:bg-blue-50"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t('postNewProject', 'Post New Project')}
+                  {t('navigation.postNewProject', 'Post New Project')}
                 </Link>
               )}
               {/* Profile link in mobile menu */}

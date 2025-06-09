@@ -1,6 +1,4 @@
-interface WelcomeHeaderProps {}
-
-export function WelcomeHeader({}: WelcomeHeaderProps) {
+export function WelcomeHeader() {
   return (
     <div className="flex justify-center mb-8">
       <img 

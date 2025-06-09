@@ -42,7 +42,7 @@ export function StepFormWrapper({
         <div className="mt-3">
           <div className="flex justify-between text-sm mb-1">
             <span style={{ color: colors.neutral[600] }}>
-              {t('step', 'Step')} {currentStep} {t('of', 'of')} {totalSteps}
+              {t('welcome.stepForm.step')} {currentStep} {t('welcome.stepForm.of')} {totalSteps}
             </span>
             <span
               style={{
@@ -74,8 +74,8 @@ export function StepFormWrapper({
         >
           <ArrowLeft className="h-4 w-4" />
           {currentStep === 1 && onBackToRoleSelection
-            ? t('changeRole', 'Change Role')
-            : t('previous', 'Previous')}
+            ? t('welcome.stepForm.changeRole')
+            : t('welcome.stepForm.previous')}
         </Button>{' '}
         <Button
           onClick={onNext}
@@ -89,16 +89,16 @@ export function StepFormWrapper({
           {isLoading ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              {t('processing', 'Processing...')}
+              {t('welcome.stepForm.processing')}
             </>
           ) : isLastStep ? (
             <>
-              {t('complete', 'Complete')}
+              {t('welcome.stepForm.complete')}
               <Check className="h-4 w-4" />
             </>
           ) : (
             <>
-              {t('next', 'Next')}
+              {t('welcome.stepForm.next')}
               <ArrowRight className="h-4 w-4" />
             </>
           )}

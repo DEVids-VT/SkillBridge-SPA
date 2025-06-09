@@ -58,7 +58,7 @@ export function WelcomePage() {
               className="h-6 object-contain mr-2"
             />
             <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
-              {t('welcomeBadge', "Let's Get Started")}
+              {t('welcome.badge')}
             </span>
           </div>
         </div>
@@ -67,7 +67,9 @@ export function WelcomePage() {
         <div className="text-center mb-10 max-w-3xl mx-auto">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
             <span className="text-gray-900 dark:text-white">
-              Welcome to <span className="text-blue-600">SkillBridge</span>!
+              {t('welcome.title').split('{{appName}}')[0]}
+              <span className="text-blue-600">{t('welcome.appName')}</span>
+              {t('welcome.title').split('{{appName}}')[1]}
             </span>
           </h1>
         </div>

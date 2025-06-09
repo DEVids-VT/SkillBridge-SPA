@@ -191,7 +191,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="companyName">
-                {t('companyName', 'Company Name')}
+                {t('welcome.companyForm.companyName')}
                 <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
@@ -202,13 +202,13 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               />
               {errors.companyName && (
                 <p className="text-red-500 text-sm mt-1">
-                  {t('companyNameRequired', 'Company name is required')}
+                  {t('welcome.companyForm.companyNameRequired')}
                 </p>
               )}
             </div>{' '}
             <div className="space-y-2">
               <Label htmlFor="industry">
-                {t('industry', 'Industry')}
+                {t('welcome.companyForm.industry')}
                 <span className="text-red-500 ml-1">*</span>
               </Label>
               <select
@@ -219,7 +219,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                   errors.industry ? 'border-red-500' : 'border-input'
                 } bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
               >
-                <option value="">{t('selectIndustry', 'Select Industry')}</option>
+                <option value="">{t('welcome.companyForm.selectIndustry')}</option>
                 {industries.map((industry) => (
                   <option key={industry} value={industry}>
                     {industry}
@@ -228,17 +228,17 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               </select>
               {errors.industry && (
                 <p className="text-red-500 text-sm mt-1">
-                  {t('industryRequired', 'Please select your industry')}
+                  {t('welcome.companyForm.industryRequired')}
                 </p>
               )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="activities">
-                {t('activities', 'Company Activities')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.activities')} ({t('welcome.companyForm.optional')})
               </Label>
               <Textarea
                 id="activities"
-                placeholder={t('activitiesPlaceholder', 'Describe your company activities...')}
+                placeholder={t('welcome.companyForm.activitiesPlaceholder')}
                 value={formData.activities || ''}
                 onChange={(e) => handleChange('activities', e.target.value)}
                 rows={2}
@@ -246,18 +246,18 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             </div>
             <div className="space-y-2">
               <Label htmlFor="headquarters">
-                {t('headquarters', 'Headquarters Location')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.headquarters')} ({t('welcome.companyForm.optional')})
               </Label>
               <Input
                 id="headquarters"
-                placeholder={t('headquartersPlaceholder', 'e.g., San Francisco, CA')}
+                placeholder={t('welcome.companyForm.headquartersPlaceholder')}
                 value={formData.headquarters || ''}
                 onChange={(e) => handleChange('headquarters', e.target.value)}
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="yearEstablished">
-                {t('yearEstablished', 'Year Established')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.yearEstablished')} ({t('welcome.companyForm.optional')})
               </Label>
               <Input
                 id="yearEstablished"
@@ -269,7 +269,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             </div>
             <div className="space-y-2">
               <Label htmlFor="technologies">
-                {t('technologies', 'Technologies Used')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.technologies')} ({t('welcome.companyForm.optional')})
               </Label>
               <Input
                 id="technologies"
@@ -281,7 +281,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 }}
               />
               <p className="text-sm text-muted-foreground">
-                {t('technologiesHelp', 'Separate multiple technologies with commas')}
+                {t('welcome.companyForm.technologiesHelp')}
               </p>
             </div>
           </div>
@@ -292,7 +292,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="companySize">
-                {t('companySize', 'Company Size')}
+                {t('welcome.companyForm.companySize')}
                 <span className="text-red-500 ml-1">*</span>
               </Label>
               <select
@@ -303,23 +303,23 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                   errors.companySize ? 'border-red-500' : 'border-input'
                 } bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
               >
-                <option value="">{t('selectCompanySize', 'Select Company Size')}</option>
+                <option value="">{t('welcome.companyForm.selectCompanySize')}</option>
                 {companySizes.map((size) => (
                   <option key={size} value={size}>
-                    {size} {t('employees', 'employees')}
+                    {size} {t('welcome.companyForm.employees')}
                   </option>
                 ))}
               </select>
               {errors.companySize && (
                 <p className="text-red-500 text-sm mt-1">
-                  {t('companySizeRequired', 'Please select your company size')}
+                  {t('welcome.companyForm.companySizeRequired')}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="website">
-                {t('website', 'Company Website')}
+                {t('welcome.companyForm.website')}
                 <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
@@ -332,14 +332,14 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               />
               {errors.website && (
                 <p className="text-red-500 text-sm mt-1">
-                  {t('websiteRequired', 'Website URL is required')}
+                  {t('welcome.companyForm.websiteRequired')}
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="employeesWorldwide">
-                {t('globalEmployees', 'Employees Worldwide')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.globalEmployees')} ({t('welcome.companyForm.optional')})
               </Label>
               <Input
                 id="employeesWorldwide"
@@ -352,7 +352,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
 
             <div className="space-y-2">
               <Label htmlFor="hasOfficesInBulgaria">
-                {t('hasOfficesInBulgaria', 'Offices in Bulgaria')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.hasOfficesInBulgaria')} ({t('welcome.companyForm.optional')})
               </Label>
               <div className="flex items-center space-x-3">
                 {' '}
@@ -363,7 +363,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                   onChange={(e) => updateCompanyData({ hasOfficesInBulgaria: e.target.checked })}
                 />
                 <span className="text-sm text-gray-700 dark:text-gray-300">
-                  {t('hasOfficesInBulgaria', 'Company has offices in Bulgaria')}
+                  {t('welcome.companyForm.hasOfficesInBulgaria')}
                 </span>
               </div>
             </div>
@@ -371,7 +371,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             {formData.hasOfficesInBulgaria && (
               <div className="space-y-2">
                 <Label htmlFor="employeesInBulgaria">
-                  {t('employeesInBulgaria', 'Employees in Bulgaria')} ({t('optional', 'optional')})
+                  {t('welcome.companyForm.employeesInBulgaria')} ({t('welcome.companyForm.optional')})
                 </Label>
                 <Input
                   id="employeesInBulgaria"
@@ -386,7 +386,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             {formData.hasOfficesInBulgaria && (
               <div className="space-y-2">
                 <Label htmlFor="bulgarianOffices">
-                  {t('bulgarianOffices', 'Bulgarian Office Locations')} ({t('optional', 'optional')}
+                  {t('welcome.companyForm.bulgarianOffices')} ({t('welcome.companyForm.optional')}
                   )
                 </Label>{' '}
                 <Input
@@ -399,7 +399,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                   }}
                 />
                 <p className="text-sm text-muted-foreground">
-                  {t('bulgarianOfficesHelp', 'Separate multiple locations with commas')}
+                  {t('welcome.companyForm.bulgarianOfficesHelp')}
                 </p>
               </div>
             )}
@@ -410,21 +410,21 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="logo">
-                {t('companyLogo', 'Company Logo')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.companyLogo')} ({t('welcome.companyForm.optional')})
               </Label>
               <Input id="logo" type="file" accept="image/*" onChange={handleFileChange} />
               <p className="text-sm text-muted-foreground mt-1">
-                {t('logoHelp', 'Upload a square logo, preferably 512x512px or larger')}
+                {t('welcome.companyForm.logoHelp')}
               </p>
             </div>
 
             <div className="space-y-2 mt-4">
               <Label htmlFor="about">
-                {t('companyAbout', 'About Company')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.companyAbout')} ({t('welcome.companyForm.optional')})
               </Label>
               <Textarea
                 id="about"
-                placeholder={t('companyAboutPlaceholder', 'Tell us about your company...')}
+                placeholder={t('welcome.companyForm.companyAboutPlaceholder')}
                 rows={3}
                 value={formData.about || ''}
                 onChange={(e) => handleChange('about', e.target.value)}
@@ -433,7 +433,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
 
             <div className="space-y-2">
               <Label htmlFor="contactPerson">
-                {t('contactPerson', 'Contact Person')}
+                {t('welcome.companyForm.contactPerson')}
                 <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
@@ -448,7 +448,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               {' '}
               <Label htmlFor="contactEmail">
-                {t('contactEmail', 'Contact Email')}
+                {t('welcome.companyForm.contactEmail')}
                 <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
@@ -461,13 +461,13 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               />
               {errors.contactInfo && (
                 <p className="text-red-500 text-sm mt-1">
-                  {t('contactInfoRequired', 'At least one contact method is required')}
+                  {t('welcome.companyForm.contactInfoRequired')}
                 </p>
               )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="contactPhone">
-                {t('contactPhone', 'Contact Phone')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.contactPhone')} ({t('welcome.companyForm.optional')})
               </Label>
               <Input
                 id="contactPhone"
@@ -479,7 +479,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
 
             <div className="space-y-2">
               <Label htmlFor="whyWorkWithUs">
-                {t('whyWorkWithUs', 'Why Work With Us')} ({t('optional', 'optional')})
+                {t('welcome.companyForm.whyWorkWithUs')} ({t('welcome.companyForm.optional')})
               </Label>
               <Textarea
                 id="whyWorkWithUs"
@@ -498,7 +498,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
   };
   return (
     <StepFormWrapper
-      title={t('companyProfileSetup', 'Company Profile Setup')}
+      title={t('welcome.companyForm.companyProfileSetup')}
       currentStep={currentStep}
       totalSteps={totalSteps}
       onNext={handleNext}

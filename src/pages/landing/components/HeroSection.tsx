@@ -48,16 +48,16 @@ export const HeroSection = () => {
                       <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </span>
-                  <span className="ml-2 text-sm font-medium text-blue-600">№1 Стажантска платформа </span>
+                  <span className="ml-2 text-sm font-medium text-blue-600">{t('landingPage.hero.badge', '#1 Internship Platform')}</span>
                 </div>
               </div>
 
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-gray-900 leading-[1.1]">
-                Мостът между образованието и успеха
+                {t('landingPage.hero.title')}
               </h1>
 
               <p className="text-xl md:text-2xl mb-10 text-gray-600 max-w-3xl leading-relaxed">
-                От студенти за студенти - където знанието среща възможности и ражда кариера
+                {t('landingPage.hero.subtitle')}
               </p>
 
               <div className="flex flex-wrap gap-4 mb-12">
@@ -67,7 +67,7 @@ export const HeroSection = () => {
                   className="gap-2 bg-blue-600 text-white rounded-md px-6 py-6 text-base font-medium !transition-none !transform-none hover:!bg-blue-600 hover:!scale-100 hover:!shadow-none"
                 >
                   <Link to="/register" className="!transition-none hover:!opacity-100 hover:!no-underline">
-                    Започни сега
+                    {t('landingPage.hero.primaryCta')}
                     <ArrowRight className="h-4 w-4 ml-1" />
                   </Link>
                 </Button>
@@ -77,7 +77,7 @@ export const HeroSection = () => {
                   size="lg"
                   className="border-2 border-gray-300 text-gray-700 bg-white rounded-md px-6 py-6 text-base font-medium !transition-none !transform-none hover:!bg-white hover:!scale-100 hover:!shadow-none"
                 >
-                  <Link to="/projects" className="!transition-none hover:!opacity-100 hover:!no-underline">Разгледай проекти</Link>
+                  <Link to="/projects" className="!transition-none hover:!opacity-100 hover:!no-underline">{t('landingPage.hero.secondaryCta')}</Link>
                 </Button>
               </div>
 
@@ -85,15 +85,15 @@ export const HeroSection = () => {
               <div className="space-y-3">
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-blue-600 mr-2" />
-                  <span className="text-gray-600 font-medium">Стажове във водещи компании</span>
+                  <span className="text-gray-600 font-medium">{t('landingPage.hero.feature1', 'Internships in leading companies')}</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-blue-600 mr-2" />
-                  <span className="text-gray-600 font-medium">Реални проекти с менторство</span>
+                  <span className="text-gray-600 font-medium">{t('landingPage.hero.feature2', 'Real projects with mentorship')}</span>
                 </div>
                 <div className="flex items-center">
                   <Check className="h-5 w-5 text-blue-600 mr-2" />
-                  <span className="text-gray-600 font-medium">Безплатни курсове и събития</span>
+                  <span className="text-gray-600 font-medium">{t('landingPage.hero.feature3', 'Free courses and events')}</span>
                 </div>
               </div>
             </div>

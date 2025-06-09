@@ -54,10 +54,7 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
       {/* Info Paragraph */}
       <div className="text-center bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg shadow-sm">
         <p className="text-sm md:text-base text-blue-800 dark:text-blue-200">
-          {t(
-            'onboardingInfo',
-            'We need a bit more info before you can continue. Please select your account type below:'
-          )}
+          {t('welcome.onboardingInfo')}
         </p>
       </div>
 
@@ -74,13 +71,10 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
             {/* Content */}
             <div className="text-center flex-1 flex flex-col justify-center">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                {t('iAmCompany', "I'm a Company")}
+                {t('welcome.roleSelector.iAmCompany')}
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                {t(
-                  'companyDescription',
-                  'Looking to hire talent, post projects, or collaborate with skilled professionals'
-                )}
+                {t('welcome.roleSelector.companyDescription')}
               </p>
             </div>
 
@@ -93,10 +87,10 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
               {isLoading === 'company' ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {t('processing', 'Processing...')}
+                  {t('welcome.roleSelector.processing')}
                 </>
               ) : (
-                t('continueAsCompany', 'Continue as Company')
+                t('welcome.roleSelector.continueAsCompany')
               )}
             </Button>
           </div>
@@ -112,13 +106,10 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
             {/* Content */}
             <div className="text-center flex-1 flex flex-col justify-center">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                {t('iAmCandidate', "I'm a Candidate")}
+                {t('welcome.roleSelector.iAmCandidate')}
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                {t(
-                  'candidateDescription',
-                  'Looking for job opportunities, courses, or to showcase your skills to companies'
-                )}
+                {t('welcome.roleSelector.candidateDescription')}
               </p>
             </div>
 
@@ -131,10 +122,10 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
               {isLoading === 'candidate' ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {t('processing', 'Processing...')}
+                  {t('welcome.roleSelector.processing')}
                 </>
               ) : (
-                t('continueAsCandidate', 'Continue as Candidate')
+                t('welcome.roleSelector.continueAsCandidate')
               )}
             </Button>
           </div>

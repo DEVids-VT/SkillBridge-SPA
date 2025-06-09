@@ -17,6 +17,67 @@
   "videoNotSupported": "Your browser does not support the video tag.",
   "logoAlt": "SkillBridge Logo",
 
+  "welcome": {
+    "badge": "Let's Get Started",
+    "title": "Welcome to {{appName}}!",
+    "appName": "SkillBridge",
+    "onboardingInfo": "We need a bit more info before you can continue. Please select your account type below:",
+    "roleSelector": {
+      "iAmCompany": "I'm a Company",
+      "companyDescription": "Looking to hire talent, post projects, or collaborate with skilled professionals",
+      "continueAsCompany": "Continue as Company",
+      "iAmCandidate": "I'm a Candidate",
+      "candidateDescription": "Looking for job opportunities, courses, or to showcase your skills to companies",
+      "continueAsCandidate": "Continue as Candidate",
+      "processing": "Processing..."
+    },
+    "companyForm": {
+      "companyProfileSetup": "Company Profile Setup",
+      "companyName": "Company Name",
+      "companyNameRequired": "Company name is required",
+      "industry": "Industry",
+      "selectIndustry": "Select Industry",
+      "industryRequired": "Please select your industry",
+      "activities": "Company Activities",
+      "activitiesPlaceholder": "Describe your company activities...",
+      "headquarters": "Headquarters Location",
+      "headquartersPlaceholder": "e.g., San Francisco, CA",
+      "yearEstablished": "Year Established",
+      "technologies": "Technologies Used",
+      "technologiesHelp": "Separate multiple technologies with commas",
+      "companySize": "Company Size",
+      "selectCompanySize": "Select Company Size",
+      "companySizeRequired": "Please select your company size",
+      "employees": "employees",
+      "website": "Company Website",
+      "websiteRequired": "Website URL is required",
+      "globalEmployees": "Employees Worldwide",
+      "hasOfficesInBulgaria": "Offices in Bulgaria",
+      "employeesInBulgaria": "Employees in Bulgaria",
+      "bulgarianOffices": "Bulgarian Office Locations",
+      "bulgarianOfficesHelp": "Separate multiple locations with commas",
+      "companyLogo": "Company Logo",
+      "logoHelp": "Upload a square logo, preferably 512x512px or larger",
+      "companyAbout": "About Company",
+      "companyAboutPlaceholder": "Tell us about your company...",
+      "contactPerson": "Contact Person",
+      "contactEmail": "Contact Email",
+      "contactInfoRequired": "At least one contact method is required",
+      "contactPhone": "Contact Phone",
+      "whyWorkWithUs": "Why Work With Us",
+      "optional": "optional"
+    },
+    "stepForm": {
+      "step": "Step",
+      "of": "of",
+      "changeRole": "Change Role",
+      "previous": "Previous",
+      "next": "Next",
+      "complete": "Complete",
+      "processing": "Processing..."
+    }
+  },
+
   "productLaunchEvent": {
     "title": "SkillBridge Product Launch Meetup",
     "date": "December 15, 2023",
@@ -154,10 +215,14 @@
 
   "landingPage": {
     "hero": {
-      "title": "#1 Internship Platform in Bulgaria",
+      "badge": "#1 Internship Platform",
+      "title": "The Bridge Between Education and Success",
       "subtitle": "By students for students - where knowledge meets opportunities and careers are born",
       "primaryCta": "Get Started",
-      "secondaryCta": "Explore Projects"
+      "secondaryCta": "Explore Projects",
+      "feature1": "Internships in leading companies",
+      "feature2": "Real projects with mentorship",
+      "feature3": "Free courses and events"
     },
     "problem": {
       "title": "The Problem We Solve",

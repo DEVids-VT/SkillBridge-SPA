@@ -23,6 +23,67 @@
   "videoNotSupported": "Вашият браузър не поддържа видео тагове.",
   "logoAlt": "SkillBridge Лого",
 
+  "welcome": {
+    "badge": "Да започнем",
+    "title": "Добре дошли в {{appName}}!",
+    "appName": "SkillBridge",
+    "onboardingInfo": "Нуждаем се от малко повече информация, преди да продължите. Моля, изберете типа на акаунта си по-долу:",
+    "roleSelector": {
+      "iAmCompany": "Аз съм Компания",
+      "companyDescription": "Търся таланти за наемане, публикуване на проекти или сътрудничество с квалифицирани професионалисти",
+      "continueAsCompany": "Продължи като Компания",
+      "iAmCandidate": "Аз съм Кандидат",
+      "candidateDescription": "Търся възможности за работа, курсове или да покажа уменията си на компаниите",
+      "continueAsCandidate": "Продължи като Кандидат",
+      "processing": "Обработка..."
+    },
+    "companyForm": {
+      "companyProfileSetup": "Настройка на Фирмен Профил",
+      "companyName": "Име на Компанията",
+      "companyNameRequired": "Името на компанията е задължително",
+      "industry": "Индустрия",
+      "selectIndustry": "Изберете Индустрия",
+      "industryRequired": "Моля, изберете вашата индустрия",
+      "activities": "Дейности на Компанията",
+      "activitiesPlaceholder": "Опишете дейностите на вашата компания...",
+      "headquarters": "Местоположение на Главния Офис",
+      "headquartersPlaceholder": "напр., София, България",
+      "yearEstablished": "Година на Основаване",
+      "technologies": "Използвани Технологии",
+      "technologiesHelp": "Разделете няколко технологии със запетая",
+      "companySize": "Размер на Компанията",
+      "selectCompanySize": "Изберете Размер на Компанията",
+      "companySizeRequired": "Моля, изберете размера на вашата компания",
+      "employees": "служители",
+      "website": "Уебсайт на Компанията",
+      "websiteRequired": "URL на уебсайта е задължителен",
+      "globalEmployees": "Служители по Света",
+      "hasOfficesInBulgaria": "Офиси в България",
+      "employeesInBulgaria": "Служители в България",
+      "bulgarianOffices": "Местоположения на Български Офиси",
+      "bulgarianOfficesHelp": "Разделете няколко местоположения със запетая",
+      "companyLogo": "Лого на Компанията",
+      "logoHelp": "Качете квадратно лого, желателно 512x512px или по-голямо",
+      "companyAbout": "За Компанията",
+      "companyAboutPlaceholder": "Разкажете ни за вашата компания...",
+      "contactPerson": "Контактно Лице",
+      "contactEmail": "Контактен Имейл",
+      "contactInfoRequired": "Поне един начин за контакт е задължителен",
+      "contactPhone": "Контактен Телефон",
+      "whyWorkWithUs": "Защо да Работят с Нас",
+      "optional": "незадължително"
+    },
+    "stepForm": {
+      "step": "Стъпка",
+      "of": "от",
+      "changeRole": "Смени Роля",
+      "previous": "Предишна",
+      "next": "Следваща",
+      "complete": "Завърши",
+      "processing": "Обработка..."
+    }
+  },
+
   "productLaunchEvent": {
     "title": "SkillBridge Представяне на Продукта",
     "date": "15 Декември, 2023",
@@ -160,10 +221,14 @@
 
   "landingPage": {
     "hero": {
+      "badge": "№1 Стажантска платформа",
       "title": "Мостът между образованието и успеха",
       "subtitle": "От студенти за студенти - където знанието среща възможности и ражда кариера",
       "primaryCta": "Започни сега",
-      "secondaryCta": "Разгледай проекти"
+      "secondaryCta": "Разгледай проекти",
+      "feature1": "Стажове във водещи компании",
+      "feature2": "Реални проекти с менторство",
+      "feature3": "Безплатни курсове и събития"
     },
     "problem": {
       "title": "Проблемът, който решаваме",

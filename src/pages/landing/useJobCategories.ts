@@ -26,7 +26,7 @@ export const useJobCategories = () => {
       id: 'design',
       name: t('categories.design', 'Design'),
       count: 458,
-      color: 'bg-purple-100 text-purple-700',
+      color: 'bg-blue-100 text-blue-700',
       description: t(
         'categories.designDesc',
         'Create beautiful user experiences and visual identities'
@@ -42,7 +42,7 @@ export const useJobCategories = () => {
       id: 'marketing',
       name: t('categories.marketing', 'Marketing'),
       count: 326,
-      color: 'bg-green-100 text-green-700',
+      color: 'bg-blue-100 text-blue-700',
       description: t(
         'categories.marketingDesc',
         'Drive growth and engagement through creative campaigns'
@@ -90,7 +90,7 @@ export const useJobCategories = () => {
       id: 'agencies',
       name: t('categories.agencies', 'Agencies'),
       count: 231,
-      color: 'bg-red-100 text-red-700',
+      color: 'bg-blue-100 text-blue-700',
       description: t(
         'categories.agenciesDesc',
         'Collaborate with full-service creative and technical agencies'

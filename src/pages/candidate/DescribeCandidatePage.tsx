@@ -33,7 +33,7 @@ const initialFormState: CandidateForm = {
 };
 
 export default function DescribeCandidatePage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('candidate');
   const navigate = useNavigate();
   const [formData, setFormData] = useState<CandidateForm>(initialFormState);
   const [formErrors, setFormErrors] = useState<FormErrors>({});
@@ -70,6 +70,7 @@ export default function DescribeCandidatePage() {
     const progress = (completedFields.length / requiredFields.length) * 100;
     setFormProgress(progress);
   }, [formData]);
+
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -126,41 +127,42 @@ export default function DescribeCandidatePage() {
 
     // Validate required fields
     if (!formData.roleTitle.trim()) {
-      errors.roleTitle = 'Role title is required';
+      errors.roleTitle = t('candidatePage.form.roleTitle.error');
       isValid = false;
     }
 
     if (!formData.requiredSkills.trim()) {
-      errors.requiredSkills = 'Required skills are required';
+      errors.requiredSkills = t('candidatePage.form.requiredSkills.error');
       isValid = false;
     }
 
     if (!formData.yearsExperience.trim()) {
-      errors.yearsExperience = 'Years of experience is required';
+      errors.yearsExperience = t('candidatePage.form.yearsExperience.errorRequired');
       isValid = false;
     } else if (isNaN(Number(formData.yearsExperience))) {
-      errors.yearsExperience = 'Years of experience must be a number';
+      errors.yearsExperience = t('candidatePage.form.yearsExperience.errorNumber');
       isValid = false;
     }
 
     if (!formData.seniorityLevel) {
-      errors.seniorityLevel = 'Seniority level is required';
+      errors.seniorityLevel = t('candidatePage.form.seniorityLevel.error');
       isValid = false;
     }
 
     if (!formData.relevantTechnologies.trim()) {
-      errors.relevantTechnologies = 'Relevant technologies are required';
+      errors.relevantTechnologies = t('candidatePage.form.relevantTechnologies.error');
       isValid = false;
     }
 
     if (!formData.description.trim()) {
-      errors.description = 'Description is required';
+      errors.description = t('candidatePage.form.description.error');
       isValid = false;
     }
 
     setFormErrors(errors);
     return isValid;
   };
+
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -195,8 +197,8 @@ export default function DescribeCandidatePage() {
           setNotification({
             show: true,
             type: 'success',
-            title: 'Success!',
-            message: "Your candidate requirements have been submitted. We'll find the perfect match for your needs!"
+            title: t('candidatePage.notifications.success.title'),
+            message: t('candidatePage.notifications.success.message')
           });
           
           // Redirect to the project detail page after a short delay
@@ -210,20 +212,34 @@ export default function DescribeCandidatePage() {
           setNotification({
             show: true,
             type: 'error',
-            title: 'Error',
-              message: error.message || 'An error occurred while submitting your request.',
-            });
-          },
-        }
-      );
+            title: t('candidatePage.notifications.error.title'),
+            message: error.message || t('candidatePage.notifications.error.defaultMessage'),
+          });
+        },
+      });
     }
   };
+
+  // Get progress message based on completion percentage
+  const getProgressMessage = () => {
+    if (formProgress === 0) {
+      return t('candidatePage.progress.messages.start');
+    } else if (formProgress < 50) {
+      return t('candidatePage.progress.messages.quarter');
+    } else if (formProgress < 100) {
+      return t('candidatePage.progress.messages.half');
+    } else {
+      return t('candidatePage.progress.messages.ready');
+    }
+  };
+
   return (
     <div className={cn(spacing.container, spacing.headerOffset, 'py-8 relative')}>
       {/* Background pattern */}
       <div className="absolute top-8 right-0 w-64 h-64 bg-blue-50 dark:bg-blue-900/20 rounded-full opacity-30 blur-3xl -z-10"></div>
       <div className="absolute bottom-12 left-8 w-48 h-48 bg-purple-50 dark:bg-purple-900/20 rounded-full opacity-30 blur-3xl -z-10"></div>
       <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-green-50 dark:bg-green-900/10 rounded-full opacity-20 blur-3xl -z-10"></div>
+      
       {notification.show && (
         <Notification
           title={notification.title}
@@ -232,34 +248,33 @@ export default function DescribeCandidatePage() {
           onClose={() => setNotification((prev) => ({ ...prev, show: false }))}
         />
       )}
+      
       {/* Page Header */}
       <div className={layouts.pageHeader}>
         <div className={layouts.pageHeaderBackground}></div>
         <h1 className={layouts.pageTitle}>
-          <span className="text-blue-600">{t('candidatePage.title1', 'Describe')}</span>{' '}
-          <span className="text-gray-600">{t('candidatePage.title2', 'Your Ideal Candidate')}</span>
+          <span className="text-blue-600">{t('candidatePage.header.title1')}</span>{' '}
+          <span className="text-gray-600">{t('candidatePage.header.title2')}</span>
         </h1>
         <p className={layouts.pageDescription}>
-          {t(
-            'candidatePage.subtitle',
-            'Fill out the form below to define the perfect candidate for your role.'
-          )}
+          {t('candidatePage.header.subtitle')}
         </p>
-      </div>{' '}
+      </div>
+      
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column - Form */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
           <h2 className="text-xl font-semibold mb-6 pb-4 border-b border-gray-100 dark:border-gray-700 flex items-center">
             <span className="inline-block w-2 h-6 bg-blue-600 mr-3 rounded"></span>
-            {t('candidatePage.formTitle', 'Candidate Requirements')}
+            {t('candidatePage.form.title')}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-3">
-              <Label htmlFor="roleTitle">Role Title</Label>
+              <Label htmlFor="roleTitle">{t('candidatePage.form.roleTitle.label')}</Label>
               <Input
                 id="roleTitle"
                 name="roleTitle"
-                placeholder="e.g., Frontend Developer, UX Designer"
+                placeholder={t('candidatePage.form.roleTitle.placeholder')}
                 value={formData.roleTitle}
                 onChange={handleInputChange}
                 className={formErrors.roleTitle ? 'border-red-500' : ''}
@@ -267,13 +282,14 @@ export default function DescribeCandidatePage() {
               {formErrors.roleTitle && (
                 <p className="text-red-500 text-sm mt-1">{formErrors.roleTitle}</p>
               )}
-            </div>{' '}
+            </div>
+            
             <div className="space-y-3">
-              <Label htmlFor="requiredSkills">Required Skills</Label>
+              <Label htmlFor="requiredSkills">{t('candidatePage.form.requiredSkills.label')}</Label>
               <TagInput
                 id="requiredSkills"
                 name="requiredSkills"
-                placeholder="e.g., React, TypeScript, UI/UX (type and press Enter)"
+                placeholder={t('candidatePage.form.requiredSkills.placeholder')}
                 value={formData.requiredSkills}
                 onChange={handleTagInputChange}
                 hasError={!!formErrors.requiredSkills}
@@ -281,14 +297,15 @@ export default function DescribeCandidatePage() {
               {formErrors.requiredSkills && (
                 <p className="text-red-500 text-sm mt-1">{formErrors.requiredSkills}</p>
               )}
-            </div>{' '}
+            </div>
+            
             <div className="space-y-3">
-              <Label htmlFor="yearsExperience">Years of Experience</Label>
+              <Label htmlFor="yearsExperience">{t('candidatePage.form.yearsExperience.label')}</Label>
               <div className="relative">
                 <Input
                   id="yearsExperience"
                   name="yearsExperience"
-                  placeholder="e.g., 3"
+                  placeholder={t('candidatePage.form.yearsExperience.placeholder')}
                   type="number"
                   min="0"
                   value={formData.yearsExperience}
@@ -296,40 +313,42 @@ export default function DescribeCandidatePage() {
                   className={`pl-4 pr-12 ${formErrors.yearsExperience ? 'border-red-500' : ''}`}
                 />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
-                  years
+                  {t('candidatePage.form.yearsExperience.suffix')}
                 </span>
               </div>
               {formErrors.yearsExperience && (
                 <p className="text-red-500 text-sm mt-1">{formErrors.yearsExperience}</p>
               )}
             </div>
+            
             <div className="space-y-3">
-              <Label htmlFor="seniorityLevel">Seniority Level</Label>
+              <Label htmlFor="seniorityLevel">{t('candidatePage.form.seniorityLevel.label')}</Label>
               <Select value={formData.seniorityLevel} onValueChange={handleSelectChange}>
                 <SelectTrigger
                   id="seniorityLevel"
                   className={formErrors.seniorityLevel ? 'border-red-500' : ''}
                 >
-                  <SelectValue placeholder="Select level" />
+                  <SelectValue placeholder={t('candidatePage.form.seniorityLevel.placeholder')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="junior">Junior</SelectItem>
-                  <SelectItem value="mid">Mid-level</SelectItem>
-                  <SelectItem value="senior">Senior</SelectItem>
-                  <SelectItem value="lead">Lead</SelectItem>
-                  <SelectItem value="principal">Principal</SelectItem>
+                  <SelectItem value="junior">{t('candidatePage.form.seniorityLevel.options.junior')}</SelectItem>
+                  <SelectItem value="mid">{t('candidatePage.form.seniorityLevel.options.mid')}</SelectItem>
+                  <SelectItem value="senior">{t('candidatePage.form.seniorityLevel.options.senior')}</SelectItem>
+                  <SelectItem value="lead">{t('candidatePage.form.seniorityLevel.options.lead')}</SelectItem>
+                  <SelectItem value="principal">{t('candidatePage.form.seniorityLevel.options.principal')}</SelectItem>
                 </SelectContent>
               </Select>
               {formErrors.seniorityLevel && (
                 <p className="text-red-500 text-sm mt-1">{formErrors.seniorityLevel}</p>
               )}
-            </div>{' '}
+            </div>
+            
             <div className="space-y-3">
-              <Label htmlFor="relevantTechnologies">Relevant Technologies</Label>
+              <Label htmlFor="relevantTechnologies">{t('candidatePage.form.relevantTechnologies.label')}</Label>
               <TagInput
                 id="relevantTechnologies"
                 name="relevantTechnologies"
-                placeholder="e.g., React, Node.js, Docker (type and press Enter)"
+                placeholder={t('candidatePage.form.relevantTechnologies.placeholder')}
                 value={formData.relevantTechnologies}
                 onChange={handleTagInputChange}
                 hasError={!!formErrors.relevantTechnologies}
@@ -337,28 +356,30 @@ export default function DescribeCandidatePage() {
               {formErrors.relevantTechnologies && (
                 <p className="text-red-500 text-sm mt-1">{formErrors.relevantTechnologies}</p>
               )}
-            </div>{' '}
+            </div>
+            
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <Label htmlFor="industryExperience">Industry Experience</Label>
+                <Label htmlFor="industryExperience">{t('candidatePage.form.industryExperience.label')}</Label>
                 <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
-                  Optional
+                  {t('candidatePage.form.industryExperience.optional')}
                 </span>
               </div>
               <TagInput
                 id="industryExperience"
                 name="industryExperience"
-                placeholder="e.g., Fintech, E-commerce, Healthcare"
+                placeholder={t('candidatePage.form.industryExperience.placeholder')}
                 value={formData.industryExperience}
                 onChange={handleTagInputChange}
               />
             </div>
+            
             <div className="space-y-3">
-              <Label htmlFor="description">Description of Ideal Candidate</Label>
+              <Label htmlFor="description">{t('candidatePage.form.description.label')}</Label>
               <Textarea
                 id="description"
                 name="description"
-                placeholder="Describe the ideal candidate and any other important qualifications or traits..."
+                placeholder={t('candidatePage.form.description.placeholder')}
                 value={formData.description}
                 onChange={handleInputChange}
                 className={`min-h-32 ${formErrors.description ? 'border-red-500' : ''}`}
@@ -367,6 +388,7 @@ export default function DescribeCandidatePage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.description}</p>
               )}
             </div>
+            
             <div className="pt-4">
               <Button
                 type="submit"
@@ -378,25 +400,26 @@ export default function DescribeCandidatePage() {
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
                     <span className="h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
-                    {t('candidatePage.submitting', 'Submitting...')}
+                    {t('candidatePage.form.submit.submitting')}
                   </span>
                 ) : (
-                  t('candidatePage.submitButton', 'Submit Candidate Requirements')
+                  t('candidatePage.form.submit.button')
                 )}
               </Button>
               {formProgress < 100 && (
                 <p className="text-sm text-gray-500 mt-2 text-center">
-                  {t('candidatePage.completeAllFields', 'Please complete all required fields')}
+                  {t('candidatePage.form.submit.completeFields')}
                 </p>
               )}
             </div>
           </form>
-        </div>{' '}
+        </div>
+        
         {/* Right Column - Visual Feedback */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col">
           <h2 className="text-xl font-semibold mb-6 pb-4 border-b border-gray-100 dark:border-gray-700 flex items-center">
             <span className="inline-block w-2 h-6 bg-purple-600 mr-3 rounded"></span>
-            {t('candidatePage.visualTitle', 'Progress')}
+            {t('candidatePage.progress.title')}
           </h2>
           <div className="flex flex-col items-center justify-start flex-grow">
             <div className="relative w-full max-w-md aspect-square">
@@ -413,17 +436,11 @@ export default function DescribeCandidatePage() {
             <div className="mt-8 text-center">
               <h3 className="text-xl font-medium mb-3">
                 {formProgress === 100
-                  ? 'Your perfect candidate is defined!'
-                  : 'Define your perfect candidate'}
+                  ? t('candidatePage.progress.complete')
+                  : t('candidatePage.progress.incomplete')}
               </h3>
               <p className="text-gray-600 dark:text-gray-300 max-w-md mx-auto">
-                {formProgress === 0
-                  ? 'Start filling out the form to build your candidate profile'
-                  : formProgress < 50
-                    ? 'Keep going! Add more details to better define your needs'
-                    : formProgress < 100
-                      ? 'Almost there! Complete the remaining fields'
-                      : 'Ready to find your ideal candidate!'}
+                {getProgressMessage()}
               </p>
             </div>
           </div>

@@ -3,8 +3,9 @@ import { Building, GraduationCap, Clock, Target, TrendingUp, Users, BookOpen, Br
 import img1 from '../../../public/images/people/12.png';
 import img2 from '../../../public/images/people/13.png';
 import img3 from '../../../public/images/people/14.png';
+
 const AboutPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('about');
 
   const companyBenefits = [
     {
@@ -45,22 +46,22 @@ const AboutPage = () => {
   // Team members data
   const teamMembers = [
     {
-      name: "Давид Петков",
-      role: "CEO & Co-Founder",
-      bio: "Визионер с опит в технологичните стартъпи и бизнес развитието.",
-      image: img1 // Placeholder for photo
+      name: t('aboutPage.team.members.davidPetkov.name'),
+      role: t('aboutPage.team.members.davidPetkov.role'),
+      bio: t('aboutPage.team.members.davidPetkov.bio'),
+      image: img1
     },
     {
-      name: "Давид Христов", 
-      role: "CTO & Co-Founder",
-      bio: "Технически лидер със страст към иновативни решения и архитектура.",
-      image: img2 // Placeholder for photo
+      name: t('aboutPage.team.members.davidHristov.name'),
+      role: t('aboutPage.team.members.davidHristov.role'),
+      bio: t('aboutPage.team.members.davidHristov.bio'),
+      image: img2
     },
     {
-      name: "Траян Василев",
-      role: "Head of Product",
-      bio: "Експерт в продуктовия дизайн и потребителското изживяване.",
-      image: img3 // Placeholder for photo
+      name: t('aboutPage.team.members.trayanVasilev.name'),
+      role: t('aboutPage.team.members.trayanVasilev.role'),
+      bio: t('aboutPage.team.members.trayanVasilev.bio'),
+      image: img3
     }
   ];
 
@@ -86,12 +87,12 @@ const AboutPage = () => {
         {/* Hero Header - Updated to match CompaniesPage style */}
         <div className="text-center mb-16 space-y-6">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
-            <span className="text-blue-600">{t('about')}</span>{' '}
-            <span className="text-gray-600">SkillBridge</span>
+            <span className="text-blue-600">{t('aboutPage.header.title')}</span>{' '}
+            <span className="text-gray-600">{t('aboutPage.header.appName')}</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            {t('aboutPage.hero.subtitle')}
+            {t('aboutPage.header.subtitle')}
           </p>
         </div>
 
@@ -103,7 +104,7 @@ const AboutPage = () => {
             <div className="text-center">
               <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200 mb-4">
                 <Building className="h-4 w-4" />
-                <span>За Компании</span>
+                <span>{t('aboutPage.companies.badge')}</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                 {t('aboutPage.companies.title')}
@@ -138,13 +139,13 @@ const AboutPage = () => {
             <div className="text-center">
               <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200 mb-4">
                 <GraduationCap className="h-4 w-4" />
-                <span>За Студенти</span>
+                <span>{t('aboutPage.students.badge')}</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                За Студенти и Кандидати
+                {t('aboutPage.students.title')}
               </h2>
               <p className="text-gray-600 mb-8">
-                Развий уменията си чрез реални проекти и получи директни възможности за кариера
+                {t('aboutPage.students.subtitle')}
               </p>
             </div>
 
@@ -174,13 +175,13 @@ const AboutPage = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200 mb-4">
               <Users className="h-4 w-4" />
-              <span>Нашият Екип</span>
+              <span>{t('aboutPage.team.badge')}</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Запознайте се с Създателите
+              {t('aboutPage.team.title')}
             </h2>
             <p className="text-gray-600">
-              Екипът от визионери и експерти, които правят SkillBridge възможен
+              {t('aboutPage.team.subtitle')}
             </p>
           </div>
 

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, TrendingUp, BookOpen } from 'lucide-react';
 import { layouts } from '@/lib/design-system';
@@ -9,7 +8,7 @@ interface ProjectsHeaderProps {
 }
 
 export const ProjectsHeader = ({ searchQuery, setSearchQuery }: ProjectsHeaderProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('project');
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // The search query is already being updated via the input's onChange
@@ -38,7 +37,7 @@ export const ProjectsHeader = ({ searchQuery, setSearchQuery }: ProjectsHeaderPr
           <button
             type="submit"
             className="absolute right-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 transition-colors"
-            aria-label="Search"
+            aria-label={t('projectsPage.searchAriaLabel')}
           >
             <Search className="h-5 w-5" />
           </button>

@@ -1,0 +1,119 @@
+{
+  "projectsPage": {
+    "title1": "Project",
+    "title2": "Board",
+    "subtitle": "Discover exciting projects and internship opportunities from leading companies",
+    "searchPlaceholder": "Search projects, companies, or skills...",
+    "searchAriaLabel": "Search",
+    "trending": "Trending",
+    "activeProjects": "Active Projects",
+    "filters": {
+      "title": "Filters",
+      "clear": "Clear",
+      "categories": "Categories",
+      "allCategories": "All Categories",
+      "development": "Development",
+      "design": "Design",
+      "marketing": "Marketing",
+      "content": "Content",
+      "architecture": "Architecture",
+      "otherOptions": "Other Options",
+      "mostRecent": "Most Recent",
+      "upcoming": "Upcoming"
+    },
+    "projectsList": {
+      "showing": "Showing",
+      "projects": "projects",
+      "noProjectsFound": "No projects found matching your criteria."
+    },
+    "projectCard": {
+      "daysAgo": "days ago",
+      "details": "Details",
+      "deadline": "Deadline:",
+      "more": "more",
+      "companyLogoAlt": "logo"
+    },
+    "actions": {
+      "postNewProject": "Post New Project",
+      "postProject": "Post Project",
+      "filters": "Filters"
+    },
+    "states": {
+      "loading": "Loading projects...",
+      "errorLoadingProjects": "Error loading projects. Please try again later."
+    }
+  },
+  "projectPage": {
+    "header": {
+      "title1": "Project",
+      "title2": "Details"
+    },
+    "loading": {
+      "message": "Loading project details..."
+    },
+    "error": {
+      "title": "Error Loading Project",
+      "message": "Unable to load project details. Please try again later."
+    },
+    "projectInfo": {
+      "posted": "Posted:",
+      "deadline": "Deadline:"
+    },
+    "projectDetails": {
+      "duration": "Duration",
+      "salary": "Salary Upon Completion",
+      "capacity": "Maximum Intern Capacity",
+      "enrolled": "enrolled",
+      "seatsLeft": "seats left"
+    },
+    "description": {
+      "title": "Project Description",
+      "additionalText": "This internship opportunity offers hands-on experience in a real-world business environment. You'll work directly with our development team to build innovative solutions while learning industry best practices and modern development workflows."
+    },
+    "learning": {
+      "title": "What You'll Learn & Experience",
+      "businessLogic": {
+        "title": "Business Logic & Problem Solving",
+        "items": [
+          "Understanding customer needs and translating them into technical requirements",
+          "Working with real business constraints and deadlines",
+          "Learning to balance technical excellence with business priorities",
+          "Participating in product planning and feature prioritization discussions"
+        ]
+      },
+      "companyCulture": {
+        "title": "Company Culture & Traditions",
+        "items": [
+          "Daily stand-ups with collaborative problem-solving approach",
+          "Weekly code review sessions with constructive feedback culture",
+          "Monthly innovation hours for personal project exploration",
+          "Open communication policy with direct access to senior developers",
+          "Learning-first mindset where questions are always encouraged"
+        ]
+      },
+      "codeStyle": {
+        "title": "Code Style & Development Practices",
+        "items": [
+          "Clean, self-documenting code with comprehensive comments",
+          "Test-driven development (TDD) methodology",
+          "Git workflow with feature branches and pull request reviews",
+          "Agile development practices with 2-week sprint cycles",
+          "Code documentation and technical writing standards",
+          "Performance optimization and accessibility best practices"
+        ]
+      }
+    },
+    "benefits": {
+      "title": "Benefits & Opportunities",
+      "additionalItems": [
+        "Potential for full-time employment upon successful completion",
+        "Industry networking opportunities and professional references"
+      ]
+    },
+    "actions": {
+      "startNow": "Start Now",
+      "saveProject": "Save Project",
+      "viewCompanyProfile": "View Company Profile"
+    }
+  }
+} 

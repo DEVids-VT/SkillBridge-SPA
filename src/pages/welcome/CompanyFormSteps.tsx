@@ -32,7 +32,7 @@ interface CompanyFormStepsProps {
 }
 
 export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('welcome');
   const navigate = useNavigate();
   const { updateCompanyData, onboardingData, completeOnboarding, refreshUserRoles } =
     useOnboarding();
@@ -262,7 +262,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               <Input
                 id="yearEstablished"
                 type="number"
-                placeholder="2000"
+                placeholder={t('welcome.companyForm.placeholders.yearEstablished')}
                 value={formData.yearEstablished || ''}
                 onChange={(e) => handleChange('yearEstablished', e.target.value)}
               />
@@ -273,7 +273,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               </Label>
               <Input
                 id="technologies"
-                placeholder="e.g., React, TypeScript, Node.js"
+                placeholder={t('welcome.companyForm.placeholders.technologies')}
                 value={formData.technologies?.join(', ') || ''}
                 onChange={(e) => {
                   const techArray = e.target.value.split(', ').filter(Boolean);
@@ -325,7 +325,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               <Input
                 id="website"
                 type="url"
-                placeholder="https://example.com"
+                placeholder={t('welcome.companyForm.placeholders.website')}
                 value={formData.website}
                 onChange={(e) => handleChange('website', e.target.value)}
                 className={errors.website ? 'border-red-500' : ''}
@@ -344,7 +344,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               <Input
                 id="employeesWorldwide"
                 type="number"
-                placeholder="e.g., 500"
+                placeholder={t('welcome.companyForm.placeholders.globalEmployees')}
                 value={formData.globalEmployees || ''}
                 onChange={(e) => handleChange('globalEmployees', e.target.value)}
               />
@@ -376,7 +376,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 <Input
                   id="employeesInBulgaria"
                   type="number"
-                  placeholder="e.g., 50"
+                  placeholder={t('welcome.companyForm.placeholders.employeesInBulgaria')}
                   value={formData.employeesInBulgaria || ''}
                   onChange={(e) => handleChange('employeesInBulgaria', e.target.value)}
                 />
@@ -391,7 +391,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 </Label>{' '}
                 <Input
                   id="bulgarianOffices"
-                  placeholder="e.g., Sofia, Plovdiv"
+                  placeholder={t('welcome.companyForm.placeholders.bulgarianOffices')}
                   value={formData.bulgarianOffices?.join(', ') || ''}
                   onChange={(e) => {
                     const officesArray = e.target.value.split(', ');
@@ -441,7 +441,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 value={formData.contactPerson || ''}
                 onChange={(e) => handleChange('contactPerson', e.target.value)}
                 className={errors.contactInfo ? 'border-red-500' : ''}
-                placeholder="John Doe"
+                placeholder={t('welcome.companyForm.placeholders.contactPerson')}
               />
             </div>
 
@@ -457,7 +457,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 value={formData.contactEmail || ''}
                 onChange={(e) => handleChange('contactEmail', e.target.value)}
                 className={errors.contactInfo ? 'border-red-500' : ''}
-                placeholder="contact@example.com"
+                placeholder={t('welcome.companyForm.placeholders.contactEmail')}
               />
               {errors.contactInfo && (
                 <p className="text-red-500 text-sm mt-1">
@@ -473,7 +473,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 id="contactPhone"
                 value={formData.contactPhone || ''}
                 onChange={(e) => handleChange('contactPhone', e.target.value)}
-                placeholder="+1 234 567 890"
+                placeholder={t('welcome.companyForm.placeholders.contactPhone')}
               />
             </div>
 
@@ -485,7 +485,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 id="whyWorkWithUs"
                 value={formData.whyWorkWithUs || ''}
                 onChange={(e) => handleChange('whyWorkWithUs', e.target.value)}
-                placeholder="Tell candidates why they should work with your company..."
+                placeholder={t('welcome.companyForm.placeholders.whyWorkWithUs')}
                 rows={3}
               />
             </div>

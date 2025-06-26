@@ -47,7 +47,6 @@ export function Header() {
     ...(isAuthenticated && onboardingData.completed
       ? [
           { to: '/projects', label: t('navigation.projects', 'Projects') },
-          { to: '/courses', label: t('navigation.courses', 'Courses') },
           { to: '/companies', label: t('navigation.partners', 'Partners') },
           { to: '/about', label: t('navigation.about', 'About SkillBridge') },
         ]

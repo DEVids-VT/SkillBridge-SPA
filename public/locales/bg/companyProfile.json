@@ -1,0 +1,63 @@
+{
+  "companyProfilePage": {
+    "header": {
+      "title1": "Компания",
+      "title2": "Профил",
+      "subtitle": "Разгледайте информацията за вашата компания и следете кампаниите за проекти"
+    },
+    "loading": {
+      "profile": "Зареждане на профила на компанията...",
+      "error": {
+        "title": "Грешка при Зареждане на Профила",
+        "message": "Неуспешно зареждане на профила на компанията. Моля, опитайте отново по-късно."
+      }
+    },
+    "companyInformation": {
+      "title": "Информация за Компанията",
+      "fields": {
+        "companyName": "Име на Компанията",
+        "industry": "Индустрия",
+        "contactInfo": "Информация за Контакт",
+        "website": "Уебсайт",
+        "companySize": "Размер на Компанията",
+        "address": "Адрес"
+      },
+      "altText": {
+        "companyLogo": "Лого на Компанията"
+      },
+      "fallback": {
+        "notProvided": "Не е предоставено"
+      }
+    },
+    "activeProjects": {
+      "title": "Активни Проекти",
+      "badge": "Активни",
+      "postNewProject": "Публикувай Нов Проект",
+      "details": {
+        "posted": "Публикуван:",
+        "deadline": "Краен срок:",
+        "applicants": "кандидати",
+        "applicantProgress": "Прогрес на Кандидатите"
+      },
+      "priority": {
+        "high": "висок",
+        "medium": "среден",
+        "low": "нисък"
+      },
+      "status": {
+        "active": "активен",
+        "completed": "завършен",
+        "closed": "затворен"
+      },
+      "actions": {
+        "viewApplicants": "Виж Кандидатите",
+        "editProject": "Редактирай Проект"
+      }
+    },
+    "pastCampaigns": {
+      "title": "Минали Кампании",
+      "completed": "Завършени",
+      "viewAllCampaigns": "Виж Всички Кампании"
+    }
+  }
+} 

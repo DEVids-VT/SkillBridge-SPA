@@ -1,0 +1,46 @@
+{
+  "landingPage": {
+    "hero": {
+      "badge": "#1 Internship Platform",
+      "title": "Bridge the Gap Between Education and Career",
+      "subtitle": "Connect with leading companies, work on real projects, and kickstart your professional journey with mentorship and hands-on experience.",
+      "primaryCta": "Start Your Journey",
+      "secondaryCta": "Explore Projects",
+      "features": {
+        "feature1": "Internships in leading companies",
+        "feature2": "Real projects with mentorship",
+        "feature3": "Free courses and events"
+      },
+      "stats": {
+        "projects": "Projects",
+        "companies": "Companies",
+        "students": "Students"
+      }
+    },
+    "categoryGrid": {
+      "badge": "Project Categories",
+      "title": "Discover Projects by Category",
+      "subtitle": "Explore opportunities in different industries and find your path",
+      "categoryCard": {
+        "label": "Problem",
+        "availableProjects": "available projects"
+      }
+    },
+    "companyMarquee": {
+      "badge": "Trusted Partners",
+      "title": "Leading Organizations Choose Us",
+      "subtitle": "Join these innovative companies that trust our platform to connect with top talent",
+      "stats": {
+        "companies": "Partner Companies",
+        "projects": "Active Projects",
+        "success": "Hiring Success Rate"
+      },
+      "cta": {
+        "title": "Want to become a partner?",
+        "subtitle": "Join our network of innovative companies and discover the best talent",
+        "joinButton": "Join Our Network",
+        "learnMoreButton": "Learn More"
+      }
+    }
+  }
+} 

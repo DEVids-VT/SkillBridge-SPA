@@ -31,7 +31,7 @@ export function StepFormWrapper({
   isLoading = false,
   onBackToRoleSelection,
 }: StepFormWrapperProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('welcome');
   const progress = (currentStep / totalSteps) * 100;
   return (
     <Card className="w-full max-w-3xl mx-auto shadow-lg bg-white/95 backdrop-blur-sm border-0">

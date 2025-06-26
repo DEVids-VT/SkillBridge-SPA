@@ -1,0 +1,82 @@
+{
+  "candidatePage": {
+    "header": {
+      "title1": "Describe",
+      "title2": "Your Ideal Candidate",
+      "subtitle": "Fill out the form below to define the perfect candidate for your role."
+    },
+    "form": {
+      "title": "Candidate Requirements",
+      "roleTitle": {
+        "label": "Role Title",
+        "placeholder": "e.g., Frontend Developer, UX Designer",
+        "error": "Role title is required"
+      },
+      "requiredSkills": {
+        "label": "Required Skills",
+        "placeholder": "e.g., React, TypeScript, UI/UX (type and press Enter)",
+        "error": "Required skills are required"
+      },
+      "yearsExperience": {
+        "label": "Years of Experience",
+        "placeholder": "e.g., 3",
+        "suffix": "years",
+        "errorRequired": "Years of experience is required",
+        "errorNumber": "Years of experience must be a number"
+      },
+      "seniorityLevel": {
+        "label": "Seniority Level",
+        "placeholder": "Select level",
+        "error": "Seniority level is required",
+        "options": {
+          "junior": "Junior",
+          "mid": "Mid-level",
+          "senior": "Senior",
+          "lead": "Lead",
+          "principal": "Principal"
+        }
+      },
+      "relevantTechnologies": {
+        "label": "Relevant Technologies",
+        "placeholder": "e.g., React, Node.js, Docker (type and press Enter)",
+        "error": "Relevant technologies are required"
+      },
+      "industryExperience": {
+        "label": "Industry Experience",
+        "optional": "Optional",
+        "placeholder": "e.g., Fintech, E-commerce, Healthcare"
+      },
+      "description": {
+        "label": "Description of Ideal Candidate",
+        "placeholder": "Describe the ideal candidate and any other important qualifications or traits...",
+        "error": "Description is required"
+      },
+      "submit": {
+        "button": "Submit Candidate Requirements",
+        "submitting": "Submitting...",
+        "completeFields": "Please complete all required fields"
+      }
+    },
+    "progress": {
+      "title": "Progress",
+      "complete": "Your perfect candidate is defined!",
+      "incomplete": "Define your perfect candidate",
+      "messages": {
+        "start": "Start filling out the form to build your candidate profile",
+        "quarter": "Keep going! Add more details to better define your needs",
+        "half": "Almost there! Complete the remaining fields",
+        "ready": "Ready to find your ideal candidate!"
+      }
+    },
+    "notifications": {
+      "success": {
+        "title": "Success!",
+        "message": "Your candidate requirements have been submitted. We'll find the perfect match for your needs!"
+      },
+      "error": {
+        "title": "Error",
+        "defaultMessage": "An error occurred while submitting your request."
+      }
+    }
+  }
+} 

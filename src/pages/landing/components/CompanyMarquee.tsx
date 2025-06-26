@@ -9,7 +9,7 @@ interface CompanyMarqueeProps {
 }
 
 export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('landing');
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 py-20">
@@ -34,21 +34,21 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
         <div className="text-center mb-16 space-y-6">
           <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200">
             <Building2 className="h-4 w-4" />
-            <span>{t('landingPage.partners.badge', 'Trusted Partners')}</span>
+            <span>{t('landingPage.companyMarquee.badge')}</span>
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
-            {t('landingPage.partners.title', 'Leading Organizations Choose Us')}
+            {t('landingPage.companyMarquee.title')}
           </h2>
           
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            {t('landingPage.partners.subtitle', 'Join these innovative companies that trust our platform to connect with top talent')}
+            {t('landingPage.companyMarquee.subtitle')}
           </p>
         </div>
 
         {/* Company Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-6xl mx-auto mb-16">
-          {companies.slice(0, 10).map((company, index) => (
+          {companies.slice(0, 10).map((company) => (
             <div
               key={company.id}
               className="group cursor-pointer"
@@ -82,15 +82,15 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
           <div className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm">
             <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">50+</div>
-            <div className="text-gray-600 font-medium">Партньорски Компании</div>
+            <div className="text-gray-600 font-medium">{t('landingPage.companyMarquee.stats.companies')}</div>
           </div>
           <div className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm">
             <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">500+</div>
-            <div className="text-gray-600 font-medium">Активни Проекти</div>
+            <div className="text-gray-600 font-medium">{t('landingPage.companyMarquee.stats.projects')}</div>
           </div>
           <div className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm">
             <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">95%</div>
-            <div className="text-gray-600 font-medium">Успех при Наемане</div>
+            <div className="text-gray-600 font-medium">{t('landingPage.companyMarquee.stats.success')}</div>
           </div>
         </div>
 
@@ -98,10 +98,10 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
         <div className="text-center space-y-6">
           <div className="space-y-3">
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
-              {t('landingPage.partners.cta', 'Want to become a partner?')}
+              {t('landingPage.companyMarquee.cta.title')}
             </h3>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Присъединете се към нашата мрежа от иновативни компании и открийте най-добрите таланти
+              {t('landingPage.companyMarquee.cta.subtitle')}
             </p>
           </div>
           
@@ -112,7 +112,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
               className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               <Link to="/companies" className="flex items-center gap-2">
-                {t('landingPage.partners.ctaButton', 'Join Our Network')}
+                {t('landingPage.companyMarquee.cta.joinButton')}
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -123,7 +123,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
               size="lg"
               className="border-2 border-gray-300 hover:border-blue-300 text-gray-700 hover:text-blue-700 bg-white/80 backdrop-blur-sm px-8 py-4 text-lg font-medium rounded-xl transition-all duration-300"
             >
-              <Link to="/about">Научи Повече</Link>
+              <Link to="/about">{t('landingPage.companyMarquee.cta.learnMoreButton')}</Link>
             </Button>
           </div>
         </div>

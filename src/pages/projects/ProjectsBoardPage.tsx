@@ -15,7 +15,7 @@ import { CategoryFilter } from './types';
 import { useFetchProjects } from './hooks/useFetchProjects';
 
 const ProjectsPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('project');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -100,7 +100,9 @@ const ProjectsPage = () => {
   const handleClearFilters = () => {
     setSelectedCategory('all');
     setSearchQuery('');
-  };  return (
+  };
+
+  return (
     <div className={cn(spacing.container, spacing.headerOffset, 'py-8')}>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex-grow w-full md:w-auto">
@@ -116,7 +118,7 @@ const ProjectsPage = () => {
             onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
           >
             <Plus className="h-4 w-4 mr-2" />
-            {t('postNewProject', 'Post New Project')}
+            {t('projectsPage.actions.postNewProject')}
           </Button>
         )}
       
@@ -128,7 +130,7 @@ const ProjectsPage = () => {
             onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
           >
             <Filter className="h-4 w-4" />
-            <span>Filters</span>
+            <span>{t('projectsPage.actions.filters')}</span>
           </Button>
 
           {/* Mobile Post New Project button - only visible for companies */}
@@ -138,7 +140,7 @@ const ProjectsPage = () => {
               onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
             >
               <Plus className="h-4 w-4 mr-2" />
-              <span>Post Project</span>
+              <span>{t('projectsPage.actions.postProject')}</span>
             </Button>
           )}
         </div>
@@ -167,14 +169,14 @@ const ProjectsPage = () => {
                 <div className="flex flex-col items-center space-y-4">
                   <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
                   <p className="text-lg font-medium text-gray-600">
-                    {t('loading', 'Loading projects...')}
+                    {t('projectsPage.states.loading')}
                   </p>
                 </div>
               </div>
             ) : error ? (
               <div className="p-8 text-center">
                 <p className="text-red-500 font-medium">
-                  {t('errorLoadingProjects', 'Error loading projects. Please try again later.')}
+                  {t('projectsPage.states.errorLoadingProjects')}
                 </p>
               </div>
             ) : (

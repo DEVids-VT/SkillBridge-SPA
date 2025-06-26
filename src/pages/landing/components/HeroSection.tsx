@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Check, Users, Award, BookOpen } from 'lucide-react';
+import { ArrowRight, Users, Award, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const HeroSection = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('landing');
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50">
@@ -30,7 +30,7 @@ export const HeroSection = () => {
           {/* Badge */}
           <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200">
             <div className="flex h-2 w-2 bg-blue-500 rounded-full animate-pulse" />
-            <span>{t('landingPage.hero.badge', '#1 Internship Platform')}</span>
+            <span>{t('landingPage.hero.badge')}</span>
           </div>
 
           {/* Main Title */}
@@ -73,21 +73,21 @@ export const HeroSection = () => {
               <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4">
                 <Users className="h-6 w-6 text-blue-600" />
               </div>
-              <p className="text-gray-700 font-medium text-center">{t('landingPage.hero.feature1', 'Internships in leading companies')}</p>
+              <p className="text-gray-700 font-medium text-center">{t('landingPage.hero.features.feature1')}</p>
             </div>
             
             <div className="flex flex-col items-center p-6 bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4">
                 <Award className="h-6 w-6 text-blue-600" />
               </div>
-              <p className="text-gray-700 font-medium text-center">{t('landingPage.hero.feature2', 'Real projects with mentorship')}</p>
+              <p className="text-gray-700 font-medium text-center">{t('landingPage.hero.features.feature2')}</p>
             </div>
             
             <div className="flex flex-col items-center p-6 bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4">
                 <BookOpen className="h-6 w-6 text-blue-600" />
               </div>
-              <p className="text-gray-700 font-medium text-center">{t('landingPage.hero.feature3', 'Free courses and events')}</p>
+              <p className="text-gray-700 font-medium text-center">{t('landingPage.hero.features.feature3')}</p>
             </div>
           </div>
 
@@ -95,15 +95,15 @@ export const HeroSection = () => {
           <div className="grid grid-cols-3 gap-8 pt-8 max-w-md">
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-blue-600">500+</div>
-              <div className="text-sm text-gray-600">Проекти</div>
+              <div className="text-sm text-gray-600">{t('landingPage.hero.stats.projects')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-blue-600">50+</div>
-              <div className="text-sm text-gray-600">Компании</div>
+              <div className="text-sm text-gray-600">{t('landingPage.hero.stats.companies')}</div>
             </div>
             <div className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-blue-600">1000+</div>
-              <div className="text-sm text-gray-600">Студенти</div>
+              <div className="text-sm text-gray-600">{t('landingPage.hero.stats.students')}</div>
             </div>
           </div>
         </div>

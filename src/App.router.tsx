@@ -1,8 +1,6 @@
 import { createBrowserRouter, createRoutesFromChildren, Route, Navigate } from 'react-router-dom';
 import { RoutePage } from './types/enums/RoutePage';
 import LandingPage from './pages/landing/LandingPage';
-import CoursesPage from './pages/courses/CoursesPage.tsx';
-import EventsPage from './pages/events';
 import CompaniesPage from './pages/companies/CompaniesPage.tsx';
 import AboutPage from './pages/about/AboutPage.tsx';
 import WelcomePage from './pages/welcome/WelcomePage';
@@ -34,8 +32,6 @@ export const router = createBrowserRouter(
         <Route index element={<LandingPage />} />{' '}
         <Route path={RoutePage.PROJECTS} element={<ProjectsBoardPage />} />
         <Route path={RoutePage.PROJECT_DETAIL} element={<ProjectPage />} />{' '}
-        <Route path={RoutePage.COURSES} element={<CoursesPage />} />
-        <Route path={RoutePage.EVENTS} element={<EventsPage />} />
         <Route path={RoutePage.COMPANIES} element={<CompaniesPage />} />
         <Route path={RoutePage.ABOUT} element={<AboutPage />} />
         <Route path={RoutePage.DESCRIBE_CANDIDATE} element={<DescribeCandidatePage />} />

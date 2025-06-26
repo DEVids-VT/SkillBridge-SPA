@@ -1,0 +1,37 @@
+{
+  "candidateProfilePage": {
+    "header": {
+      "title1": "Candidate",
+      "title2": "Profile",
+      "subtitle": "Manage your personal information and track your project progress"
+    },
+    "personalInfo": {
+      "title": "Personal Information",
+      "savingChanges": "Saving changes",
+      "edit": "Edit",
+      "save": "Save",
+      "fields": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "emailAddress": "Email Address",
+        "phoneNumber": "Phone Number",
+        "country": "Country",
+        "city": "City",
+        "zipCode": "Zip Code"
+      }
+    },
+    "activeProject": {
+      "title": "Active Project",
+      "badge": "In Progress",
+      "started": "Started:",
+      "deadline": "Deadline:",
+      "progress": "Progress",
+      "viewDetails": "View Details"
+    },
+    "pastProjects": {
+      "title": "Past Projects",
+      "completed": "Completed",
+      "viewAllProjects": "View All Projects"
+    }
+  }
+} 

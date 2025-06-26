@@ -48,5 +48,16 @@
     "title": "Partnership Benefits",
     "description": "Join our network of partner companies to access top talent and contribute to the development of future professionals.",
     "learnMore": "Learn More About Partnership"
+  },
+  "companiesPage": {
+    "header": {
+      "title1": "Partner",
+      "title2": "Companies",
+      "subtitle": "Discover amazing companies and exciting opportunities to advance your career",
+      "searchPlaceholder": "Search companies, industries, or locations...",
+      "topCompanies": "Top Companies",
+      "partners": "Trusted Partners",
+      "searchAriaLabel": "Search"
+    }
   }
 }

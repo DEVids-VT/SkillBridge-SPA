@@ -1,0 +1,37 @@
+{
+  "candidateProfilePage": {
+    "header": {
+      "title1": "Кандидат",
+      "title2": "Профил",
+      "subtitle": "Управлявайте личната си информация и следете напредъка на проектите си"
+    },
+    "personalInfo": {
+      "title": "Лична Информация",
+      "savingChanges": "Запазване на промените",
+      "edit": "Редактирай",
+      "save": "Запази",
+      "fields": {
+        "firstName": "Собствено Име",
+        "lastName": "Фамилно Име",
+        "emailAddress": "Имейл Адрес",
+        "phoneNumber": "Телефонен Номер",
+        "country": "Държава",
+        "city": "Град",
+        "zipCode": "Пощенски Код"
+      }
+    },
+    "activeProject": {
+      "title": "Активен Проект",
+      "badge": "В Процес",
+      "started": "Започнат:",
+      "deadline": "Краен срок:",
+      "progress": "Прогрес",
+      "viewDetails": "Виж Детайли"
+    },
+    "pastProjects": {
+      "title": "Минали Проекти",
+      "completed": "Завършен",
+      "viewAllProjects": "Виж Всички Проекти"
+    }
+  }
+} 

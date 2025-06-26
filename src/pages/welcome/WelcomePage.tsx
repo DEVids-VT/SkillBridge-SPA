@@ -9,7 +9,7 @@ import { RoutePage } from '@/types/enums/RoutePage';
 import { WelcomeSection } from './components';
 
 export function WelcomePage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('welcome');
   const navigate = useNavigate();
   const { onboardingData, setRole, resetOnboarding } = useOnboarding();
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(onboardingData.role);
@@ -67,9 +67,7 @@ export function WelcomePage() {
         <div className="text-center mb-10 max-w-3xl mx-auto">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
             <span className="text-gray-900 dark:text-white">
-              {t('welcome.title').split('{{appName}}')[0]}
-              <span className="text-blue-600">{t('welcome.appName')}</span>
-              {t('welcome.title').split('{{appName}}')[1]}
+              {t('welcome.title', { appName: t('welcome.appName') })}
             </span>
           </h1>
         </div>

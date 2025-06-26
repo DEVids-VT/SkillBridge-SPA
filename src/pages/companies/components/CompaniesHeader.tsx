@@ -14,17 +14,17 @@ export const CompaniesHeader = ({
   setSearchQuery,
   handleSearch,
 }: CompaniesHeaderProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('companies');
 
   return (
     <div className={layouts.pageHeader}>
       <div className={layouts.pageHeaderBackground}></div>
       <h1 className={layouts.pageTitle}>
-        <span className="text-blue-600">{t('companiesPage.title1')}</span>{' '}
-        <span className="text-gray-600">{t('companiesPage.title2')}</span>
+        <span className="text-blue-600">{t('companiesPage.header.title1')}</span>{' '}
+        <span className="text-gray-600">{t('companiesPage.header.title2')}</span>
       </h1>
       <p className={layouts.pageDescription}>
-        {t('companiesPage.subtitle')}
+        {t('companiesPage.header.subtitle')}
       </p>
 
       {/* Search bar */}
@@ -32,7 +32,7 @@ export const CompaniesHeader = ({
         <div className="relative flex items-center">
           <Input
             type="text"
-            placeholder={t('companiesPage.searchPlaceholder')}
+            placeholder={t('companiesPage.header.searchPlaceholder')}
             className="h-14 pl-6 pr-12 rounded-full shadow-sm"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -40,17 +40,17 @@ export const CompaniesHeader = ({
           <button
             type="submit"
             className="absolute right-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-2 transition-colors"
-            aria-label="Search"
+            aria-label={t('companiesPage.header.searchAriaLabel')}
           >
             <Search className="h-5 w-5" />
           </button>
         </div>
         <div className="flex justify-center gap-4 mt-4 text-sm text-gray-500">
           <span className="flex items-center gap-1">
-            <Building2 size={14} /> {t('companiesPage.topCompanies')}
+            <Building2 size={14} /> {t('companiesPage.header.topCompanies')}
           </span>
           <span className="flex items-center gap-1">
-            <TrendingUp size={14} /> {t('companiesPage.partners')}
+            <TrendingUp size={14} /> {t('companiesPage.header.partners')}
           </span>
         </div>
       </form>

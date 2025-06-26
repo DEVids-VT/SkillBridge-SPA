@@ -21,7 +21,7 @@ import {
   Tag
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { spacing, layouts, cards, colors } from '@/lib/design-system';
+import { spacing, layouts } from '@/lib/design-system';
 
 interface CandidateProfile {
   firstName: string;
@@ -50,7 +50,7 @@ interface ProjectStatus {
 }
 
 export function CandidateProfilePage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('candidateProfile');
   const [isEditing, setIsEditing] = useState(false);
   const [candidateData, setCandidateData] = useState<CandidateProfile>({
     firstName: 'Arafat',
@@ -124,28 +124,17 @@ export function CandidateProfilePage() {
     console.log('Saving profile data:', candidateData);
   };
 
-  const getCategoryColor = (category: string) => {
-    const categoryColors: { [key: string]: string } = {
-      development: 'bg-blue-100 text-blue-700',
-      design: 'bg-purple-100 text-purple-700',
-      marketing: 'bg-green-100 text-green-700',
-      content: 'bg-yellow-100 text-yellow-700',
-      architecture: 'bg-gray-100 text-gray-700',
-    };
-    return categoryColors[category] || 'bg-gray-100 text-gray-700';
-  };
-
   return (
     <div className={cn(spacing.container, spacing.headerOffset, "py-8")}>
       {/* Page Header */}
       <div className={layouts.pageHeader}>
         <div className={layouts.pageHeaderBackground}></div>
         <h1 className={layouts.pageTitle}>
-          <span className="text-blue-600">{t('candidate', 'Candidate')}</span>{' '}
-          <span className="text-gray-600">{t('profile', 'Profile')}</span>
+          <span className="text-blue-600">{t('candidateProfilePage.header.title1')}</span>{' '}
+          <span className="text-gray-600">{t('candidateProfilePage.header.title2')}</span>
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          {t('manageYourProfile', 'Manage your personal information and track your project progress')}
+          {t('candidateProfilePage.header.subtitle')}
         </p>
       </div>
 
@@ -158,14 +147,14 @@ export function CandidateProfilePage() {
                 <User className="h-5 w-5 text-blue-600" />
               </div>
               <h2 className="text-xl font-semibold text-gray-900">
-                {t('personalInformation', 'Personal Information')}
+                {t('candidateProfilePage.personalInfo.title')}
               </h2>
             </div>
             <div className="flex items-center gap-2">
               {isEditing && (
                 <span className="text-sm text-blue-600 flex items-center gap-1">
                   <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
-                  {t('savingChanges', 'Saving changes')}
+                  {t('candidateProfilePage.personalInfo.savingChanges')}
                 </span>
               )}
               <Button
@@ -175,7 +164,7 @@ export function CandidateProfilePage() {
                 className="flex items-center gap-2"
               >
                 <Edit className="h-4 w-4" />
-                {isEditing ? t('save', 'Save') : t('edit', 'Edit')}
+                {isEditing ? t('candidateProfilePage.personalInfo.save') : t('candidateProfilePage.personalInfo.edit')}
               </Button>
             </div>
           </div>
@@ -214,7 +203,7 @@ export function CandidateProfilePage() {
                 {/* First Name */}
                 <div className="space-y-2">
                   <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">
-                    {t('firstName', 'First Name')}
+                    {t('candidateProfilePage.personalInfo.fields.firstName')}
                   </Label>
                   {isEditing ? (
                     <Input
@@ -233,7 +222,7 @@ export function CandidateProfilePage() {
                 {/* Last Name */}
                 <div className="space-y-2">
                   <Label htmlFor="lastName" className="text-sm font-medium text-gray-700">
-                    {t('lastName', 'Last Name')}
+                    {t('candidateProfilePage.personalInfo.fields.lastName')}
                   </Label>
                   {isEditing ? (
                     <Input
@@ -252,7 +241,7 @@ export function CandidateProfilePage() {
                 {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                    {t('emailAddress', 'Email Address')}
+                    {t('candidateProfilePage.personalInfo.fields.emailAddress')}
                   </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -275,7 +264,7 @@ export function CandidateProfilePage() {
                 {/* Phone */}
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
-                    {t('phoneNumber', 'Phone Number')}
+                    {t('candidateProfilePage.personalInfo.fields.phoneNumber')}
                   </Label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -297,7 +286,7 @@ export function CandidateProfilePage() {
                 {/* Country */}
                 <div className="space-y-2">
                   <Label htmlFor="country" className="text-sm font-medium text-gray-700">
-                    {t('country', 'Country')}
+                    {t('candidateProfilePage.personalInfo.fields.country')}
                   </Label>
                   {isEditing ? (
                     <Input
@@ -316,7 +305,7 @@ export function CandidateProfilePage() {
                 {/* City */}
                 <div className="space-y-2">
                   <Label htmlFor="city" className="text-sm font-medium text-gray-700">
-                    {t('city', 'City')}
+                    {t('candidateProfilePage.personalInfo.fields.city')}
                   </Label>
                   <div className="relative">
                     <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -338,7 +327,7 @@ export function CandidateProfilePage() {
                 {/* Zip Code */}
                 <div className="space-y-2 md:col-span-2">
                   <Label htmlFor="zipCode" className="text-sm font-medium text-gray-700">
-                    {t('zipCode', 'Zip Code')}
+                    {t('candidateProfilePage.personalInfo.fields.zipCode')}
                   </Label>
                   {isEditing ? (
                     <Input
@@ -365,10 +354,10 @@ export function CandidateProfilePage() {
               <Briefcase className="h-5 w-5 text-green-600" />
             </div>
             <h2 className="text-xl font-semibold text-gray-900">
-              {t('activeProject', 'Active Project')}
+              {t('candidateProfilePage.activeProject.title')}
             </h2>
             <Badge variant="secondary" className="bg-green-100 text-green-700">
-              {t('inProgress', 'In Progress')}
+              {t('candidateProfilePage.activeProject.badge')}
             </Badge>
           </div>
 
@@ -388,11 +377,11 @@ export function CandidateProfilePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Calendar className="h-4 w-4" />
-                    <span>Started: {new Date(activeProject.startDate).toLocaleDateString()}</span>
+                    <span>{t('candidateProfilePage.activeProject.started')} {new Date(activeProject.startDate).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Clock className="h-4 w-4" />
-                    <span>Deadline: {new Date(activeProject.deadline).toLocaleDateString()}</span>
+                    <span>{t('candidateProfilePage.activeProject.deadline')} {new Date(activeProject.deadline).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <DollarSign className="h-4 w-4" />
@@ -403,7 +392,7 @@ export function CandidateProfilePage() {
                 {/* Progress Bar */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">Progress</span>
+                    <span className="text-sm font-medium text-gray-700">{t('candidateProfilePage.activeProject.progress')}</span>
                     <span className="text-sm text-gray-600">{activeProject.progress}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
@@ -426,7 +415,7 @@ export function CandidateProfilePage() {
 
                 <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
                   <FileText className="h-4 w-4 mr-2" />
-                  {t('viewDetails', 'View Details')}
+                  {t('candidateProfilePage.activeProject.viewDetails')}
                 </Button>
               </div>
             </div>
@@ -440,10 +429,10 @@ export function CandidateProfilePage() {
               <FileText className="h-5 w-5 text-gray-600" />
             </div>
             <h2 className="text-xl font-semibold text-gray-900">
-              {t('pastProjects', 'Past Projects')}
+              {t('candidateProfilePage.pastProjects.title')}
             </h2>
             <Badge variant="secondary" className="bg-gray-100 text-gray-700">
-              {pastProjects.length} {t('completed', 'Completed')}
+              {pastProjects.length} {t('candidateProfilePage.pastProjects.completed')}
             </Badge>
           </div>
 
@@ -461,7 +450,7 @@ export function CandidateProfilePage() {
                         <p className="text-sm text-gray-600">{project.company}</p>
                       </div>
                       <Badge variant="secondary" className="bg-green-100 text-green-700">
-                        {t('completed', 'Completed')}
+                        {t('candidateProfilePage.pastProjects.completed')}
                       </Badge>
                     </div>
                     
@@ -493,7 +482,7 @@ export function CandidateProfilePage() {
 
           <div className="mt-6 text-center">
             <Button variant="outline" className="w-full sm:w-auto">
-              {t('viewAllProjects', 'View All Projects')}
+              {t('candidateProfilePage.pastProjects.viewAllProjects')}
             </Button>
           </div>
         </Card>

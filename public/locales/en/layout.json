@@ -1,0 +1,13 @@
+{
+  "layoutPage": {
+    "footer": {
+      "appName": "SkillBridge",
+      "copyright": "All rights reserved",
+      "socialLinks": {
+        "github": "GitHub",
+        "linkedin": "LinkedIn", 
+        "twitter": "Twitter"
+      }
+    }
+  }
+} 

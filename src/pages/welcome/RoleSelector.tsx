@@ -12,7 +12,7 @@ interface RoleSelectorProps {
 }
 
 export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('welcome');
   const { completeOnboarding, refreshUserRoles } = useOnboarding();
   const { logout } = useAuth0();
   const [isLoading, setIsLoading] = useState<'company' | 'candidate' | null>(null);
@@ -141,7 +141,7 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
           onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
         >
           <LogOut className="h-4 w-4 mr-2" />
-          {t('logout', 'Logout')}
+          {t('logout')}
         </Button>
       </div>
     </div>

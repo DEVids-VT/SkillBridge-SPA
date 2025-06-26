@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Project, CategoryFilter } from '../types';
 import { ProjectCard } from './ProjectCard';
 
@@ -7,11 +8,13 @@ interface ProjectsListProps {
 }
 
 export const ProjectsList = ({ projects, categories }: ProjectsListProps) => {
+  const { t } = useTranslation('project');
+
   return (
     <div className="flex flex-col">
       {/* Project count */}
       <div className="text-sm text-gray-500 mb-4">
-        Showing <span className="font-medium text-gray-700">{projects.length}</span> projects
+        {t('projectsPage.projectsList.showing')} <span className="font-medium text-gray-700">{projects.length}</span> {t('projectsPage.projectsList.projects')}
       </div>
       {/* Project cards list */}
       <div className="flex flex-col gap-4 mb-8">
@@ -23,7 +26,7 @@ export const ProjectsList = ({ projects, categories }: ProjectsListProps) => {
       {/* Empty state */}
       {projects.length === 0 && (
         <div className="py-12 text-center">
-          <p className="text-gray-500">No projects found matching your criteria.</p>
+          <p className="text-gray-500">{t('projectsPage.projectsList.noProjectsFound')}</p>
         </div>
       )}
     </div>

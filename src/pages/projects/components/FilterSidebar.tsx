@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { CategoryFilter } from '../types';
-import { CheckIcon, XIcon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface FilterSidebarProps {
   categories: CategoryFilter[];
@@ -17,7 +18,7 @@ export const FilterSidebar = ({
   onCategoryChange,
   onClearFilters,
 }: FilterSidebarProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('project');
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-5 sticky top-24">
@@ -80,5 +81,3 @@ export const FilterSidebar = ({
     </div>
   );
 };
-
-import { cn } from '@/lib/utils';

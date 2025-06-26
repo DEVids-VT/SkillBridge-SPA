@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Briefcase, Calendar, Clock } from 'lucide-react';
@@ -11,6 +12,8 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
+  const { t } = useTranslation('project');
+
   // Format date to a more readable format
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -19,7 +22,7 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     if (diffDays <= 7) {
-      return `${diffDays} days ago`;
+      return `${diffDays} ${t('projectsPage.projectCard.daysAgo')}`;
     } else {
       return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     }
@@ -38,7 +41,7 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
           {project.logo ? (
             <img
               src={project.logo}
-              alt={`${project.company} logo`}
+              alt={`${project.company} ${t('projectsPage.projectCard.companyLogoAlt')}`}
               className="w-full h-full object-cover"
               onError={(e) => {
                 // Replace broken image with Briefcase icon
@@ -89,14 +92,14 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
             ))}
             {project.skills.length > 3 && (
               <Badge variant="secondary" className="bg-gray-50 text-xs font-normal text-gray-700">
-                +{project.skills.length - 3} more
+                +{project.skills.length - 3} {t('projectsPage.projectCard.more')}
               </Badge>
             )}{' '}
           </div>
         </div>
         {/* Details button */}
         <Link to={`/projects/${project.id}`} className="flex-shrink-0 self-start mt-1">
-          <Button size="sm">Details</Button>
+          <Button size="sm">{t('projectsPage.projectCard.details')}</Button>
         </Link>
       </div>
 
@@ -104,7 +107,7 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
       <div className="flex items-center justify-end mt-3 pt-3 border-t border-gray-50">
         <span className="flex items-center text-xs text-gray-500">
           <Calendar className="w-3 h-3 mr-1" />
-          Deadline:{' '}
+          {t('projectsPage.projectCard.deadline')}{' '}
           {new Date(project.deadline).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',

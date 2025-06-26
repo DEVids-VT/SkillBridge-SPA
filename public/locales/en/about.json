@@ -1,0 +1,149 @@
+{
+  "aboutPage": {
+    "hero": {
+      "title": "About SkillBridge",
+      "subtitle": "Empowering careers, connecting talent, and building a community of growth-minded professionals.",
+      "ourStory": "Our Story",
+      "joinOurTeam": "Join Our Team"
+    },
+    "header": {
+      "title": "About",
+      "appName": "SkillBridge",
+      "subtitle": "Empowering careers, connecting talent, and building a community of growth-minded professionals."
+    },
+    "companies": {
+      "badge": "For Companies",
+      "title": "For Companies",
+      "subtitle": "SkillBridge provides companies with efficient, automated tools to discover, evaluate, and connect with the best emerging talent in the market.",
+      "howItWorksTitle": "How It Works for You",
+      "benefits": {
+        "saveTime": {
+          "title": "Save Time & Resources",
+          "description": "Automated candidate evaluation eliminates manual screening processes."
+        },
+        "objectiveAssessment": {
+          "title": "Objective Assessment",
+          "description": "AI-powered evaluation provides unbiased candidate analysis."
+        },
+        "fasterSelection": {
+          "title": "Faster Selection",
+          "description": "Streamlined process reduces time-to-hire significantly."
+        },
+        "longTermConnections": {
+          "title": "Long-term Connections",
+          "description": "Build lasting relationships with emerging professionals."
+        },
+        "innovativeReputation": {
+          "title": "Innovative Reputation",
+          "description": "Build reputation as an innovative employer in the market."
+        },
+        "reducedCosts": {
+          "title": "Reduced Costs",
+          "description": "Significantly reduce recruitment costs and overhead expenses."
+        }
+      },
+      "steps": {
+        "defineNeed": {
+          "title": "Define Need",
+          "description": "Specify your requirements for junior positions or projects"
+        },
+        "autoGenerate": {
+          "title": "Auto-Generate",
+          "description": "Platform creates tailored business cases for evaluation"
+        },
+        "reviewResults": {
+          "title": "Review Results",
+          "description": "AI evaluates candidates and provides detailed analytics"
+        },
+        "connect": {
+          "title": "Connect",
+          "description": "Get matched with top performers for direct recruitment"
+        }
+      }
+    },
+    "students": {
+      "badge": "For Students",
+      "title": "For Students",
+      "subtitle": "SkillBridge provides students with the tools, opportunities, and real-world experience needed to launch successful careers in their chosen fields.",
+      "howItWorksTitle": "How It Works for You",
+      "benefits": {
+        "realBusinessCases": {
+          "title": "Real Business Cases",
+          "description": "Work on actual projects that companies need solved, not theoretical exercises."
+        },
+        "skillDevelopment": {
+          "title": "Skill Development",
+          "description": "Learn by doing in a real business environment with practical challenges."
+        },
+        "supportivePlatform": {
+          "title": "Supportive Platform",
+          "description": "Access a user-friendly platform designed to guide and support your growth."
+        },
+        "directOpportunities": {
+          "title": "Direct Opportunities",
+          "description": "Get direct access to internship and job offers from participating companies."
+        },
+        "projectPortfolio": {
+          "title": "Project Portfolio",
+          "description": "Build a portfolio of completed real-world projects to showcase your abilities."
+        },
+        "structuredFeedback": {
+          "title": "Structured Feedback",
+          "description": "Receive detailed feedback and guidance to continuously improve your skills."
+        }
+      },
+      "steps": {
+        "browseCases": {
+          "title": "Browse Cases",
+          "description": "Find real business challenges that match your skills and interests"
+        },
+        "applySolve": {
+          "title": "Apply & Solve",
+          "description": "Work on the case using your knowledge and creativity"
+        },
+        "getEvaluated": {
+          "title": "Get Evaluated",
+          "description": "Receive AI-powered assessment and detailed feedback"
+        },
+        "getHired": {
+          "title": "Get Hired",
+          "description": "Top performers get direct contact from interested companies"
+        }
+      }
+    },
+    "team": {
+      "badge": "Our Team",
+      "title": "Meet Our Team",
+      "subtitle": "We're a diverse group of passionate individuals committed to building a platform that makes a difference.",
+      "viewFullTeam": "View Full Team",
+      "members": {
+        "davidPetkov": {
+          "name": "David Petkov",
+          "role": "Founder & CEO",
+          "bio": "With over 15 years of experience in tech and education, David founded Endorsify to bridge the gap between talent and opportunity."
+        },
+        "davidHristov": {
+          "name": "David Hristov",
+          "role": "CTO",
+          "bio": "David leads our engineering team with expertise in scalable architectures, AI, and creating seamless user experiences."
+        },
+        "trayanVasilev": {
+          "name": "Trayan Vasilev",
+          "role": "Frontend Developer",
+          "bio": "Trayan specializes in creating beautiful and intuitive user interfaces, focusing on modern frontend technologies and user experience design."
+        },
+        "kristian": {
+          "name": "Kristian",
+          "role": "Director of Education",
+          "bio": "Kristian curates our educational content and courses, ensuring we provide cutting-edge learning experiences."
+        }
+      }
+    },
+    "cta": {
+      "title": "Join Our Community",
+      "subtitle": "Be part of a growing network of professionals, companies, and educators working together to shape the future of careers.",
+      "signUpNow": "Sign Up Now",
+      "learnMore": "Learn More"
+    }
+  }
+} 

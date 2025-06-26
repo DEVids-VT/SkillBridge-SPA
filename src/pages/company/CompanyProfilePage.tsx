@@ -57,7 +57,7 @@ interface UICompanyProject {
 }
 
 export function CompanyProfilePage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('companyProfile');
   const navigate = useNavigate();
 
   // Fetch company profile data
@@ -93,10 +93,10 @@ export function CompanyProfilePage() {
         companySize: `${apiCompanyData.employeesWorldwide} employees worldwide, ${apiCompanyData.employeesInBulgaria} in Bulgaria`,
         description: apiCompanyData.about,
         logo: apiCompanyData.logoUrl || '/images/companies/techcorp-logo.webp',
-        contactInfo: apiCompanyData.contactInfo || 'Not provided',
+        contactInfo: apiCompanyData.contactInfo || t('companyProfilePage.companyInformation.fallback.notProvided'),
       });
     }
-  }, [apiCompanyData]); // Helper function to determine a project category based on skills
+  }, [apiCompanyData, t]); // Helper function to determine a project category based on skills
   const determineCategory = (
     skills: { id: string; name: string; description: string }[]
   ): string => {
@@ -200,7 +200,7 @@ export function CompanyProfilePage() {
       >
         <Loader2 className="h-12 w-12 animate-spin text-blue-600 mb-4" />
         <p className="text-lg font-medium text-gray-600">
-          {t('loadingCompanyProfile', 'Loading company profile...')}
+          {t('companyProfilePage.loading.profile')}
         </p>
       </div>
     );
@@ -219,10 +219,10 @@ export function CompanyProfilePage() {
           <AlertCircle className="h-6 w-6" />
         </div>
         <p className="text-lg font-medium text-gray-900 mb-2">
-          {t('errorLoadingProfile', 'Error Loading Profile')}
+          {t('companyProfilePage.loading.error.title')}
         </p>
         <p className="text-gray-600 max-w-md text-center">
-          {t('unableToLoadProfile', 'Unable to load company profile. Please try again later.')}
+          {t('companyProfilePage.loading.error.message')}
         </p>
       </div>
     );
@@ -234,14 +234,11 @@ export function CompanyProfilePage() {
       <div className={layouts.pageHeader}>
         <div className={layouts.pageHeaderBackground}></div>{' '}
         <h1 className={layouts.pageTitle}>
-          <span className="text-blue-600">{t('company', 'Company')}</span>{' '}
-          <span className="text-gray-600">{t('profile', 'Profile')}</span>
+          <span className="text-blue-600">{t('companyProfilePage.header.title1')}</span>{' '}
+          <span className="text-gray-600">{t('companyProfilePage.header.title2')}</span>
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          {t(
-            'viewCompanyProfile',
-            'View your company information and track your project campaigns'
-          )}
+          {t('companyProfilePage.header.subtitle')}
         </p>
       </div>
 
@@ -255,7 +252,7 @@ export function CompanyProfilePage() {
                 <Building2 className="h-5 w-5 text-blue-600" />
               </div>
               <h2 className="text-xl font-semibold text-gray-900">
-                {t('companyInformation', 'Company Information')}
+                {t('companyProfilePage.companyInformation.title')}
               </h2>
             </div>
           </div>
@@ -268,7 +265,7 @@ export function CompanyProfilePage() {
                   <div className="w-32 h-32 rounded-lg overflow-hidden bg-gray-100 border-4 border-white shadow-lg">
                     <img
                       src={companyData.logo}
-                      alt="Company Logo"
+                      alt={t('companyProfilePage.companyInformation.altText.companyLogo')}
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         e.currentTarget.src = `https://ui-avatars.com/api/?name=${companyData.companyName}&background=3b82f6&color=fff&size=200`;
@@ -290,7 +287,7 @@ export function CompanyProfilePage() {
                 {/* Company Name */}
                 <div className="space-y-2">
                   <Label htmlFor="companyName" className="text-sm font-medium text-gray-700">
-                    {t('companyName', 'Company Name')}
+                    {t('companyProfilePage.companyInformation.fields.companyName')}
                   </Label>
                   <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
                     {companyData.companyName}
@@ -299,7 +296,7 @@ export function CompanyProfilePage() {
                 {/* Industry */}
                 <div className="space-y-2">
                   <Label htmlFor="industry" className="text-sm font-medium text-gray-700">
-                    {t('industry', 'Industry')}
+                    {t('companyProfilePage.companyInformation.fields.industry')}
                   </Label>
                   <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
                     {companyData.industry}
@@ -308,7 +305,7 @@ export function CompanyProfilePage() {
                 {/* Contact Info */}
                 <div className="space-y-2">
                   <Label htmlFor="contactInfo" className="text-sm font-medium text-gray-700">
-                    {t('contactInfo', 'Contact Information')}
+                    {t('companyProfilePage.companyInformation.fields.contactInfo')}
                   </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -321,7 +318,7 @@ export function CompanyProfilePage() {
                 {/* Website */}
                 <div className="space-y-2">
                   <Label htmlFor="website" className="text-sm font-medium text-gray-700">
-                    {t('website', 'Website')}
+                    {t('companyProfilePage.companyInformation.fields.website')}
                   </Label>
                   <div className="relative">
                     <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -333,7 +330,7 @@ export function CompanyProfilePage() {
                 {/* Company Size */}
                 <div className="space-y-2">
                   <Label htmlFor="companySize" className="text-sm font-medium text-gray-700">
-                    {t('companySize', 'Company Size')}
+                    {t('companyProfilePage.companyInformation.fields.companySize')}
                   </Label>
                   <div className="relative">
                     <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -345,7 +342,7 @@ export function CompanyProfilePage() {
                 {/* Address & Location */}
                 <div className="space-y-2 md:col-span-2">
                   <Label htmlFor="address" className="text-sm font-medium text-gray-700">
-                    {t('address', 'Address')}
+                    {t('companyProfilePage.companyInformation.fields.address')}
                   </Label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                     <div className="relative">
@@ -375,10 +372,10 @@ export function CompanyProfilePage() {
                 <Briefcase className="h-5 w-5 text-green-600" />
               </div>
               <h2 className="text-xl font-semibold text-gray-900">
-                {t('activeProjects', 'Active Projects')}
+                {t('companyProfilePage.activeProjects.title')}
               </h2>
               <Badge variant="secondary" className="bg-green-100 text-green-700">
-                {activeProjects.length} {t('active', 'Active')}
+                {activeProjects.length} {t('companyProfilePage.activeProjects.badge')}
               </Badge>
             </div>{' '}
             <Button
@@ -387,7 +384,7 @@ export function CompanyProfilePage() {
               onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
             >
               <Plus className="h-4 w-4 mr-2" />
-              {t('postNewProject', 'Post New Project')}
+              {t('companyProfilePage.activeProjects.postNewProject')}
             </Button>
           </div>
 
@@ -402,23 +399,25 @@ export function CompanyProfilePage() {
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="text-lg font-semibold text-gray-900">{project.title}</h3>
                       <Badge className={getPriorityColor(project.priority)}>
-                        {project.priority}
+                        {t(`companyProfilePage.activeProjects.priority.${project.priority}`)}
                       </Badge>
                     </div>
                     <p className="text-gray-600 mb-3">{project.description}</p>
                   </div>
-                  <Badge className={getStatusColor(project.status)}>{project.status}</Badge>
+                  <Badge className={getStatusColor(project.status)}>
+                    {t(`companyProfilePage.activeProjects.status.${project.status}`)}
+                  </Badge>
                 </div>
 
                 {/* Project Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Calendar className="h-4 w-4" />
-                    <span>Posted: {new Date(project.postedDate).toLocaleDateString()}</span>
+                    <span>{t('companyProfilePage.activeProjects.details.posted')} {new Date(project.postedDate).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Clock className="h-4 w-4" />
-                    <span>Deadline: {new Date(project.deadline).toLocaleDateString()}</span>
+                    <span>{t('companyProfilePage.activeProjects.details.deadline')} {new Date(project.deadline).toLocaleDateString()}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <DollarSign className="h-4 w-4" />
@@ -427,7 +426,7 @@ export function CompanyProfilePage() {
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Users className="h-4 w-4" />
                     <span>
-                      {project.applicants}/{project.maxApplicants} applicants
+                      {project.applicants}/{project.maxApplicants} {t('companyProfilePage.activeProjects.details.applicants')}
                     </span>
                   </div>
                 </div>
@@ -435,7 +434,7 @@ export function CompanyProfilePage() {
                 {/* Progress Bar for Applicants */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">Applicant Progress</span>
+                    <span className="text-sm font-medium text-gray-700">{t('companyProfilePage.activeProjects.details.applicantProgress')}</span>
                     <span className="text-sm text-gray-600">
                       {Math.round((project.applicants / project.maxApplicants) * 100)}%
                     </span>
@@ -461,11 +460,11 @@ export function CompanyProfilePage() {
                 <div className="flex gap-2">
                   <Button size="sm" variant="outline">
                     <Users className="h-4 w-4 mr-2" />
-                    {t('viewApplicants', 'View Applicants')}
+                    {t('companyProfilePage.activeProjects.actions.viewApplicants')}
                   </Button>
                   <Button size="sm" variant="outline">
                     <Edit className="h-4 w-4 mr-2" />
-                    {t('editProject', 'Edit Project')}
+                    {t('companyProfilePage.activeProjects.actions.editProject')}
                   </Button>
                 </div>
               </div>
@@ -480,10 +479,10 @@ export function CompanyProfilePage() {
               <TrendingUp className="h-5 w-5 text-gray-600" />
             </div>
             <h2 className="text-xl font-semibold text-gray-900">
-              {t('pastCampaigns', 'Past Campaigns')}
+              {t('companyProfilePage.pastCampaigns.title')}
             </h2>
             <Badge variant="secondary" className="bg-gray-100 text-gray-700">
-              {pastCampaigns.length} {t('completed', 'Completed')}
+              {pastCampaigns.length} {t('companyProfilePage.pastCampaigns.completed')}
             </Badge>
           </div>
 
@@ -498,7 +497,9 @@ export function CompanyProfilePage() {
                     <h3 className="font-semibold text-gray-900">{campaign.title}</h3>
                     <p className="text-sm text-gray-600 mt-1">{campaign.description}</p>
                   </div>
-                  <Badge className={getStatusColor(campaign.status)}>{campaign.status}</Badge>
+                  <Badge className={getStatusColor(campaign.status)}>
+                    {t(`companyProfilePage.activeProjects.status.${campaign.status}`)}
+                  </Badge>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-3">
@@ -513,7 +514,7 @@ export function CompanyProfilePage() {
                   </span>
                   <span className="flex items-center gap-1">
                     <Users className="h-3 w-3" />
-                    {campaign.applicants} applicants
+                    {campaign.applicants} {t('companyProfilePage.activeProjects.details.applicants')}
                   </span>
                 </div>
 
@@ -530,7 +531,7 @@ export function CompanyProfilePage() {
 
           <div className="mt-6 text-center">
             <Button variant="outline" className="w-full sm:w-auto">
-              {t('viewAllCampaigns', 'View All Campaigns')}
+              {t('companyProfilePage.pastCampaigns.viewAllCampaigns')}
             </Button>
           </div>
         </Card>

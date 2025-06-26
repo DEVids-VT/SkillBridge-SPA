@@ -18,7 +18,7 @@ const getCategoryBackground = (categoryId: string, index: number) => {
 };
 
 export const CategoryGrid = ({ categories }: CategoryGridProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('landing');
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     align: 'start',
     skipSnaps: false,
@@ -55,15 +55,15 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
         <div className="text-center mb-16 space-y-6">
           <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200">
             <div className="flex h-2 w-2 bg-blue-500 rounded-full animate-pulse" />
-            <span>Категории Проекти</span>
+            <span>{t('landingPage.categoryGrid.badge')}</span>
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
-            {t('landingPage.categories.title', 'Discover Projects by Category')}
+            {t('landingPage.categoryGrid.title')}
           </h2>
           
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            {t('landingPage.categories.subtitle', 'Explore opportunities in different industries and find your path')}
+            {t('landingPage.categoryGrid.subtitle')}
           </p>
         </div>
 
@@ -113,7 +113,7 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
                         {/* Top Label */}
                         <div className="flex justify-start">
                           <span className="inline-block bg-black/30 backdrop-blur-sm text-white text-sm font-medium px-3 py-1.5 rounded-lg border border-white/20">
-                            Problem
+                            {t('landingPage.categoryGrid.categoryCard.label')}
                           </span>
                         </div>
 
@@ -125,7 +125,7 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
                           
                           {/* Minimalist project count */}
                           <div className="text-white/80 text-sm drop-shadow">
-                            {category.count} available projects
+                            {category.count} {t('landingPage.categoryGrid.categoryCard.availableProjects')}
                           </div>
                         </div>
                       </div>

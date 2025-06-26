@@ -1,0 +1,63 @@
+{
+  "companyProfilePage": {
+    "header": {
+      "title1": "Company",
+      "title2": "Profile",
+      "subtitle": "View your company information and track your project campaigns"
+    },
+    "loading": {
+      "profile": "Loading company profile...",
+      "error": {
+        "title": "Error Loading Profile",
+        "message": "Unable to load company profile. Please try again later."
+      }
+    },
+    "companyInformation": {
+      "title": "Company Information",
+      "fields": {
+        "companyName": "Company Name",
+        "industry": "Industry",
+        "contactInfo": "Contact Information",
+        "website": "Website",
+        "companySize": "Company Size",
+        "address": "Address"
+      },
+      "altText": {
+        "companyLogo": "Company Logo"
+      },
+      "fallback": {
+        "notProvided": "Not provided"
+      }
+    },
+    "activeProjects": {
+      "title": "Active Projects",
+      "badge": "Active",
+      "postNewProject": "Post New Project",
+      "details": {
+        "posted": "Posted:",
+        "deadline": "Deadline:",
+        "applicants": "applicants",
+        "applicantProgress": "Applicant Progress"
+      },
+      "priority": {
+        "high": "high",
+        "medium": "medium",
+        "low": "low"
+      },
+      "status": {
+        "active": "active",
+        "completed": "completed",
+        "closed": "closed"
+      },
+      "actions": {
+        "viewApplicants": "View Applicants",
+        "editProject": "Edit Project"
+      }
+    },
+    "pastCampaigns": {
+      "title": "Past Campaigns",
+      "completed": "Completed",
+      "viewAllCampaigns": "View All Campaigns"
+    }
+  }
+} 

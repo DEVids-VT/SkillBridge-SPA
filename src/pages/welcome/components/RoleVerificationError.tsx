@@ -8,7 +8,7 @@ interface RoleVerificationErrorProps {
 }
 
 export function RoleVerificationError({ role, onBackToRoleSelection }: RoleVerificationErrorProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('welcome');
 
   return (
     <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg max-w-xl mx-auto">
@@ -18,14 +18,11 @@ export function RoleVerificationError({ role, onBackToRoleSelection }: RoleVerif
         </div>
         <div className="ml-3">
           <h3 className="text-lg font-medium text-red-800">
-            {t('roleVerificationError', 'Role Verification Error')}
+            {t('roleVerificationError')}
           </h3>
           <div className="mt-2 text-sm text-red-700">
             <p>
-              {t(
-                'roleVerificationErrorMessage',
-                `You don't have the required permissions for the "${role}" role. Please contact an administrator or select a different role.`
-              )}
+              {t('roleVerificationErrorMessage', { role })}
             </p>
           </div>
           <div className="mt-4">
@@ -34,7 +31,7 @@ export function RoleVerificationError({ role, onBackToRoleSelection }: RoleVerif
               variant="outline"
               className="border-red-300 text-red-700 hover:bg-red-50"
             >
-              {t('backToRoleSelection', 'Back to Role Selection')}
+              {t('backToRoleSelection')}
             </Button>
           </div>
         </div>

@@ -38,54 +38,21 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   // Function to force refresh user roles through silent reauthentication
   const refreshUserRoles = useCallback(async () => {
     try {
-      if (isAuthenticated) {
-        console.log('Forcing silent reauthentication to get updated roles...');
-
-        // Force a silent reauthentication by using Auth0's checkSession
-        // This simulates a full login flow without redirecting the user
-        const auth0Client = (window as any).auth0;
-        if (auth0Client) {
-          await auth0Client.checkSession({
-            audience: 'http://skillbridgeapi',
-            scope: 'openid profile email default:company default:candidate',
-          });
-        }
-
-        // Force a new token after reauth with cache disabled
-        await getAccessTokenSilently({
-          authorizationParams: {
-            audience: 'http://skillbridgeapi',
-            scope: 'openid profile email default:company default:candidate',
-          },
-          cacheMode: 'off', // Force skip cache to get a fresh token
-        });
-
-        // Invalidate all queries to force data refetch with new token/roles
-        queryClient.invalidateQueries();
-
-        console.log('Silent reauthentication completed, user roles refreshed');
-      }
+      await getAccessTokenSilently({
+        authorizationParams: {
+          audience: 'http://skillbridgeapi',
+          scope: 'openid profile email default:company default:candidate offline_access'
+        },
+        cacheMode: 'off'
+      });
+      queryClient.invalidateQueries();
     } catch (error) {
-      console.error('Error during silent reauthentication:', error);
-
-      // Fallback to regular token refresh if silent reauth fails
-      try {
-        console.log('Falling back to regular token refresh...');
-        await getAccessTokenSilently({
-          authorizationParams: {
-            audience: 'http://skillbridgeapi',
-            scope: 'openid profile email default:company default:candidate',
-          },
-          cacheMode: 'off', // Still try to bypass cache in fallback
-        });
-        queryClient.invalidateQueries();
-        console.log('Fallback token refresh completed');
-      } catch (fallbackError) {
-        console.error('Fallback token refresh also failed:', fallbackError);
-        // We've tried our best to refresh the token, the user might need to re-login manually
-      }
+      console.error('Failed to refresh user roles:', error);
+      
+      // Re-throw the error so calling code can handle it
+      throw error;
     }
-  }, [isAuthenticated, getAccessTokenSilently, queryClient]);
+  }, [getAccessTokenSilently, queryClient]);
 
   // Check and update onboarding state based on user roles from Auth0
   useEffect(() => {

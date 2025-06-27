@@ -21,6 +21,9 @@ export const providerConfig: Auth0ProviderOptions = {
   authorizationParams: {
     redirect_uri: window.location.origin,
     audience: 'http://skillbridgeapi',
-    scope: 'openid profile email default:company default:candidate',
+    scope: 'openid profile email default:company default:candidate offline_access',
   },
+  useRefreshTokens: true,
+  useRefreshTokensFallback: false,
+  sessionCheckExpiryDays: 1,
 };

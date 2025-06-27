@@ -2,9 +2,6 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Header from './Header'; // Assuming Header.tsx is in the same directory
 import Footer from './Footer'; // Assuming Footer.tsx is in the same directory
-import EnhancedPageTransition, {
-  scrollToTopOnTransition,
-} from '../transitions/EnhancedPageTransition';
 
 export function Layout() {
   const location = useLocation();
@@ -15,7 +12,10 @@ export function Layout() {
     if (window.__lenis) {
       window.__lenis.scrollTo(0, { immediate: false, duration: 0.8 });
     } else {
-      scrollToTopOnTransition();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     }
   }, [location.pathname]);
 
@@ -23,9 +23,7 @@ export function Layout() {
     <div className="flex flex-col min-h-screen font-rubik">
       <Header />
       <main className="flex-grow">
-        <EnhancedPageTransition transitionType="fade" withBlur={true}>
-          <Outlet /> {/* Child routes will render here with transition effects */}
-        </EnhancedPageTransition>
+        <Outlet /> {/* Child routes will render here directly */}
       </main>
       <Footer />
     </div>

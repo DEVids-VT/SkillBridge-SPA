@@ -1,0 +1,27 @@
+{
+  "headerComponent": {
+    "betaBanner": {
+      "skillbridge": "SkillBridge",
+      "beta": "БЕТА",
+      "message": "- Опитайте сега напълно безплатно!"
+    },
+    "logo": {
+      "alt": "SkillBridge Лого"
+    },
+    "navigation": {
+      "projects": "Проекти",
+      "partners": "Партньори",
+      "about": "За SkillBridge",
+      "companyProfile": "Профил на компанията",
+      "candidateProfile": "Профил на кандидата",
+      "postNewProject": "Публикуване на нов проект",
+      "login": "Влизане",
+      "logout": "Излизане",
+      "toggleMenu": "Превключване на менюто"
+    },
+    "language": {
+      "english": "EN",
+      "bulgarian": "БГ"
+    }
+  }
+} 

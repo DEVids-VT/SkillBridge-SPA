@@ -1,0 +1,27 @@
+{
+  "headerComponent": {
+    "betaBanner": {
+      "skillbridge": "SkillBridge",
+      "beta": "BETA",
+      "message": "- Try now completely free!"
+    },
+    "logo": {
+      "alt": "SkillBridge Logo"
+    },
+    "navigation": {
+      "projects": "Projects",
+      "partners": "Partners",
+      "about": "About SkillBridge",
+      "companyProfile": "Company Profile",
+      "candidateProfile": "Candidate Profile",
+      "postNewProject": "Post New Project",
+      "login": "Login",
+      "logout": "Logout",
+      "toggleMenu": "Toggle menu"
+    },
+    "language": {
+      "english": "EN",
+      "bulgarian": "БГ"
+    }
+  }
+} 

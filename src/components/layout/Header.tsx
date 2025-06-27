@@ -8,7 +8,7 @@ import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
 import { RoutePage } from '@/types/enums/RoutePage';
 
 export function Header() {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation('header');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const { onboardingData } = useOnboarding();
@@ -26,13 +26,13 @@ export function Header() {
       return {
         route: RoutePage.COMPANY_PROFILE,
         icon: LayoutDashboard,
-        label: t('navigation.companyProfile', 'Company Profile'),
+        label: t('headerComponent.navigation.companyProfile'),
       };
     } else if (onboardingData.role === 'candidate') {
       return {
         route: RoutePage.CANDIDATE_PROFILE,
         icon: User,
-        label: t('navigation.candidateProfile', 'Candidate Profile'),
+        label: t('headerComponent.navigation.candidateProfile'),
       };
     }
     return null;
@@ -46,14 +46,14 @@ export function Header() {
     // Show all navigation items only to authenticated users who completed onboarding
     ...(isAuthenticated && onboardingData.completed
       ? [
-          { to: '/projects', label: t('navigation.projects', 'Projects') },
-          { to: '/companies', label: t('navigation.partners', 'Partners') },
-          { to: '/about', label: t('navigation.about', 'About SkillBridge') },
+          { to: '/projects', label: t('headerComponent.navigation.projects') },
+          { to: '/companies', label: t('headerComponent.navigation.partners') },
+          { to: '/about', label: t('headerComponent.navigation.about') },
         ]
       : // Show only About and Partners links to non-authenticated users
         [
-          { to: '/companies', label: t('navigation.partners', 'Partners') },
-          { to: '/about', label: t('navigation.about', 'About SkillBridge') },
+          { to: '/companies', label: t('headerComponent.navigation.partners') },
+          { to: '/about', label: t('headerComponent.navigation.about') },
         ]),
   ];
 
@@ -67,13 +67,13 @@ export function Header() {
     <>
       {/* Beta Announcement Banner */}
       <div className="w-full bg-blue-600 text-white py-2 text-center font-medium flex items-center justify-center gap-2">
-        <span>SkillBridge </span>
+        <span>{t('headerComponent.betaBanner.skillbridge')} </span>
         <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold bg-white text-blue-700 transform -rotate-6 border-2 border-white shadow-md relative hover:scale-110 transition-transform duration-300 animate-pulse">
           <span className="absolute inset-0 rounded-md border border-blue-300 opacity-50"></span>
-          <span className="relative z-10 tracking-wider">BETA</span>
+          <span className="relative z-10 tracking-wider">{t('headerComponent.betaBanner.beta')}</span>
         </span>
         <span>
-          {t('navigation.betaBanner', ' - Try now completely free!')}
+          {t('headerComponent.betaBanner.message')}
         </span>
       </div>
 
@@ -87,7 +87,7 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               {/* Logo image */}
-              <img src="/images/sblogosmall.svg" alt={t('logoAlt', 'SkillBridge Logo')} className="h-8" />
+              <img src="/images/sblogosmall.svg" alt={t('headerComponent.logo.alt')} className="h-8" />
             </Link>
             {/* Desktop Navigation */}
             <nav className="hidden md:flex gap-6">
@@ -112,7 +112,7 @@ export function Header() {
               className="text-sm font-medium"
               onClick={toggleLanguage}
             >
-              {isEnglish ? 'EN' : 'БГ'}
+              {isEnglish ? t('headerComponent.language.english') : t('headerComponent.language.bulgarian')}
             </Button>{' '}
             {/* Auth Controls */}
             {isAuthenticated ? (
@@ -129,7 +129,7 @@ export function Header() {
                     >
                       <Plus className="h-4 w-4" />
                       <span className="hidden sm:inline">
-                        {t('navigation.postNewProject', 'Post New Project')}
+                        {t('headerComponent.navigation.postNewProject')}
                       </span>
                     </Button>
                   </Link>
@@ -148,7 +148,7 @@ export function Header() {
                   className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >
-                  {t('navigation.logout', 'Logout')}
+                  {t('headerComponent.navigation.logout')}
                 </Button>
               </div>
             ) : (
@@ -158,7 +158,7 @@ export function Header() {
                 className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
                 onClick={() => loginWithRedirect()}
               >
-                {t('navigation.login', 'Login')}
+                {t('headerComponent.navigation.login')}
               </Button>
             )}
             {/* Mobile Menu Toggle */}
@@ -167,7 +167,7 @@ export function Header() {
               size="icon"
               className="md:hidden rounded-full"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={t('navigation.toggleMenu', 'Toggle menu')}
+              aria-label={t('headerComponent.navigation.toggleMenu')}
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -195,7 +195,7 @@ export function Header() {
                   className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-blue-600 hover:bg-blue-50"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t('navigation.postNewProject', 'Post New Project')}
+                  {t('headerComponent.navigation.postNewProject')}
                 </Link>
               )}
               {/* Profile link in mobile menu */}

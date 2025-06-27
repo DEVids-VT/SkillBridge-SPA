@@ -8,9 +8,7 @@ import {
   Clock,
   Tag,
   Users,
-  Globe,
   DollarSign,
-  Briefcase,
   FileText,
   Coffee,
   Lightbulb,
@@ -18,7 +16,6 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { spacing, layouts } from '@/lib/design-system';
-import { projectData } from '@/data/mock-data';
 import { useProjectDetail } from './hooks/useProjectDetail';
 
 export default function ProjectPage() {
@@ -114,14 +111,14 @@ export default function ProjectPage() {
                 <Clock className="h-4 w-4 text-gray-500" />
                 <div>
                   <p className="text-sm text-gray-500">{t('projectPage.projectDetails.duration')}</p>
-                  <p className="font-medium">{projectData.projectDetails.duration}</p>
+                  <p className="font-medium">TBD</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <DollarSign className="h-4 w-4 text-gray-500" />
                 <div>
                   <p className="text-sm text-gray-500">{t('projectPage.projectDetails.salary')}</p>
-                  <p className="font-medium">$4,500 - $6,000</p>
+                  <p className="font-medium">Negotiable</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -129,7 +126,10 @@ export default function ProjectPage() {
                 <div>
                   <p className="text-sm text-gray-500">{t('projectPage.projectDetails.capacity')}</p>
                   <p className="font-medium">
-                    3/10 {t('projectPage.projectDetails.enrolled')} <span className="text-green-600">(7 {t('projectPage.projectDetails.seatsLeft')})</span>
+                    0/10 {t('projectPage.projectDetails.enrolled')} 
+                    <span className="text-green-600">
+                      (10 {t('projectPage.projectDetails.seatsLeft')})
+                    </span>
                   </p>
                 </div>
               </div>
@@ -205,25 +205,6 @@ export default function ProjectPage() {
               </div>
             </div>
 
-            {/* Benefits */}
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('projectPage.benefits.title')}</h3>
-              <ul className="space-y-2">
-                {projectData.benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-2 text-gray-600">
-                    <span className="text-green-600">•</span>
-                    {benefit}
-                  </li>
-                ))}
-                {(t('projectPage.benefits.additionalItems', { returnObjects: true }) as string[]).map((item: string, index: number) => (
-                  <li key={`additional-${index}`} className="flex items-start gap-2 text-gray-600">
-                    <span className="text-green-600">•</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             {/* Action buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="w-full sm:flex-1">
@@ -246,26 +227,6 @@ export default function ProjectPage() {
               <h3 className="text-base md:text-lg font-semibold text-gray-900">
                 {project.companyName}
               </h3>
-              <p className="text-sm text-gray-600 text-center mt-2">
-                {projectData.company.description}
-              </p>
-            </div>
-
-            <div className="space-y-3 md:space-y-4">
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Globe className="h-4 w-4" />
-                <a href={projectData.company.website} className="text-blue-600 hover:underline">
-                  {projectData.company.website}
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Users className="h-4 w-4" />
-                <span>{projectData.company.size}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Briefcase className="h-4 w-4" />
-                <span>{projectData.company.industry}</span>
-              </div>
             </div>
 
             <Button className="w-full mt-6" variant="outline">

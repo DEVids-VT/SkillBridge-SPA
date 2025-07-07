@@ -157,7 +157,7 @@ const SelectLabel: React.FC<SelectLabelProps> = ({ className, children }) => {
 };
 
 const SelectSeparator: React.FC<{ className?: string }> = ({ className }) => {
-  return <div className={cn('-mx-1 my-1 h-px bg-gray-200 dark:bg-gray-700', className)} />;
+  return <div className={cn('-mx-1 my-1 h-px bg-[#003566]', className)} />;
 };
 
 export {

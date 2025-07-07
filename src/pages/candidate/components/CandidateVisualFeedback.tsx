@@ -17,17 +17,17 @@ const CandidateVisualFeedback: React.FC<CandidateVisualFeedbackProps> = ({
   const getSeniorityColor = () => {
     switch (formData.seniorityLevel) {
       case 'junior':
-        return '#60a5fa'; // Light blue
+        return '#003566'; // Lighter dark blue
       case 'mid':
-        return '#3b82f6'; // Blue
+        return '#001d3d'; // Deep blue
       case 'senior':
-        return '#2563eb'; // Medium blue
+        return '#000814'; // Main dark
       case 'lead':
-        return '#1d4ed8'; // Dark blue
+        return '#ffc300'; // Orange accent
       case 'principal':
-        return '#1e40af'; // Very dark blue
+        return '#ffd60a'; // Yellow accent
       default:
-        return '#93c5fd'; // Default light blue
+        return '#003566'; // Default to lighter dark blue
     }
   };
   // Determine if we should show the profile visualization (at least 25% progress)
@@ -35,9 +35,9 @@ const CandidateVisualFeedback: React.FC<CandidateVisualFeedbackProps> = ({
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Decorative elements */}
-      <div className="absolute top-[-10px] right-[-60px] w-20 h-20 rounded-full bg-blue-100 dark:bg-blue-900/20 opacity-60 z-0"></div>
-      <div className="absolute bottom-[20px] right-[-40px] w-14 h-14 rounded-full bg-purple-100 dark:bg-purple-900/20 opacity-50 z-0"></div>
-      <div className="absolute bottom-[-10px] left-[-30px] w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/20 opacity-40 z-0"></div>
+      <div className="absolute top-[-10px] right-[-60px] w-20 h-20 rounded-full bg-[#003566] opacity-60 z-0"></div>
+      <div className="absolute bottom-[20px] right-[-40px] w-14 h-14 rounded-full bg-[#ffc300] opacity-50 z-0"></div>
+      <div className="absolute bottom-[-10px] left-[-30px] w-16 h-16 rounded-full bg-[#001d3d] opacity-40 z-0"></div>
 
       {/* Lines connecting elements */}
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400" style={{ zIndex: 0 }}>

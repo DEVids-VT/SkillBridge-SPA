@@ -49,47 +49,42 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="relative py-20 bg-gray-50">
+    <section className="relative py-20 bg-[#000814]">
       <div className="container mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-6">
-          <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200">
-            <div className="flex h-2 w-2 bg-blue-500 rounded-full animate-pulse" />
+          <div className="inline-flex items-center space-x-2 bg-[#003566] text-[#ffd60a] px-4 py-2 rounded-full text-sm font-medium border border-[#ffd60a]">
+            <div className="flex h-2 w-2 bg-[#ffd60a] rounded-full animate-pulse" />
             <span>{t('landingPage.categoryGrid.badge')}</span>
           </div>
-          
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
             {t('landingPage.categoryGrid.title')}
           </h2>
-          
-          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-[#ffd60a] max-w-3xl mx-auto leading-relaxed">
             {t('landingPage.categoryGrid.subtitle')}
           </p>
         </div>
-
         {/* Carousel Container */}
         <div className="relative">
           {/* Navigation Buttons */}
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white shadow-lg hover:shadow-xl disabled:opacity-50"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-[#001d3d] text-[#ffd60a] border-[#003566] shadow-lg hover:shadow-xl disabled:opacity-50"
             onClick={scrollPrev}
             disabled={!prevBtnEnabled}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white shadow-lg hover:shadow-xl disabled:opacity-50"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-[#001d3d] text-[#ffd60a] border-[#003566] shadow-lg hover:shadow-xl disabled:opacity-50"
             onClick={scrollNext}
             disabled={!nextBtnEnabled}
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
-
           {/* Embla Carousel */}
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-6">
@@ -106,25 +101,22 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
                       }}
                     >
                       {/* Dark overlay for better text readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
-
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#000814]/90 via-[#001d3d]/60 to-[#003566]/40" />
                       {/* Content */}
                       <div className="relative h-full flex flex-col justify-between p-8">
                         {/* Top Label */}
                         <div className="flex justify-start">
-                          <span className="inline-block bg-black/30 backdrop-blur-sm text-white text-sm font-medium px-3 py-1.5 rounded-lg border border-white/20">
+                          <span className="inline-block bg-[#001d3d]/70 backdrop-blur-sm text-[#ffd60a] text-sm font-medium px-3 py-1.5 rounded-lg border border-[#ffd60a]/20">
                             {t('landingPage.categoryGrid.categoryCard.label')}
                           </span>
                         </div>
-
                         {/* Bottom Content */}
                         <div className="space-y-4">
                           <h3 className="text-white text-2xl md:text-3xl font-bold leading-tight drop-shadow-lg">
                             {category.name}
                           </h3>
-                          
                           {/* Minimalist project count */}
-                          <div className="text-white/80 text-sm drop-shadow">
+                          <div className="text-[#ffd60a]/80 text-sm drop-shadow">
                             {category.count} {t('landingPage.categoryGrid.categoryCard.availableProjects')}
                           </div>
                         </div>
@@ -136,13 +128,12 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
             </div>
           </div>
         </div>
-
         {/* Carousel Indicators */}
         <div className="flex justify-center gap-2 mt-8">
           {Array.from({ length: Math.ceil(categories.length / 3) }).map((_, index) => (
             <div
               key={index}
-              className="w-2 h-2 rounded-full bg-gray-300 hover:bg-blue-500 transition-colors cursor-pointer"
+              className="w-2 h-2 rounded-full bg-[#003566] hover:bg-[#ffd60a] transition-colors cursor-pointer"
             />
           ))}
         </div>

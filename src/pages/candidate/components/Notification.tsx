@@ -132,7 +132,7 @@ const Notification: React.FC<NotificationProps> = ({
       <button
         type="button"
         onClick={handleClose}
-        className={`ms-auto -mx-1.5 -my-1.5 ${textColor} rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 inline-flex items-center justify-center h-8 w-8`}
+        className={`ms-auto -mx-1.5 -my-1.5 ${textColor} rounded-lg focus:ring-2 focus:ring-[#ffd60a] p-1.5 hover:bg-[#003566] inline-flex items-center justify-center h-8 w-8`}
         aria-label="Close"
       >
         <X className="w-4 h-4" />

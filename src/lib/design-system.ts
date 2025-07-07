@@ -1,64 +1,45 @@
-// Design system constants for consistent styling across pages
+// Design system constants for consistent dark theme styling
 
-// Colors
+// Color palette
 export const colors = {
-  primary: {
-    50: '#f0f6ff',
-    100: '#e0edff',
-    500: '#3b82f6', // Main blue
-    600: '#2563eb',
-    700: '#1d4ed8',
-  },
-  secondary: {
-    50: '#fdf4ff',
-    100: '#fae8ff',
-    500: '#a855f7', // Purple
-    600: '#9333ea',
-    700: '#7e22ce',
-  },
-  neutral: {
-    50: '#f9fafb',
-    100: '#f3f4f6',
-    200: '#e5e7eb',
-    300: '#d1d5db',
-    500: '#6b7280',
-    600: '#4b5563',
-    700: '#374151',
-    800: '#1f2937',
-    900: '#111827',
-  },
+  dark: '#000814', // Main dark background
+  blueDark: '#001d3d', // Deep blue
+  blue: '#003566', // Lighter dark blue
+  orange: '#ffc300', // Orange accent
+  yellow: '#ffd60a', // Yellow accent
+  white: '#ffffff', // White for text and highlights
 };
 
 // Spacing
 export const spacing = {
   container: 'container mx-auto px-4',
   section: 'py-16 md:py-24',
-  headerOffset: 'pt-32', // Space for fixed header
+  headerOffset: 'pt-32',
 };
 
 // Typography
 export const typography = {
   heading: {
-    1: 'text-5xl md:text-6xl font-bold',
-    2: 'text-4xl md:text-5xl font-bold',
-    3: 'text-3xl font-bold',
-    4: 'text-2xl font-bold',
-    5: 'text-xl font-semibold',
+    1: 'text-5xl md:text-6xl font-bold text-white',
+    2: 'text-4xl md:text-5xl font-bold text-white',
+    3: 'text-3xl font-bold text-white',
+    4: 'text-2xl font-bold text-white',
+    5: 'text-xl font-semibold text-white',
   },
   body: {
-    default: 'text-base text-gray-600',
-    lg: 'text-lg text-gray-600',
-    sm: 'text-sm text-gray-500',
+    default: 'text-base text-gray-200',
+    lg: 'text-lg text-gray-200',
+    sm: 'text-sm text-gray-400',
   },
 };
 
-// Common layouts
+// Layouts
 export const layouts = {
   pageHeader: 'text-center mb-16 relative',
   pageHeaderBackground:
-    'absolute -top-10 left-0 right-0 h-20 bg-gradient-to-r from-blue-50 to-purple-50 rounded-b-3xl -z-10',
+    'absolute -top-10 left-0 right-0 h-20 bg-gradient-to-r from-[#001d3d] to-[#003566] rounded-b-3xl -z-10',
   pageTitle: `${typography.heading[1]} mb-6`,
-  pageDescription: 'text-lg text-gray-600 max-w-3xl mx-auto mb-10',
+  pageDescription: 'text-lg text-gray-300 max-w-3xl mx-auto mb-10',
   grid: {
     cards2: 'grid grid-cols-1 md:grid-cols-2 gap-8',
     cards3: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8',
@@ -68,21 +49,20 @@ export const layouts = {
 
 // Card styles
 export const cards = {
-  base: 'border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:border-blue-300',
-  header: 'p-6 border-b border-gray-100',
+  base: 'border border-[#003566] bg-[#001d3d] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:border-[#ffc300]',
+  header: 'p-6 border-b border-[#003566]',
   body: 'p-6',
-  footer: 'p-6 pt-4 border-t border-gray-100 flex items-center justify-between',
+  footer: 'p-6 pt-4 border-t border-[#003566] flex items-center justify-between',
 };
 
-// Common components styling (beyond shadcn)
+// Tag styles
 export const components = {
   tag: 'px-3 py-1 rounded-full text-xs font-medium',
   tagColors: {
-    blue: 'bg-blue-100 text-blue-700',
-    purple: 'bg-purple-100 text-purple-700',
-    green: 'bg-green-100 text-green-700',
-    yellow: 'bg-yellow-100 text-yellow-700',
-    gray: 'bg-gray-100 text-gray-700',
-    red: 'bg-red-100 text-red-700',
+    blue: 'bg-[#003566] text-[#ffd60a]',
+    orange: 'bg-[#ffc300] text-[#001d3d]',
+    yellow: 'bg-[#ffd60a] text-[#001d3d]',
+    white: 'bg-white text-[#001d3d]',
+    dark: 'bg-[#000814] text-[#ffd60a]',
   },
 };

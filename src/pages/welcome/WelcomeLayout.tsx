@@ -10,7 +10,7 @@ export function WelcomeLayout() {
     <div
       className="min-h-screen w-full overflow-x-hidden"
       style={{
-        background: `linear-gradient(135deg, ${colors.primary[50]} 0%, ${colors.secondary[50]} 100%)`,
+        background: `linear-gradient(135deg, ${colors.blueDark} 0%, ${colors.blue} 100%)`,
       }}
     >
       <main className="w-full h-full min-h-screen">

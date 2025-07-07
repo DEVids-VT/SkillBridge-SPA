@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
 import { RoutePage } from '@/types/enums/RoutePage';
+import { colors } from '@/lib/design-system';
 
 export function Header() {
   const { t, i18n } = useTranslation('header');
@@ -66,15 +67,17 @@ export function Header() {
   return (
     <>
       {/* Beta Announcement Banner */}
-      <div className="w-full bg-blue-600 text-white py-2 text-center font-medium flex items-center justify-center gap-2">
-        <span>{t('headerComponent.betaBanner.skillbridge')} </span>
-        <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold bg-white text-blue-700 transform -rotate-6 border-2 border-white shadow-md relative hover:scale-110 transition-transform duration-300 animate-pulse">
-          <span className="absolute inset-0 rounded-md border border-blue-300 opacity-50"></span>
-          <span className="relative z-10 tracking-wider">{t('headerComponent.betaBanner.beta')}</span>
-        </span>
-        <span>
-          {t('headerComponent.betaBanner.message')}
-        </span>
+      <div className="w-full" style={{ background: colors.blue, color: colors.white }}>
+        <div className="py-2 text-center font-medium flex items-center justify-center gap-2">
+          <span>{t('headerComponent.betaBanner.skillbridge')} </span>
+          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold" style={{ background: colors.white, color: colors.blue, border: `2px solid ${colors.white}` }}>
+            <span className="absolute inset-0 rounded-md border" style={{ borderColor: colors.yellow, opacity: 0.5 }}></span>
+            <span className="relative z-10 tracking-wider">{t('headerComponent.betaBanner.beta')}</span>
+          </span>
+          <span>
+            {t('headerComponent.betaBanner.message')}
+          </span>
+        </div>
       </div>
 
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
@@ -86,8 +89,12 @@ export function Header() {
               className="flex items-center text-lg font-semibold text-foreground transition-colors hover:text-foreground/80"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {/* Logo image */}
-              <img src="/images/sblogosmall.svg" alt={t('headerComponent.logo.alt')} className="h-8" />
+              {/* Logo image - bigger size */}
+              <img
+                src="/images/logosmbms.png"
+                alt={t('headerComponent.logo.alt')}
+                className="h-12 md:h-14"
+              />
             </Link>
             {/* Desktop Navigation */}
             <nav className="hidden md:flex gap-6">
@@ -95,7 +102,7 @@ export function Header() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground text-white"
                 >
                   {item.label}
                 </Link>
@@ -125,7 +132,7 @@ export function Header() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex items-center gap-1 border-blue-500 text-blue-600"
+                      className="flex items-center gap-1 border-[#003566] text-[#003566]"
                     >
                       <Plus className="h-4 w-4" />
                       <span className="hidden sm:inline">
@@ -145,7 +152,7 @@ export function Header() {
                 <Button
                   variant="default"
                   size="sm"
-                  className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
+                  className="bg-[#003566] hover:bg-[#001d3d] text-white text-sm font-medium"
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >
                   {t('headerComponent.navigation.logout')}
@@ -155,7 +162,7 @@ export function Header() {
               <Button
                 variant="default"
                 size="sm"
-                className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium"
+                className="bg-[#003566] hover:bg-[#001d3d] text-white text-sm font-medium"
                 onClick={() => loginWithRedirect()}
               >
                 {t('headerComponent.navigation.login')}
@@ -192,7 +199,7 @@ export function Header() {
               {hasCompletedOnboarding && isCompany && (
                 <Link
                   to={RoutePage.DESCRIBE_CANDIDATE}
-                  className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-blue-600 hover:bg-blue-50"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-[#003566] hover:bg-[#003566]/10"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {t('headerComponent.navigation.postNewProject')}

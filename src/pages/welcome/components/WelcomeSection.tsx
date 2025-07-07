@@ -9,7 +9,7 @@ interface WelcomeSectionProps {
 
 export function WelcomeSection({ children, className }: WelcomeSectionProps) {
   return (
-    <section className={cn(spacing.section, 'relative', className)}>
+    <section className={cn(spacing.section, 'relative text-white', className)}>
       <div className={spacing.container}>
         {children}
       </div>

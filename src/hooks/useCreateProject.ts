@@ -25,19 +25,16 @@ export const useCreateProject = () => {
       }
 
       const companyId = companyData.id;
-      
+
       if (!companyId) {
         throw new Error('Company ID is missing');
       }
 
       console.log('Creating project for company ID:', companyId);
-      
-      const response = await axiosInstance.post<ProjectResponse>(
-        `/g/${companyId}`,
-        projectData
-      );
-      
+
+      const response = await axiosInstance.post<ProjectResponse>(`/g/${companyId}`, projectData);
+
       return response.data;
-    }
+    },
   });
 };

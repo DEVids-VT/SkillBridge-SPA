@@ -1,10 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
-import Header from './Header'; // Assuming Header.tsx is in the same directory
-import Footer from './Footer'; // Assuming Footer.tsx is in the same directory
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Menu } from 'lucide-react';
+import Sidebar from './Sidebar';
 
 export function Layout() {
   const location = useLocation();
+  // Sidebar should be open by default on desktop
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Scroll to top on route change
   useEffect(() => {
@@ -19,13 +22,29 @@ export function Layout() {
     }
   }, [location.pathname]);
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
-    <div className="flex flex-col min-h-screen font-rubik">
-      <Header />
-      <main className="flex-grow">
-        <Outlet /> {/* Child routes will render here directly */}
-      </main>
-      <Footer />
+    <div className="flex min-h-screen font-rubik">
+      {/* Sidebar */}
+      <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
+
+      {/* Main Content Area */}
+      <div className="flex flex-col flex-1 lg:ml-64 min-h-screen">
+        {/* Mobile Menu Toggle - Only visible on mobile */}
+        <div className="lg:hidden p-4">
+          <Button variant="ghost" size="icon" onClick={toggleSidebar} aria-label="Toggle menu">
+            <Menu className="h-5 w-5" />
+          </Button>
+        </div>
+
+        {/* Main Content */}
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

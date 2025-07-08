@@ -21,7 +21,19 @@ i18n
       escapeValue: false, // not needed for react as it escapes by default
     },
 
-    ns: ['translation', 'companies', 'about', 'candidate', 'candidateProfile', 'landing', 'layout', 'companyProfile', 'project', 'welcome', 'header'],
+    ns: [
+      'translation',
+      'companies',
+      'about',
+      'candidate',
+      'candidateProfile',
+      'landing',
+      'layout',
+      'companyProfile',
+      'project',
+      'welcome',
+      'header',
+    ],
     defaultNS: 'translation',
 
     // Backend configuration

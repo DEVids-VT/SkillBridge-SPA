@@ -64,6 +64,15 @@ nav a:hover::after {
   width: 100%;
 }
 
+/* Override underline effect for sidebar navigation */
+aside nav a::after {
+  display: none !important;
+}
+
+aside nav a {
+  text-decoration: none !important;
+}
+
 /* Page animation wrapper */
 .page-wrapper {
   animation: fadeIn 0.5s ease-in-out;

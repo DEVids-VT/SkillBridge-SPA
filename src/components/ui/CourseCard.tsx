@@ -95,10 +95,14 @@ export function CourseCard({
               <span className="text-sm text-gray-400 line-through ml-2">${originalPrice}</span>
             )}
           </div>
-          <Badge variant="secondary" className="bg-[#003566] text-[#ffd60a]">{level}</Badge>
+          <Badge variant="secondary" className="bg-[#003566] text-[#ffd60a]">
+            {level}
+          </Badge>
         </div>
 
-        <Button className="w-full bg-[#ffc300] text-[#001d3d] hover:bg-[#ffd60a]">View Course</Button>
+        <Button className="w-full bg-[#ffc300] text-[#001d3d] hover:bg-[#ffd60a]">
+          View Course
+        </Button>
       </div>
     </div>
   );

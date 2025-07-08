@@ -352,7 +352,8 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
 
             <div className="space-y-2">
               <Label htmlFor="hasOfficesInBulgaria">
-                {t('welcome.companyForm.hasOfficesInBulgaria')} ({t('welcome.companyForm.optional')})
+                {t('welcome.companyForm.hasOfficesInBulgaria')} ({t('welcome.companyForm.optional')}
+                )
               </Label>
               <div className="flex items-center space-x-3">
                 {' '}
@@ -371,7 +372,8 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             {formData.hasOfficesInBulgaria && (
               <div className="space-y-2">
                 <Label htmlFor="employeesInBulgaria">
-                  {t('welcome.companyForm.employeesInBulgaria')} ({t('welcome.companyForm.optional')})
+                  {t('welcome.companyForm.employeesInBulgaria')} (
+                  {t('welcome.companyForm.optional')})
                 </Label>
                 <Input
                   id="employeesInBulgaria"
@@ -386,8 +388,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             {formData.hasOfficesInBulgaria && (
               <div className="space-y-2">
                 <Label htmlFor="bulgarianOffices">
-                  {t('welcome.companyForm.bulgarianOffices')} ({t('welcome.companyForm.optional')}
-                  )
+                  {t('welcome.companyForm.bulgarianOffices')} ({t('welcome.companyForm.optional')})
                 </Label>{' '}
                 <Input
                   id="bulgarianOffices"

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { CategoryFilter } from '../types';
 import { CheckIcon } from 'lucide-react';
+import { cards, colors } from '@/lib/design-system';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -21,24 +22,27 @@ export const FilterSidebar = ({
   const { t } = useTranslation('project');
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-5 sticky top-24">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="font-medium text-gray-900">{t('projectsPage.filters.title')}</h3>
+    <div className={`${cards.base} sticky top-24`}>
+      <div className={cards.header}>
+        <h3 className="font-medium" style={{ color: colors.white }}>
+          {t('projectsPage.filters.title')}
+        </h3>
 
         {selectedCategory !== 'all' && (
           <Button
             variant="ghost"
             size="sm"
             onClick={onClearFilters}
-            className="h-7 px-2 text-sm text-gray-500 hover:text-gray-700"
+            className="h-7 px-2 text-sm"
+            style={{ color: colors.white }}
           >
             {t('projectsPage.filters.clear')}
           </Button>
         )}
       </div>
 
-      <div className="border-t border-gray-100 pt-4 pb-2">
-        <h4 className="text-sm font-medium text-gray-700 mb-3">
+      <div className={cards.body}>
+        <h4 className="text-sm font-medium mb-3" style={{ color: colors.white }}>
           {t('projectsPage.filters.categories')}
         </h4>
         <div className="space-y-2">
@@ -46,7 +50,7 @@ export const FilterSidebar = ({
             <div
               key={category.id}
               className={`flex items-center justify-between p-2 rounded-md cursor-pointer transition-colors ${
-                selectedCategory === category.id ? 'bg-blue-50' : 'hover:bg-gray-50'
+                selectedCategory === category.id ? 'bg-primary/20' : 'hover:bg-primary/10'
               }`}
               onClick={() => onCategoryChange(category.id)}
             >
@@ -56,25 +60,33 @@ export const FilterSidebar = ({
                     className={cn('w-2 h-2 rounded-full mr-2', category.color || 'bg-gray-200')}
                   />
                 )}
-                <span className="text-sm text-gray-700">{category.name}</span>
+                <span className="text-sm" style={{ color: colors.white }}>
+                  {category.name}
+                </span>
               </div>
 
-              {selectedCategory === category.id && <CheckIcon className="w-4 h-4 text-blue-600" />}
+              {selectedCategory === category.id && (
+                <CheckIcon className="w-4 h-4" style={{ color: colors.yellow }} />
+              )}
             </div>
           ))}
         </div>
       </div>
 
-      <div className="border-t border-gray-100 pt-4 mt-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-3">
+      <div className={cards.footer}>
+        <h4 className="text-sm font-medium mb-3" style={{ color: colors.white }}>
           {t('projectsPage.filters.otherOptions')}
         </h4>
         <div className="space-y-1">
-          <div className="flex items-center p-2 rounded-md cursor-pointer hover:bg-gray-50">
-            <span className="text-sm text-gray-700">{t('projectsPage.filters.mostRecent')}</span>
+          <div className="flex items-center p-2 rounded-md cursor-pointer hover:bg-primary/10">
+            <span className="text-sm" style={{ color: colors.white }}>
+              {t('projectsPage.filters.mostRecent')}
+            </span>
           </div>
-          <div className="flex items-center p-2 rounded-md cursor-pointer hover:bg-gray-50">
-            <span className="text-sm text-gray-700">{t('projectsPage.filters.upcoming')}</span>
+          <div className="flex items-center p-2 rounded-md cursor-pointer hover:bg-primary/10">
+            <span className="text-sm" style={{ color: colors.white }}>
+              {t('projectsPage.filters.upcoming')}
+            </span>
           </div>
         </div>
       </div>

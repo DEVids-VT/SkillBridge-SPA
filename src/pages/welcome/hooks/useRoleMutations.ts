@@ -21,9 +21,13 @@ interface RolePayload {
  * API call to become a candidate
  */
 const becomeCandidate = async (): Promise<IBecomeCandidateResponse> => {
-  const response = await axiosInstance.post('/r/become-candidate', {}, {
-    headers: { 'Content-Type': 'application/json' },
-  });
+  const response = await axiosInstance.post(
+    '/r/become-candidate',
+    {},
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
   return response.data;
 };
 
@@ -31,9 +35,13 @@ const becomeCandidate = async (): Promise<IBecomeCandidateResponse> => {
  * API call to become a company
  */
 const becomeCompany = async (): Promise<IBecomeCompanyResponse> => {
-  const response = await axiosInstance.post('/r/become-company', {}, {
-    headers: { 'Content-Type': 'application/json' },
-  });
+  const response = await axiosInstance.post(
+    '/r/become-company',
+    {},
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
   return response.data;
 };
 

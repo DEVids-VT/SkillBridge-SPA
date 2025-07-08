@@ -93,7 +93,9 @@ export function CompanyProfilePage() {
         companySize: `${apiCompanyData.employeesWorldwide} employees worldwide, ${apiCompanyData.employeesInBulgaria} in Bulgaria`,
         description: apiCompanyData.about,
         logo: apiCompanyData.logoUrl || '/images/companies/techcorp-logo.webp',
-        contactInfo: apiCompanyData.contactInfo || t('companyProfilePage.companyInformation.fallback.notProvided'),
+        contactInfo:
+          apiCompanyData.contactInfo ||
+          t('companyProfilePage.companyInformation.fallback.notProvided'),
       });
     }
   }, [apiCompanyData, t]); // Helper function to determine a project category based on skills
@@ -413,11 +415,17 @@ export function CompanyProfilePage() {
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4">
                   <div className="flex items-center gap-2 text-sm text-[#ffd60a]">
                     <Calendar className="h-4 w-4" />
-                    <span>{t('companyProfilePage.activeProjects.details.posted')} {new Date(project.postedDate).toLocaleDateString()}</span>
+                    <span>
+                      {t('companyProfilePage.activeProjects.details.posted')}{' '}
+                      {new Date(project.postedDate).toLocaleDateString()}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-[#ffd60a]">
                     <Clock className="h-4 w-4" />
-                    <span>{t('companyProfilePage.activeProjects.details.deadline')} {new Date(project.deadline).toLocaleDateString()}</span>
+                    <span>
+                      {t('companyProfilePage.activeProjects.details.deadline')}{' '}
+                      {new Date(project.deadline).toLocaleDateString()}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-[#ffd60a]">
                     <DollarSign className="h-4 w-4" />
@@ -426,7 +434,8 @@ export function CompanyProfilePage() {
                   <div className="flex items-center gap-2 text-sm text-[#ffd60a]">
                     <Users className="h-4 w-4" />
                     <span>
-                      {project.applicants}/{project.maxApplicants} {t('companyProfilePage.activeProjects.details.applicants')}
+                      {project.applicants}/{project.maxApplicants}{' '}
+                      {t('companyProfilePage.activeProjects.details.applicants')}
                     </span>
                   </div>
                 </div>
@@ -434,7 +443,9 @@ export function CompanyProfilePage() {
                 {/* Progress Bar for Applicants */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-[#ffd60a]">{t('companyProfilePage.activeProjects.details.applicantProgress')}</span>
+                    <span className="text-sm font-medium text-[#ffd60a]">
+                      {t('companyProfilePage.activeProjects.details.applicantProgress')}
+                    </span>
                     <span className="text-sm text-[#ffd60a]">
                       {Math.round((project.applicants / project.maxApplicants) * 100)}%
                     </span>
@@ -514,7 +525,8 @@ export function CompanyProfilePage() {
                   </span>
                   <span className="flex items-center gap-1">
                     <Users className="h-3 w-3" />
-                    {campaign.applicants} {t('companyProfilePage.activeProjects.details.applicants')}
+                    {campaign.applicants}{' '}
+                    {t('companyProfilePage.activeProjects.details.applicants')}
                   </span>
                 </div>
 

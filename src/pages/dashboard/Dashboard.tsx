@@ -5,22 +5,23 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { useDashboard } from './useDashboard';
-import { 
-  TrendingUp, 
-  FolderOpen, 
-  CheckCircle2, 
-  Clock, 
+import {
+  TrendingUp,
+  FolderOpen,
+  CheckCircle2,
+  Clock,
   DollarSign,
   BookOpen,
   Target,
   Calendar,
   Star,
-  Award
+  Award,
 } from 'lucide-react';
 
 const Dashboard = () => {
   const { t } = useTranslation();
-  const { getDashboardStats, getRecentActivities, getSkillProgress, formatTimeAgo } = useDashboard();
+  const { getDashboardStats, getRecentActivities, getSkillProgress, formatTimeAgo } =
+    useDashboard();
 
   const stats = getDashboardStats();
   const recentActivities = getRecentActivities();
@@ -30,9 +31,11 @@ const Dashboard = () => {
     <div className="min-h-screen bg-[#000814]">
       <div className={`${spacing.container} ${spacing.section}`}>
         {/* Header */}
-        <div className={layouts.pageHeader}>
-          <h1 className={`${typography.heading[1]} mb-4`}>
-            Welcome Back, <span style={{ color: colors.yellow }}>Developer</span>
+        <div className={layouts.pageHeader + ' text-white'}>
+          <div className={layouts.pageHeaderBackground}></div>
+          <h1 className={layouts.pageTitle}>
+            <span className="text-[#ffd60a]">Welcome Back,</span>{' '}
+            <span className="text-white">Developer</span>
           </h1>
           <p className={typography.body.lg}>
             Track your progress, manage projects, and continue building your career
@@ -82,7 +85,9 @@ const Dashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className={typography.body.sm}>Total Earnings</p>
-                  <h3 className={`${typography.heading[2]} mt-1`}>${stats.totalEarnings.toLocaleString()}</h3>
+                  <h3 className={`${typography.heading[2]} mt-1`}>
+                    ${stats.totalEarnings.toLocaleString()}
+                  </h3>
                 </div>
                 <DollarSign size={32} style={{ color: colors.yellow }} />
               </div>
@@ -95,17 +100,22 @@ const Dashboard = () => {
           {/* Recent Activity */}
           <div className={cards.base}>
             <div className={cards.header}>
-              <h3 className={typography.heading[3]}>Recent Activity</h3>
+              <h3 className={typography.sectionTitle.medium}>Recent Activity</h3>
             </div>
             <div className={cards.body}>
               <div className="space-y-4">
                 {recentActivities.map((activity) => (
-                  <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg bg-[#000814]/50">
+                  <div
+                    key={activity.id}
+                    className="flex items-start gap-4 p-4 rounded-lg bg-[#000814]/50"
+                  >
                     <span className="text-2xl">{activity.icon}</span>
                     <div className="flex-1">
                       <h4 className={`${typography.heading[5]} mb-1`}>{activity.title}</h4>
                       <p className={typography.body.sm}>{activity.description}</p>
-                      <p className="text-xs text-gray-500 mt-1">{formatTimeAgo(activity.timestamp)}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {formatTimeAgo(activity.timestamp)}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -121,7 +131,7 @@ const Dashboard = () => {
           {/* Skill Progress */}
           <div className={cards.base}>
             <div className={cards.header}>
-              <h3 className={typography.heading[3]}>Skill Progress</h3>
+              <h3 className={typography.sectionTitle.medium}>Skill Progress</h3>
             </div>
             <div className={cards.body}>
               <div className="space-y-6">
@@ -134,10 +144,7 @@ const Dashboard = () => {
                       </div>
                       <span className={typography.body.sm}>{skill.progress}%</span>
                     </div>
-                    <Progress 
-                      value={skill.progress} 
-                      className="h-2 bg-[#001d3d]"
-                    />
+                    <Progress value={skill.progress} className="h-2 bg-[#001d3d]" />
                   </div>
                 ))}
               </div>
@@ -152,24 +159,24 @@ const Dashboard = () => {
 
         {/* Quick Actions */}
         <div className="mt-12">
-          <h2 className={`${typography.heading[2]} mb-8 text-center`}>Quick Actions</h2>
+          <h2 className={`${typography.sectionTitle.large} mb-8 text-center`}>Quick Actions</h2>
           <div className={layouts.grid.cards3}>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="h-24 flex-col gap-2 bg-[#003566] hover:bg-[#ffc300] hover:text-[#001d3d] transition-all duration-300"
             >
               <BookOpen size={24} />
               Browse Projects
             </Button>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="h-24 flex-col gap-2 bg-[#003566] hover:bg-[#ffc300] hover:text-[#001d3d] transition-all duration-300"
             >
               <Target size={24} />
               Set Goals
             </Button>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="h-24 flex-col gap-2 bg-[#003566] hover:bg-[#ffc300] hover:text-[#001d3d] transition-all duration-300"
             >
               <Calendar size={24} />
@@ -182,4 +189,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

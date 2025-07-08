@@ -50,7 +50,7 @@ export default function DescribeCandidatePage() {
     title: '',
     message: '',
   });
-  
+
   // Use the createProject mutation
   const createProject = useCreateProject();
 
@@ -170,26 +170,26 @@ export default function DescribeCandidatePage() {
     if (validateForm()) {
       setIsSubmitting(true);
       console.log('Candidate Requirements Submitted:', formData);
-      
+
       // Prepare data for API request
       const projectData: ProjectRequest = {
         roleTitle: formData.roleTitle,
         yearsOfExperience: Number(formData.yearsExperience),
         seniorityLevel: formData.seniorityLevel,
-        requiredSkills: formData.requiredSkills.split(',').map(skill => skill.trim()),
-        relevantTechnologies: formData.relevantTechnologies.split(',').map(tech => tech.trim()),
-        industryExperience: formData.industryExperience ? 
-          formData.industryExperience.split(',').map(exp => exp.trim()) : 
-          [],
-        description: formData.description
+        requiredSkills: formData.requiredSkills.split(',').map((skill) => skill.trim()),
+        relevantTechnologies: formData.relevantTechnologies.split(',').map((tech) => tech.trim()),
+        industryExperience: formData.industryExperience
+          ? formData.industryExperience.split(',').map((exp) => exp.trim())
+          : [],
+        description: formData.description,
       };
-      
+
       // Call the API
       createProject.mutate(projectData, {
         onSuccess: (data) => {
           console.log('Project created successfully:', data);
           setIsSubmitting(false);
-          
+
           // Reset form after successful submission
           setFormData(initialFormState);
 
@@ -198,9 +198,9 @@ export default function DescribeCandidatePage() {
             show: true,
             type: 'success',
             title: t('candidatePage.notifications.success.title'),
-            message: t('candidatePage.notifications.success.message')
+            message: t('candidatePage.notifications.success.message'),
           });
-          
+
           // Redirect to the project detail page after a short delay
           setTimeout(() => {
             navigate(`/projects/${data.id}`);
@@ -239,7 +239,7 @@ export default function DescribeCandidatePage() {
       <div className="absolute top-8 right-0 w-64 h-64 bg-blue-50 dark:bg-blue-900/20 rounded-full opacity-30 blur-3xl -z-10"></div>
       <div className="absolute bottom-12 left-8 w-48 h-48 bg-purple-50 dark:bg-purple-900/20 rounded-full opacity-30 blur-3xl -z-10"></div>
       <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-green-50 dark:bg-green-900/10 rounded-full opacity-20 blur-3xl -z-10"></div>
-      
+
       {notification.show && (
         <Notification
           title={notification.title}
@@ -248,7 +248,7 @@ export default function DescribeCandidatePage() {
           onClose={() => setNotification((prev) => ({ ...prev, show: false }))}
         />
       )}
-      
+
       {/* Page Header */}
       <div className={layouts.pageHeader}>
         <div className={layouts.pageHeaderBackground}></div>
@@ -256,11 +256,9 @@ export default function DescribeCandidatePage() {
           <span className="text-blue-600">{t('candidatePage.header.title1')}</span>{' '}
           <span className="text-gray-600">{t('candidatePage.header.title2')}</span>
         </h1>
-        <p className={layouts.pageDescription}>
-          {t('candidatePage.header.subtitle')}
-        </p>
+        <p className={layouts.pageDescription}>{t('candidatePage.header.subtitle')}</p>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column - Form */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
@@ -283,7 +281,7 @@ export default function DescribeCandidatePage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.roleTitle}</p>
               )}
             </div>
-            
+
             <div className="space-y-3">
               <Label htmlFor="requiredSkills">{t('candidatePage.form.requiredSkills.label')}</Label>
               <TagInput
@@ -298,9 +296,11 @@ export default function DescribeCandidatePage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.requiredSkills}</p>
               )}
             </div>
-            
+
             <div className="space-y-3">
-              <Label htmlFor="yearsExperience">{t('candidatePage.form.yearsExperience.label')}</Label>
+              <Label htmlFor="yearsExperience">
+                {t('candidatePage.form.yearsExperience.label')}
+              </Label>
               <div className="relative">
                 <Input
                   id="yearsExperience"
@@ -320,7 +320,7 @@ export default function DescribeCandidatePage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.yearsExperience}</p>
               )}
             </div>
-            
+
             <div className="space-y-3">
               <Label htmlFor="seniorityLevel">{t('candidatePage.form.seniorityLevel.label')}</Label>
               <Select value={formData.seniorityLevel} onValueChange={handleSelectChange}>
@@ -331,20 +331,32 @@ export default function DescribeCandidatePage() {
                   <SelectValue placeholder={t('candidatePage.form.seniorityLevel.placeholder')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="junior">{t('candidatePage.form.seniorityLevel.options.junior')}</SelectItem>
-                  <SelectItem value="mid">{t('candidatePage.form.seniorityLevel.options.mid')}</SelectItem>
-                  <SelectItem value="senior">{t('candidatePage.form.seniorityLevel.options.senior')}</SelectItem>
-                  <SelectItem value="lead">{t('candidatePage.form.seniorityLevel.options.lead')}</SelectItem>
-                  <SelectItem value="principal">{t('candidatePage.form.seniorityLevel.options.principal')}</SelectItem>
+                  <SelectItem value="junior">
+                    {t('candidatePage.form.seniorityLevel.options.junior')}
+                  </SelectItem>
+                  <SelectItem value="mid">
+                    {t('candidatePage.form.seniorityLevel.options.mid')}
+                  </SelectItem>
+                  <SelectItem value="senior">
+                    {t('candidatePage.form.seniorityLevel.options.senior')}
+                  </SelectItem>
+                  <SelectItem value="lead">
+                    {t('candidatePage.form.seniorityLevel.options.lead')}
+                  </SelectItem>
+                  <SelectItem value="principal">
+                    {t('candidatePage.form.seniorityLevel.options.principal')}
+                  </SelectItem>
                 </SelectContent>
               </Select>
               {formErrors.seniorityLevel && (
                 <p className="text-red-500 text-sm mt-1">{formErrors.seniorityLevel}</p>
               )}
             </div>
-            
+
             <div className="space-y-3">
-              <Label htmlFor="relevantTechnologies">{t('candidatePage.form.relevantTechnologies.label')}</Label>
+              <Label htmlFor="relevantTechnologies">
+                {t('candidatePage.form.relevantTechnologies.label')}
+              </Label>
               <TagInput
                 id="relevantTechnologies"
                 name="relevantTechnologies"
@@ -357,10 +369,12 @@ export default function DescribeCandidatePage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.relevantTechnologies}</p>
               )}
             </div>
-            
+
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <Label htmlFor="industryExperience">{t('candidatePage.form.industryExperience.label')}</Label>
+                <Label htmlFor="industryExperience">
+                  {t('candidatePage.form.industryExperience.label')}
+                </Label>
                 <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
                   {t('candidatePage.form.industryExperience.optional')}
                 </span>
@@ -373,7 +387,7 @@ export default function DescribeCandidatePage() {
                 onChange={handleTagInputChange}
               />
             </div>
-            
+
             <div className="space-y-3">
               <Label htmlFor="description">{t('candidatePage.form.description.label')}</Label>
               <Textarea
@@ -388,7 +402,7 @@ export default function DescribeCandidatePage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.description}</p>
               )}
             </div>
-            
+
             <div className="pt-4">
               <Button
                 type="submit"
@@ -414,7 +428,7 @@ export default function DescribeCandidatePage() {
             </div>
           </form>
         </div>
-        
+
         {/* Right Column - Visual Feedback */}
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col">
           <h2 className="text-xl font-semibold mb-6 pb-4 border-b border-gray-100 dark:border-gray-700 flex items-center">

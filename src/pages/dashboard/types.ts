@@ -29,4 +29,4 @@ export type CategoryType = {
   color: string;
   description: string;
   skills: string[];
-}; 
+};

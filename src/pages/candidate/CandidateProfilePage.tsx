@@ -5,11 +5,11 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  User,
+  Mail,
+  Phone,
+  MapPin,
   Calendar,
   Building2,
   Clock,
@@ -18,7 +18,7 @@ import {
   Edit,
   Camera,
   Briefcase,
-  Tag
+  Tag,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { spacing, layouts } from '@/lib/design-system';
@@ -60,7 +60,7 @@ export function CandidateProfilePage() {
     country: 'Bangladesh',
     city: 'Sylhet',
     zipCode: '3100',
-    avatar: '/images/avatar-placeholder.jpg'
+    avatar: '/images/avatar-placeholder.jpg',
   });
 
   // Mock active project data
@@ -69,14 +69,15 @@ export function CandidateProfilePage() {
     title: 'Mobile App Development',
     company: 'TechCorp Solutions',
     logo: '/images/companies/company1.webp',
-    description: 'Looking for a talented React Native developer to build a cross-platform mobile application for our health tech startup.',
+    description:
+      'Looking for a talented React Native developer to build a cross-platform mobile application for our health tech startup.',
     category: 'development',
     skills: ['React Native', 'JavaScript', 'API Integration', 'UI/UX'],
     startDate: '2023-05-15',
     deadline: '2023-06-30',
     progress: 75,
     status: 'active',
-    payment: '$4,500 - $6,000'
+    payment: '$4,500 - $6,000',
   };
 
   // Mock past projects data
@@ -93,7 +94,7 @@ export function CandidateProfilePage() {
       deadline: '2023-04-15',
       progress: 100,
       status: 'completed',
-      payment: '$3,200'
+      payment: '$3,200',
     },
     {
       id: 3,
@@ -107,14 +108,14 @@ export function CandidateProfilePage() {
       deadline: '2023-02-28',
       progress: 100,
       status: 'completed',
-      payment: '$2,800'
-    }
+      payment: '$2,800',
+    },
   ];
 
   const handleInputChange = (field: keyof CandidateProfile, value: string) => {
-    setCandidateData(prev => ({
+    setCandidateData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -125,7 +126,7 @@ export function CandidateProfilePage() {
   };
 
   return (
-    <div className={cn(spacing.container, spacing.headerOffset, "py-8")}>
+    <div className={cn(spacing.container, spacing.headerOffset, 'py-8')}>
       {/* Page Header */}
       <div className={layouts.pageHeader}>
         <div className={layouts.pageHeaderBackground}></div>
@@ -158,13 +159,15 @@ export function CandidateProfilePage() {
                 </span>
               )}
               <Button
-                variant={isEditing ? "default" : "outline"}
+                variant={isEditing ? 'default' : 'outline'}
                 size="sm"
                 onClick={isEditing ? handleSave : () => setIsEditing(true)}
                 className="flex items-center gap-2"
               >
                 <Edit className="h-4 w-4" />
-                {isEditing ? t('candidateProfilePage.personalInfo.save') : t('candidateProfilePage.personalInfo.edit')}
+                {isEditing
+                  ? t('candidateProfilePage.personalInfo.save')
+                  : t('candidateProfilePage.personalInfo.edit')}
               </Button>
             </div>
           </div>
@@ -175,9 +178,9 @@ export function CandidateProfilePage() {
               <div className="flex flex-col items-center">
                 <div className="relative group">
                   <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-100 border-4 border-white shadow-lg">
-                    <img 
-                      src={candidateData.avatar} 
-                      alt="Profile" 
+                    <img
+                      src={candidateData.avatar}
+                      alt="Profile"
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         e.currentTarget.src = `https://ui-avatars.com/api/?name=${candidateData.firstName}+${candidateData.lastName}&background=3b82f6&color=fff&size=200`;
@@ -367,21 +370,25 @@ export function CandidateProfilePage() {
                 <Building2 className="h-6 w-6 text-gray-600" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                  {activeProject.title}
-                </h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">{activeProject.title}</h3>
                 <p className="text-gray-600 mb-2">{activeProject.company}</p>
                 <p className="text-sm text-gray-600 mb-4">{activeProject.description}</p>
-                
+
                 {/* Project Details */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Calendar className="h-4 w-4" />
-                    <span>{t('candidateProfilePage.activeProject.started')} {new Date(activeProject.startDate).toLocaleDateString()}</span>
+                    <span>
+                      {t('candidateProfilePage.activeProject.started')}{' '}
+                      {new Date(activeProject.startDate).toLocaleDateString()}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <Clock className="h-4 w-4" />
-                    <span>{t('candidateProfilePage.activeProject.deadline')} {new Date(activeProject.deadline).toLocaleDateString()}</span>
+                    <span>
+                      {t('candidateProfilePage.activeProject.deadline')}{' '}
+                      {new Date(activeProject.deadline).toLocaleDateString()}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <DollarSign className="h-4 w-4" />
@@ -392,11 +399,13 @@ export function CandidateProfilePage() {
                 {/* Progress Bar */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">{t('candidateProfilePage.activeProject.progress')}</span>
+                    <span className="text-sm font-medium text-gray-700">
+                      {t('candidateProfilePage.activeProject.progress')}
+                    </span>
                     <span className="text-sm text-gray-600">{activeProject.progress}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
+                    <div
                       className="bg-green-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${activeProject.progress}%` }}
                     ></div>
@@ -438,7 +447,10 @@ export function CandidateProfilePage() {
 
           <div className="space-y-4">
             {pastProjects.map((project) => (
-              <div key={project.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div
+                key={project.id}
+                className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+              >
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
                     <Building2 className="h-5 w-5 text-gray-600" />
@@ -453,13 +465,14 @@ export function CandidateProfilePage() {
                         {t('candidateProfilePage.pastProjects.completed')}
                       </Badge>
                     </div>
-                    
+
                     <p className="text-sm text-gray-600 mb-3">{project.description}</p>
-                    
+
                     <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-3">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        {new Date(project.startDate).toLocaleDateString()} - {new Date(project.deadline).toLocaleDateString()}
+                        {new Date(project.startDate).toLocaleDateString()} -{' '}
+                        {new Date(project.deadline).toLocaleDateString()}
                       </span>
                       <span className="flex items-center gap-1">
                         <DollarSign className="h-3 w-3" />
@@ -491,4 +504,4 @@ export function CandidateProfilePage() {
   );
 }
 
-export default CandidateProfilePage; 
+export default CandidateProfilePage;

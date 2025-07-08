@@ -5,4 +5,4 @@ export interface CompanyProfile {
   // Add more company profile fields as needed
 }
 
-// Add more company-related types here 
+// Add more company-related types here

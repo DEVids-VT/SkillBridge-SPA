@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Project, CategoryFilter } from '../types';
+import { colors } from '@/lib/design-system';
 import { ProjectCard } from './ProjectCard';
 
 interface ProjectsListProps {
@@ -13,8 +14,12 @@ export const ProjectsList = ({ projects, categories }: ProjectsListProps) => {
   return (
     <div className="flex flex-col">
       {/* Project count */}
-      <div className="text-sm text-gray-500 mb-4">
-        {t('projectsPage.projectsList.showing')} <span className="font-medium text-gray-700">{projects.length}</span> {t('projectsPage.projectsList.projects')}
+      <div className="text-sm mb-4" style={{ color: colors.white }}>
+        {t('projectsPage.projectsList.showing')}{' '}
+        <span className="font-medium" style={{ color: colors.yellow }}>
+          {projects.length}
+        </span>{' '}
+        {t('projectsPage.projectsList.projects')}
       </div>
       {/* Project cards list */}
       <div className="flex flex-col gap-4 mb-8">
@@ -26,7 +31,7 @@ export const ProjectsList = ({ projects, categories }: ProjectsListProps) => {
       {/* Empty state */}
       {projects.length === 0 && (
         <div className="py-12 text-center">
-          <p className="text-gray-500">{t('projectsPage.projectsList.noProjectsFound')}</p>
+          <p style={{ color: colors.white }}>{t('projectsPage.projectsList.noProjectsFound')}</p>
         </div>
       )}
     </div>

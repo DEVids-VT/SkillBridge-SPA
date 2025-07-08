@@ -55,12 +55,7 @@ export const router = createBrowserRouter(
       </Route>{' '}
       {/* Welcome/onboarding route should be accessible even with incomplete onboarding */}
       <Route path={RoutePage.WELCOME} element={<WelcomeLayout />}>
-        <Route
-          index
-          element={
-              <WelcomePage />
-          }
-        />
+        <Route index element={<WelcomePage />} />
       </Route>
     </>
   )

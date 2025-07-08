@@ -1,5 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import { Building, GraduationCap, Clock, Target, TrendingUp, Users, BookOpen, Briefcase, Code, LineChart } from 'lucide-react';
+import {
+  Building,
+  GraduationCap,
+  Clock,
+  Target,
+  TrendingUp,
+  Users,
+  BookOpen,
+  Briefcase,
+  Code,
+  LineChart,
+} from 'lucide-react';
 import img1 from '../../../public/images/people/12.png';
 import img2 from '../../../public/images/people/13.png';
 import img3 from '../../../public/images/people/14.png';
@@ -11,36 +22,36 @@ const AboutPage = () => {
     {
       icon: <Clock className="h-5 w-5" />,
       title: t('aboutPage.companies.benefits.saveTime.title'),
-      description: t('aboutPage.companies.benefits.saveTime.description')
+      description: t('aboutPage.companies.benefits.saveTime.description'),
     },
     {
       icon: <Target className="h-5 w-5" />,
       title: t('aboutPage.companies.benefits.objectiveAssessment.title'),
-      description: t('aboutPage.companies.benefits.objectiveAssessment.description')
+      description: t('aboutPage.companies.benefits.objectiveAssessment.description'),
     },
     {
       icon: <TrendingUp className="h-5 w-5" />,
       title: t('aboutPage.companies.benefits.fasterSelection.title'),
-      description: t('aboutPage.companies.benefits.fasterSelection.description')
-    }
+      description: t('aboutPage.companies.benefits.fasterSelection.description'),
+    },
   ];
 
   const studentBenefits = [
     {
       icon: <Briefcase className="h-5 w-5" />,
       title: t('aboutPage.students.benefits.realBusinessCases.title'),
-      description: t('aboutPage.students.benefits.realBusinessCases.description')
+      description: t('aboutPage.students.benefits.realBusinessCases.description'),
     },
     {
       icon: <GraduationCap className="h-5 w-5" />,
       title: t('aboutPage.students.benefits.skillDevelopment.title'),
-      description: t('aboutPage.students.benefits.skillDevelopment.description')
+      description: t('aboutPage.students.benefits.skillDevelopment.description'),
     },
     {
       icon: <LineChart className="h-5 w-5" />,
       title: t('aboutPage.students.benefits.directOpportunities.title'),
-      description: t('aboutPage.students.benefits.directOpportunities.description')
-    }
+      description: t('aboutPage.students.benefits.directOpportunities.description'),
+    },
   ];
 
   // Team members data
@@ -49,36 +60,36 @@ const AboutPage = () => {
       name: t('aboutPage.team.members.davidPetkov.name'),
       role: t('aboutPage.team.members.davidPetkov.role'),
       bio: t('aboutPage.team.members.davidPetkov.bio'),
-      image: img1
+      image: img1,
     },
     {
       name: t('aboutPage.team.members.davidHristov.name'),
       role: t('aboutPage.team.members.davidHristov.role'),
       bio: t('aboutPage.team.members.davidHristov.bio'),
-      image: img2
+      image: img2,
     },
     {
       name: t('aboutPage.team.members.trayanVasilev.name'),
       role: t('aboutPage.team.members.trayanVasilev.role'),
       bio: t('aboutPage.team.members.trayanVasilev.bio'),
-      image: img3
-    }
+      image: img3,
+    },
   ];
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 py-20">
       {/* Modern Dots Background Pattern */}
       <div className="absolute inset-0 opacity-25">
-        <div 
+        <div
           className="w-full h-full"
           style={{
             backgroundImage: `radial-gradient(circle, #3b82f6 1px, transparent 1px)`,
             backgroundSize: '30px 30px',
-            backgroundPosition: '0 0, 15px 15px'
+            backgroundPosition: '0 0, 15px 15px',
           }}
         />
       </div>
-      
+
       {/* Gradient overlay for better readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/80" />
 
@@ -90,7 +101,7 @@ const AboutPage = () => {
             <span className="text-blue-600">{t('aboutPage.header.title')}</span>{' '}
             <span className="text-gray-600">{t('aboutPage.header.appName')}</span>
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             {t('aboutPage.header.subtitle')}
           </p>
@@ -98,7 +109,6 @@ const AboutPage = () => {
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16">
-          
           {/* For Companies */}
           <div className="space-y-8">
             <div className="text-center">
@@ -109,9 +119,7 @@ const AboutPage = () => {
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                 {t('aboutPage.companies.title')}
               </h2>
-              <p className="text-gray-600 mb-8">
-                {t('aboutPage.companies.subtitle')}
-              </p>
+              <p className="text-gray-600 mb-8">{t('aboutPage.companies.subtitle')}</p>
             </div>
 
             <div className="space-y-4">
@@ -144,9 +152,7 @@ const AboutPage = () => {
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                 {t('aboutPage.students.title')}
               </h2>
-              <p className="text-gray-600 mb-8">
-                {t('aboutPage.students.subtitle')}
-              </p>
+              <p className="text-gray-600 mb-8">{t('aboutPage.students.subtitle')}</p>
             </div>
 
             <div className="space-y-4">
@@ -180,9 +186,7 @@ const AboutPage = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
               {t('aboutPage.team.title')}
             </h2>
-            <p className="text-gray-600">
-              {t('aboutPage.team.subtitle')}
-            </p>
+            <p className="text-gray-600">{t('aboutPage.team.subtitle')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -193,8 +197,8 @@ const AboutPage = () => {
               >
                 <div className="text-center space-y-4">
                   <div className="w-24 h-24 bg-gray-100 rounded-full overflow-hidden mx-auto border-4 border-blue-100">
-                    <img 
-                      src={member.image} 
+                    <img
+                      src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover"
                       onError={(e) => {

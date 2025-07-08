@@ -25,4 +25,4 @@ export default function RoleGuard({ children, allowedRole }: RoleGuardProps) {
 
   // Only render children if the user has the correct role
   return onboardingData.role === allowedRole ? <>{children}</> : null;
-} 
+}

@@ -17,13 +17,9 @@ export function RoleVerificationError({ role, onBackToRoleSelection }: RoleVerif
           <AlertCircle className="h-6 w-6 text-red-500" aria-hidden="true" />
         </div>
         <div className="ml-3">
-          <h3 className="text-lg font-medium text-red-800">
-            {t('roleVerificationError')}
-          </h3>
+          <h3 className="text-lg font-medium text-red-800">{t('roleVerificationError')}</h3>
           <div className="mt-2 text-sm text-red-700">
-            <p>
-              {t('roleVerificationErrorMessage', { role })}
-            </p>
+            <p>{t('roleVerificationErrorMessage', { role })}</p>
           </div>
           <div className="mt-4">
             <Button

@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { colors, components } from '@/lib/design-system';
 import { CategoryFilter } from '../types';
 
 interface CategoryFiltersProps {
@@ -21,8 +22,13 @@ export const CategoryFilters = ({
           variant={selectedCategory === category.id ? 'default' : 'outline'}
           className={cn(
             'rounded-full px-6',
-            selectedCategory === category.id && category.id !== 'all' ? category.color : ''
+            selectedCategory === category.id ? components.tagColors.blue : ''
           )}
+          style={{
+            backgroundColor: selectedCategory === category.id ? colors.blue : 'transparent',
+            borderColor: colors.blue,
+            color: selectedCategory === category.id ? colors.yellow : colors.white,
+          }}
           onClick={() => setSelectedCategory(category.id)}
         >
           {category.name}

@@ -41,14 +41,14 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
       await getAccessTokenSilently({
         authorizationParams: {
           audience: 'http://skillbridgeapi',
-          scope: 'openid profile email default:company default:candidate offline_access'
+          scope: 'openid profile email default:company default:candidate offline_access',
         },
-        cacheMode: 'off'
+        cacheMode: 'off',
       });
       queryClient.invalidateQueries();
     } catch (error) {
       console.error('Failed to refresh user roles:', error);
-      
+
       // Re-throw the error so calling code can handle it
       throw error;
     }

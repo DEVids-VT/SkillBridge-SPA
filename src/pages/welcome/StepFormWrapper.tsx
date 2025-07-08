@@ -36,9 +36,7 @@ export function StepFormWrapper({
   return (
     <Card className="w-full max-w-3xl mx-auto shadow-lg bg-[#001d3d] border border-[#003566]">
       <CardHeader className="pb-5">
-        <CardTitle className="text-2xl text-white">
-          {title}
-        </CardTitle>
+        <CardTitle className="text-2xl text-white">{title}</CardTitle>
         <div className="mt-3">
           <div className="flex justify-between text-sm mb-1">
             <span className="text-gray-300">

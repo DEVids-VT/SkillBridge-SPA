@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { spacing } from '@/lib/design-system';
+import { spacing, colors } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { Filter, Loader2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -103,85 +103,90 @@ const ProjectsPage = () => {
   };
 
   return (
-    <div className={cn(spacing.container, spacing.headerOffset, 'py-8')}>
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div className="flex-grow w-full md:w-auto">
-          <ProjectsHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    <div className="min-h-screen" style={{ backgroundColor: colors.dark }}>
+      <div className={spacing.container}>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="flex-grow w-full md:w-auto">
+            <ProjectsHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          </div>
         </div>
-      </div>
-      
-      <div className="mt-6">
-        {/* Post New Project button - only visible for companies */}
-        {isCompany && (
-          <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white mb-4"
-            onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            {t('projectsPage.actions.postNewProject')}
-          </Button>
-        )}
-      
-        {/* Mobile filter toggle and mobile post button */}
-        <div className="lg:hidden mb-4 flex gap-2 flex-col sm:flex-row">
-          <Button
-            variant="outline"
-            className="flex-1 flex items-center justify-center gap-2 text-gray-700"
-            onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
-          >
-            <Filter className="h-4 w-4" />
-            <span>{t('projectsPage.actions.filters')}</span>
-          </Button>
 
-          {/* Mobile Post New Project button - only visible for companies */}
+        <div className="mt-6">
+          {/* Post New Project button - only visible for companies */}
           {isCompany && (
             <Button
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center"
+              className="mb-4"
+              style={{ backgroundColor: colors.blue, color: colors.white }}
               onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
             >
               <Plus className="h-4 w-4 mr-2" />
-              <span>{t('projectsPage.actions.postProject')}</span>
+              {t('projectsPage.actions.postNewProject')}
             </Button>
           )}
-        </div>
 
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Filters sidebar - desktop view */}
-          <div
-            className={cn(
-              'lg:w-64 flex-shrink-0',
-              !mobileFiltersOpen && 'hidden lg:block',
-              mobileFiltersOpen && 'block lg:block'
+          {/* Mobile filter toggle and mobile post button */}
+          <div className="lg:hidden mb-4 flex gap-2 flex-col sm:flex-row">
+            <Button
+              variant="outline"
+              className="flex-1 flex items-center justify-center gap-2"
+              style={{ borderColor: colors.blue, color: colors.white }}
+              onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
+            >
+              <Filter className="h-4 w-4" />
+              <span>{t('projectsPage.actions.filters')}</span>
+            </Button>
+
+            {/* Mobile Post New Project button - only visible for companies */}
+            {isCompany && (
+              <Button
+                className="flex-1 flex items-center justify-center"
+                style={{ backgroundColor: colors.blue, color: colors.white }}
+                onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
+              >
+                <Plus className="h-4 w-4 mr-2" />
+                <span>{t('projectsPage.actions.postProject')}</span>
+              </Button>
             )}
-          >
-            <FilterSidebar
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onCategoryChange={handleCategoryChange}
-              onClearFilters={handleClearFilters}
-            />
           </div>
 
-          {/* Main content */}
-          <div className="flex-1">
-            {isLoading ? (
-              <div className="flex items-center justify-center h-64">
-                <div className="flex flex-col items-center space-y-4">
-                  <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
-                  <p className="text-lg font-medium text-gray-600">
-                    {t('projectsPage.states.loading')}
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* Filters sidebar - desktop view */}
+            <div
+              className={cn(
+                'lg:w-64 flex-shrink-0',
+                !mobileFiltersOpen && 'hidden lg:block',
+                mobileFiltersOpen && 'block lg:block'
+              )}
+            >
+              <FilterSidebar
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onCategoryChange={handleCategoryChange}
+                onClearFilters={handleClearFilters}
+              />
+            </div>
+
+            {/* Main content */}
+            <div className="flex-1">
+              {isLoading ? (
+                <div className="flex items-center justify-center h-64">
+                  <div className="flex flex-col items-center space-y-4">
+                    <Loader2 className="h-10 w-10 animate-spin" style={{ color: colors.yellow }} />
+                    <p className="text-lg font-medium" style={{ color: colors.white }}>
+                      {t('projectsPage.states.loading')}
+                    </p>
+                  </div>
+                </div>
+              ) : error ? (
+                <div className="p-8 text-center">
+                  <p className="text-red-400 font-medium">
+                    {t('projectsPage.states.errorLoadingProjects')}
                   </p>
                 </div>
-              </div>
-            ) : error ? (
-              <div className="p-8 text-center">
-                <p className="text-red-500 font-medium">
-                  {t('projectsPage.states.errorLoadingProjects')}
-                </p>
-              </div>
-            ) : (
-              <ProjectsList projects={filteredProjects} categories={categories} />
-            )}
+              ) : (
+                <ProjectsList projects={filteredProjects} categories={categories} />
+              )}
+            </div>
           </div>
         </div>
       </div>

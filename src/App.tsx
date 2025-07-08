@@ -11,13 +11,13 @@ function App() {
   return (
     <Auth0Provider>
       <AuthorizeGuard>
-      <QueryClientProvider>
-        <OnboardingProvider>
-          <LenisProvider>
-            <RouterProvider router={router} />
-          </LenisProvider>
-        </OnboardingProvider>
-      </QueryClientProvider>
+        <QueryClientProvider>
+          <OnboardingProvider>
+            <LenisProvider>
+              <RouterProvider router={router} />
+            </LenisProvider>
+          </OnboardingProvider>
+        </QueryClientProvider>
       </AuthorizeGuard>
     </Auth0Provider>
   );

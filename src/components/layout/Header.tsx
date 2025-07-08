@@ -70,13 +70,23 @@ export function Header() {
       <div className="w-full" style={{ background: colors.blue, color: colors.white }}>
         <div className="py-2 text-center font-medium flex items-center justify-center gap-2">
           <span>{t('headerComponent.betaBanner.skillbridge')} </span>
-          <span className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold bg-white text-blue-700 transform -rotate-6 border-2 border-white shadow-md relative hover:scale-110 transition-transform duration-300 animate-pulse" style={{ background: colors.white, color: colors.blue, border: `2px solid ${colors.white}` }}>
-            <span className="absolute inset-0 rounded-md border" style={{ borderColor: colors.yellow, opacity: 0.5 }}></span>
-            <span className="relative z-10 tracking-wider">{t('headerComponent.betaBanner.beta')}</span>
+          <span
+            className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold bg-white text-blue-700 transform -rotate-6 border-2 border-white shadow-md relative hover:scale-110 transition-transform duration-300 animate-pulse"
+            style={{
+              background: colors.white,
+              color: colors.blue,
+              border: `2px solid ${colors.white}`,
+            }}
+          >
+            <span
+              className="absolute inset-0 rounded-md border"
+              style={{ borderColor: colors.yellow, opacity: 0.5 }}
+            ></span>
+            <span className="relative z-10 tracking-wider">
+              {t('headerComponent.betaBanner.beta')}
+            </span>
           </span>
-          <span>
-            {t('headerComponent.betaBanner.message')}
-          </span>
+          <span>{t('headerComponent.betaBanner.message')}</span>
         </div>
       </div>
 
@@ -119,7 +129,9 @@ export function Header() {
               className="text-sm font-medium"
               onClick={toggleLanguage}
             >
-              {isEnglish ? t('headerComponent.language.english') : t('headerComponent.language.bulgarian')}
+              {isEnglish
+                ? t('headerComponent.language.english')
+                : t('headerComponent.language.bulgarian')}
             </Button>{' '}
             {/* Auth Controls */}
             {isAuthenticated ? (

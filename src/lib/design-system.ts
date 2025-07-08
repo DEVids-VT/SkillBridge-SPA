@@ -49,7 +49,7 @@ export const layouts = {
 
 // Card styles
 export const cards = {
-  base: 'border border-[#003566] bg-[#001d3d] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:border-[#ffc300]',
+  base: 'border-2 border-[#003566] bg-[#001d3d] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:border-[#ffc300]',
   header: 'p-6 border-b border-[#003566]',
   body: 'p-6',
   footer: 'p-6 pt-4 border-t border-[#003566] flex items-center justify-between',

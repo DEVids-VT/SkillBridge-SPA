@@ -1,14 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { PropsWithChildren, useEffect } from 'react';
 
-interface AuthorizeRouteProps extends PropsWithChildren {
+interface AuthorizeGuardProps extends PropsWithChildren {
   onlyGuardChildren?: boolean;
 }
 
-export default function AuthorizeRoute({
+export default function AuthorizeGuard({
   children,
   onlyGuardChildren = false,
-}: AuthorizeRouteProps) {
+}: AuthorizeGuardProps) {
   const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
   useEffect(() => {

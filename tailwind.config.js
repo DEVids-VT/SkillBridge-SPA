@@ -71,6 +71,8 @@ export default {
       fontFamily: {
         sans: ['Rubik', 'sans-serif'],
         rubik: ['Rubik', 'sans-serif'],
+        playfair: ['Playfair Display', 'serif'],
+        lato: ['Lato', 'sans-serif'],
       },
       keyframes: {
         'accordion-down': {

@@ -17,6 +17,10 @@
         "students": "Students"
       }
     },
+    "videoSection": {
+      "title": "Your career. Our task.",
+      "subtitle": "Connect with top talent and innovative companies. Watch our story unfold."
+    },
     "categoryGrid": {
       "badge": "Project Categories",
       "title": "Discover Projects by Category",

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { layouts, spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
-import { CompanyMarquee } from '../landing/components/CompanyMarquee';
+import { CompanyMarquee } from './components/CompanyMarquee';
 import { companiesData } from './newCompaniesData';
 
 const CompaniesPage = () => {

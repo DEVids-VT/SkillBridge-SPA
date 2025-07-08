@@ -146,3 +146,7 @@
 .animation-delay-4000 {
   animation-delay: 4s;
 }
+
+.font-playfair {
+  font-family: 'Playfair Display', serif !important;
+}

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Building2 } from 'lucide-react';
-import { Company } from '../../companies/types';
+import { Company } from '../types';
 
 interface CompanyMarqueeProps {
   companies: Company[];
@@ -133,4 +133,4 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
       <div className="absolute top-1/4 right-16 w-20 h-20 bg-[#ffc300] rounded-full mix-blend-multiply filter blur-xl opacity-40" />
     </section>
   );
-};
+}; 

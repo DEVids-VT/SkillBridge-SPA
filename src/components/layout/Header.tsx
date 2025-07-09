@@ -140,7 +140,7 @@ export function Header() {
                 {/* Profile button - only shown if onboarding is complete and role-specific */}{' '}
                 {/* Post New Project button - only visible for companies */}{' '}
                 {hasCompletedOnboarding && isCompany && (
-                  <Link to={RoutePage.DESCRIBE_CANDIDATE}>
+                  <Link to={RoutePage.CREATE_PROJECT}>
                     <Button
                       variant="outline"
                       size="sm"
@@ -210,7 +210,7 @@ export function Header() {
               {/* Post New Project link in mobile menu - only visible for companies */}
               {hasCompletedOnboarding && isCompany && (
                 <Link
-                  to={RoutePage.DESCRIBE_CANDIDATE}
+                  to={RoutePage.CREATE_PROJECT}
                   className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-[#003566] hover:bg-[#003566]/10"
                   onClick={() => setMobileMenuOpen(false)}
                 >

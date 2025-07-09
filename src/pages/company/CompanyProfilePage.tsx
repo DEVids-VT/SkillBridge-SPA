@@ -383,7 +383,7 @@ export function CompanyProfilePage() {
             <Button
               size="sm"
               className="bg-[#003566] hover:bg-[#001d3d]"
-              onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
+              onClick={() => navigate(RoutePage.CREATE_PROJECT)}
             >
               <Plus className="h-4 w-4 mr-2" />
               {t('companyProfilePage.activeProjects.postNewProject')}

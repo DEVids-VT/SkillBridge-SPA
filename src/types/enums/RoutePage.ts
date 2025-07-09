@@ -9,7 +9,13 @@ export enum RoutePage {
   LOGIN = '/login',
   REGISTER = '/register',
   WELCOME = '/welcome',
-  DESCRIBE_CANDIDATE = '/describe-candidate',
+  CREATE = '/create',
+  CREATE_PERSONA = '/create/persona',
+  CREATE_MANUAL = '/create/manual',
+  SCENARIO_DETAIL = '/scenario/:id',
+  QUIZ_DETAIL = '/quiz/:id',
   COMPANY_PROFILE = '/company/profile',
   CANDIDATE_PROFILE = '/candidate/profile',
+  // Legacy route - will be removed
+  CREATE_PROJECT = '/create-project',
 }

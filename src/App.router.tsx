@@ -1,6 +1,7 @@
 import { createBrowserRouter, createRoutesFromChildren, Route, Navigate } from 'react-router-dom';
 import { RoutePage } from './types/enums/RoutePage';
 import Dashboard from './pages/dashboard/Dashboard';
+import { WelcomeState, ProjectDetail } from './pages/dashboard/components';
 import CompaniesPage from './pages/companies/CompaniesPage.tsx';
 import AboutPage from './pages/about/AboutPage.tsx';
 import WelcomePage from './pages/welcome/WelcomePage';
@@ -27,8 +28,13 @@ export const router = createBrowserRouter(
           </OnboardingGuard>
         }
       >
+        {/* Dashboard with nested routes */}
+        <Route path="dashboard" element={<Dashboard />}>
+          <Route index element={<WelcomeState />} />
+          <Route path="project/:projectId" element={<ProjectDetail />} />
+        </Route>
         {/* Main routes */}
-        <Route index element={<Dashboard />} />{' '}
+        <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path={RoutePage.PROJECTS} element={<ProjectsBoardPage />} />
         <Route path={RoutePage.PROJECT_DETAIL} element={<ProjectPage />} />{' '}
         <Route path={RoutePage.COMPANIES} element={<CompaniesPage />} />

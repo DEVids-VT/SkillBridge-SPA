@@ -276,7 +276,8 @@ export default function CreatePersonaPage() {
           <Button
             onClick={handleBack}
             variant="outline"
-            className="text-white border-gray-600 hover:bg-gray-700"
+            style={{ borderColor: colors.blue, color: colors.white }}
+            className="hover:opacity-80"
           >
             ← Back
           </Button>

@@ -24,7 +24,7 @@ import {
   Edit,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { spacing, layouts } from '@/lib/design-system';
+import { spacing, layouts, colors, typography, components } from '@/lib/design-system';
 import { useCompanyProfile } from './hooks/useCompanyProfile';
 import { useCompanyProjects } from './hooks/useCompanyProjects';
 
@@ -174,21 +174,16 @@ export function CompanyProfilePage() {
     : []; // UI helper functions for styling
 
   const getPriorityColor = (priority: string): string => {
-    const priorityColors: { [key: string]: string } = {
-      high: 'bg-[#ffc300] text-[#001d3d]',
-      medium: 'bg-[#ffc300] text-[#001d3d]',
-      low: 'bg-[#ffc300] text-[#001d3d]',
-    };
-    return priorityColors[priority] || 'bg-[#ffc300] text-[#001d3d]';
+    return components.tagColors.orange; // Use consistent orange from design system
   };
 
   const getStatusColor = (status: string): string => {
     const statusColors: { [key: string]: string } = {
-      active: 'bg-[#ffc300] text-[#001d3d]',
-      completed: 'bg-[#003566] text-[#ffd60a]',
-      closed: 'bg-[#001d3d] text-[#ffd60a]',
+      active: components.tagColors.orange,
+      completed: components.tagColors.blue,
+      closed: components.tagColors.dark,
     };
-    return statusColors[status] || 'bg-[#001d3d] text-[#ffd60a]';
+    return statusColors[status] || components.tagColors.dark;
   };
   // Loading and error states
   if (isLoadingProfile) {
@@ -197,11 +192,12 @@ export function CompanyProfilePage() {
         className={cn(
           spacing.container,
           spacing.headerOffset,
-          'py-8 flex flex-col items-center justify-center min-h-[60vh] bg-[#000814] text-white'
+          'py-8 flex flex-col items-center justify-center min-h-[60vh]'
         )}
+        style={{ backgroundColor: colors.dark, color: colors.white }}
       >
-        <Loader2 className="h-12 w-12 animate-spin text-[#ffd60a] mb-4" />
-        <p className="text-lg font-medium text-[#ffd60a]">
+        <Loader2 className="h-12 w-12 animate-spin mb-4" style={{ color: colors.yellow }} />
+        <p className="text-lg font-medium" style={{ color: colors.yellow }}>
           {t('companyProfilePage.loading.profile')}
         </p>
       </div>
@@ -214,16 +210,17 @@ export function CompanyProfilePage() {
         className={cn(
           spacing.container,
           spacing.headerOffset,
-          'py-8 flex flex-col items-center justify-center min-h-[60vh] bg-[#000814] text-white'
+          'py-8 flex flex-col items-center justify-center min-h-[60vh]'
         )}
+        style={{ backgroundColor: colors.dark, color: colors.white }}
       >
-        <div className="h-12 w-12 bg-[#ffc300] text-[#001d3d] rounded-full flex items-center justify-center mb-4">
+        <div className="h-12 w-12 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: colors.orange, color: colors.dark }}>
           <AlertCircle className="h-6 w-6" />
         </div>
         <p className="text-lg font-medium text-white mb-2">
           {t('companyProfilePage.loading.error.title')}
         </p>
-        <p className="text-[#ffd60a] max-w-md text-center">
+        <p className="max-w-md text-center" style={{ color: colors.yellow }}>
           {t('companyProfilePage.loading.error.message')}
         </p>
       </div>
@@ -231,29 +228,28 @@ export function CompanyProfilePage() {
   }
 
   return (
-    <div className={cn(spacing.container, spacing.headerOffset, 'py-8')}>
+    <div className={cn(spacing.container, spacing.headerOffset, 'py-8')} style={{ backgroundColor: colors.dark }}>
       {/* Page Header */}
       <div className={layouts.pageHeader}>
         <div className={layouts.pageHeaderBackground}></div>{' '}
         <h1 className={layouts.pageTitle}>
-          <span className="text-[#ffd60a]">{t('companyProfilePage.header.title1')}</span>{' '}
-          <span className="text-[#ffd60a]">{t('companyProfilePage.header.title2')}</span>
+          <span style={{ color: colors.yellow }}>{t('companyProfilePage.header.title1')}</span>{' '}
+          <span style={{ color: colors.yellow }}>{t('companyProfilePage.header.title2')}</span>
         </h1>
-        <p className="text-lg text-[#ffd60a] dark:text-[#ffd60a] max-w-2xl mx-auto">
+        <p className="text-lg max-w-2xl mx-auto" style={{ color: colors.yellow }}>
           {t('companyProfilePage.header.subtitle')}
         </p>
       </div>
 
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Company Information Section */}
-        <Card className="p-6 md:p-8">
-          {' '}
+        <Card className="p-6 md:p-8" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
           <div className="flex items-center mb-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-[#003566] rounded-lg">
-                <Building2 className="h-5 w-5 text-[#ffd60a]" />
+              <div className="p-2 rounded-lg" style={{ backgroundColor: colors.blue }}>
+                <Building2 className="h-5 w-5" style={{ color: colors.yellow }} />
               </div>
-              <h2 className="text-xl font-semibold text-[#ffd60a]">
+              <h2 className="text-xl font-semibold" style={{ color: colors.yellow }}>
                 {t('companyProfilePage.companyInformation.title')}
               </h2>
             </div>
@@ -264,7 +260,7 @@ export function CompanyProfilePage() {
               {' '}
               <div className="flex flex-col items-center">
                 <div className="relative">
-                  <div className="w-32 h-32 rounded-lg overflow-hidden bg-[#001d3d] border-4 border-[#003566] shadow-lg">
+                  <div className="w-32 h-32 rounded-lg overflow-hidden border-4 shadow-lg" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
                     <img
                       src={companyData.logo}
                       alt={t('companyProfilePage.companyInformation.altText.companyLogo')}
@@ -275,10 +271,10 @@ export function CompanyProfilePage() {
                     />
                   </div>
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-[#ffd60a] text-center">
+                <h3 className="mt-4 text-lg font-semibold text-center" style={{ color: colors.yellow }}>
                   {companyData.companyName}
                 </h3>
-                <p className="text-sm text-[#ffd60a]">{companyData.industry}</p>
+                <p className="text-sm" style={{ color: colors.yellow }}>{companyData.industry}</p>
               </div>
             </div>
 
@@ -288,30 +284,30 @@ export function CompanyProfilePage() {
                 {' '}
                 {/* Company Name */}
                 <div className="space-y-2">
-                  <Label htmlFor="companyName" className="text-sm font-medium text-[#ffd60a]">
+                  <Label htmlFor="companyName" className="text-sm font-medium" style={{ color: colors.yellow }}>
                     {t('companyProfilePage.companyInformation.fields.companyName')}
                   </Label>
-                  <div className="p-3 bg-[#001d3d] rounded-lg border border-[#003566]">
+                  <div className="p-3 rounded-lg border" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue, color: colors.white }}>
                     {companyData.companyName}
                   </div>
                 </div>
                 {/* Industry */}
                 <div className="space-y-2">
-                  <Label htmlFor="industry" className="text-sm font-medium text-[#ffd60a]">
+                  <Label htmlFor="industry" className="text-sm font-medium" style={{ color: colors.yellow }}>
                     {t('companyProfilePage.companyInformation.fields.industry')}
                   </Label>
-                  <div className="p-3 bg-[#001d3d] rounded-lg border border-[#003566]">
+                  <div className="p-3 rounded-lg border" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue, color: colors.white }}>
                     {companyData.industry}
                   </div>
                 </div>
                 {/* Contact Info */}
                 <div className="space-y-2">
-                  <Label htmlFor="contactInfo" className="text-sm font-medium text-[#ffd60a]">
+                  <Label htmlFor="contactInfo" className="text-sm font-medium" style={{ color: colors.yellow }}>
                     {t('companyProfilePage.companyInformation.fields.contactInfo')}
                   </Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#ffd60a]" />
-                    <div className="pl-10 p-3 bg-[#001d3d] rounded-lg border border-[#003566]">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" style={{ color: colors.yellow }} />
+                    <div className="pl-10 p-3 rounded-lg border" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue, color: colors.white }}>
                       {companyData.contactInfo}
                     </div>
                   </div>
@@ -319,44 +315,44 @@ export function CompanyProfilePage() {
                 <div className="space-y-2">{/* Empty div to maintain grid layout */}</div>{' '}
                 {/* Website */}
                 <div className="space-y-2">
-                  <Label htmlFor="website" className="text-sm font-medium text-[#ffd60a]">
+                  <Label htmlFor="website" className="text-sm font-medium" style={{ color: colors.yellow }}>
                     {t('companyProfilePage.companyInformation.fields.website')}
                   </Label>
                   <div className="relative">
-                    <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#ffd60a]" />
-                    <div className="pl-10 p-3 bg-[#001d3d] rounded-lg border border-[#003566]">
+                    <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" style={{ color: colors.yellow }} />
+                    <div className="pl-10 p-3 rounded-lg border" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue, color: colors.white }}>
                       {companyData.website}
                     </div>
                   </div>
                 </div>{' '}
                 {/* Company Size */}
                 <div className="space-y-2">
-                  <Label htmlFor="companySize" className="text-sm font-medium text-[#ffd60a]">
+                  <Label htmlFor="companySize" className="text-sm font-medium" style={{ color: colors.yellow }}>
                     {t('companyProfilePage.companyInformation.fields.companySize')}
                   </Label>
                   <div className="relative">
-                    <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#ffd60a]" />
-                    <div className="pl-10 p-3 bg-[#001d3d] rounded-lg border border-[#003566]">
+                    <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" style={{ color: colors.yellow }} />
+                    <div className="pl-10 p-3 rounded-lg border" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue, color: colors.white }}>
                       {companyData.companySize}
                     </div>
                   </div>
                 </div>{' '}
                 {/* Address & Location */}
                 <div className="space-y-2 md:col-span-2">
-                  <Label htmlFor="address" className="text-sm font-medium text-[#ffd60a]">
+                  <Label htmlFor="address" className="text-sm font-medium" style={{ color: colors.yellow }}>
                     {t('companyProfilePage.companyInformation.fields.address')}
                   </Label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                     <div className="relative">
-                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#ffd60a]" />
-                      <div className="pl-10 p-3 bg-[#001d3d] rounded-lg border border-[#003566]">
+                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" style={{ color: colors.yellow }} />
+                      <div className="pl-10 p-3 rounded-lg border" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue, color: colors.white }}>
                         {companyData.address}
                       </div>
                     </div>
-                    <div className="p-3 bg-[#001d3d] rounded-lg border border-[#003566]">
+                    <div className="p-3 rounded-lg border" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue, color: colors.white }}>
                       {companyData.city}
                     </div>
-                    <div className="p-3 bg-[#001d3d] rounded-lg border border-[#003566]">
+                    <div className="p-3 rounded-lg border" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue, color: colors.white }}>
                       {companyData.country}
                     </div>
                   </div>
@@ -367,23 +363,24 @@ export function CompanyProfilePage() {
         </Card>
 
         {/* Active Projects Section */}
-        <Card className="p-6 md:p-8">
+        <Card className="p-6 md:p-8" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-[#ffc300] rounded-lg">
-                <Briefcase className="h-5 w-5 text-[#001d3d]" />
+              <div className="p-2 rounded-lg" style={{ backgroundColor: colors.orange }}>
+                <Briefcase className="h-5 w-5" style={{ color: colors.dark }} />
               </div>
-              <h2 className="text-xl font-semibold text-[#ffd60a]">
+              <h2 className="text-xl font-semibold" style={{ color: colors.yellow }}>
                 {t('companyProfilePage.activeProjects.title')}
               </h2>
-              <Badge variant="secondary" className="bg-[#ffc300] text-[#001d3d]">
+              <Badge className={cn(components.tag, components.tagColors.orange)}>
                 {activeProjects.length} {t('companyProfilePage.activeProjects.badge')}
               </Badge>
             </div>{' '}
             <Button
               size="sm"
-              className="bg-[#003566] hover:bg-[#001d3d]"
               onClick={() => navigate(RoutePage.CREATE_PROJECT)}
+              style={{ backgroundColor: colors.blue, color: colors.white }}
+              className="hover:opacity-80"
             >
               <Plus className="h-4 w-4 mr-2" />
               {t('companyProfilePage.activeProjects.postNewProject')}
@@ -394,17 +391,18 @@ export function CompanyProfilePage() {
             {activeProjects.map((project) => (
               <div
                 key={project.id}
-                className="bg-gradient-to-r from-[#001d3d] to-[#003566] rounded-xl p-6 border border-[#003566]"
+                className="rounded-xl p-6 border"
+                style={{ background: `linear-gradient(to right, ${colors.blueDark}, ${colors.blue})`, borderColor: colors.blue }}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-lg font-semibold text-[#ffd60a]">{project.title}</h3>
+                      <h3 className="text-lg font-semibold" style={{ color: colors.yellow }}>{project.title}</h3>
                       <Badge className={getPriorityColor(project.priority)}>
                         {t(`companyProfilePage.activeProjects.priority.${project.priority}`)}
                       </Badge>
                     </div>
-                    <p className="text-[#ffd60a] mb-3">{project.description}</p>
+                    <p className="mb-3" style={{ color: colors.yellow }}>{project.description}</p>
                   </div>
                   <Badge className={getStatusColor(project.status)}>
                     {t(`companyProfilePage.activeProjects.status.${project.status}`)}
@@ -413,25 +411,25 @@ export function CompanyProfilePage() {
 
                 {/* Project Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-4">
-                  <div className="flex items-center gap-2 text-sm text-[#ffd60a]">
+                  <div className="flex items-center gap-2 text-sm" style={{ color: colors.yellow }}>
                     <Calendar className="h-4 w-4" />
                     <span>
                       {t('companyProfilePage.activeProjects.details.posted')}{' '}
                       {new Date(project.postedDate).toLocaleDateString()}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-[#ffd60a]">
+                  <div className="flex items-center gap-2 text-sm" style={{ color: colors.yellow }}>
                     <Clock className="h-4 w-4" />
                     <span>
                       {t('companyProfilePage.activeProjects.details.deadline')}{' '}
                       {new Date(project.deadline).toLocaleDateString()}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-[#ffd60a]">
+                  <div className="flex items-center gap-2 text-sm" style={{ color: colors.yellow }}>
                     <DollarSign className="h-4 w-4" />
                     <span>{project.budget}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-[#ffd60a]">
+                  <div className="flex items-center gap-2 text-sm" style={{ color: colors.yellow }}>
                     <Users className="h-4 w-4" />
                     <span>
                       {project.applicants}/{project.maxApplicants}{' '}
@@ -443,17 +441,17 @@ export function CompanyProfilePage() {
                 {/* Progress Bar for Applicants */}
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-[#ffd60a]">
+                    <span className="text-sm font-medium" style={{ color: colors.yellow }}>
                       {t('companyProfilePage.activeProjects.details.applicantProgress')}
                     </span>
-                    <span className="text-sm text-[#ffd60a]">
+                    <span className="text-sm" style={{ color: colors.yellow }}>
                       {Math.round((project.applicants / project.maxApplicants) * 100)}%
                     </span>
                   </div>
-                  <div className="w-full bg-[#001d3d] rounded-full h-2">
+                  <div className="w-full rounded-full h-2" style={{ backgroundColor: colors.blueDark }}>
                     <div
-                      className="bg-[#ffc300] h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${(project.applicants / project.maxApplicants) * 100}%` }}
+                      className="h-2 rounded-full transition-all duration-300"
+                      style={{ width: `${(project.applicants / project.maxApplicants) * 100}%`, backgroundColor: colors.orange }}
                     ></div>
                   </div>
                 </div>
@@ -461,7 +459,7 @@ export function CompanyProfilePage() {
                 {/* Skills */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.skills.map((skill, index) => (
-                    <Badge key={index} variant="secondary" className="text-xs text-[#ffd60a]">
+                    <Badge key={index} className={cn(components.tag, 'text-xs', components.tagColors.yellow)}>
                       <Tag className="h-3 w-3 mr-1" />
                       {skill}
                     </Badge>
@@ -469,11 +467,11 @@ export function CompanyProfilePage() {
                 </div>
 
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" className="text-[#ffd60a]">
+                  <Button size="sm" variant="outline" style={{ borderColor: colors.yellow, color: colors.yellow }}>
                     <Users className="h-4 w-4 mr-2" />
                     {t('companyProfilePage.activeProjects.actions.viewApplicants')}
                   </Button>
-                  <Button size="sm" variant="outline" className="text-[#ffd60a]">
+                  <Button size="sm" variant="outline" style={{ borderColor: colors.yellow, color: colors.yellow }}>
                     <Edit className="h-4 w-4 mr-2" />
                     {t('companyProfilePage.activeProjects.actions.editProject')}
                   </Button>
@@ -484,15 +482,15 @@ export function CompanyProfilePage() {
         </Card>
 
         {/* Past Campaigns Section */}
-        <Card className="p-6 md:p-8">
+        <Card className="p-6 md:p-8" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-[#001d3d] rounded-lg">
-              <TrendingUp className="h-5 w-5 text-[#ffd60a]" />
+            <div className="p-2 rounded-lg" style={{ backgroundColor: colors.blueDark }}>
+              <TrendingUp className="h-5 w-5" style={{ color: colors.yellow }} />
             </div>
-            <h2 className="text-xl font-semibold text-[#ffd60a]">
+            <h2 className="text-xl font-semibold" style={{ color: colors.yellow }}>
               {t('companyProfilePage.pastCampaigns.title')}
             </h2>
-            <Badge variant="secondary" className="bg-[#001d3d] text-[#ffd60a]">
+            <Badge className={cn(components.tag, components.tagColors.dark)}>
               {pastCampaigns.length} {t('companyProfilePage.pastCampaigns.completed')}
             </Badge>
           </div>
@@ -501,19 +499,20 @@ export function CompanyProfilePage() {
             {pastCampaigns.map((campaign) => (
               <div
                 key={campaign.id}
-                className="border border-[#003566] rounded-lg p-4 hover:shadow-md transition-shadow"
+                className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                style={{ borderColor: colors.blue, backgroundColor: colors.dark }}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className="font-semibold text-[#ffd60a]">{campaign.title}</h3>
-                    <p className="text-sm text-[#ffd60a] mt-1">{campaign.description}</p>
+                    <h3 className="font-semibold" style={{ color: colors.yellow }}>{campaign.title}</h3>
+                    <p className="text-sm mt-1" style={{ color: colors.yellow }}>{campaign.description}</p>
                   </div>
                   <Badge className={getStatusColor(campaign.status)}>
                     {t(`companyProfilePage.activeProjects.status.${campaign.status}`)}
                   </Badge>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 text-xs text-[#ffd60a] mb-3">
+                <div className="flex flex-wrap items-center gap-4 text-xs mb-3" style={{ color: colors.yellow }}>
                   <span className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
                     {new Date(campaign.postedDate).toLocaleDateString()} -{' '}
@@ -532,7 +531,7 @@ export function CompanyProfilePage() {
 
                 <div className="flex flex-wrap gap-1">
                   {campaign.skills.map((skill, index) => (
-                    <Badge key={index} variant="outline" className="text-xs text-[#ffd60a]">
+                    <Badge key={index} variant="outline" className="text-xs" style={{ borderColor: colors.blue, color: colors.yellow }}>
                       {skill}
                     </Badge>
                   ))}
@@ -542,7 +541,7 @@ export function CompanyProfilePage() {
           </div>
 
           <div className="mt-6 text-center">
-            <Button variant="outline" className="w-full sm:w-auto text-[#ffd60a]">
+            <Button variant="outline" className="w-full sm:w-auto" style={{ borderColor: colors.yellow, color: colors.yellow }}>
               {t('companyProfilePage.pastCampaigns.viewAllCampaigns')}
             </Button>
           </div>

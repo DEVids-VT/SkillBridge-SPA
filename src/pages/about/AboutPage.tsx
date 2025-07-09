@@ -11,6 +11,8 @@ import {
   Code,
   LineChart,
 } from 'lucide-react';
+import { colors, typography, spacing, layouts } from '@/lib/design-system';
+import { cn } from '@/lib/utils';
 import img1 from '../../../public/images/people/12.png';
 import img2 from '../../../public/images/people/13.png';
 import img3 from '../../../public/images/people/14.png';
@@ -77,13 +79,13 @@ const AboutPage = () => {
   ];
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 py-20">
+    <section className={cn('relative min-h-screen overflow-hidden py-20', spacing.container)} style={{ backgroundColor: colors.dark }}>
       {/* Modern Dots Background Pattern */}
       <div className="absolute inset-0 opacity-25">
         <div
           className="w-full h-full"
           style={{
-            backgroundImage: `radial-gradient(circle, #3b82f6 1px, transparent 1px)`,
+            backgroundImage: `radial-gradient(circle, ${colors.blue} 1px, transparent 1px)`,
             backgroundSize: '30px 30px',
             backgroundPosition: '0 0, 15px 15px',
           }}
@@ -91,18 +93,19 @@ const AboutPage = () => {
       </div>
 
       {/* Gradient overlay for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/80" />
+      <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${colors.dark}80, ${colors.dark}60, ${colors.dark}80)` }} />
 
       {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-8">
-        {/* Hero Header - Updated to match CompaniesPage style */}
-        <div className="text-center mb-16 space-y-6">
+      <div className="relative z-10 px-6 lg:px-8">
+        {/* Hero Header */}
+        <div className={cn(layouts.pageHeader, 'space-y-6')}>
+          <div className={layouts.pageHeaderBackground}></div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
-            <span className="text-blue-600">{t('aboutPage.header.title')}</span>{' '}
-            <span className="text-gray-600">{t('aboutPage.header.appName')}</span>
+            <span style={{ color: colors.yellow }}>{t('aboutPage.header.title')}</span>{' '}
+            <span className="text-white">{t('aboutPage.header.appName')}</span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className={cn('text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed', typography.body.lg)}>
             {t('aboutPage.header.subtitle')}
           </p>
         </div>
@@ -112,29 +115,30 @@ const AboutPage = () => {
           {/* For Companies */}
           <div className="space-y-8">
             <div className="text-center">
-              <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200 mb-4">
+              <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border mb-4" style={{ backgroundColor: colors.blue, color: colors.yellow, borderColor: colors.blue }}>
                 <Building className="h-4 w-4" />
                 <span>{t('aboutPage.companies.badge')}</span>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              <h2 className={cn('text-2xl md:text-3xl font-bold mb-4', typography.heading[3])}>
                 {t('aboutPage.companies.title')}
               </h2>
-              <p className="text-gray-600 mb-8">{t('aboutPage.companies.subtitle')}</p>
+              <p className={cn('mb-8', typography.body.default)}>{t('aboutPage.companies.subtitle')}</p>
             </div>
 
             <div className="space-y-4">
               {companyBenefits.map((benefit, index) => (
                 <div
                   key={index}
-                  className="p-4 bg-white/70 backdrop-blur-sm rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                  className="p-4 rounded-lg border shadow-sm hover:shadow-md transition-shadow"
+                  style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-lg flex-shrink-0">
-                      <div className="text-blue-600">{benefit.icon}</div>
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0" style={{ backgroundColor: colors.blue }}>
+                      <div style={{ color: colors.yellow }}>{benefit.icon}</div>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">{benefit.title}</h3>
-                      <p className="text-sm text-gray-600">{benefit.description}</p>
+                      <h3 className={cn('font-semibold mb-1', typography.heading[5])}>{benefit.title}</h3>
+                      <p className={cn('text-sm', typography.body.sm)}>{benefit.description}</p>
                     </div>
                   </div>
                 </div>
@@ -145,29 +149,30 @@ const AboutPage = () => {
           {/* For Students */}
           <div className="space-y-8">
             <div className="text-center">
-              <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200 mb-4">
+              <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border mb-4" style={{ backgroundColor: colors.blue, color: colors.yellow, borderColor: colors.blue }}>
                 <GraduationCap className="h-4 w-4" />
                 <span>{t('aboutPage.students.badge')}</span>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              <h2 className={cn('text-2xl md:text-3xl font-bold mb-4', typography.heading[3])}>
                 {t('aboutPage.students.title')}
               </h2>
-              <p className="text-gray-600 mb-8">{t('aboutPage.students.subtitle')}</p>
+              <p className={cn('mb-8', typography.body.default)}>{t('aboutPage.students.subtitle')}</p>
             </div>
 
             <div className="space-y-4">
               {studentBenefits.map((benefit, index) => (
                 <div
                   key={index}
-                  className="p-4 bg-white/70 backdrop-blur-sm rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                  className="p-4 rounded-lg border shadow-sm hover:shadow-md transition-shadow"
+                  style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-lg flex-shrink-0">
-                      <div className="text-blue-600">{benefit.icon}</div>
+                    <div className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0" style={{ backgroundColor: colors.blue }}>
+                      <div style={{ color: colors.yellow }}>{benefit.icon}</div>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">{benefit.title}</h3>
-                      <p className="text-sm text-gray-600">{benefit.description}</p>
+                      <h3 className={cn('font-semibold mb-1', typography.heading[5])}>{benefit.title}</h3>
+                      <p className={cn('text-sm', typography.body.sm)}>{benefit.description}</p>
                     </div>
                   </div>
                 </div>
@@ -176,27 +181,28 @@ const AboutPage = () => {
           </div>
         </div>
 
-        {/* Team Section - Added back in modern style */}
+        {/* Team Section */}
         <div className="max-w-4xl mx-auto mb-16">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium border border-blue-200 mb-4">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border mb-4" style={{ backgroundColor: colors.blue, color: colors.yellow, borderColor: colors.blue }}>
               <Users className="h-4 w-4" />
               <span>{t('aboutPage.team.badge')}</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            <h2 className={cn('text-2xl md:text-3xl font-bold mb-4', typography.heading[3])}>
               {t('aboutPage.team.title')}
             </h2>
-            <p className="text-gray-600">{t('aboutPage.team.subtitle')}</p>
+            <p className={typography.body.default}>{t('aboutPage.team.subtitle')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="p-6 bg-white/70 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                className="p-6 rounded-xl border shadow-sm hover:shadow-md transition-shadow"
+                style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}
               >
                 <div className="text-center space-y-4">
-                  <div className="w-24 h-24 bg-gray-100 rounded-full overflow-hidden mx-auto border-4 border-blue-100">
+                  <div className="w-24 h-24 rounded-full overflow-hidden mx-auto border-4" style={{ backgroundColor: colors.blue, borderColor: colors.blue }}>
                     <img
                       src={member.image}
                       alt={member.name}
@@ -211,15 +217,15 @@ const AboutPage = () => {
                         }
                       }}
                     />
-                    <div className="w-full h-full bg-blue-100 rounded-full flex items-center justify-center hidden">
-                      <Users className="h-10 w-10 text-blue-600" />
+                    <div className="w-full h-full rounded-full flex items-center justify-center hidden" style={{ backgroundColor: colors.blue }}>
+                      <Users className="h-10 w-10" style={{ color: colors.yellow }} />
                     </div>
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg text-gray-900">{member.name}</h3>
-                    <p className="text-blue-600 font-medium">{member.role}</p>
+                    <h3 className={cn('font-bold text-lg', typography.heading[4])}>{member.name}</h3>
+                    <p className="font-medium" style={{ color: colors.yellow }}>{member.role}</p>
                   </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">{member.bio}</p>
+                  <p className={cn('text-sm leading-relaxed', typography.body.sm)}>{member.bio}</p>
                 </div>
               </div>
             ))}
@@ -227,8 +233,8 @@ const AboutPage = () => {
         </div>
       </div>
 
-      {/* Reduced Floating Elements - Only one static bubble */}
-      <div className="absolute top-1/4 right-20 w-16 h-16 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30" />
+      {/* Floating Elements */}
+      <div className="absolute top-1/4 right-20 w-16 h-16 rounded-full mix-blend-multiply filter blur-xl opacity-30" style={{ backgroundColor: colors.blue }} />
     </section>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { spacing, colors } from '@/lib/design-system';
+import { spacing, colors, typography } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { Filter, Loader2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -179,7 +179,7 @@ const ProjectsPage = () => {
                 </div>
               ) : error ? (
                 <div className="p-8 text-center">
-                  <p className="text-red-400 font-medium">
+                  <p className="font-medium" style={{ color: colors.orange }}>
                     {t('projectsPage.states.errorLoadingProjects')}
                   </p>
                 </div>

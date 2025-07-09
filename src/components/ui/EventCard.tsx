@@ -2,7 +2,7 @@ import { Calendar, Clock, MapPin, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { cards, components } from '@/lib/design-system';
+import { cards, components, colors } from '@/lib/design-system';
 
 export type EventType =
   | 'hackathon'
@@ -77,11 +77,11 @@ export function EventCard({
     if (!capacityPercentage) return null;
 
     if (capacityPercentage >= 90) {
-      return { text: 'Almost Full', color: 'text-red-500' };
+      return { text: 'Almost Full', color: colors.orange };
     } else if (capacityPercentage >= 75) {
-      return { text: 'Filling Fast', color: 'text-yellow-500' };
+      return { text: 'Filling Fast', color: colors.yellow };
     } else {
-      return { text: 'Spaces Available', color: 'text-green-500' };
+      return { text: 'Spaces Available', color: colors.blue };
     }
   };
 
@@ -101,7 +101,15 @@ export function EventCard({
 
         {isVirtual && (
           <div className="absolute top-3 right-3">
-            <Badge variant="outline" className="bg-[#003566] text-[#ffd60a] text-xs font-medium">
+            <Badge 
+              variant="outline" 
+              className="text-xs font-medium"
+              style={{ 
+                backgroundColor: colors.blue, 
+                color: colors.yellow,
+                borderColor: colors.yellow
+              }}
+            >
               Virtual
             </Badge>
           </div>
@@ -110,36 +118,56 @@ export function EventCard({
 
       {/* Event Content */}
       <div className={cn(cards.body, 'flex-1 flex flex-col text-white')}>
-        <h3 className="text-xl font-bold mb-2 line-clamp-2 text-white">{title}</h3>
-        <p className="text-sm text-[#ffd60a] font-medium mb-1">By {organizer}</p>
+        <h3 className="text-xl font-bold mb-2 line-clamp-2" style={{ color: colors.white }}>{title}</h3>
+        <p className="text-sm font-medium mb-1" style={{ color: colors.yellow }}>By {organizer}</p>
 
-        <p className="text-sm text-gray-400 mb-4 line-clamp-2">{description}</p>
+        <p 
+          className="text-sm mb-4 line-clamp-2"
+          style={{ color: colors.white, opacity: 0.7 }}
+        >
+          {description}
+        </p>
 
         {/* Event Meta */}
         <div className="space-y-2 mb-4">
-          <div className="flex items-center gap-2 text-sm text-gray-300">
-            <Calendar size={16} className="text-[#ffd60a]" />
+          <div 
+            className="flex items-center gap-2 text-sm"
+            style={{ color: colors.white, opacity: 0.8 }}
+          >
+            <Calendar size={16} style={{ color: colors.yellow }} />
             <span>{formatDate(date)}</span>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-gray-300">
-            <Clock size={16} className="text-[#ffd60a]" />
+          <div 
+            className="flex items-center gap-2 text-sm"
+            style={{ color: colors.white, opacity: 0.8 }}
+          >
+            <Clock size={16} style={{ color: colors.yellow }} />
             <span>{time}</span>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-gray-300">
-            <MapPin size={16} className="text-[#ffd60a]" />
+          <div 
+            className="flex items-center gap-2 text-sm"
+            style={{ color: colors.white, opacity: 0.8 }}
+          >
+            <MapPin size={16} style={{ color: colors.yellow }} />
             <span className="line-clamp-1">{location}</span>
           </div>
 
           {attendeesCount && (
-            <div className="flex items-center gap-2 text-sm text-gray-300">
-              <Users size={16} className="text-[#ffd60a]" />
+            <div 
+              className="flex items-center gap-2 text-sm"
+              style={{ color: colors.white, opacity: 0.8 }}
+            >
+              <Users size={16} style={{ color: colors.yellow }} />
               <span>
                 {attendeesCount} {maxAttendees && `/ ${maxAttendees}`} attendees
               </span>
               {capacityStatus && (
-                <span className={capacityStatus.color + ' text-xs font-medium ml-2'}>
+                <span 
+                  className="text-xs font-medium ml-2"
+                  style={{ color: capacityStatus.color }}
+                >
                   {capacityStatus.text}
                 </span>
               )}
@@ -165,7 +193,12 @@ export function EventCard({
         <div className="mt-auto">
           <Button
             variant="outline"
-            className="w-full text-[#001d3d] border-[#ffc300] bg-[#ffc300] hover:bg-[#ffd60a]"
+            className="w-full hover:opacity-80"
+            style={{
+              color: colors.dark,
+              borderColor: colors.orange,
+              backgroundColor: colors.orange
+            }}
           >
             Register Now
           </Button>

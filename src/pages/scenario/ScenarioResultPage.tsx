@@ -139,8 +139,11 @@ Your task is to:
       <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <p className="text-white">Loading scenario...</p>
+            <div 
+              className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
+              style={{ borderColor: colors.blue }}
+            ></div>
+            <p style={{ color: colors.white }}>Loading scenario...</p>
           </div>
         </div>
       </div>
@@ -152,11 +155,11 @@ Your task is to:
       <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="text-red-500 mb-4">
+            <div className="mb-4" style={{ color: colors.orange }}>
               <FileText className="h-12 w-12 mx-auto mb-2" />
             </div>
-            <h2 className="text-white text-xl mb-2">Error Loading Scenario</h2>
-            <p className="text-gray-400 mb-4">{error}</p>
+            <h2 className="text-xl mb-2" style={{ color: colors.white }}>Error Loading Scenario</h2>
+            <p className="mb-4" style={{ color: colors.white, opacity: 0.7 }}>{error}</p>
             <Button onClick={handleBack} variant="outline">
               Return to Create
             </Button>
@@ -168,10 +171,10 @@ Your task is to:
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Beginner': return 'bg-green-500';
-      case 'Intermediate': return 'bg-yellow-500';
-      case 'Advanced': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      case 'Beginner': return { backgroundColor: colors.blue };
+      case 'Intermediate': return { backgroundColor: colors.yellow, color: colors.dark };
+      case 'Advanced': return { backgroundColor: colors.orange, color: colors.dark };
+      default: return { backgroundColor: colors.blueDark };
     }
   };
 
@@ -194,22 +197,32 @@ Your task is to:
           <Button
             onClick={handleBack}
             variant="outline"
-            className="text-white border-gray-600 hover:bg-gray-700"
+            style={{ 
+              color: colors.white, 
+              borderColor: colors.blue, 
+              backgroundColor: 'transparent' 
+            }}
+            className="hover:opacity-80"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Create
           </Button>
           
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-white mb-2">Scenario Generated</h1>
-            <p className="text-gray-300">Ready for implementation and testing</p>
+            <h1 className="text-3xl font-bold mb-2" style={{ color: colors.white }}>Scenario Generated</h1>
+            <p style={{ color: colors.white, opacity: 0.7 }}>Ready for implementation and testing</p>
           </div>
 
           <div className="flex space-x-2">
             <Button
               onClick={handleShare}
               variant="outline"
-              className="text-white border-gray-600 hover:bg-gray-700"
+              style={{ 
+                color: colors.white, 
+                borderColor: colors.blue, 
+                backgroundColor: 'transparent' 
+              }}
+              className="hover:opacity-80"
             >
               <Share2 className="h-4 w-4 mr-2" />
               Share
@@ -217,7 +230,12 @@ Your task is to:
             <Button
               onClick={handleDownload}
               variant="outline"
-              className="text-white border-gray-600 hover:bg-gray-700"
+              style={{ 
+                color: colors.white, 
+                borderColor: colors.blue, 
+                backgroundColor: 'transparent' 
+              }}
+              className="hover:opacity-80"
             >
               <Download className="h-4 w-4 mr-2" />
               Download
@@ -231,14 +249,26 @@ Your task is to:
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Scenario Overview */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card 
+            className="border-2"
+            style={{ 
+              backgroundColor: colors.blueDark, 
+              borderColor: colors.blue 
+            }}
+          >
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div>
-                  <CardTitle className="text-white text-xl mb-2">{scenario.title}</CardTitle>
-                  <p className="text-gray-300">{scenario.description}</p>
+                  <CardTitle className="text-xl mb-2" style={{ color: colors.white }}>{scenario.title}</CardTitle>
+                  <p style={{ color: colors.white, opacity: 0.8 }}>{scenario.description}</p>
                 </div>
-                <Badge className={cn('text-white', getDifficultyColor(scenario.difficulty))}>
+                <Badge 
+                  className="border-0"
+                  style={{
+                    ...getDifficultyColor(scenario.difficulty),
+                    color: getDifficultyColor(scenario.difficulty).color || colors.white
+                  }}
+                >
                   {scenario.difficulty}
                 </Badge>
               </div>
@@ -246,16 +276,25 @@ Your task is to:
           </Card>
 
           {/* Scenario Content */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card 
+            className="border-2"
+            style={{ 
+              backgroundColor: colors.blueDark, 
+              borderColor: colors.blue 
+            }}
+          >
             <CardHeader>
-              <CardTitle className="text-white flex items-center">
+              <CardTitle className="flex items-center" style={{ color: colors.white }}>
                 <FileText className="h-5 w-5 mr-2" />
                 Scenario Details
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="prose prose-invert max-w-none">
-                <div className="whitespace-pre-wrap text-gray-300 leading-relaxed">
+                <div 
+                  className="whitespace-pre-wrap leading-relaxed"
+                  style={{ color: colors.white, opacity: 0.8 }}
+                >
                   {scenario.scenario}
                 </div>
               </div>
@@ -263,9 +302,15 @@ Your task is to:
           </Card>
 
           {/* Objectives */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card 
+            className="border-2"
+            style={{ 
+              backgroundColor: colors.blueDark, 
+              borderColor: colors.blue 
+            }}
+          >
             <CardHeader>
-              <CardTitle className="text-white flex items-center">
+              <CardTitle className="flex items-center" style={{ color: colors.white }}>
                 <Target className="h-5 w-5 mr-2" />
                 Learning Objectives
               </CardTitle>
@@ -273,8 +318,11 @@ Your task is to:
             <CardContent>
               <ul className="space-y-2">
                 {scenario.objectives.map((objective, index) => (
-                  <li key={index} className="flex items-start text-gray-300">
-                    <CheckCircle className="h-4 w-4 mt-1 mr-2 text-green-500 flex-shrink-0" />
+                  <li key={index} className="flex items-start" style={{ color: colors.white, opacity: 0.8 }}>
+                    <CheckCircle 
+                      className="h-4 w-4 mt-1 mr-2 flex-shrink-0" 
+                      style={{ color: colors.yellow }} 
+                    />
                     {objective}
                   </li>
                 ))}
@@ -283,15 +331,24 @@ Your task is to:
           </Card>
 
           {/* Evaluation Criteria */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card 
+            className="border-2"
+            style={{ 
+              backgroundColor: colors.blueDark, 
+              borderColor: colors.blue 
+            }}
+          >
             <CardHeader>
-              <CardTitle className="text-white">Evaluation Criteria</CardTitle>
+              <CardTitle style={{ color: colors.white }}>Evaluation Criteria</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
                 {scenario.evaluationCriteria.map((criteria, index) => (
-                  <li key={index} className="flex items-start text-gray-300">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <li key={index} className="flex items-start" style={{ color: colors.white, opacity: 0.8 }}>
+                    <div 
+                      className="w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"
+                      style={{ backgroundColor: colors.blue }}
+                    ></div>
                     {criteria}
                   </li>
                 ))}
@@ -303,26 +360,46 @@ Your task is to:
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Scenario Info */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card 
+            className="border-2"
+            style={{ 
+              backgroundColor: colors.blueDark, 
+              borderColor: colors.blue 
+            }}
+          >
             <CardHeader>
-              <CardTitle className="text-white">Scenario Information</CardTitle>
+              <CardTitle style={{ color: colors.white }}>Scenario Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center text-gray-300">
+              <div className="flex items-center" style={{ color: colors.white, opacity: 0.8 }}>
                 <User className="h-4 w-4 mr-2" />
                 <span className="text-sm">{scenario.roleTitle}</span>
               </div>
-              <div className="flex items-center text-gray-300">
-                <Badge variant="outline" className="text-gray-300 border-gray-600">
+              <div className="flex items-center">
+                <Badge 
+                  variant="outline" 
+                  style={{ 
+                    color: colors.white, 
+                    borderColor: colors.blue,
+                    backgroundColor: 'transparent',
+                    opacity: 0.8
+                  }}
+                >
                   {scenario.seniorityLevel}
                 </Badge>
               </div>
-              <div className="flex items-center text-gray-300">
+              <div className="flex items-center" style={{ color: colors.white, opacity: 0.8 }}>
                 <Clock className="h-4 w-4 mr-2" />
                 <span className="text-sm">{scenario.estimatedDuration}</span>
               </div>
-              <div className="pt-2 border-t border-gray-700">
-                <p className="text-xs text-gray-400">
+              <div 
+                className="pt-2 border-t"
+                style={{ borderColor: colors.blue }}
+              >
+                <p 
+                  className="text-xs"
+                  style={{ color: colors.white, opacity: 0.6 }}
+                >
                   Created: {new Date(scenario.createdAt).toLocaleDateString()}
                 </p>
               </div>
@@ -330,14 +407,24 @@ Your task is to:
           </Card>
 
           {/* Requirements */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card 
+            className="border-2"
+            style={{ 
+              backgroundColor: colors.blueDark, 
+              borderColor: colors.blue 
+            }}
+          >
             <CardHeader>
-              <CardTitle className="text-white">Requirements</CardTitle>
+              <CardTitle style={{ color: colors.white }}>Requirements</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
                 {scenario.requirements.map((requirement, index) => (
-                  <li key={index} className="text-sm text-gray-300">
+                  <li 
+                    key={index} 
+                    className="text-sm"
+                    style={{ color: colors.white, opacity: 0.8 }}
+                  >
                     • {requirement}
                   </li>
                 ))}
@@ -346,21 +433,37 @@ Your task is to:
           </Card>
 
           {/* Actions */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card 
+            className="border-2"
+            style={{ 
+              backgroundColor: colors.blueDark, 
+              borderColor: colors.blue 
+            }}
+          >
             <CardHeader>
-              <CardTitle className="text-white">Actions</CardTitle>
+              <CardTitle style={{ color: colors.white }}>Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <Button 
                 onClick={() => navigate('/create/persona')}
                 className="w-full"
+                style={{
+                  backgroundColor: colors.blue,
+                  color: colors.white,
+                  border: 'none'
+                }}
               >
                 Create Another Scenario
               </Button>
               <Button 
                 onClick={() => navigate('/create')}
                 variant="outline"
-                className="w-full text-white border-gray-600 hover:bg-gray-700"
+                className="w-full hover:opacity-80"
+                style={{ 
+                  color: colors.white, 
+                  borderColor: colors.blue, 
+                  backgroundColor: 'transparent' 
+                }}
               >
                 Back to Create
               </Button>

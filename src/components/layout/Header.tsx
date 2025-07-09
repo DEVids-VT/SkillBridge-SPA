@@ -144,7 +144,12 @@ export function Header() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex items-center gap-1 border-[#003566] text-[#003566]"
+                      className="flex items-center gap-1"
+                      style={{
+                        borderColor: colors.blue,
+                        color: colors.blue,
+                        backgroundColor: 'transparent'
+                      }}
                     >
                       <Plus className="h-4 w-4" />
                       <span className="hidden sm:inline">
@@ -164,7 +169,12 @@ export function Header() {
                 <Button
                   variant="default"
                   size="sm"
-                  className="bg-[#003566] hover:bg-[#001d3d] text-white text-sm font-medium"
+                  className="text-sm font-medium hover:opacity-80"
+                  style={{
+                    backgroundColor: colors.blue,
+                    color: colors.white,
+                    border: 'none'
+                  }}
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >
                   {t('headerComponent.navigation.logout')}
@@ -174,7 +184,12 @@ export function Header() {
               <Button
                 variant="default"
                 size="sm"
-                className="bg-[#003566] hover:bg-[#001d3d] text-white text-sm font-medium"
+                className="text-sm font-medium hover:opacity-80"
+                style={{
+                  backgroundColor: colors.blue,
+                  color: colors.white,
+                  border: 'none'
+                }}
                 onClick={() => loginWithRedirect()}
               >
                 {t('headerComponent.navigation.login')}
@@ -211,7 +226,8 @@ export function Header() {
               {hasCompletedOnboarding && isCompany && (
                 <Link
                   to={RoutePage.CREATE_PROJECT}
-                  className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-[#003566] hover:bg-[#003566]/10"
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium hover:opacity-80"
+                  style={{ color: colors.blue }}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {t('headerComponent.navigation.postNewProject')}

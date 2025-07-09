@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { spacing, colors, layouts } from '@/lib/design-system';
+import { spacing, colors, layouts, typography, components } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { 
   Brain, 
@@ -167,7 +167,7 @@ export default function QuizResultPage() {
       <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderBottomColor: colors.blue }}></div>
             <p className="text-white">Loading quiz...</p>
           </div>
         </div>
@@ -180,12 +180,12 @@ export default function QuizResultPage() {
       <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="text-red-500 mb-4">
+            <div className="mb-4" style={{ color: colors.orange }}>
               <Brain className="h-12 w-12 mx-auto mb-2" />
             </div>
             <h2 className="text-white text-xl mb-2">Error Loading Quiz</h2>
-            <p className="text-gray-400 mb-4">{error}</p>
-            <Button onClick={handleBack} variant="outline">
+            <p className={cn('mb-4', typography.body.default)}>{error}</p>
+            <Button onClick={handleBack} variant="outline" style={{ borderColor: colors.blue, color: colors.white }}>
               Return to Create
             </Button>
           </div>
@@ -196,10 +196,10 @@ export default function QuizResultPage() {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Easy': return 'bg-green-500';
-      case 'Medium': return 'bg-yellow-500';
-      case 'Hard': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      case 'Easy': return { backgroundColor: colors.orange };
+      case 'Medium': return { backgroundColor: colors.yellow };
+      case 'Hard': return { backgroundColor: colors.blue };
+      default: return { backgroundColor: colors.blue };
     }
   };
 
@@ -234,7 +234,8 @@ export default function QuizResultPage() {
           <Button
             onClick={handleBack}
             variant="outline"
-            className="text-white border-gray-600 hover:bg-gray-700"
+            style={{ borderColor: colors.blue, color: colors.white }}
+            className="hover:opacity-80"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Create
@@ -242,14 +243,15 @@ export default function QuizResultPage() {
           
           <div className="text-center">
             <h1 className="text-3xl font-bold text-white mb-2">Quiz Generated</h1>
-            <p className="text-gray-300">Ready for assessment and evaluation</p>
+            <p className={typography.body.default}>Ready for assessment and evaluation</p>
           </div>
 
           <div className="flex space-x-2">
             <Button
               onClick={handleShare}
               variant="outline"
-              className="text-white border-gray-600 hover:bg-gray-700"
+              style={{ borderColor: colors.blue, color: colors.white }}
+              className="hover:opacity-80"
             >
               <Share2 className="h-4 w-4 mr-2" />
               Share
@@ -257,7 +259,8 @@ export default function QuizResultPage() {
             <Button
               onClick={handleDownload}
               variant="outline"
-              className="text-white border-gray-600 hover:bg-gray-700"
+              style={{ borderColor: colors.blue, color: colors.white }}
+              className="hover:opacity-80"
             >
               <Download className="h-4 w-4 mr-2" />
               Download
@@ -266,206 +269,181 @@ export default function QuizResultPage() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Content */}
+      {/* Main Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Quiz Overview */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Quiz Overview */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div>
-                  <CardTitle className="text-white text-xl mb-2">{quiz.title}</CardTitle>
-                  <p className="text-gray-300 mb-3">{quiz.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {quiz.tags.map((tag, index) => (
-                      <Badge key={index} variant="outline" className="text-gray-300 border-gray-600">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
+                  <CardTitle className="text-white text-2xl mb-2">{quiz.title}</CardTitle>
+                  <p className={typography.body.default}>{quiz.description}</p>
                 </div>
-                <Button onClick={handleStartQuiz} className="bg-blue-600 hover:bg-blue-700">
-                  <Play className="h-4 w-4 mr-2" />
-                  Take Quiz
-                </Button>
-              </div>
-            </CardHeader>
-          </Card>
-
-          {/* Question Preview */}
-          <Card className="bg-gray-800 border-gray-700">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-white flex items-center">
-                  {getQuestionTypeIcon(currentQuestion.type)}
-                  <span className="ml-2">Question {selectedQuestion + 1} of {quiz.totalQuestions}</span>
-                </CardTitle>
-                <div className="flex items-center space-x-2">
-                  <Badge className={cn('text-white', getDifficultyColor(currentQuestion.difficulty))}>
-                    {currentQuestion.difficulty}
+                <div className="flex items-center gap-2">
+                  <Badge className={cn(components.tag, components.tagColors.orange)}>
+                    <Trophy className="h-3 w-3 mr-1" />
+                    {quiz.status.charAt(0).toUpperCase() + quiz.status.slice(1)}
                   </Badge>
-                  <Badge variant="outline" className="text-gray-300 border-gray-600">
-                    {currentQuestion.points} pts
-                  </Badge>
+                  <Button
+                    onClick={handleStartQuiz}
+                    style={{ backgroundColor: colors.orange, color: colors.dark }}
+                    className="ml-4"
+                  >
+                    <Play className="h-4 w-4 mr-2" />
+                    Start Quiz
+                  </Button>
                 </div>
               </div>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="text-gray-300">
-                  <p className="text-sm uppercase tracking-wide text-gray-400 mb-2">
-                    {currentQuestion.type.replace('-', ' ')}
-                  </p>
-                  <div className="whitespace-pre-wrap text-base leading-relaxed">
-                    {currentQuestion.question}
-                  </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="text-center p-3 rounded-lg" style={{ backgroundColor: colors.blue }}>
+                  <div className="text-2xl font-bold text-white">{quiz.totalQuestions}</div>
+                  <div className="text-sm" style={{ color: colors.yellow }}>Questions</div>
                 </div>
-
-                {currentQuestion.options && (
-                  <div className="space-y-2">
-                    <p className="text-sm text-gray-400">Options:</p>
-                    <ul className="space-y-2">
-                      {currentQuestion.options.map((option, index) => (
-                        <li key={index} className="flex items-center text-gray-300">
-                          <span className="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center text-xs mr-3">
-                            {String.fromCharCode(65 + index)}
-                          </span>
-                          {option}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                <div className="border-t border-gray-700 pt-4">
-                  <p className="text-sm text-gray-400 mb-2">Explanation:</p>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {currentQuestion.explanation}
-                  </p>
+                <div className="text-center p-3 rounded-lg" style={{ backgroundColor: colors.blue }}>
+                  <div className="text-2xl font-bold text-white">{quiz.totalPoints}</div>
+                  <div className="text-sm" style={{ color: colors.yellow }}>Total Points</div>
+                </div>
+                <div className="text-center p-3 rounded-lg" style={{ backgroundColor: colors.blue }}>
+                  <div className="text-2xl font-bold text-white">{quiz.estimatedDuration}</div>
+                  <div className="text-sm" style={{ color: colors.yellow }}>Duration</div>
+                </div>
+                <div className="text-center p-3 rounded-lg" style={{ backgroundColor: colors.blue }}>
+                  <div className="text-2xl font-bold text-white">{quiz.passingScore}</div>
+                  <div className="text-sm" style={{ color: colors.yellow }}>Passing Score</div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Question Navigation */}
-          <Card className="bg-gray-800 border-gray-700">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-white font-medium">Question Navigation</p>
-                <p className="text-gray-400 text-sm">{quiz.totalQuestions} questions total</p>
-              </div>
-              <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
-                {quiz.questions.map((_, index) => (
-                  <Button
-                    key={index}
-                    variant={selectedQuestion === index ? "default" : "outline"}
-                    size="sm"
-                    className={cn(
-                      'w-full',
-                      selectedQuestion === index 
-                        ? 'bg-blue-600 hover:bg-blue-700' 
-                        : 'text-white border-gray-600 hover:bg-gray-700'
-                    )}
-                    onClick={() => setSelectedQuestion(index)}
-                  >
-                    {index + 1}
-                  </Button>
+              
+              <div className="flex flex-wrap gap-2">
+                {quiz.tags.map((tag, index) => (
+                  <Badge key={index} className={cn(components.tag, components.tagColors.yellow)}>
+                    {tag}
+                  </Badge>
                 ))}
               </div>
             </CardContent>
           </Card>
+
+          {/* Question Preview */}
+          {currentQuestion && (
+            <Card style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg" style={{ backgroundColor: colors.blue }}>
+                      <div style={{ color: colors.yellow }}>
+                        {getQuestionTypeIcon(currentQuestion.type)}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">
+                        Question {selectedQuestion + 1} of {quiz.questions.length}
+                      </h3>
+                      <div className="flex items-center gap-2">
+                        <Badge style={getDifficultyColor(currentQuestion.difficulty)} className="text-xs">
+                          {currentQuestion.difficulty}
+                        </Badge>
+                        <span className="text-sm" style={{ color: colors.yellow }}>
+                          {currentQuestion.points} points
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4">
+                  <p className={cn('font-medium mb-4', typography.body.default)}>{currentQuestion.question}</p>
+                  
+                  {currentQuestion.options && (
+                    <div className="space-y-2 mb-4">
+                      {currentQuestion.options.map((option, index) => (
+                        <div
+                          key={index}
+                          className="p-3 rounded-lg border transition-colors"
+                          style={{ 
+                            backgroundColor: index === currentQuestion.correctAnswer ? colors.orange : colors.blue,
+                            borderColor: colors.blue,
+                            color: index === currentQuestion.correctAnswer ? colors.dark : colors.white
+                          }}
+                        >
+                          <span className="font-medium">{String.fromCharCode(65 + index)}.</span> {option}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  <div className="p-4 rounded-lg" style={{ backgroundColor: colors.blue, borderColor: colors.blue }}>
+                    <h4 className="font-semibold mb-2" style={{ color: colors.yellow }}>Explanation:</h4>
+                    <p className={typography.body.default}>{currentQuestion.explanation}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
-        {/* Sidebar */}
+        {/* Question Navigation */}
         <div className="space-y-6">
-          {/* Quiz Info */}
-          <Card className="bg-gray-800 border-gray-700">
+          <Card style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
             <CardHeader>
-              <CardTitle className="text-white">Quiz Information</CardTitle>
+              <CardTitle className="text-white">Questions Overview</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-5 gap-2">
+                {quiz.questions.map((question, index) => (
+                  <button
+                    key={question.id}
+                    onClick={() => setSelectedQuestion(index)}
+                    className={cn(
+                      'w-10 h-10 rounded-lg border-2 flex items-center justify-center text-sm font-medium transition-colors',
+                      selectedQuestion === index
+                        ? 'border-orange-400 bg-orange-400 text-gray-900'
+                        : 'border-gray-600 text-gray-300 hover:border-gray-500'
+                    )}
+                    style={{
+                      borderColor: selectedQuestion === index ? colors.orange : colors.blue,
+                      backgroundColor: selectedQuestion === index ? colors.orange : 'transparent',
+                      color: selectedQuestion === index ? colors.dark : colors.white
+                    }}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
+            <CardHeader>
+              <CardTitle className="text-white">Quiz Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center text-gray-300">
-                <User className="h-4 w-4 mr-2" />
-                <span className="text-sm">{quiz.roleTitle}</span>
+              <div className="flex items-center gap-3">
+                <User className="h-4 w-4" style={{ color: colors.yellow }} />
+                <div>
+                  <div className="text-sm" style={{ color: colors.yellow }}>Role</div>
+                  <div className="font-medium text-white">{quiz.roleTitle}</div>
+                </div>
               </div>
-              <div className="flex items-center text-gray-300">
-                <Badge variant="outline" className="text-gray-300 border-gray-600">
-                  {quiz.seniorityLevel}
-                </Badge>
+              <div className="flex items-center gap-3">
+                <Target className="h-4 w-4" style={{ color: colors.yellow }} />
+                <div>
+                  <div className="text-sm" style={{ color: colors.yellow }}>Level</div>
+                  <div className="font-medium text-white">{quiz.seniorityLevel}</div>
+                </div>
               </div>
-              <div className="flex items-center text-gray-300">
-                <Clock className="h-4 w-4 mr-2" />
-                <span className="text-sm">{quiz.estimatedDuration}</span>
+              <div className="flex items-center gap-3">
+                <Clock className="h-4 w-4" style={{ color: colors.yellow }} />
+                <div>
+                  <div className="text-sm" style={{ color: colors.yellow }}>Created</div>
+                  <div className="font-medium text-white">
+                    {new Date(quiz.createdAt).toLocaleDateString()}
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center text-gray-300">
-                <Trophy className="h-4 w-4 mr-2" />
-                <span className="text-sm">Passing: {quiz.passingScore}/{quiz.totalPoints} points</span>
-              </div>
-              <div className="pt-2 border-t border-gray-700">
-                <p className="text-xs text-gray-400">
-                  Created: {new Date(quiz.createdAt).toLocaleDateString()}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Quiz Stats */}
-          <Card className="bg-gray-800 border-gray-700">
-            <CardHeader>
-              <CardTitle className="text-white">Quiz Statistics</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-300">Total Questions:</span>
-                <span className="text-white">{quiz.totalQuestions}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-300">Total Points:</span>
-                <span className="text-white">{quiz.totalPoints}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-300">Easy Questions:</span>
-                <span className="text-white">{quiz.questions.filter(q => q.difficulty === 'Easy').length}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-300">Medium Questions:</span>
-                <span className="text-white">{quiz.questions.filter(q => q.difficulty === 'Medium').length}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-300">Hard Questions:</span>
-                <span className="text-white">{quiz.questions.filter(q => q.difficulty === 'Hard').length}</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Actions */}
-          <Card className="bg-gray-800 border-gray-700">
-            <CardHeader>
-              <CardTitle className="text-white">Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Button 
-                onClick={handleStartQuiz}
-                className="w-full bg-blue-600 hover:bg-blue-700"
-              >
-                <Play className="h-4 w-4 mr-2" />
-                Take Quiz
-              </Button>
-              <Button 
-                onClick={() => navigate('/create/persona')}
-                variant="outline"
-                className="w-full text-white border-gray-600 hover:bg-gray-700"
-              >
-                Create Another Quiz
-              </Button>
-              <Button 
-                onClick={() => navigate('/create')}
-                variant="outline"
-                className="w-full text-white border-gray-600 hover:bg-gray-700"
-              >
-                Back to Create
-              </Button>
             </CardContent>
           </Card>
         </div>

@@ -7,6 +7,8 @@ import { UserRole } from '@/types/user/UserOnboarding';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { RoutePage } from '@/types/enums/RoutePage';
 import { WelcomeSection } from './components';
+import { colors, typography, spacing } from '@/lib/design-system';
+import { cn } from '@/lib/utils';
 
 export function WelcomePage() {
   const { t } = useTranslation('welcome');
@@ -46,18 +48,18 @@ export function WelcomePage() {
   return (
     <div className="min-h-screen relative">
       {/* Background */}
-      <div className="absolute inset-0 bg-gray-50"></div>
+      <div className="absolute inset-0" style={{ backgroundColor: colors.dark }}></div>
 
       <WelcomeSection className="relative z-10">
         {/* Logo Badge */}
         <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center justify-center px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 rounded-full backdrop-blur-sm border border-blue-200/50">
+          <div className="inline-flex items-center justify-center px-3 py-1.5 rounded-full backdrop-blur-sm border" style={{ backgroundColor: colors.blue, borderColor: colors.blue }}>
             <img
               src="/images/sblogosmall.svg"
               alt="SkillBridge"
               className="h-6 object-contain mr-2"
             />
-            <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
+            <span className="text-xs font-medium" style={{ color: colors.yellow }}>
               {t('welcome.badge')}
             </span>
           </div>
@@ -65,8 +67,8 @@ export function WelcomePage() {
 
         {/* Page Header */}
         <div className="text-center mb-10 max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
-            <span className="text-gray-900 dark:text-white">
+          <h1 className={cn('text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight', typography.heading[1])}>
+            <span className="text-white">
               {t('welcome.title', { appName: t('welcome.appName') })}
             </span>
           </h1>

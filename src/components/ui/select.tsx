@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ChevronDown, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { colors } from '@/lib/design-system';
 
 interface SelectProps {
   value: string;
@@ -157,7 +158,12 @@ const SelectLabel: React.FC<SelectLabelProps> = ({ className, children }) => {
 };
 
 const SelectSeparator: React.FC<{ className?: string }> = ({ className }) => {
-  return <div className={cn('-mx-1 my-1 h-px bg-[#003566]', className)} />;
+  return (
+    <div 
+      className={cn('-mx-1 my-1 h-px', className)} 
+      style={{ backgroundColor: colors.blue }}
+    />
+  );
 };
 
 export {

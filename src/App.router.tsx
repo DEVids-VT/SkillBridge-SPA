@@ -10,7 +10,9 @@ import OnboardingGuard from './components/authorize-route/OnboardingGuard';
 import RoleGuard from './components/authorize-route/RoleGuard';
 import ProjectsBoardPage from './pages/projects/ProjectsBoardPage.tsx';
 import ProjectPage from './pages/projects/ProjectPage.tsx';
-import DescribeCandidatePage from './pages/candidate/DescribeCandidatePage';
+import { CreatePage, CreatePersonaPage, CreateManualPage } from './pages/create';
+import ScenarioResultPage from './pages/scenario/ScenarioResultPage';
+import QuizResultPage from './pages/quiz/QuizResultPage';
 import CompanyProfilePage from './pages/company/CompanyProfilePage';
 import CandidateProfilePage from './pages/candidate/CandidateProfilePage';
 
@@ -31,7 +33,15 @@ export const router = createBrowserRouter(
         <Route path={RoutePage.PROJECT_DETAIL} element={<ProjectPage />} />{' '}
         <Route path={RoutePage.COMPANIES} element={<CompaniesPage />} />
         <Route path={RoutePage.ABOUT} element={<AboutPage />} />
-        <Route path={RoutePage.DESCRIBE_CANDIDATE} element={<DescribeCandidatePage />} />
+        {/* Create flow routes */}
+        <Route path={RoutePage.CREATE} element={<CreatePage />} />
+        <Route path={RoutePage.CREATE_PERSONA} element={<CreatePersonaPage />} />
+        <Route path={RoutePage.CREATE_MANUAL} element={<CreateManualPage />} />
+        {/* Legacy route - redirect to new create flow */}
+        <Route path={RoutePage.CREATE_PROJECT} element={<Navigate to={RoutePage.CREATE} replace />} />
+        {/* Result pages */}
+        <Route path={RoutePage.SCENARIO_DETAIL} element={<ScenarioResultPage />} />
+        <Route path={RoutePage.QUIZ_DETAIL} element={<QuizResultPage />} />
         {/* Profile routes - role-based access */}
         <Route
           path={RoutePage.COMPANY_PROFILE}

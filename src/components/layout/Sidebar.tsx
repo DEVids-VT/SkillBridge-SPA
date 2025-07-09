@@ -38,8 +38,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
   // Check if the user has completed onboarding
   const hasCompletedOnboarding = isAuthenticated && onboardingData.completed;
 
-  // Check if user is a company
-  const isCompany = onboardingData.role === 'company';
+
 
   // Get the appropriate profile route and icon based on user role
   const getProfileInfo = () => {
@@ -81,6 +80,13 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
     const authItems =
       isAuthenticated && hasCompletedOnboarding
         ? [
+            {
+              to: '/create',
+              label: 'Create',
+              icon: Plus,
+              requiresAuth: true,
+              requiresOnboarding: true,
+            },
             {
               to: '/projects',
               label: t('headerComponent.navigation.projects'),
@@ -206,22 +212,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
                 {profileInfo.label}
               </Link>
 
-              {/* Post New Project button for companies */}
-              {isCompany && (
-                <Link
-                  to={RoutePage.DESCRIBE_CANDIDATE}
-                  className={cn(
-                    sidebar.navigation.base,
-                    isActiveRoute(RoutePage.DESCRIBE_CANDIDATE)
-                      ? sidebar.navigation.active
-                      : sidebar.navigation.default
-                  )}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <Plus className={sidebar.navigation.icon} />
-                  {t('headerComponent.navigation.postNewProject')}
-                </Link>
-              )}
+
             </div>
           )}
         </nav>

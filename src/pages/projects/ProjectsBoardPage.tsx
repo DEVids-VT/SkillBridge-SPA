@@ -117,7 +117,7 @@ const ProjectsPage = () => {
             <Button
               className="mb-4"
               style={{ backgroundColor: colors.blue, color: colors.white }}
-              onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
+              onClick={() => navigate(RoutePage.CREATE_PROJECT)}
             >
               <Plus className="h-4 w-4 mr-2" />
               {t('projectsPage.actions.postNewProject')}
@@ -141,7 +141,7 @@ const ProjectsPage = () => {
               <Button
                 className="flex-1 flex items-center justify-center"
                 style={{ backgroundColor: colors.blue, color: colors.white }}
-                onClick={() => navigate(RoutePage.DESCRIBE_CANDIDATE)}
+                onClick={() => navigate(RoutePage.CREATE_PROJECT)}
               >
                 <Plus className="h-4 w-4 mr-2" />
                 <span>{t('projectsPage.actions.postProject')}</span>

@@ -20,23 +20,6 @@ textarea {
   transition: all 0.3s ease;
 }
 
-/* Card hover effects */
-.card,
-.grid > div,
-.rounded-lg,
-.rounded-xl {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    opacity 0.3s ease;
-}
-
-.card:hover,
-.grid > div:hover,
-.hover\:shadow-md:hover {
-  transform: translateY(-3px);
-}
-
 /* Image transitions */
 img {
   transition:

@@ -40,7 +40,7 @@ export const ProjectsSidebar = () => {
     <div className="h-full flex flex-col">
       {/* Header */}
       <div className="p-6" style={{ borderBottomWidth: '1px', borderBottomColor: colors.blue }}>
-        <h1 className="text-xl font-semibold text-white mb-4">All posts</h1>
+        <h1 className="text-xl font-semibold text-white mb-4">Active projects</h1>
         
         {/* Learn Section */}
         <div className="space-y-3">

@@ -141,7 +141,7 @@ const CompaniesPage = () => {
         {/* Company Cards Grid */}
         <div className={layouts.grid.cards3}>
           {filteredCompanies.map((company) => (
-            <div key={company.id} className={cn(cards.base, 'group hover:scale-105 transition-all duration-300')}>
+            <div key={company.id} className={cn(cards.base, 'group transition-colors')}>
               {/* Company Header */}
               <div className={cards.header}>
                 <div className="flex items-center gap-4">

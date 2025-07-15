@@ -24,19 +24,7 @@ const CreateProjectForm: React.FC<CreateProjectFormProps> = ({
   const { t } = useTranslation('createProject');
 
   return (
-    <div className={cards.base}>
-      <div className={cards.header}>
-        <h2 className={typography.heading[3]} style={{ color: colors.white }}>
-          <span 
-            className="inline-block w-2 h-6 mr-3 rounded"
-            style={{ backgroundColor: colors.orange }}
-          ></span>
-          {t('createProjectPage.form.title')}
-        </h2>
-      </div>
-      
-      <div className={cards.body}>
-        <form onSubmit={onSubmit} className="space-y-6">
+    <form onSubmit={onSubmit} className="space-y-6">
           <div className="space-y-3">
             <Label htmlFor="roleTitle" style={{ color: colors.white }}>
               {t('createProjectPage.form.roleTitle.label')}
@@ -216,8 +204,6 @@ const CreateProjectForm: React.FC<CreateProjectFormProps> = ({
             )}
           </div>
         </form>
-      </div>
-    </div>
   );
 };
 

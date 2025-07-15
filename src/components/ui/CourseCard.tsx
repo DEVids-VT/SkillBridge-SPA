@@ -40,7 +40,7 @@ export function CourseCard({
     <div
       className={cn(
         cards.base,
-        'flex flex-col h-full cursor-pointer hover:-translate-y-1 transition-transform text-white'
+        'flex flex-col h-full cursor-pointer transition-colors text-white'
       )}
       style={{ backgroundColor: colors.blueDark }}
       onClick={onClick}

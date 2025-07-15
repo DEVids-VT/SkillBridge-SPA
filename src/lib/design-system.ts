@@ -75,7 +75,7 @@ export const layouts = {
 
 // Card styles
 export const cards = {
-  base: `border-2 border-[${COLOR_BLUE}] bg-[${COLOR_BLUE_DARK}] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all hover:border-[${COLOR_ORANGE}]`,
+  base: `border-2 border-[${COLOR_BLUE}] bg-[${COLOR_BLUE_DARK}] rounded-xl overflow-hidden shadow-sm hover:border-[${COLOR_ORANGE}] transition-colors`,
   header: `p-6 border-b border-[${COLOR_BLUE}]`,
   body: 'p-6',
   footer: `p-6 pt-4 border-t border-[${COLOR_BLUE}] flex items-center justify-between`,
@@ -97,7 +97,7 @@ export const components = {
 export const sidebar = {
   // Base sidebar styles
   container:
-    `fixed left-0 top-0 z-50 h-screen w-64 flex flex-col transform transition-transform duration-300 ease-in-out lg:translate-x-0 bg-${SLATE_900} border-r border-${SLATE_700}`,
+    `fixed left-0 top-0 z-50 h-screen w-64 flex flex-col transform lg:translate-x-0 bg-${SLATE_900} border-r border-${SLATE_700}`,
 
   // Navigation link styles
   navigation: {

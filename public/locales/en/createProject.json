@@ -1,4 +1,86 @@
 {
+  "createPage": {
+    "header": {
+      "title1": "Create",
+      "title2": "New Content",
+      "subtitle": "Select your preferred method to generate custom assessment content."
+    },
+    "personaCard": {
+      "title": "Persona-Based Creation",
+      "description": "Define a candidate profile with skills, experience, and requirements to generate targeted assessments.",
+      "button": "Start with Persona",
+      "infoTooltip": "Ideal for creating realistic, role-specific content by modeling an ideal candidate profile."
+    },
+    "manualCard": {
+      "title": "Manual Creation",
+      "description": "Directly specify requirements and details for custom assessment content.",
+      "button": "Start Manual",
+      "infoTooltip": "Provides full control for precise, customized content creation based on specific needs."
+    }
+  },
+  "createManualPage": {
+    "header": {
+      "title1": "Manual",
+      "title2": "Creation",
+      "subtitle": "Provide a detailed description to generate your custom assessment content."
+    },
+    "backButton": "Back to selection",
+    "form": {
+      "title": "Content Description",
+      "description": {
+        "label": "Describe your requirements",
+        "placeholder": "Example: 'Generate a coding challenge for junior React developers focusing on state management and hooks'",
+        "error": "Description is required",
+        "help": "Include specifics like difficulty, topics, skills, and format for best results."
+      },
+      "characters": "characters"
+    },
+    "notifications": {
+      "success": {
+        "title": "Success",
+        "message": "Content generated successfully. Redirecting..."
+      },
+      "error": {
+        "title": "Error",
+        "defaultMessage": "Failed to generate content. Please try again."
+      },
+      "formIncomplete": {
+        "title": "Incomplete",
+        "message": "Please provide a description first."
+      }
+    }
+  },
+  "createPersonaPage": {
+    "header": {
+      "title1": "Persona",
+      "title2": "Creation",
+      "subtitle": "Define candidate profile details to generate tailored assessment content."
+    },
+    "backButton": "Back to selection",
+    "notifications": {
+      "formIncomplete": {
+        "title": "Incomplete",
+        "message": "Please complete all required fields."
+      }
+    }
+  },
+  "outputTypeSelector": {
+    "title": "Choose Output Type",
+    "subtitle": "What would you like to generate from your input?",
+    "scenario": {
+      "title": "Generate Scenario",
+      "description": "Create a realistic work scenario or project task based on your input"
+    },
+    "quiz": {
+      "title": "Generate Quiz",
+      "description": "Create assessment questions to test knowledge and skills"
+    },
+    "generateButton": {
+      "scenario": "Generate Scenario",
+      "quiz": "Generate Quiz",
+      "loading": "Generating..."
+    }
+  },
   "createProjectPage": {
     "header": {
       "title1": "Create",

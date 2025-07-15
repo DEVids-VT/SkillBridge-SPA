@@ -57,12 +57,12 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
                 <div className={cn(
                   cards.base,
                   'w-full aspect-square max-w-[160px] flex items-center justify-center p-6',
-                  'backdrop-blur-sm group-hover:-translate-y-2 transition-all duration-300'
+                  'backdrop-blur-sm transition-colors'
                 )}>
                   <img
                     src={company.logo}
                     alt={`${company.name} logo`}
-                    className="max-h-full max-w-full object-contain filter grayscale-[50%] group-hover:grayscale-0 transition-all duration-300"
+                    className="max-h-full max-w-full object-contain filter grayscale-[50%] group-hover:grayscale-0 transition-all"
                     loading="lazy"
                   />
                 </div>
@@ -126,7 +126,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
             >
               <Link to="/companies" className="flex items-center gap-2">
                 {t('landingPage.companyMarquee.cta.joinButton')}
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
 

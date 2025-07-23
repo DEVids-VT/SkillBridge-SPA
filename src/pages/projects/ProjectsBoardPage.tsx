@@ -1,24 +1,20 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { spacing, colors, typography } from '@/lib/design-system';
-import { cn } from '@/lib/utils';
-import { Filter, Loader2, Plus } from 'lucide-react';
+import { colors } from '@/lib/design-system';
+import { Loader2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { RoutePage } from '@/types/enums/RoutePage';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import { ActiveSidebar } from '@/pages/dashboard/components/ActiveSidebar';
 
-import { ProjectsHeader } from './components/ProjectsHeader';
 import { ProjectsList } from './components/ProjectsList';
-import { FilterSidebar } from './components/FilterSidebar';
 import { CategoryFilter } from './types';
 import { useFetchProjects } from './hooks/useFetchProjects';
 
 const ProjectsPage = () => {
   const { t } = useTranslation('project');
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const navigate = useNavigate();
   const { onboardingData } = useOnboarding();
 
@@ -56,7 +52,7 @@ const ProjectsPage = () => {
       color: 'bg-gray-100 text-gray-700',
     },
   ];
-  // Note: Search is handled client-side through the filteredProjects variable
+
   // Transform API projects to match the format expected by our components
   const projects =
     apiProjects?.map((project) => ({
@@ -71,24 +67,12 @@ const ProjectsPage = () => {
       deadline: new Date(project.deadline).toLocaleDateString(),
     })) || [];
 
-  // Filter projects based on selected category and search query
+  // Filter projects based on selected category
   const filteredProjects = projects.filter((project) => {
     // Category filter
     if (selectedCategory !== 'all' && project.category !== selectedCategory) {
       return false;
     }
-
-    // Search filter
-    if (searchQuery.trim() !== '') {
-      const query = searchQuery.toLowerCase();
-      return (
-        project.title.toLowerCase().includes(query) ||
-        project.company.toLowerCase().includes(query) ||
-        project.description.toLowerCase().includes(query) ||
-        project.skills.some((skill: string) => skill.toLowerCase().includes(query))
-      );
-    }
-
     return true;
   });
 
@@ -96,99 +80,134 @@ const ProjectsPage = () => {
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
   };
+  
   // Clear all filters
   const handleClearFilters = () => {
     setSelectedCategory('all');
-    setSearchQuery('');
+  };
+
+  // Render filters for the sidebar
+  const renderFilters = () => {
+    return (
+      <div className="space-y-6">
+        {/* Category filters */}
+        <div>
+          <h4 className="text-sm font-medium mb-3 text-white">
+            {t('projectsPage.filters.categories')}
+          </h4>
+          <div className="space-y-2">
+            {categories.map((category) => (
+              <div
+                key={category.id}
+                className={`flex items-center justify-between p-2 rounded-md cursor-pointer transition-colors ${
+                  selectedCategory === category.id ? 'bg-primary/20' : 'hover:bg-primary/10'
+                }`}
+                onClick={() => handleCategoryChange(category.id)}
+              >
+                <div className="flex items-center">
+                  {category.id !== 'all' && (
+                    <div className={`w-2 h-2 rounded-full mr-2 ${category.color || 'bg-gray-200'}`} />
+                  )}
+                  <span className="text-sm text-white">
+                    {category.name}
+                  </span>
+                </div>
+
+                {selectedCategory === category.id && (
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="16" 
+                    height="16" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke={colors.yellow} 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Other filter options */}
+        <div>
+          <h4 className="text-sm font-medium mb-3 text-white">
+            {t('projectsPage.filters.otherOptions')}
+          </h4>
+          <div className="space-y-1">
+            <div className="flex items-center p-2 rounded-md cursor-pointer hover:bg-primary/10">
+              <span className="text-sm text-white">
+                {t('projectsPage.filters.mostRecent')}
+              </span>
+            </div>
+            <div className="flex items-center p-2 rounded-md cursor-pointer hover:bg-primary/10">
+              <span className="text-sm text-white">
+                {t('projectsPage.filters.upcoming')}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Clear filters button */}
+        {selectedCategory !== 'all' && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleClearFilters}
+            className="w-full mt-4 border-white/20 text-white hover:bg-white/10 hover:text-white"
+          >
+            {t('projectsPage.filters.clear')}
+          </Button>
+        )}
+
+        {/* Post New Project button - only visible for companies */}
+        {isCompany && (
+          <Button
+            className="w-full mt-4"
+            style={{ backgroundColor: colors.blue, color: colors.white }}
+            onClick={() => navigate(RoutePage.CREATE_PROJECT)}
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            {t('projectsPage.actions.postNewProject')}
+          </Button>
+        )}
+      </div>
+    );
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: colors.dark }}>
-      <div className={spacing.container}>
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="flex-grow w-full md:w-auto">
-            <ProjectsHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          </div>
-        </div>
-
-        <div className="mt-6">
-          {/* Post New Project button - only visible for companies */}
-          {isCompany && (
-            <Button
-              className="mb-4"
-              style={{ backgroundColor: colors.blue, color: colors.white }}
-              onClick={() => navigate(RoutePage.CREATE_PROJECT)}
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              {t('projectsPage.actions.postNewProject')}
-            </Button>
+    <div className="min-h-screen flex" style={{ backgroundColor: colors.dark }}>
+      {/* Left Sidebar - Responsive */}
+      <ActiveSidebar title={t('projectsPage.filters.title')}>
+        {renderFilters()}
+      </ActiveSidebar>
+      
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-y-auto">
+        <main className="p-6">
+          {isLoading ? (
+            <div className="flex items-center justify-center h-64">
+              <div className="flex flex-col items-center space-y-4">
+                <Loader2 className="h-10 w-10 animate-spin" style={{ color: colors.yellow }} />
+                <p className="text-lg font-medium" style={{ color: colors.white }}>
+                  {t('projectsPage.states.loading')}
+                </p>
+              </div>
+            </div>
+          ) : error ? (
+            <div className="p-8 text-center">
+              <p className="font-medium" style={{ color: colors.orange }}>
+                {t('projectsPage.states.errorLoadingProjects')}
+              </p>
+            </div>
+          ) : (
+            <ProjectsList projects={filteredProjects} categories={categories} />
           )}
-
-          {/* Mobile filter toggle and mobile post button */}
-          <div className="lg:hidden mb-4 flex gap-2 flex-col sm:flex-row">
-            <Button
-              variant="outline"
-              className="flex-1 flex items-center justify-center gap-2"
-              style={{ borderColor: colors.blue, color: colors.white }}
-              onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
-            >
-              <Filter className="h-4 w-4" />
-              <span>{t('projectsPage.actions.filters')}</span>
-            </Button>
-
-            {/* Mobile Post New Project button - only visible for companies */}
-            {isCompany && (
-              <Button
-                className="flex-1 flex items-center justify-center"
-                style={{ backgroundColor: colors.blue, color: colors.white }}
-                onClick={() => navigate(RoutePage.CREATE_PROJECT)}
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                <span>{t('projectsPage.actions.postProject')}</span>
-              </Button>
-            )}
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-6">
-            {/* Filters sidebar - desktop view */}
-            <div
-              className={cn(
-                'lg:w-64 flex-shrink-0',
-                !mobileFiltersOpen && 'hidden lg:block',
-                mobileFiltersOpen && 'block lg:block'
-              )}
-            >
-              <FilterSidebar
-                categories={categories}
-                selectedCategory={selectedCategory}
-                onCategoryChange={handleCategoryChange}
-                onClearFilters={handleClearFilters}
-              />
-            </div>
-
-            {/* Main content */}
-            <div className="flex-1">
-              {isLoading ? (
-                <div className="flex items-center justify-center h-64">
-                  <div className="flex flex-col items-center space-y-4">
-                    <Loader2 className="h-10 w-10 animate-spin" style={{ color: colors.yellow }} />
-                    <p className="text-lg font-medium" style={{ color: colors.white }}>
-                      {t('projectsPage.states.loading')}
-                    </p>
-                  </div>
-                </div>
-              ) : error ? (
-                <div className="p-8 text-center">
-                  <p className="font-medium" style={{ color: colors.orange }}>
-                    {t('projectsPage.states.errorLoadingProjects')}
-                  </p>
-                </div>
-              ) : (
-                <ProjectsList projects={filteredProjects} categories={categories} />
-              )}
-            </div>
-          </div>
-        </div>
+        </main>
       </div>
     </div>
   );

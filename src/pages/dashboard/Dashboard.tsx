@@ -8,17 +8,13 @@ const Dashboard = () => {
   
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: colors.dark }}>
-      {/* Left Sidebar - Sticky Content */}
-      <div className="w-80 flex-shrink-0 bg-slate-900 border-r border-slate-700">
-        <div className="sticky top-0 h-screen overflow-y-auto">
-          <ActiveSidebar title={t('activeProjects', 'Active projects')}>
-            <ProjectsList />
-          </ActiveSidebar>
-        </div>
-      </div>
+      {/* Left Sidebar - Responsive */}
+      <ActiveSidebar title={t('activeProjects', 'Active projects')}>
+        <ProjectsList />
+      </ActiveSidebar>
       
       {/* Main Content Area */}
-      <div className="flex-1">
+      <div className="flex-1 overflow-y-auto">
         <main className="p-6">
           <Outlet />
         </main>

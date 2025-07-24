@@ -336,7 +336,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
         </div>
 
         {/* Navigation - Scrollable */}
-        <nav className={cn(sidebar.sections.navigation, "sidebar-scrollbar")}>
+        <nav className={cn(sidebar.sections.navigation)}>
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const active = isActiveRoute(item.to);

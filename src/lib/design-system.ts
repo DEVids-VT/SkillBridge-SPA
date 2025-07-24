@@ -135,7 +135,7 @@ export const sidebar = {
 
   // State classes
   states: {
-    open: 'translate-x-0',
+    open: 'translate-x-0 w-full lg:w-64',
     closed: '-translate-x-full',
     overlay: `fixed inset-0 bg-${BLACK}/50 z-40 lg:hidden`,
   },

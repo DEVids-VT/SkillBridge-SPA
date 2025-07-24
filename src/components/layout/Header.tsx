@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { Menu, X, LayoutDashboard, User, Plus } from 'lucide-react';
+import { Menu, X, LayoutDashboard, User, Plus, Sidebar } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
+import { useActiveSidebar } from '@/contexts/ActiveSidebarContext';
 import { RoutePage } from '@/types/enums/RoutePage';
 import { colors } from '@/lib/design-system';
 
 export function Header() {
   const { t, i18n } = useTranslation('header');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { toggle: toggleActiveSidebar } = useActiveSidebar();
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const { onboardingData } = useOnboarding();
 
@@ -195,16 +197,31 @@ export function Header() {
                 {t('headerComponent.navigation.login')}
               </Button>
             )}
-            {/* Mobile Menu Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden rounded-full"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={t('headerComponent.navigation.toggleMenu')}
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            
+            {/* Mobile Controls */}
+            <div className="flex items-center gap-2 md:hidden">
+              {/* ActiveSidebar Toggle - only show on dashboard pages */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full"
+                onClick={toggleActiveSidebar}
+                aria-label="Toggle active sidebar"
+              >
+                <Sidebar className="h-5 w-5" />
+              </Button>
+              
+              {/* Main Menu Toggle */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={t('headerComponent.navigation.toggleMenu')}
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
           </div>
         </div>
 

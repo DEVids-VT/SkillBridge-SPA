@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cards, colors, components } from '@/lib/design-system';
 import { Briefcase, Calendar, Clock } from 'lucide-react';
@@ -29,14 +28,17 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
     }
   };
 
-  // Get category color for badges
-  const category = categories.find((c) => c.id === project.category);
-  const categoryColor = category?.color || 'bg-gray-100 text-gray-700';
-
   return (
-    <div className={cards.base}>
-      <div className={cards.body}>
-        <div className="flex items-center gap-4">
+    <Link 
+      to={`/projects/${project.id}`} 
+      className={cn(
+        cards.base,
+        "block transition-all duration-200 hover:scale-[1.02] hover:shadow-lg cursor-pointer" // Fixed height for uniform cards
+      )}
+    >
+      <div className={cn(cards.body, "h-full flex flex-col justify-between")}>
+        {/* Header Section */}
+        <div className="flex items-start gap-3 mb-3">
           {/* Company logo */}
           <div
             className="w-10 h-10 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden"
@@ -62,66 +64,45 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
             )}
           </div>
 
-          {/* Content */}
+          {/* Title and company info */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between mb-1">
-              <h3 className="font-medium truncate" style={{ color: colors.white }}>
-                {project.title}
-              </h3>
-              <Badge variant="outline" className={cn('ml-2 flex-shrink-0', categoryColor)}>
-                {project.category}
-              </Badge>
-            </div>
-
-            <div className="flex items-center text-sm mb-2" style={{ color: colors.white }}>
+            <h3 className="font-medium text-sm leading-tight mb-1 overflow-hidden" style={{ color: colors.white, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+              {project.title}
+            </h3>
+            <div className="flex items-center text-xs" style={{ color: colors.white }}>
               <span className="truncate">{project.company}</span>
-              <span className="mx-2">•</span>
+              <span className="mx-1">•</span>
               <span className="flex items-center">
                 <Clock className="w-3 h-3 mr-1" />
                 {formatDate(project.postedDate)}
               </span>
             </div>
-
-            <p className="text-sm line-clamp-2 mb-3" style={{ color: colors.white }}>
-              {project.description}
-            </p>
-
-            {/* Skills */}
-            <div className="flex flex-wrap gap-1.5 mt-2">
-              {project.skills.slice(0, 3).map((skill, index) => (
-                <Badge key={index} className={`${components.tag} ${components.tagColors.blue}`}>
-                  {skill}
-                </Badge>
-              ))}
-              {project.skills.length > 3 && (
-                <Badge className={`${components.tag} ${components.tagColors.blue}`}>
-                  +{project.skills.length - 3} {t('projectsPage.projectCard.more')}
-                </Badge>
-              )}
-            </div>
           </div>
-
-          {/* Details button */}
-          <Link to={`/projects/${project.id}`} className="flex-shrink-0 self-start mt-1">
-            <Button size="sm">{t('projectsPage.projectCard.details')}</Button>
-          </Link>
         </div>
 
-        {/* Deadline */}
-        <div
-          className="flex items-center justify-end mt-3 pt-3 border-t"
-          style={{ borderColor: colors.blue }}
-        >
-          <span className="flex items-center text-xs" style={{ color: colors.white }}>
-            <Calendar className="w-3 h-3 mr-1" />
-            {t('projectsPage.projectCard.deadline')}{' '}
-            {new Date(project.deadline).toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-            })}
-          </span>
+        {/* Skills Section - Fixed height container */}
+        <div className="flex-1 mb-3">
+          <div className="flex flex-wrap gap-1.5 overflow-hidden">
+            {project.skills.slice(0, 4).map((skill, index) => (
+              <Badge 
+                key={index} 
+                className={cn(
+                  components.tag, 
+                  components.tagColors.blue,
+                  "text-xs px-2 py-1"
+                )}
+              >
+                {skill}
+              </Badge>
+            ))}
+            {project.skills.length > 4 && (
+              <Badge className={cn(components.tag, components.tagColors.blue, "text-xs px-2 py-1")}>
+                +{project.skills.length - 4} {t('projectsPage.projectCard.more')}
+              </Badge>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

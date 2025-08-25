@@ -7,6 +7,7 @@ const COLOR_BLUE = '#003566';
 const COLOR_ORANGE = '#ffc300';
 const COLOR_YELLOW = '#ffd60a';
 const COLOR_WHITE = '#ffffff';
+const COLOR_SLATE = '#0F172B';
 
 // Tailwind Color Constants
 const SLATE_900 = 'slate-900';
@@ -22,12 +23,13 @@ const BLACK = 'black';
 
 // Color palette
 export const colors = {
-  dark: COLOR_DARK, // Main dark background
+  dark: COLOR_SLATE, // Main dark background
   blueDark: COLOR_BLUE_DARK, // Deep blue
   blue: COLOR_BLUE, // Lighter dark blue
   orange: COLOR_ORANGE, // Orange accent
   yellow: COLOR_YELLOW, // Yellow accent
   white: COLOR_WHITE, // White for text and highlights
+  bgSlate900: COLOR_SLATE, // Background slate 900
 };
 
 // Spacing
@@ -101,36 +103,36 @@ export const sidebar = {
 
   // Navigation link styles
   navigation: {
-    base: 'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors no-underline hover:no-underline',
+    base: 'flex items-center gap-4 px-2 py-3 rounded-lg text-base font-medium transition-colors no-underline hover:no-underline',
     default: `text-${WHITE} hover:bg-primary/20 hover:text-${WHITE}`,
     active: 'bg-primary text-primary-foreground font-semibold',
-    icon: 'h-4 w-4',
+    icon: 'size-5',
   },
 
   // Button styles for sidebar
   buttons: {
     // Primary action button (Login)
-    primary: `w-full bg-primary hover:bg-[${COLOR_BLUE_DARK}] text-${WHITE} font-medium transition-colors`,
+    primary: `w-full bg-primary hover:bg-[${COLOR_BLUE_DARK}] text-${WHITE} font-medium transition-colors py-3 text-base`,
 
     // Secondary action button (Language switcher)
     secondary:
-      `w-full justify-start gap-3 text-${WHITE} hover:text-primary-foreground hover:bg-primary/20 transition-colors`,
+      `w-full justify-start gap-4 text-${WHITE} hover:text-primary-foreground hover:bg-primary/20 transition-colors py-3 text-base`,
 
     // Danger action button (Logout)
     danger:
-      `w-full justify-start gap-3 text-${RED_400} hover:text-${RED_300} hover:bg-${RED_900}/20 transition-colors`,
+      `w-full justify-start gap-4 text-${RED_400} hover:text-${RED_300} hover:bg-${RED_900}/20 transition-colors py-3 text-base`,
 
     // Logo link
-    logo: `flex items-center text-lg font-semibold text-${WHITE} no-underline hover:no-underline hover:text-primary-foreground transition-colors`,
+    logo: `flex items-center text-xl font-semibold text-${WHITE} no-underline hover:no-underline hover:text-primary-foreground transition-colors`,
   },
 
   // Section styles
   sections: {
-    header: `flex h-16 items-center justify-between px-6 border-b border-${SLATE_700}`,
-    navigation: 'flex-1 px-4 py-4 space-y-2 overflow-y-auto',
-    profile: `pt-4 mt-4 border-t border-${SLATE_700}`,
-    bottom: `p-4 border-t border-${SLATE_700} space-y-2`,
-    profileTitle: `px-3 mb-2 text-xs font-semibold text-${WHITE}/70 uppercase tracking-wider`,
+    header: `flex h-20 items-center justify-between px-2`,
+    navigation: 'flex-1 px-2 py-6 space-y-3 overflow-y-auto',
+    profile: `pt-6 mt-6 border-t border-${SLATE_700}`,
+    bottom: `px-2 py-6 border-t border-${SLATE_700} space-y-3`,
+    profileTitle: `px-2 mb-3 text-sm font-semibold text-${WHITE}/70 uppercase tracking-wider`,
   },
 
   // State classes

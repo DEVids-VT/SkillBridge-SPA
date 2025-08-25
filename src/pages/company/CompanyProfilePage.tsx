@@ -117,7 +117,7 @@ export default function CompanyProfilePage() {
 
   return (
     <div
-      className="max-w-4xl mx-auto py-10 space-y-10"
+      className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 2xl:px-96"
       style={{ backgroundColor: colors.dark, color: colors.white }}
     >
       {/* Company Information Section */}

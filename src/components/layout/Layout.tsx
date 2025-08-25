@@ -73,7 +73,7 @@ export function Layout() {
   };
 
   return (
-    <div className="flex min-h-screen font-rubik">
+    <div className="flex h-screen overflow-hidden font-rubik">
       {/* Sidebar */}
       <Sidebar 
         isOpen={sidebarOpen} 
@@ -83,7 +83,7 @@ export function Layout() {
 
       {/* Main Content Area */}
       <div 
-        className={`flex flex-col flex-1 min-h-screen transition-all duration-300 ${
+        className={`flex flex-col flex-1 h-screen overflow-hidden transition-all duration-300 ${
           !isMobile && (sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64')
         }`}
       >
@@ -125,7 +125,7 @@ export function Layout() {
         </div>
 
         {/* Main Content */}
-        <main className="flex-1">
+        <main className="flex-1 m-2 rounded-xl overflow-hidden">
           <Outlet />
         </main>
       </div>

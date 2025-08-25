@@ -126,7 +126,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             },
             {
               to: '/about',
-              label: t('headerComponent.navigation.about'),
+              label: 'About',
               icon: Info,
               requiresAuth: false,
               requiresOnboarding: false,
@@ -186,7 +186,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
   // Animation variants for framer-motion
   const sidebarVariants = {
     expanded: {
-      width: '16rem', // 64 * 0.25 = 16rem
+      width: '16rem', // 64 * 0.25 = 16rem (w-64)
       transition: {
         duration: 0.15,
         type: "spring" as const,
@@ -195,7 +195,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       },
     },
     collapsed: {
-      width: '5rem', // Collapsed width
+      width: '5rem', // Collapsed width - reduced for narrower sidebar
       transition: {
         duration: 0.15,
         type: "spring" as const,
@@ -265,7 +265,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       {/* Sidebar */}
       <motion.aside
         className={cn(
-          'fixed left-0 top-0 z-50 h-screen flex flex-col transform bg-slate-900 border-r border-slate-700',
+          'fixed left-0 top-0 z-50 h-screen flex flex-col transform pt-2',
           isMobile ? 'mobile-sidebar' : '',
           isMobile 
             ? isOpen ? 'translate-x-0' : '-translate-x-full'
@@ -283,15 +283,26 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
         } : undefined}
       >
         {/* Sidebar Header */}
-        <div className={cn(sidebar.sections.header, 'justify-between', 'px-4 lg:px-6')}>
-          <div className="flex items-center min-w-0 flex-1">
-            <Link to="/" className={sidebar.buttons.logo} style={{ textDecoration: 'none' }}>
-              <img src="/images/horasussvoeniruce.png" alt={t('headerComponent.logo.alt')} className="h-8" />
-            </Link>
+        <div className={cn(
+          sidebar.sections.header,
+          isCollapsed && !isMobile ? 'justify-center' : 'justify-between'
+        )}>
+          <div className={cn(
+            'flex items-center min-w-0',
+            isCollapsed && !isMobile ? 'hidden' : 'flex-1'
+          )}>
+            <motion.div
+              variants={textVariants}
+              animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+            >
+              <Link to="/" className={sidebar.buttons.logo} style={{ textDecoration: 'none' }}>
+                <img src="/images/horasussvoeniruce.png" alt={t('headerComponent.logo.alt')} className="h-10" />
+              </Link>
+            </motion.div>
             <motion.span
               variants={textVariants}
               animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
-              className="ml-2 font-semibold text-white truncate"
+              className="ml-3 text-xl font-semibold text-white truncate"
             >
               SkillBridge
             </motion.span>
@@ -302,14 +313,14 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="hidden lg:flex text-white hover:bg-slate-800"
+              className="hidden lg:flex text-white hover:bg-slate-800 h-12 w-12"
               onClick={toggleCollapse}
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               {isCollapsed ? (
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className={sidebar.navigation.icon} />
               ) : (
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className={sidebar.navigation.icon} />
               )}
             </Button>
 
@@ -330,7 +341,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                 height: '40px'
               }}
             >
-              <X className="h-6 w-6" style={{ color: 'white' }} />
+              <X className={sidebar.navigation.icon} style={{ color: 'white' }} />
             </Button>
           </div>
         </div>
@@ -426,7 +437,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
           <Button
             variant="ghost"
             size="sm"
-            className={cn(sidebar.buttons.secondary, isCollapsed && !isMobile && 'justify-center')}
+            className={cn(sidebar.buttons.secondary, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center')}
             onClick={toggleLanguage}
             title={isCollapsed && !isMobile ? (isEnglish ? 'English' : 'Bulgarian') : undefined}
           >
@@ -446,7 +457,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             <Button
               variant="ghost"
               size="sm"
-              className={cn(sidebar.buttons.danger, isCollapsed && !isMobile && 'justify-center')}
+              className={cn(sidebar.buttons.danger, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center')}
               onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
               title={isCollapsed && !isMobile ? 'Logout' : undefined}
             >
@@ -462,7 +473,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             <Button
               variant="default"
               size="sm"
-              className={sidebar.buttons.primary}
+              className={cn(sidebar.buttons.primary, 'h-12 px-2')}
               onClick={() => loginWithRedirect()}
             >
               <motion.span

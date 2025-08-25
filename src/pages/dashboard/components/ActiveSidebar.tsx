@@ -108,8 +108,9 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   // Desktop version - always visible
   if (!isMobile) {
     return (
-      <div className="w-64 flex-shrink-0 bg-slate-900 border-r border-slate-700 relative z-50">
-        <div className="fixed w-64 h-screen ">
+      <div className={`w-64 flex-shrink-0 border-r border-slate-700 relative z-50`}
+      style={{ backgroundColor: colors.bgSlate900, borderColor: colors.bgSlate900 }} >
+        <div className="fixed w-64 h-screen">
           <div className="h-full flex flex-col ">
             {/* Header */}
             <div className={cn(sidebar.sections.header, "border-b")}>
@@ -160,7 +161,8 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed left-0 top-0 z-50 h-screen w-80 max-w-[90vw] flex flex-col bg-slate-900 border-r border-slate-700"
+            className={`fixed left-0 top-0 z-50 h-screen w-80 max-w-[90vw] flex flex-col border-r`}
+            style={{ backgroundColor: colors.bgSlate900, borderColor: colors.bgSlate900 }}
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}

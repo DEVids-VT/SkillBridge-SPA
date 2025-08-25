@@ -23,7 +23,7 @@ const BLACK = 'black';
 
 // Color palette
 export const colors = {
-  dark: COLOR_SLATE, // Main dark background
+  dark: COLOR_DARK, // Main dark background
   blueDark: COLOR_BLUE_DARK, // Deep blue
   blue: COLOR_BLUE, // Lighter dark blue
   orange: COLOR_ORANGE, // Orange accent

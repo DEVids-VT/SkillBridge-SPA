@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, Sidebar as SidebarIcon } from 'lucide-react';
 import Sidebar from './Sidebar';
 import { useActiveSidebar } from '@/contexts/ActiveSidebarContext';
+import { colors } from '@/lib/design-system';
 
 export function Layout() {
   const location = useLocation();
@@ -73,7 +74,7 @@ export function Layout() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden font-rubik">
+    <div className="flex h-screen overflow-hidden font-rubik" style={{ backgroundColor: colors.bgSlate900 }}>
       {/* Sidebar */}
       <Sidebar 
         isOpen={sidebarOpen} 

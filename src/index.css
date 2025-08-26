@@ -160,3 +160,61 @@
 .font-playfair {
   font-family: 'Playfair Display', serif !important;
 }
+
+/* Remove all focus borders and outlines for sidebar elements */
+.sidebar-no-focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+.sidebar-no-focus:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  ring: none !important;
+}
+
+.sidebar-no-focus:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  ring: none !important;
+}
+
+.sidebar-no-focus:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  ring: none !important;
+}
+
+.sidebar-no-focus:focus-within {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  ring: none !important;
+}
+
+/* Specifically target buttons and links within sidebar */
+.sidebar-no-focus button,
+.sidebar-no-focus a {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.sidebar-no-focus button:focus,
+.sidebar-no-focus a:focus,
+.sidebar-no-focus button:focus-visible,
+.sidebar-no-focus a:focus-visible,
+.sidebar-no-focus button:active,
+.sidebar-no-focus a:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  ring: none !important;
+}

@@ -314,10 +314,13 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               className={cn(
                 sidebar.navigation.base,
                 sidebar.navigation.default,
-                isCollapsed && !isMobile && 'justify-center w-full py-6'
+                isCollapsed && !isMobile && 'justify-center w-full py-6',
+                'sidebar-no-focus',
+                '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
               )}
               onClick={toggleCollapse}
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
             >
                    {isCollapsed ? (
                 <ChevronRight className={sidebar.navigation.icon} />
@@ -330,7 +333,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="lg:hidden !text-white !bg-red-500 hover:!bg-red-600 focus:!bg-red-600 !p-2 !min-w-0 !h-auto" 
+              className="lg:hidden !text-white !bg-red-500 hover:!bg-red-600 focus:!bg-red-600 !p-2 !min-w-0 !h-auto sidebar-no-focus !outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0" 
               onClick={handleToggle}
               aria-label="Close sidebar"
               style={{ 
@@ -340,7 +343,9 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                 borderRadius: '8px',
                 padding: '8px',
                 minWidth: '40px',
-                height: '40px'
+                height: '40px',
+                outline: 'none !important',
+                boxShadow: 'none !important'
               }}
             >
               <X className={sidebar.navigation.icon} style={{ color: 'white' }} />
@@ -361,9 +366,11 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                 className={cn(
                   sidebar.navigation.base,
                   active ? sidebar.navigation.active : sidebar.navigation.default,
-                  isCollapsed && !isMobile && 'justify-center'
+                  isCollapsed && !isMobile && 'justify-center',
+                  'sidebar-no-focus',
+                  '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
                 )}
-                style={{ textDecoration: 'none' }}
+                style={{ textDecoration: 'none', outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
                 title={isCollapsed && !isMobile ? item.label : undefined}
                 onClick={() => {
                   if (isMobile) {
@@ -405,9 +412,11 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                   isActiveRoute(profileInfo.route)
                     ? sidebar.navigation.active
                     : sidebar.navigation.default,
-                  isCollapsed && !isMobile && 'justify-center'
+                  isCollapsed && !isMobile && 'justify-center',
+                  'sidebar-no-focus',
+                  '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
                 )}
-                style={{ textDecoration: 'none' }}
+                style={{ textDecoration: 'none', outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
                 title={isCollapsed && !isMobile ? profileInfo.label : undefined}
                 onClick={() => {
                   if (isMobile) {
@@ -440,9 +449,10 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
           <Button
             variant="ghost"
             size="sm"
-            className={cn(sidebar.buttons.secondary, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center')}
+            className={cn(sidebar.buttons.secondary, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
             onClick={toggleLanguage}
             title={isCollapsed && !isMobile ? (isEnglish ? 'English' : 'Bulgarian') : undefined}
+            style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
           >
               <Settings className={sidebar.navigation.icon} />
             <motion.span
@@ -460,9 +470,10 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             <Button
               variant="ghost"
               size="sm"
-              className={cn(sidebar.buttons.danger, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center')}
+              className={cn(sidebar.buttons.danger, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
               onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
               title={isCollapsed && !isMobile ? 'Logout' : undefined}
+              style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
             >
                 <LogOut className={sidebar.navigation.icon} />
               <motion.span
@@ -476,8 +487,9 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             <Button
               variant="default"
               size="sm"
-              className={cn(sidebar.buttons.primary, 'h-12 px-2')}
+              className={cn(sidebar.buttons.primary, 'h-12 px-2', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
               onClick={() => loginWithRedirect()}
+              style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
             >
               <motion.span
                 variants={textVariants}

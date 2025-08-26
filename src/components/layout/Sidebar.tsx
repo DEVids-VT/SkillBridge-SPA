@@ -90,19 +90,16 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
 
   // Define navigation items based on authentication state and onboarding completion
   const getNavigationItems = () => {
-    const baseItems = [
-      {
-        to: '/',
-        label: 'Dashboard',
-        icon: Home,
-        requiresAuth: true,
-        requiresOnboarding: true,
-      },
-    ];
-
     const authItems =
       isAuthenticated && hasCompletedOnboarding
         ? [
+            {
+              to: '/dashboard',
+              label: 'Dashboard',
+              icon: Home,
+              requiresAuth: true,
+              requiresOnboarding: true,
+            },
             {
               to: '/create',
               label: 'Create',
@@ -149,7 +146,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             },
           ];
 
-    return [...baseItems, ...authItems];
+    return authItems;
   };
 
   const navigationItems = getNavigationItems();

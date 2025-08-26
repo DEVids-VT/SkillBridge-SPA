@@ -19,7 +19,7 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="relative min-h-screen" style={{ backgroundColor: colors.dark }}>
+    <div className="relative h-full min-h-0" style={{ backgroundColor: colors.dark }}>
       {/* Soft Grid Pattern Background */}
       <div 
         className="absolute inset-0"

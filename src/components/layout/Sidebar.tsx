@@ -20,7 +20,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
 import { RoutePage } from '@/types/enums/RoutePage';
 import { cn } from '@/lib/utils';
-import { sidebar } from '@/lib/design-system';
+import { sidebar, colors } from '@/lib/design-system';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface SidebarProps {
@@ -265,11 +265,10 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       {/* Sidebar */}
       <motion.aside
         className={cn(
-          'fixed left-0 top-0 z-50 h-screen flex flex-col transform pt-2',
+          'fixed left-0 top-0 z-50 h-screen flex flex-col transform',
           isMobile ? 'mobile-sidebar' : '',
-          isMobile 
-            ? isOpen ? 'translate-x-0' : '-translate-x-full'
-            : 'translate-x-0'
+          isMobile ? isOpen ? 'translate-x-0' : '-translate-x-full' : 'translate-x-0',
+          !isCollapsed && !isMobile ? 'pt-7 pl-2' : 'pt-2 pl-2'
         )}
         variants={!isMobile ? sidebarVariants : undefined}
         animate={!isMobile ? (isCollapsed ? 'collapsed' : 'expanded') : undefined}
@@ -284,8 +283,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       >
         {/* Sidebar Header */}
         <div className={cn(
-          sidebar.sections.header,
-          isCollapsed && !isMobile ? 'justify-center' : 'justify-between'
+          !isCollapsed && !isMobile ? 'flex justify-between items-center' : ''
         )}>
           <div className={cn(
             'flex items-center min-w-0',
@@ -308,16 +306,20 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             </motion.span>
           </div>
 
-          <div className="flex items-center gap-2 flex-shrink-0"> 
+          <div className={cn(!isCollapsed && !isMobile ? 'flex items-center gap-2 flex-shrink-0' : 'w-full pt-4')}> 
             {/* Collapse button - only visible on desktop */}
             <Button
               variant="ghost"
               size="icon"
-              className="hidden lg:flex text-white hover:bg-slate-800 h-12 w-12"
+              className={cn(
+                sidebar.navigation.base,
+                sidebar.navigation.default,
+                isCollapsed && !isMobile && 'justify-center w-full py-6'
+              )}
               onClick={toggleCollapse}
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
-              {isCollapsed ? (
+                   {isCollapsed ? (
                 <ChevronRight className={sidebar.navigation.icon} />
               ) : (
                 <ChevronLeft className={sidebar.navigation.icon} />
@@ -347,7 +349,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
         </div>
 
         {/* Navigation - Scrollable */}
-        <nav className={cn(sidebar.sections.navigation)}>
+        <nav className='flex-1 py-6 space-y-3 overflow-y-auto'>
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const active = isActiveRoute(item.to);
@@ -375,7 +377,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                   }
                 }}
               >
-                <Icon className={sidebar.navigation.icon} />
+                  <Icon className={cn(sidebar.navigation.icon)} />
                 <motion.span
                   variants={textVariants}
                   animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
@@ -419,7 +421,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                   }
                 }}
               >
-                <profileInfo.icon className={sidebar.navigation.icon} />
+                  <profileInfo.icon className={sidebar.navigation.icon} />
                 <motion.span
                   variants={textVariants}
                   animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
@@ -432,7 +434,8 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
         </nav>
 
         {/* Bottom Section - Fixed at bottom */}
-        <div className={sidebar.sections.bottom}>
+        <div className='py-6 border-t space-y-3'
+        style={{ borderColor: colors.bgSlate900 }}>
           {/* Language Switcher */}
           <Button
             variant="ghost"
@@ -441,7 +444,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             onClick={toggleLanguage}
             title={isCollapsed && !isMobile ? (isEnglish ? 'English' : 'Bulgarian') : undefined}
           >
-            <Settings className={sidebar.navigation.icon} />
+              <Settings className={sidebar.navigation.icon} />
             <motion.span
               variants={textVariants}
               animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
@@ -461,7 +464,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
               title={isCollapsed && !isMobile ? 'Logout' : undefined}
             >
-              <LogOut className={sidebar.navigation.icon} />
+                <LogOut className={sidebar.navigation.icon} />
               <motion.span
                 variants={textVariants}
                 animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
@@ -482,7 +485,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               >
                 {t('headerComponent.navigation.login')}
               </motion.span>
-              {isCollapsed && !isMobile && <LogOut className={sidebar.navigation.icon} />}
+                <LogOut className={sidebar.navigation.icon} />
             </Button>
           )}
         </div>

@@ -79,7 +79,7 @@ const AboutPage = () => {
   ];
 
   return (
-    <section className={cn('relative min-h-screen overflow-hidden py-20', spacing.container)} style={{ backgroundColor: colors.dark }}>
+    <section className={cn('relative min-h-screen overflow-hidden py-20')} style={{ backgroundColor: colors.dark }}>
       {/* Modern Dots Background Pattern */}
       <div className="absolute inset-0 opacity-25">
         <div
@@ -92,15 +92,15 @@ const AboutPage = () => {
         />
       </div>
 
-      {/* Gradient overlay for better readability */}
-      <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${colors.dark}80, ${colors.dark}60, ${colors.dark}80)` }} />
+      {/* Solid overlay for better readability */}
+      <div className="absolute inset-0" style={{ backgroundColor: colors.dark, opacity: 0.85 }} />
 
       {/* Content Container */}
       <div className="relative z-10 px-6 lg:px-8">
         {/* Hero Header */}
-        <div className={cn(layouts.pageHeader, 'space-y-6')}>
-          <div className={layouts.pageHeaderBackground}></div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+        <div className={cn(layouts.pageHeader, spacing.container, 'space-y-6')}>
+          <div className="absolute -top-10 left-0 right-0 h-20 rounded-b-3xl -z-10" style={{ backgroundColor: colors.blue }}></div>
+          <h1 className={cn(typography.sectionTitle.main, 'leading-[1.1]')}>
             <span style={{ color: colors.yellow }}>{t('aboutPage.header.title')}</span>{' '}
             <span className="text-white">{t('aboutPage.header.appName')}</span>
           </h1>
@@ -111,7 +111,7 @@ const AboutPage = () => {
         </div>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16">
+        <div className={cn('grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16', spacing.container, 'max-w-6xl')}>
           {/* For Companies */}
           <div className="space-y-8">
             <div className="text-center">
@@ -182,7 +182,7 @@ const AboutPage = () => {
         </div>
 
         {/* Team Section */}
-        <div className="max-w-4xl mx-auto mb-16">
+        <div className={cn('mb-16', spacing.container, 'max-w-4xl mx-auto')}>
           <div className="text-center mb-12">
             <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border mb-4" style={{ backgroundColor: colors.blue, color: colors.yellow, borderColor: colors.blue }}>
               <Users className="h-4 w-4" />

@@ -78,15 +78,15 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   };
 
   // Handle mouse events for drag prevention
-  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseDown = (_e: MouseEvent<HTMLDivElement>) => {
     setIsDragging(true);
   };
 
-  const handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseUp = (_e: MouseEvent<HTMLDivElement>) => {
     setIsDragging(false);
   };
 
-  const handleMouseLeave = (e: MouseEvent<HTMLDivElement>) => {
+  const handleMouseLeave = (_e: MouseEvent<HTMLDivElement>) => {
     setIsDragging(false);
   };
 
@@ -108,12 +108,14 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   // Desktop version - always visible
   if (!isMobile) {
     return (
-      <div className={`w-64 flex-shrink-0 border-r border-slate-700 relative z-50`}
-      style={{ backgroundColor: colors.bgSlate900, borderColor: colors.bgSlate900 }} >
-        <div className="fixed w-64 h-screen">
-          <div className="h-full flex flex-col ">
+      <div className="w-64 flex-shrink-0 mr-2">
+        <div
+          className="sticky top-0 w-64 h-full min-h-0 rounded-xl overflow-hidden"
+          style={{ backgroundColor: colors.dark, borderColor: colors.dark }}
+        >
+          <div className="h-full flex flex-col">
             {/* Header */}
-            <div className={cn(sidebar.sections.header, "border-b")}>
+            <div className={cn(sidebar.sections.header)}>
               <h1 className="text-xl font-semibold text-white">{title}</h1>
             </div>
 
@@ -161,7 +163,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className={`fixed left-0 top-0 z-50 h-screen w-80 max-w-[90vw] flex flex-col border-r`}
+            className={`fixed left-0 top-0 z-50 h-screen w-80 max-w-[90vw] flex flex-col`}
             style={{ backgroundColor: colors.bgSlate900, borderColor: colors.bgSlate900 }}
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
@@ -169,7 +171,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
             transition={{ duration: 0.25, type: "spring", stiffness: 300, damping: 25 }}
           >
             {/* Header */}
-            <div className={cn(sidebar.sections.header, "border-b", "justify-between")}>
+            <div className={cn(sidebar.sections.header)}>
               <h1 className="text-xl font-semibold text-white">{title}</h1>
               
               {/* Close button for mobile */}

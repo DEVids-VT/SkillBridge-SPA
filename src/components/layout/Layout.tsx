@@ -126,7 +126,11 @@ export function Layout() {
         </div>
 
         {/* Main Content */}
-        <main className="flex-1 m-2 rounded-xl overflow-hidden">
+        <main
+          className="flex-1 m-2 rounded-xl overflow-y-auto overscroll-y-contain"
+          data-lenis-prevent
+          data-lenis-prevent-wheel
+        >
           <Outlet />
         </main>
       </div>

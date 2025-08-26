@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { colors } from '@/lib/design-system';
-import { Loader2, Plus, X, Search, Calendar, CheckSquare, ChevronDown } from 'lucide-react';
+import { Plus, X, Search, Calendar, CheckSquare, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { RoutePage } from '@/types/enums/RoutePage';
@@ -421,14 +421,14 @@ const ProjectsBoardPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex" style={{ backgroundColor: colors.dark }}>
+    <div className="flex h-full min-h-0" style={{ backgroundColor: colors.bgSlate900 }}>
       {/* Left Sidebar - Responsive */}
       <ActiveSidebar title={t('projectsPage.filters.title')}>
         {renderFilters()}
       </ActiveSidebar>
       
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto rounded-xl" style={{ backgroundColor: colors.dark }}>
         <main className="p-4 lg:p-6">
           <ProjectsList 
             projects={filteredProjects} 

@@ -48,9 +48,9 @@ const CompaniesPage = () => {
   };
 
   return (
-    <div className={cn('min-h-screen bg-[#000814]', spacing.container, 'py-8')}>
+    <div className={cn('min-h-screen', 'py-8')} style={{ backgroundColor: colors.dark }}>
       {/* Page Header */}
-      <div className={layouts.pageHeader}>
+      <div className={cn(layouts.pageHeader, spacing.container)}>
         <div className={layouts.pageHeaderBackground}></div>
         <h1 className={layouts.pageTitle}>
           <span className="text-[#ffd60a]">{t('companiesPage.title1', 'Partner')}</span>{' '}
@@ -132,7 +132,7 @@ const CompaniesPage = () => {
       </div>
 
       {/* Companies Grid */}
-      <div className="space-y-8">
+      <div className={cn('space-y-8', spacing.container)}>
         {/* Results Count */}
         <div className="text-center text-gray-300">
           <span className="text-[#ffd60a] font-semibold">{filteredCompanies.length}</span> companies found

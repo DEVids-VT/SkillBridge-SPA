@@ -7,7 +7,7 @@ const Dashboard = () => {
   const { t } = useTranslation('landing');
   
   return (
-    <div className="min-h-screen flex relative" style={{ backgroundColor: colors.dark }}>
+    <div className="flex relative h-full min-h-0" style={{ backgroundColor: colors.bgSlate900 }}>
       {/* Left Sidebar - Responsive */}
       <ActiveSidebar title={t('activeProjects', 'Active projects')}>
         <ProjectsList />
@@ -15,10 +15,11 @@ const Dashboard = () => {
       
       {/* Main Content Area */}
       <div 
-        className="flex-1 relative z-10 overflow-y-auto" 
+        className="flex-1 relative z-10 overflow-y-auto rounded-xl" 
         style={{ 
           overscrollBehavior: 'contain',
-          isolation: 'isolate' 
+          isolation: 'isolate',
+          backgroundColor: colors.dark
         }}
       >
         <main className="p-6">

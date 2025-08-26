@@ -128,10 +128,10 @@ export const sidebar = {
 
   // Section styles
   sections: {
-    header: `flex h-20 items-center justify-between px-2`,
-    navigation: 'flex-1 px-2 py-6 space-y-3 overflow-y-auto',
+    header: `flex h-20 items-center justify-between px-4`,
+    navigation: 'flex-1 px-4 py-6 space-y-3 overflow-y-auto',
     profile: `pt-6 mt-6 border-t border-${SLATE_700}`,
-    bottom: `px-2 py-6 border-t border-${SLATE_700} space-y-3`,
+    bottom: `px-4 py-6 border-t border-${SLATE_700} space-y-3`,
     profileTitle: `px-2 mb-3 text-sm font-semibold text-${WHITE}/70 uppercase tracking-wider`,
   },
 

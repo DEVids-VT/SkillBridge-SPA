@@ -99,6 +99,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               icon: Home,
               requiresAuth: true,
               requiresOnboarding: true,
+              requiresRole: 'all',
             },
             {
               to: '/create',
@@ -106,6 +107,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               icon: Plus,
               requiresAuth: true,
               requiresOnboarding: true,
+              requiresRole: 'company',
             },
             {
               to: '/projects',
@@ -113,6 +115,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               icon: FolderOpen,
               requiresAuth: true,
               requiresOnboarding: true,
+              requiresRole: 'candidate',
             },
             {
               to: '/companies',
@@ -120,6 +123,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               icon: Building2,
               requiresAuth: false,
               requiresOnboarding: false,
+              requiresRole: 'all',
             },
             {
               to: '/about',
@@ -127,6 +131,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               icon: Info,
               requiresAuth: false,
               requiresOnboarding: false,
+              requiresRole: 'all',
             },
           ]
         : [
@@ -136,6 +141,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               icon: Building2,
               requiresAuth: false,
               requiresOnboarding: false,
+              requiresRole: 'all',
             },
             {
               to: '/about',
@@ -143,6 +149,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               icon: Info,
               requiresAuth: false,
               requiresOnboarding: false,
+              requiresRole: 'all',
             },
           ];
 
@@ -355,6 +362,13 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const active = isActiveRoute(item.to);
+
+            if(item.requiresRole === 'company' && onboardingData.role !== 'company') {
+              return null;
+            }
+            if(item.requiresRole === 'candidate' && onboardingData.role !== 'candidate') {
+              return null;
+            }
 
             return (
               <Link

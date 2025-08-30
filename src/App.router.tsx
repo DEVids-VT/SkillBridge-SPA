@@ -2,6 +2,7 @@ import { createBrowserRouter, createRoutesFromChildren, Route, Navigate } from '
 import { RoutePage } from './types/enums/RoutePage';
 import Dashboard from './pages/dashboard/Dashboard';
 import { WelcomeState, ProjectDetail } from './pages/dashboard/components';
+import { CompanyProjectDetailPage } from './pages/company-projects';
 import CompaniesPage from './pages/companies/CompaniesPage.tsx';
 import AboutPage from './pages/about/AboutPage.tsx';
 import WelcomePage from './pages/welcome/WelcomePage';
@@ -32,6 +33,7 @@ export const router = createBrowserRouter(
         <Route path="dashboard" element={<Dashboard />}>
           <Route index element={<WelcomeState />} />
           <Route path="project/:projectId" element={<ProjectDetail />} />
+          <Route path="company/project/:projectId" element={<CompanyProjectDetailPage />} />
         </Route>
         {/* Main routes */}
         <Route index element={<Navigate to="/dashboard" replace />} />

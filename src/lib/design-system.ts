@@ -30,6 +30,22 @@ export const colors = {
   yellow: COLOR_YELLOW, // Yellow accent
   white: COLOR_WHITE, // White for text and highlights
   bgSlate900: COLOR_SLATE, // Background slate 900
+  
+  // UI Colors based on design system
+  background: COLOR_DARK,
+  surface: COLOR_BLUE_DARK,
+  surfaceLight: COLOR_BLUE,
+  accent: COLOR_ORANGE,
+  accentHover: '#e6b000', // Darker orange for hover
+  text: COLOR_WHITE,
+  textSecondary: '#d1d5db', // Light gray for secondary text
+  textMuted: '#9ca3af', // Muted gray for placeholders
+  border: COLOR_BLUE,
+  borderLight: '#374151', // Lighter border
+  error: '#ef4444', // Red for errors
+  errorHover: '#dc2626', // Darker red for hover
+  success: '#10b981', // Green for success
+  warning: COLOR_ORANGE,
 };
 
 // Spacing

@@ -14,7 +14,7 @@ interface ActiveSidebarProps {
 export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { isOpen, close } = useActiveSidebar();
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 

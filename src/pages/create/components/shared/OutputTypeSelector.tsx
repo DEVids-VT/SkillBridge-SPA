@@ -60,39 +60,30 @@ export function OutputTypeSelector({ onSelect, disabled = false, loading = false
           </div>
         </Card>
 
-        {/* Quiz Option */}
+        {/* Quiz Option - Coming Soon */}
         <Card 
           className={cn(
-            "p-6 cursor-pointer transition-all border-2 relative",
-            selectedType === 'quiz' 
-              ? "border-orange-500 bg-orange-900/20" 
-              : "border-gray-700 bg-gray-800 hover:bg-gray-750",
-            (disabled || (loading && selectedType !== 'quiz')) && "opacity-50 cursor-not-allowed"
+            "p-6 transition-all border-2 relative opacity-50 cursor-not-allowed",
+            "border-gray-700 bg-gray-800"
           )}
-          onClick={() => !disabled && !loading && onSelect('quiz')}
         >
           <div className="text-center">
-            <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-orange-600 flex items-center justify-center">
+            <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gray-600 flex items-center justify-center">
               <span className="text-xl">❓</span>
             </div>
             <h4 className="text-lg font-semibold text-white mb-2">
               {t('outputTypeSelector.quiz.title')}
             </h4>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-300 text-sm mb-3">
               {t('outputTypeSelector.quiz.description')}
             </p>
             
-            {/* Loading animation inside the card */}
-            {loading && selectedType === 'quiz' && (
-              <div className="mt-4">
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  <span className="text-orange-300 text-sm">
-                    {t('outputTypeSelector.generateButton.loading')}
-                  </span>
-                </div>
-              </div>
-            )}
+            {/* Coming Soon Badge */}
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-gray-700 border border-gray-600">
+              <span className="text-gray-400 text-xs font-medium">
+                Coming Soon
+              </span>
+            </div>
           </div>
         </Card>
       </div>

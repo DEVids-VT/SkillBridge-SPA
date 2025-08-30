@@ -12,11 +12,25 @@ export interface CompanyProject {
   id: string;
   title: string;
   description: string;
+  summary?: string;
+  learningBenefits?: string;
+  suggestedApproach?: string;
+  level?: number;
   deadline: string;
   status: number;
   companyId: string;
   companyName: string;
   skills: Skill[];
+  tasks?: Array<{
+    id: string;
+    title: string;
+    description: string;
+    isCompleted: boolean;
+    sequence: number;
+    projectAssignmentId: string;
+    createdAt: string;
+    updatedAt: string;
+  }>;
   createdAt: string;
   updatedAt: string;
 }

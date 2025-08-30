@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronDown, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { colors } from '@/lib/design-system';
@@ -16,6 +17,7 @@ interface SelectContextType {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   disabled?: boolean;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
 }
 
 const SelectContext = React.createContext<SelectContextType | undefined>(undefined);
@@ -30,9 +32,10 @@ function useSelectContext() {
 
 const Select: React.FC<SelectProps> = ({ value, onValueChange, children, disabled }) => {
   const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
 
   return (
-    <SelectContext.Provider value={{ value, onValueChange, open, setOpen, disabled }}>
+    <SelectContext.Provider value={{ value, onValueChange, open, setOpen, disabled, triggerRef }}>
       {children}
     </SelectContext.Provider>
   );
@@ -45,24 +48,32 @@ interface SelectTriggerProps {
 }
 
 const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
-  ({ className, children, id, ...props }, ref) => {
-    const { open, setOpen, disabled } = useSelectContext();
+  ({ className, children, id, ...props }, _ref) => {
+    const { open, setOpen, disabled, triggerRef } = useSelectContext();
 
     return (
       <button
-        ref={ref}
+        ref={triggerRef}
         id={id}
         type="button"
         onClick={() => !disabled && setOpen(!open)}
         className={cn(
-          'flex h-9 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+          'flex h-9 w-full items-center justify-between rounded-md border px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 disabled:cursor-not-allowed disabled:opacity-50',
           className
         )}
+        style={{
+          backgroundColor: colors.surface,
+          borderColor: colors.border,
+          color: colors.text,
+        }}
         disabled={disabled}
         {...props}
       >
         {children}
-        <ChevronDown className="h-4 w-4 opacity-50" />
+        <ChevronDown 
+          className="h-4 w-4 opacity-70" 
+          style={{ color: colors.textMuted }}
+        />
       </button>
     );
   }
@@ -75,7 +86,11 @@ interface SelectValueProps {
 
 const SelectValue: React.FC<SelectValueProps> = ({ placeholder }) => {
   const { value } = useSelectContext();
-  return <span>{value || placeholder}</span>;
+  return (
+    <span style={{ color: value ? colors.text : colors.textMuted }}>
+      {value || placeholder}
+    </span>
+  );
 };
 
 interface SelectContentProps {
@@ -84,22 +99,67 @@ interface SelectContentProps {
 }
 
 const SelectContent: React.FC<SelectContentProps> = ({ className, children }) => {
-  const { open } = useSelectContext();
+  const { open, setOpen, triggerRef } = useSelectContext();
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const [position, setPosition] = React.useState<{ top: number; left: number; width: number }>({ top: 0, left: 0, width: 0 });
+
+  React.useLayoutEffect(() => {
+    if (!open) return;
+    const update = () => {
+      const rect = triggerRef.current?.getBoundingClientRect();
+      if (rect) {
+        setPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX, width: rect.width });
+      }
+    };
+    update();
+    window.addEventListener('resize', update);
+    window.addEventListener('scroll', update, true);
+    return () => {
+      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', update, true);
+    };
+  }, [open, triggerRef]);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const onDocMouseDown = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (contentRef.current?.contains(target)) return;
+      if (triggerRef.current?.contains(target)) return;
+      setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('mousedown', onDocMouseDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDocMouseDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open, setOpen, triggerRef]);
 
   if (!open) return null;
 
-  // Use a fixed position to ensure the dropdown is displayed above other elements
-  return (
-    <div className="relative">
-      <div
-        className={cn(
-          'absolute z-50 min-w-[8rem] w-full overflow-hidden rounded-md border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-md mt-1',
-          className
-        )}
-      >
-        <div className="p-1">{children}</div>
-      </div>
-    </div>
+  return createPortal(
+    <div
+      ref={contentRef}
+      className={cn(
+        'fixed z-[9999] min-w-[8rem] overflow-hidden rounded-md border shadow-md',
+        className
+      )}
+      style={{ 
+        top: position.top, 
+        left: position.left, 
+        width: position.width,
+        backgroundColor: colors.surface,
+        borderColor: colors.border,
+        color: colors.text,
+      }}
+    >
+      <div className="p-1">{children}</div>
+    </div>,
+    document.body
   );
 };
 
@@ -124,15 +184,28 @@ const SelectItem: React.FC<SelectItemProps> = ({ className, children, value }) =
       aria-selected={isSelected}
       onClick={handleClick}
       className={cn(
-        'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none hover:bg-gray-100 dark:hover:bg-gray-700',
-        isSelected && 'bg-gray-100 dark:bg-gray-700',
+        'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none transition-colors',
         className
       )}
+      style={{
+        backgroundColor: isSelected ? colors.surfaceLight : 'transparent',
+        color: colors.text,
+      }}
+      onMouseEnter={(e) => {
+        if (!isSelected) {
+          e.currentTarget.style.backgroundColor = `${colors.surfaceLight}80`; // 50% opacity
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!isSelected) {
+          e.currentTarget.style.backgroundColor = 'transparent';
+        }
+      }}
     >
       <span>{children}</span>
       {isSelected && (
         <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-          <Check className="h-4 w-4" />
+          <Check className="h-4 w-4" style={{ color: colors.accent }} />
         </span>
       )}
     </div>
@@ -154,14 +227,21 @@ interface SelectLabelProps {
 }
 
 const SelectLabel: React.FC<SelectLabelProps> = ({ className, children }) => {
-  return <div className={cn('px-2 py-1.5 text-sm font-semibold', className)}>{children}</div>;
+  return (
+    <div 
+      className={cn('px-2 py-1.5 text-sm font-semibold', className)}
+      style={{ color: colors.textSecondary }}
+    >
+      {children}
+    </div>
+  );
 };
 
 const SelectSeparator: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <div 
       className={cn('-mx-1 my-1 h-px', className)} 
-      style={{ backgroundColor: colors.blue }}
+      style={{ backgroundColor: colors.border }}
     />
   );
 };

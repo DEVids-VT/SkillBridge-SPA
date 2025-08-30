@@ -1,37 +1,46 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useCreateProject } from '@/hooks/useCreateProject';
-import { ProjectRequest } from '@/types/project/project';
-import { spacing, colors, layouts, cards, typography } from '@/lib/design-system';
+import { useCreateScenario } from '@/hooks/useCreateScenario';
+import type { CandidateRequirementsRequest } from '@/types/candidate/requirements';
+import { spacing, colors, typography } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import CreateProjectForm from './components/persona/CreateProjectForm';
+import CandidateRequirementsForm, { CandidateRequirementsFormErrors, CandidateRequirementsFormState } from './components/persona/CandidateRequirementsForm';
 import Notification from './components/persona/Notification';
 import { OutputTypeSelector } from './components/shared/OutputTypeSelector';
-import {
-  CreateProjectForm as CreateProjectFormType,
-  CreateProjectFormErrors,
-  NotificationState,
-} from './types.ts';
+import { NotificationState } from './types.ts';
 
 // Initial form state
-const initialFormState: CreateProjectFormType = {
-  roleTitle: '',
-  requiredSkills: '',
-  yearsExperience: '',
-  seniorityLevel: '',
-  relevantTechnologies: '',
-  industryExperience: '', // optional
-  description: '',
+const initialFormState: CandidateRequirementsFormState = {
+  positionTitle: '',
+  departmentOrArea: '',
+  companyIndustry: '',
+  experienceLevel: '',
+  minExperienceYears: '',
+  maxExperienceYears: '',
+  minEducationLevel: '',
+  preferredEducationFields: '',
+  requiredCertifications: '',
+  preferredCertifications: '',
+  requiredCompetencies: [],
+  preferredCompetencies: [],
+  workConditions: [],
+  languageRequirements: '',
+  positionSummary: '',
+  idealCandidateProfile: '',
+  keyResponsibilities: '',
+  desiredPersonalityTraits: [],
+  cultureFitDescription: '',
+  customCriteria: [],
 };
 
 export default function CreatePersonaPage() {
   const { t } = useTranslation('createProject');
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<CreateProjectFormType>(initialFormState);
-  const [formErrors, setFormErrors] = useState<CreateProjectFormErrors>({});
+  const [formData, setFormData] = useState<CandidateRequirementsFormState>(initialFormState);
+  const [formErrors, setFormErrors] = useState<CandidateRequirementsFormErrors>({});
   const [formProgress, setFormProgress] = useState(0);
   const [selectedOutputType, setSelectedOutputType] = useState<'scenario' | 'quiz' | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,20 +52,22 @@ export default function CreatePersonaPage() {
   });
 
   // Use the createProject mutation
-  const createProject = useCreateProject();
+  const createScenario = useCreateScenario();
+
+  const splitCSV = (value: string): string[] =>
+    value ? value.split(',').map((s) => s.trim()).filter(Boolean) : [];
 
   // Calculate progress (kept for validation, but not displayed)
   useEffect(() => {
     const requiredFields = [
-      'roleTitle',
-      'requiredSkills',
-      'yearsExperience',
-      'seniorityLevel',
-      'relevantTechnologies',
-      'description',
+      'positionTitle',
+      'experienceLevel',
+      'minExperienceYears',
+      'minEducationLevel',
+      'positionSummary',
     ];
     const completedFields = requiredFields.filter((field) =>
-      Boolean(formData[field as keyof CreateProjectFormType])
+      Boolean(formData[field as keyof CandidateRequirementsFormState])
     );
     const progress = (completedFields.length / requiredFields.length) * 100;
     setFormProgress(progress);
@@ -65,13 +76,13 @@ export default function CreatePersonaPage() {
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev: CreateProjectFormType) => ({
+    setFormData((prev: CandidateRequirementsFormState) => ({
       ...prev,
       [name]: value,
     }));
 
-    if (formErrors[name as keyof CreateProjectFormErrors]) {
-      setFormErrors((prev: CreateProjectFormErrors) => ({
+    if (formErrors[name as keyof CandidateRequirementsFormErrors]) {
+      setFormErrors((prev: CandidateRequirementsFormErrors) => ({
         ...prev,
         [name]: undefined,
       }));
@@ -80,13 +91,13 @@ export default function CreatePersonaPage() {
 
   // Handle tag input changes
   const handleTagInputChange = (name: string, value: string) => {
-    setFormData((prev: CreateProjectFormType) => ({
+    setFormData((prev: CandidateRequirementsFormState) => ({
       ...prev,
       [name]: value,
     }));
 
-    if (formErrors[name as keyof CreateProjectFormErrors]) {
-      setFormErrors((prev: CreateProjectFormErrors) => ({
+    if (formErrors[name as keyof CandidateRequirementsFormErrors]) {
+      setFormErrors((prev: CandidateRequirementsFormErrors) => ({
         ...prev,
         [name]: undefined,
       }));
@@ -94,16 +105,16 @@ export default function CreatePersonaPage() {
   };
 
   // Handle select change
-  const handleSelectChange = (value: string) => {
-    setFormData((prev: CreateProjectFormType) => ({
+  const handleSelectChange = (name: 'experienceLevel' | 'minEducationLevel', value: string) => {
+    setFormData((prev: CandidateRequirementsFormState) => ({
       ...prev,
-      seniorityLevel: value,
+      [name]: value as any,
     }));
 
-    if (formErrors.seniorityLevel) {
-      setFormErrors((prev: CreateProjectFormErrors) => ({
+    if (formErrors[name]) {
+      setFormErrors((prev: CandidateRequirementsFormErrors) => ({
         ...prev,
-        seniorityLevel: undefined,
+        [name]: undefined,
       }));
     }
   };
@@ -126,39 +137,34 @@ export default function CreatePersonaPage() {
 
   // Validate form
   const validateForm = (): boolean => {
-    const errors: CreateProjectFormErrors = {};
+    const errors: CandidateRequirementsFormErrors = {};
     let isValid = true;
 
-    if (!formData.roleTitle.trim()) {
-      errors.roleTitle = t('createProjectPage.form.roleTitle.error');
+    if (!formData.positionTitle.trim()) {
+      errors.positionTitle = t('createPersonaPage.form.positionTitle.error');
       isValid = false;
     }
 
-    if (!formData.requiredSkills.trim()) {
-      errors.requiredSkills = t('createProjectPage.form.requiredSkills.error');
+    if (!formData.experienceLevel) {
+      errors.experienceLevel = t('createPersonaPage.form.experienceLevel.error');
       isValid = false;
     }
 
-    if (!formData.yearsExperience.trim()) {
-      errors.yearsExperience = t('createProjectPage.form.yearsExperience.errorRequired');
+    if (!formData.minExperienceYears.trim()) {
+      errors.minExperienceYears = t('createPersonaPage.form.minExperienceYears.errorRequired');
       isValid = false;
-    } else if (isNaN(Number(formData.yearsExperience))) {
-      errors.yearsExperience = t('createProjectPage.form.yearsExperience.errorNumber');
-      isValid = false;
-    }
-
-    if (!formData.seniorityLevel) {
-      errors.seniorityLevel = t('createProjectPage.form.seniorityLevel.error');
+    } else if (isNaN(Number(formData.minExperienceYears))) {
+      errors.minExperienceYears = t('createPersonaPage.form.minExperienceYears.errorNumber');
       isValid = false;
     }
 
-    if (!formData.relevantTechnologies.trim()) {
-      errors.relevantTechnologies = t('createProjectPage.form.relevantTechnologies.error');
+    if (!formData.minEducationLevel) {
+      errors.minEducationLevel = t('createPersonaPage.form.minEducationLevel.error');
       isValid = false;
     }
 
-    if (!formData.description.trim()) {
-      errors.description = t('createProjectPage.form.description.error');
+    if (!formData.positionSummary.trim()) {
+      errors.positionSummary = t('createPersonaPage.form.positionSummary.error');
       isValid = false;
     }
 
@@ -170,20 +176,34 @@ export default function CreatePersonaPage() {
   const handleGenerate = (outputType: 'scenario' | 'quiz') => {
     setIsSubmitting(true);
 
-    const personaData: ProjectRequest & { outputType: 'scenario' | 'quiz' } = {
-      roleTitle: formData.roleTitle,
-      yearsOfExperience: Number(formData.yearsExperience),
-      seniorityLevel: formData.seniorityLevel,
-      requiredSkills: formData.requiredSkills.split(',').map((skill: string) => skill.trim()),
-      relevantTechnologies: formData.relevantTechnologies.split(',').map((tech: string) => tech.trim()),
-      industryExperience: formData.industryExperience
-        ? formData.industryExperience.split(',').map((exp: string) => exp.trim())
-        : [],
-      description: formData.description,
-      outputType: outputType,
+    const payload: CandidateRequirementsRequest = {
+      positionTitle: formData.positionTitle,
+      departmentOrArea: formData.departmentOrArea,
+      companyIndustry: formData.companyIndustry,
+      experienceLevel: formData.experienceLevel as any,
+      minExperienceYears: Number(formData.minExperienceYears || 0),
+      maxExperienceYears: formData.maxExperienceYears ? Number(formData.maxExperienceYears) : null,
+      minEducationLevel: formData.minEducationLevel as any,
+      preferredEducationFields: splitCSV(formData.preferredEducationFields),
+      requiredCertifications: splitCSV(formData.requiredCertifications),
+      preferredCertifications: splitCSV(formData.preferredCertifications),
+      requiredCompetencies: formData.requiredCompetencies,
+      preferredCompetencies: formData.preferredCompetencies,
+      workConditions: formData.workConditions,
+      languageRequirements: splitCSV(formData.languageRequirements),
+      positionSummary: formData.positionSummary,
+      idealCandidateProfile: formData.idealCandidateProfile,
+      keyResponsibilities: splitCSV(formData.keyResponsibilities),
+      desiredPersonalityTraits: formData.desiredPersonalityTraits,
+      cultureFitDescription: formData.cultureFitDescription,
+      customCriteria: formData.customCriteria.reduce<Record<string, unknown>>((acc, kv) => {
+        if (kv.key.trim()) acc[kv.key] = kv.value;
+        return acc;
+      }, {}),
+      outputType,
     };
 
-    createProject.mutate(personaData, {
+    createScenario.mutate(payload, {
       onSuccess: (data) => {
         setIsSubmitting(false);
         setFormData(initialFormState);
@@ -191,8 +211,8 @@ export default function CreatePersonaPage() {
         setNotification({
           show: true,
           type: 'success',
-          title: t('createProjectPage.notifications.success.title'),
-          message: t('createProjectPage.notifications.success.message'),
+          title: t('createPersonaPage.notifications.success.title'),
+          message: t('createPersonaPage.notifications.success.message'),
         });
         setTimeout(() => {
           navigate(`/${outputType}/${data.id}`);
@@ -204,8 +224,8 @@ export default function CreatePersonaPage() {
         setNotification({
           show: true,
           type: 'error',
-          title: t('createProjectPage.notifications.error.title'),
-          message: error.message || t('createProjectPage.notifications.error.defaultMessage'),
+          title: t('createPersonaPage.notifications.error.title'),
+          message: error.message || t('createPersonaPage.notifications.error.defaultMessage'),
         });
       },
     });
@@ -264,35 +284,25 @@ export default function CreatePersonaPage() {
           </Button>
         </div>
 
-        {/* Main Content - Single Centered Card */}
+        {/* Main Content - Simplified Layout */}
         <div className="flex justify-center">
-          <div className="w-full max-w-4xl">
-            <div className={cards.base}>
-              <div className={cards.header}>
-                <h2 className="text-2xl font-bold text-white">
-                  <span 
-                    className="inline-block w-2 h-6 mr-3 rounded"
-                    style={{ backgroundColor: colors.orange }}
-                  />
-                  {t('createProjectPage.form.title')}
-                </h2>
-              </div>
-              
-              <div className={cards.body}>
-                <CreateProjectForm
-                  formData={formData}
-                  formErrors={formErrors}
-                  isSubmitting={isSubmitting}
-                  onInputChange={handleInputChange}
-                  onTagInputChange={handleTagInputChange}
-                  onSelectChange={handleSelectChange}
-                  onSubmit={(e) => e.preventDefault()}
-                />
-              </div>
-            </div>
+          <div className="w-full max-w-5xl">
+            {/* Form */}
+            <CandidateRequirementsForm
+              formData={formData}
+              errors={formErrors}
+              onFieldChange={handleInputChange}
+              onCSVChange={(name, value) => handleTagInputChange(name, value)}
+              onSelectChange={handleSelectChange}
+              onUpdateRequiredCompetencies={(list) => setFormData((p) => ({ ...p, requiredCompetencies: list }))}
+              onUpdatePreferredCompetencies={(list) => setFormData((p) => ({ ...p, preferredCompetencies: list }))}
+              onUpdateWorkConditions={(list) => setFormData((p) => ({ ...p, workConditions: list }))}
+              onUpdatePersonalityTraits={(list) => setFormData((p) => ({ ...p, desiredPersonalityTraits: list }))}
+              onUpdateCustomCriteria={(list) => setFormData((p) => ({ ...p, customCriteria: list }))}
+            />
 
             {/* Output Type Selector */}
-            <div className="mt-8 max-w-4xl mx-auto">
+            <div className="mt-8">
               <OutputTypeSelector
                 onSelect={handleOutputTypeSelect}
                 disabled={formProgress < 100}

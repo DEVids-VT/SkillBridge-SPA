@@ -57,7 +57,179 @@
       "subtitle": "Определяне на детайли за профил на кандидат за генериране на персонализирано оценъчно съдържание."
     },
     "backButton": "Назад към избора",
+    "form": {
+      "title": "Изисквания за Кандидат",
+      "tabs": {
+        "basic": "Основна информация",
+        "skills": "Умения и изисквания", 
+        "details": "Детайли за позицията",
+        "basicDescription": "Основна информация за позицията и изисквания за опит",
+        "skillsDescription": "Технически умения, сертификати и изисквания за компетентност",
+        "detailsDescription": "Резюме на позицията, отговорности и културно съответствие"
+      },
+      "stepCounter": "Стъпка {{current}} от {{total}}",
+      "navigation": {
+        "previous": "Назад",
+        "next": "Напред"
+      },
+      "positionTitle": {
+        "label": "Заглавие на Позицията",
+        "placeholder": "напр., QA Инженер, Дата Анализатор",
+        "error": "Заглавието на позицията е задължително"
+      },
+      "departmentOrArea": {
+        "label": "Отдел / Област",
+        "placeholder": "напр., Инженеринг, Маркетинг"
+      },
+      "companyIndustry": {
+        "label": "Индустрия",
+        "placeholder": "напр., Финтех, Здравеопазване, Е‑търговия"
+      },
+      "experienceLevel": {
+        "label": "Ниво Опит",
+        "placeholder": "Изберете ниво",
+        "error": "Нивото опит е задължително",
+        "options": {
+          "EntryLevel": "Начално Ниво",
+          "Junior": "Младши",
+          "MidLevel": "Средно Ниво",
+          "Senior": "Старши",
+          "Lead": "Лидер",
+          "Executive": "Ръководно",
+          "Intern": "Стажант"
+        }
+      },
+      "minExperienceYears": {
+        "label": "Минимални Години Опит",
+        "placeholder": "напр., 2",
+        "errorRequired": "Минималните години опит са задължителни",
+        "errorNumber": "Трябва да бъде число"
+      },
+      "maxExperienceYears": {
+        "label": "Максимални Години Опит",
+        "placeholder": "Незадължително"
+      },
+      "minEducationLevel": {
+        "label": "Минимално Образование",
+        "placeholder": "Изберете ниво",
+        "error": "Минималното образование е задължително",
+        "options": {
+          "None": "Няма",
+          "HighSchool": "Средно",
+          "Vocational": "Професионално",
+          "AssociateDegree": "Колеж",
+          "BachelorsDegree": "Бакалавър",
+          "MastersDegree": "Магистър",
+          "Doctorate": "Докторант",
+          "Professional": "Професионално"
+        }
+      },
+      "preferredEducationFields": {
+        "label": "Предпочитани Образователни Области",
+        "placeholder": "напр., Компютърни Науки, Бизнес Администрация"
+      },
+      "requiredCertifications": {
+        "label": "Задължителни Сертификати",
+        "placeholder": "напр., PMP, AWS Solutions Architect"
+      },
+      "preferredCertifications": {
+        "label": "Предпочитани Сертификати",
+        "placeholder": "напр., ITIL, Scrum Master"
+      },
+      "languageRequirements": {
+        "label": "Езикови Изисквания",
+        "placeholder": "напр., Английски (C1), Немски (B2)"
+      },
+      "requiredCompetencies": { "title": "Задължителни Компетенции" },
+      "preferredCompetencies": { "title": "Предпочитани Компетенции" },
+      "competency": {
+        "name": "Име на компетентност",
+        "type": "Тип",
+        "requiredLevel": "Необходимо ниво",
+        "description": "Описание",
+        "isMandatory": "Задължително"
+      },
+      "competencyType": {
+        "options": {
+          "Technical": "Технически",
+          "Functional": "Функционални",
+          "Leadership": "Лидерски",
+          "Communication": "Комуникационни",
+          "Analytical": "Аналитични",
+          "Creative": "Творчески",
+          "ProjectManagement": "Управление на проекти",
+          "CustomerService": "Обслужване на клиенти",
+          "Financial": "Финансови",
+          "Regulatory": "Регулаторни",
+          "Industry": "Индустриални",
+          "Language": "Езикови",
+          "Software": "Софтуерни",
+          "Hardware": "Хардуерни",
+          "Process": "Процесни",
+          "Safety": "Безопасност",
+          "Quality": "Качество",
+          "Other": "Други"
+        }
+      },
+      "proficiencyLevel": {
+        "options": {
+          "Beginner": "Начално",
+          "Intermediate": "Средно",
+          "Advanced": "Напреднало",
+          "Expert": "Експерт",
+          "Master": "Майстор"
+        }
+      },
+      "workConditions": { "title": "Условия на Работа" },
+      "workCondition": {
+        "type": "Тип (напр., Дистанционно, Пътуване, Смени)",
+        "description": "Описание",
+        "isRequired": "Задължително"
+      },
+      "positionSummary": {
+        "label": "Обобщение на Позицията",
+        "placeholder": "Кратко опишете ролята и контекста",
+        "error": "Обобщението е задължително"
+      },
+      "idealCandidateProfile": {
+        "label": "Идеален Профил на Кандидат",
+        "placeholder": "Опишете опита и характеристиките на идеалния кандидат"
+      },
+      "keyResponsibilities": {
+        "label": "Ключови Отговорности",
+        "placeholder": "напр., Ръководи релийзи, дизайн на тест планове, координация на заинтересовани страни"
+      },
+      "desiredPersonalityTraits": { "title": "Желани Личностни Качества" },
+      "personality": {
+        "traitName": "Качество",
+        "description": "Описание",
+        "importance": "Важност"
+      },
+      "importanceLevel": {
+        "options": {
+          "Low": "Ниска",
+          "Medium": "Средна",
+          "High": "Висока",
+          "Critical": "Критична"
+        }
+      },
+      "cultureFitDescription": {
+        "label": "Културна Съвместимост",
+        "placeholder": "Опишете екипната култура и ценности релевантни за ролята"
+      },
+      "customCriteria": {
+        "title": "Допълнителни Критерии",
+        "key": "Ключ",
+        "value": "Стойност"
+      },
+      "add": "Добави",
+      "remove": "Премахни",
+      "required": "Задължително",
+      "optional": "Незадължително"
+    },
     "notifications": {
+      "success": { "title": "Успех", "message": "Заявката е изпратена. Пренасочване..." },
+      "error": { "title": "Грешка", "defaultMessage": "Неуспешно изпращане. Опитайте отново." },
       "formIncomplete": {
         "title": "Непълно",
         "message": "Попълнете всички задължителни полета."

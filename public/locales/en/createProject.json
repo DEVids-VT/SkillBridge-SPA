@@ -57,7 +57,187 @@
       "subtitle": "Define candidate profile details to generate tailored assessment content."
     },
     "backButton": "Back to selection",
+    "form": {
+      "title": "Candidate Requirements",
+      "tabs": {
+        "basic": "Basic Info",
+        "skills": "Skills & Requirements", 
+        "details": "Position Details",
+        "basicDescription": "Essential position information and experience requirements",
+        "skillsDescription": "Technical skills, certifications, and competency requirements",
+        "detailsDescription": "Position summary, responsibilities, and cultural fit"
+      },
+      "stepCounter": "Step {{current}} of {{total}}",
+      "navigation": {
+        "previous": "Previous",
+        "next": "Next"
+      },
+      "positionTitle": {
+        "label": "Position Title",
+        "placeholder": "e.g., QA Engineer, Data Analyst",
+        "error": "Position title is required"
+      },
+      "departmentOrArea": {
+        "label": "Department / Area",
+        "placeholder": "e.g., Engineering, Marketing"
+      },
+      "companyIndustry": {
+        "label": "Company Industry",
+        "placeholder": "e.g., FinTech, Healthcare, E-commerce"
+      },
+      "experienceLevel": {
+        "label": "Experience Level",
+        "placeholder": "Select level",
+        "error": "Experience level is required",
+        "options": {
+          "EntryLevel": "Entry Level",
+          "Junior": "Junior",
+          "MidLevel": "Mid Level",
+          "Senior": "Senior",
+          "Lead": "Lead",
+          "Executive": "Executive",
+          "Intern": "Intern"
+        }
+      },
+      "minExperienceYears": {
+        "label": "Minimum Years of Experience",
+        "placeholder": "e.g., 2",
+        "errorRequired": "Minimum years of experience is required",
+        "errorNumber": "Minimum years of experience must be a number"
+      },
+      "maxExperienceYears": {
+        "label": "Maximum Years of Experience",
+        "placeholder": "Optional"
+      },
+      "minEducationLevel": {
+        "label": "Minimum Education Level",
+        "placeholder": "Select level",
+        "error": "Minimum education level is required",
+        "options": {
+          "None": "None",
+          "HighSchool": "High School",
+          "Vocational": "Vocational",
+          "AssociateDegree": "Associate Degree",
+          "BachelorsDegree": "Bachelor's Degree",
+          "MastersDegree": "Master's Degree",
+          "Doctorate": "Doctorate",
+          "Professional": "Professional"
+        }
+      },
+      "preferredEducationFields": {
+        "label": "Preferred Education Fields",
+        "placeholder": "e.g., Computer Science, Business Administration"
+      },
+      "requiredCertifications": {
+        "label": "Required Certifications",
+        "placeholder": "e.g., PMP, AWS Solutions Architect"
+      },
+      "preferredCertifications": {
+        "label": "Preferred Certifications",
+        "placeholder": "e.g., ITIL, Scrum Master"
+      },
+      "languageRequirements": {
+        "label": "Language Requirements",
+        "placeholder": "e.g., English (C1), German (B2)"
+      },
+      "requiredCompetencies": { "title": "Required Competencies" },
+      "preferredCompetencies": { "title": "Preferred Competencies" },
+      "competency": {
+        "name": "Competency name",
+        "type": "Type",
+        "requiredLevel": "Required level",
+        "description": "Description",
+        "isMandatory": "Mandatory",
+        "count": "items",
+        "addNew": "Add new competency"
+      },
+      "competencyType": {
+        "options": {
+          "Technical": "Technical",
+          "Functional": "Functional",
+          "Leadership": "Leadership",
+          "Communication": "Communication",
+          "Analytical": "Analytical",
+          "Creative": "Creative",
+          "ProjectManagement": "Project Management",
+          "CustomerService": "Customer Service",
+          "Financial": "Financial",
+          "Regulatory": "Regulatory",
+          "Industry": "Industry",
+          "Language": "Language",
+          "Software": "Software",
+          "Hardware": "Hardware",
+          "Process": "Process",
+          "Safety": "Safety",
+          "Quality": "Quality",
+          "Other": "Other"
+        }
+      },
+      "proficiencyLevel": {
+        "options": {
+          "Beginner": "Beginner",
+          "Intermediate": "Intermediate",
+          "Advanced": "Advanced",
+          "Expert": "Expert",
+          "Master": "Master"
+        }
+      },
+      "workConditions": { "title": "Work Conditions" },
+      "workCondition": {
+        "type": "Type (e.g., Remote, Travel, Shift)",
+        "description": "Description",
+        "isRequired": "Required",
+        "count": "items",
+        "addNew": "Add new work condition"
+      },
+      "positionSummary": {
+        "label": "Position Summary",
+        "placeholder": "Briefly describe the role and its context",
+        "error": "Position summary is required"
+      },
+      "idealCandidateProfile": {
+        "label": "Ideal Candidate Profile",
+        "placeholder": "Describe the ideal candidate's background and attributes"
+      },
+      "keyResponsibilities": {
+        "label": "Key Responsibilities",
+        "placeholder": "e.g., Lead releases, design test plans, coordinate stakeholders"
+      },
+      "desiredPersonalityTraits": { "title": "Desired Personality Traits" },
+      "personality": {
+        "traitName": "Trait name",
+        "description": "Description",
+        "importance": "Importance",
+        "count": "items",
+        "addNew": "Add new personality trait"
+      },
+      "importanceLevel": {
+        "options": {
+          "Low": "Low",
+          "Medium": "Medium",
+          "High": "High",
+          "Critical": "Critical"
+        }
+      },
+      "cultureFitDescription": {
+        "label": "Culture Fit Description",
+        "placeholder": "Describe team culture and values relevant to the role"
+      },
+      "customCriteria": {
+        "title": "Custom Criteria",
+        "key": "Key",
+        "value": "Value",
+        "count": "items",
+        "addNew": "Add custom criteria"
+      },
+      "add": "Add",
+      "remove": "Remove",
+      "required": "Required",
+      "optional": "Optional"
+    },
     "notifications": {
+      "success": { "title": "Success", "message": "Request submitted. Redirecting..." },
+      "error": { "title": "Error", "defaultMessage": "Submission failed. Please try again." },
       "formIncomplete": {
         "title": "Incomplete",
         "message": "Please complete all required fields."

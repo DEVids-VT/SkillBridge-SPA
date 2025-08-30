@@ -1,16 +1,19 @@
 import { Outlet } from 'react-router-dom';
 import { ActiveSidebar, ProjectsList } from './components';
+import { CompanyProjectsList } from '@/pages/company-projects';
 import { colors } from '@/lib/design-system';
 import { useTranslation } from 'react-i18next';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 
 const Dashboard = () => {
   const { t } = useTranslation('landing');
+  const { onboardingData } = useOnboarding();
   
   return (
     <div className="flex relative h-full min-h-0" style={{ backgroundColor: colors.bgSlate900 }}>
       {/* Left Sidebar - Responsive */}
       <ActiveSidebar title={t('activeProjects', 'Active projects')}>
-        <ProjectsList />
+        {onboardingData.role === 'company' ? <CompanyProjectsList /> : <ProjectsList />}
       </ActiveSidebar>
       
       {/* Main Content Area */}

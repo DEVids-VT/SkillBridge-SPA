@@ -36,7 +36,27 @@ function AxiosInterceptor({ children }: PropsWithChildren) {
 
     const errInterceptor = (error: AxiosError) => {
       if (error.response?.data) {
-        const message = (error.response?.data as string[]).join('\n');
+        const data = error.response.data as unknown;
+        let message = 'Request failed';
+
+        // Handle common shapes: string[], string, ProblemDetails, generic object
+        if (Array.isArray(data) && data.every((d) => typeof d === 'string')) {
+          message = (data as string[]).join('\n');
+        } else if (typeof data === 'string') {
+          message = data;
+        } else if (typeof data === 'object' && data !== null) {
+          const pd = data as { title?: string; detail?: string; errors?: Record<string, string[]> };
+          const parts: string[] = [];
+          if (pd.title) parts.push(pd.title);
+          if (pd.detail) parts.push(pd.detail);
+          if (pd.errors && typeof pd.errors === 'object') {
+            const fieldErrors = Object.entries(pd.errors)
+              .flatMap(([field, msgs]) => (Array.isArray(msgs) ? msgs.map((m) => `${field}: ${m}`) : []));
+            if (fieldErrors.length) parts.push(fieldErrors.join('\n'));
+          }
+          message = parts.filter(Boolean).join('\n') || JSON.stringify(data);
+        }
+
         console.error(message);
       }
       return Promise.reject(error);

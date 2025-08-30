@@ -1,7 +1,7 @@
 import { useState, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { X } from 'lucide-react';
-import { colors, components } from '@/lib/design-system';
+import { colors } from '@/lib/design-system';
 
 interface TagInputProps {
   id: string;
@@ -51,7 +51,11 @@ const TagInput: React.FC<TagInputProps> = ({
         {tags.map((tag, index) => (
           <div
             key={index}
-            className={`flex items-center gap-1 px-2 py-1 text-sm rounded-md ${components.tag} ${components.tagColors.orange}`}
+            className="flex items-center gap-1 px-2 py-1 text-sm rounded-md"
+            style={{
+              backgroundColor: colors.accent,
+              color: colors.dark,
+            }}
           >
             <span>{tag.trim()}</span>
             <button
@@ -73,11 +77,11 @@ const TagInput: React.FC<TagInputProps> = ({
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
         onBlur={addTag}
-        className={hasError ? 'border-red-500' : ''}
+        className={hasError ? 'border-red-500' : 'border'}
         style={{
-          backgroundColor: colors.blueDark,
-          borderColor: colors.blue,
-          color: colors.white
+          backgroundColor: colors.surface,
+          borderColor: hasError ? colors.error : colors.border,
+          color: colors.text
         }}
       />
     </div>

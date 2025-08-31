@@ -12,17 +12,19 @@ export interface CompanyProfileData {
   sector: string;
   headOfficeLocation: string;
   technologies: string;
-  yearEstablished: number;
+  yearEstablished: number; // Made required
   hasOfficesInBulgaria: boolean;
-  bulgarianOfficeLocations: string;
-  employeesInBulgaria: number;
+  bulgarianOfficeLocations?: string; // Made optional to match entity
+  employeesInBulgaria?: number; // Made optional to match entity
   employeesWorldwide: number;
-  whyWorkWithUs: string;
+  whyWorkWithUs?: string; // Made optional to match entity
   websiteUrl: string;
-  contactInfo: string;
+  contactName: string; // Replaced contactInfo with separate fields
+  contactEmail: string;
+  contactPhone: string;
   auth0UserId: string;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string; // Made optional to match entity
 }
 
 /**

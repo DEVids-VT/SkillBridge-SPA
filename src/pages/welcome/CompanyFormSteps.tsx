@@ -46,9 +46,17 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
   const [errors, setErrors] = useState({
     companyName: false,
     industry: false,
+    activities: false,
+    headquarters: false,
+    technologies: false,
     companySize: false,
+    globalEmployees: false,
     website: false,
-    contactInfo: false,
+    yearEstablished: false,
+    about: false,
+    contactPerson: false,
+    contactEmail: false,
+    contactPhone: false,
   });
 
   // Form data from context
@@ -91,7 +99,8 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
     const newErrors = { ...errors };
 
     if (currentStep === 1) {
-      if (!formData.companyName.trim()) {
+      // Required fields with length validation
+      if (!formData.companyName.trim() || formData.companyName.length > 100) {
         newErrors.companyName = true;
         isValid = false;
       }
@@ -100,27 +109,82 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
         newErrors.industry = true;
         isValid = false;
       }
+
+      if (!formData.activities || formData.activities.length > 500) {
+        newErrors.activities = true;
+        isValid = false;
+      }
+
+      if (!formData.headquarters || formData.headquarters.length > 200) {
+        newErrors.headquarters = true;
+        isValid = false;
+      }
+
+      if (
+        !formData.technologies ||
+        formData.technologies.length === 0 ||
+        formData.technologies.join(', ').length > 1000
+      ) {
+        newErrors.technologies = true;
+        isValid = false;
+      }
+
+      if (!formData.yearEstablished || formData.yearEstablished < 1800) {
+        newErrors.yearEstablished = true;
+        isValid = false;
+      }
     } else if (currentStep === 2) {
       if (!formData.companySize) {
         newErrors.companySize = true;
         isValid = false;
       }
 
-      if (!formData.website.trim()) {
+      if (!formData.website.trim() || formData.website.length > 500) {
         newErrors.website = true;
         isValid = false;
       }
-    } else if (currentStep === 3) {
-      // At least one contact method should be provided
-      const hasContactInfo =
-        (formData.contactEmail && formData.contactEmail.trim()) ||
-        (formData.contactPerson && formData.contactPerson.trim());
 
-      if (!hasContactInfo) {
-        newErrors.contactInfo = true;
+      if (!formData.globalEmployees || formData.globalEmployees <= 0) {
+        newErrors.globalEmployees = true;
         isValid = false;
-      } else {
-        newErrors.contactInfo = false;
+      }
+    } else if (currentStep === 3) {
+      // About field validation
+      if (!formData.about || formData.about.length > 2000) {
+        newErrors.about = true;
+        isValid = false;
+      }
+
+      // Contact person validation
+      if (
+        !formData.contactPerson ||
+        formData.contactPerson.trim().length === 0 ||
+        formData.contactPerson.length > 100
+      ) {
+        newErrors.contactPerson = true;
+        isValid = false;
+      }
+
+      // Contact email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (
+        !formData.contactEmail ||
+        formData.contactEmail.trim().length === 0 ||
+        formData.contactEmail.length > 255 ||
+        !emailRegex.test(formData.contactEmail)
+      ) {
+        newErrors.contactEmail = true;
+        isValid = false;
+      }
+
+      // Contact phone validation
+      if (
+        !formData.contactPhone ||
+        formData.contactPhone.trim().length === 0 ||
+        formData.contactPhone.length > 20
+      ) {
+        newErrors.contactPhone = true;
+        isValid = false;
       }
     }
 
@@ -234,7 +298,8 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             </div>
             <div className="space-y-2">
               <Label htmlFor="activities">
-                {t('welcome.companyForm.activities')} ({t('welcome.companyForm.optional')})
+                {t('welcome.companyForm.activities')}
+                <span className="text-red-500 ml-1">*</span>
               </Label>
               <Textarea
                 id="activities"
@@ -242,34 +307,57 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 value={formData.activities || ''}
                 onChange={(e) => handleChange('activities', e.target.value)}
                 rows={2}
+                className={errors.activities ? 'border-red-500' : ''}
               />
+              {errors.activities && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('welcome.companyForm.activitiesRequired')}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="headquarters">
-                {t('welcome.companyForm.headquarters')} ({t('welcome.companyForm.optional')})
+                {t('welcome.companyForm.headquarters')}
+                <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
                 id="headquarters"
                 placeholder={t('welcome.companyForm.headquartersPlaceholder')}
                 value={formData.headquarters || ''}
                 onChange={(e) => handleChange('headquarters', e.target.value)}
+                className={errors.headquarters ? 'border-red-500' : ''}
               />
+              {errors.headquarters && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('welcome.companyForm.headquartersRequired')}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="yearEstablished">
-                {t('welcome.companyForm.yearEstablished')} ({t('welcome.companyForm.optional')})
+                {t('welcome.companyForm.yearEstablished')}
+                <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
                 id="yearEstablished"
                 type="number"
+                min="1800"
+                max={new Date().getFullYear()}
                 placeholder={t('welcome.companyForm.placeholders.yearEstablished')}
                 value={formData.yearEstablished || ''}
                 onChange={(e) => handleChange('yearEstablished', e.target.value)}
+                className={errors.yearEstablished ? 'border-red-500' : ''}
               />
+              {errors.yearEstablished && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('welcome.companyForm.yearEstablishedRequired')}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="technologies">
-                {t('welcome.companyForm.technologies')} ({t('welcome.companyForm.optional')})
+                {t('welcome.companyForm.technologies')}
+                <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
                 id="technologies"
@@ -279,7 +367,13 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                   const techArray = e.target.value.split(', ').filter(Boolean);
                   updateCompanyData({ technologies: techArray });
                 }}
+                className={errors.technologies ? 'border-red-500' : ''}
               />
+              {errors.technologies && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('welcome.companyForm.technologiesRequired')}
+                </p>
+              )}
               <p className="text-sm text-muted-foreground">
                 {t('welcome.companyForm.technologiesHelp')}
               </p>
@@ -339,15 +433,23 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
 
             <div className="space-y-2">
               <Label htmlFor="employeesWorldwide">
-                {t('welcome.companyForm.globalEmployees')} ({t('welcome.companyForm.optional')})
+                {t('welcome.companyForm.globalEmployees')}
+                <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
                 id="employeesWorldwide"
                 type="number"
+                min="1"
                 placeholder={t('welcome.companyForm.placeholders.globalEmployees')}
                 value={formData.globalEmployees || ''}
                 onChange={(e) => handleChange('globalEmployees', e.target.value)}
+                className={errors.globalEmployees ? 'border-red-500' : ''}
               />
+              {errors.globalEmployees && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('welcome.companyForm.globalEmployeesRequired')}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -421,7 +523,8 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
 
             <div className="space-y-2 mt-4">
               <Label htmlFor="about">
-                {t('welcome.companyForm.companyAbout')} ({t('welcome.companyForm.optional')})
+                {t('welcome.companyForm.companyAbout')}
+                <span className="text-red-500 ml-1">*</span>
               </Label>
               <Textarea
                 id="about"
@@ -429,7 +532,13 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 rows={3}
                 value={formData.about || ''}
                 onChange={(e) => handleChange('about', e.target.value)}
+                className={errors.about ? 'border-red-500' : ''}
               />
+              {errors.about && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('welcome.companyForm.aboutRequired')}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -441,9 +550,14 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 id="contactPerson"
                 value={formData.contactPerson || ''}
                 onChange={(e) => handleChange('contactPerson', e.target.value)}
-                className={errors.contactInfo ? 'border-red-500' : ''}
+                className={errors.contactPerson ? 'border-red-500' : ''}
                 placeholder={t('welcome.companyForm.placeholders.contactPerson')}
               />
+              {errors.contactPerson && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('welcome.companyForm.contactPersonRequired')}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -457,25 +571,32 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 type="email"
                 value={formData.contactEmail || ''}
                 onChange={(e) => handleChange('contactEmail', e.target.value)}
-                className={errors.contactInfo ? 'border-red-500' : ''}
+                className={errors.contactEmail ? 'border-red-500' : ''}
                 placeholder={t('welcome.companyForm.placeholders.contactEmail')}
               />
-              {errors.contactInfo && (
+              {errors.contactEmail && (
                 <p className="text-red-500 text-sm mt-1">
-                  {t('welcome.companyForm.contactInfoRequired')}
+                  {t('welcome.companyForm.contactEmailRequired')}
                 </p>
               )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="contactPhone">
-                {t('welcome.companyForm.contactPhone')} ({t('welcome.companyForm.optional')})
+                {t('welcome.companyForm.contactPhone')}
+                <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
                 id="contactPhone"
                 value={formData.contactPhone || ''}
                 onChange={(e) => handleChange('contactPhone', e.target.value)}
+                className={errors.contactPhone ? 'border-red-500' : ''}
                 placeholder={t('welcome.companyForm.placeholders.contactPhone')}
               />
+              {errors.contactPhone && (
+                <p className="text-red-500 text-sm mt-1">
+                  {t('welcome.companyForm.contactPhoneRequired')}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">

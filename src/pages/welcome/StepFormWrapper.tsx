@@ -34,12 +34,17 @@ export function StepFormWrapper({
   const { t } = useTranslation('welcome');
   const progress = (currentStep / totalSteps) * 100;
   return (
-    <Card className="w-full max-w-3xl mx-auto shadow-lg bg-[#001d3d] border border-[#003566]">
+    <Card
+      className="w-full max-w-3xl mx-auto shadow-lg border"
+      style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}
+    >
       <CardHeader className="pb-5">
-        <CardTitle className="text-2xl text-white">{title}</CardTitle>
+        <CardTitle className="text-2xl" style={{ color: colors.white }}>
+          {title}
+        </CardTitle>
         <div className="mt-3">
           <div className="flex justify-between text-sm mb-1">
-            <span className="text-gray-300">
+            <span style={{ color: colors.textSecondary }}>
               {t('welcome.stepForm.step')} {currentStep} {t('welcome.stepForm.of')} {totalSteps}
             </span>
             <span
@@ -52,22 +57,24 @@ export function StepFormWrapper({
           </div>
           <Progress
             value={progress}
-            className="h-2 bg-[#003566]"
-            style={{
-              backgroundColor: colors.blue,
-            }}
+            className="h-2"
+            trackColor={colors.blue}
+            indicatorColor={colors.yellow}
           />
         </div>
       </CardHeader>
 
-      <CardContent className="pt-3 text-gray-200">{children}</CardContent>
+      <CardContent className="pt-3" style={{ color: colors.textSecondary }}>
+        {children}
+      </CardContent>
 
       <CardFooter className="flex justify-between pt-6 pb-6">
         <Button
           variant="outline"
           onClick={currentStep === 1 && onBackToRoleSelection ? onBackToRoleSelection : onPrev}
           disabled={currentStep === 1 && !onBackToRoleSelection}
-          className="gap-2 px-4 border-[#003566] text-white hover:bg-[#003566]"
+          className="gap-2 px-4 hover:opacity-90"
+          style={{ borderColor: colors.blue, color: colors.white, backgroundColor: 'transparent' }}
         >
           <ArrowLeft className="h-4 w-4" />
           {currentStep === 1 && onBackToRoleSelection
@@ -77,7 +84,8 @@ export function StepFormWrapper({
         <Button
           onClick={onNext}
           disabled={isNextDisabled || isLoading}
-          className={`gap-2 px-5 bg-[#ffc300] text-[#001d3d] border-[#ffc300] hover:bg-[#ffd60a]`}
+          className="gap-2 px-5 hover:opacity-90"
+          style={{ backgroundColor: colors.orange, color: colors.blueDark, borderColor: colors.orange }}
         >
           {isLoading ? (
             <>

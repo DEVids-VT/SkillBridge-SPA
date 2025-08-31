@@ -53,7 +53,10 @@ export function WelcomePage() {
       <WelcomeSection className="relative z-10">
         {/* Logo Badge */}
         <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center justify-center px-3 py-1.5 rounded-full backdrop-blur-sm border" style={{ backgroundColor: colors.blue, borderColor: colors.blue }}>
+          <div
+            className="inline-flex items-center justify-center px-3 py-1.5 rounded-full backdrop-blur-sm border"
+            style={{ backgroundColor: colors.blue, borderColor: colors.blue }}
+          >
             <img
               src="/images/sblogosmall.svg"
               alt="SkillBridge"
@@ -67,8 +70,14 @@ export function WelcomePage() {
 
         {/* Page Header */}
         <div className="text-center mb-10 max-w-3xl mx-auto">
-          <h1 className={cn('text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight', typography.heading[1])}>
-            <span className="text-white">
+          <h1
+            className={cn(
+              'text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight',
+              typography.heading[1]
+            )}
+            style={{ color: colors.white }}
+          >
+            <span>
               {t('welcome.title', { appName: t('welcome.appName') })}
             </span>
           </h1>

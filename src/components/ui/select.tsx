@@ -108,7 +108,8 @@ const SelectContent: React.FC<SelectContentProps> = ({ className, children }) =>
     const update = () => {
       const rect = triggerRef.current?.getBoundingClientRect();
       if (rect) {
-        setPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX, width: rect.width });
+        // Use viewport coordinates for fixed positioning; do not add scroll offsets
+        setPosition({ top: rect.bottom, left: rect.left, width: rect.width });
       }
     };
     update();

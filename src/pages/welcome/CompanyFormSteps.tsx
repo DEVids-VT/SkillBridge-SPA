@@ -4,11 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '@/components/ui/select';
 import StepFormWrapper from './StepFormWrapper';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { RoutePage } from '@/types/enums/RoutePage';
 import { useBecomeCompany } from '@/hooks/useRoleMutations';
 import { useCreateCompany } from './hooks/useCreateCompany';
+import { colors } from '@/lib/design-system';
 
 // Industry options
 const industries = [
@@ -256,16 +265,16 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="companyName">
                 {t('welcome.companyForm.companyName')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="companyName"
                 value={formData.companyName}
                 onChange={(e) => handleChange('companyName', e.target.value)}
-                className={errors.companyName ? 'border-red-500' : ''}
+                style={errors.companyName ? { borderColor: colors.error } : undefined}
               />
               {errors.companyName && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.companyNameRequired')}
                 </p>
               )}
@@ -273,25 +282,29 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="industry">
                 {t('welcome.companyForm.industry')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
-              <select
-                id="industry"
+              <Select
                 value={formData.industry}
-                onChange={(e) => handleChange('industry', e.target.value)}
-                className={`w-full rounded-md border ${
-                  errors.industry ? 'border-red-500' : 'border-input'
-                } bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
+                onValueChange={(value) => handleChange('industry', value)}
               >
-                <option value="">{t('welcome.companyForm.selectIndustry')}</option>
-                {industries.map((industry) => (
-                  <option key={industry} value={industry}>
-                    {industry}
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger
+                  id="industry"
+                  className="w-full"
+                  style={errors.industry ? { borderColor: colors.error } : undefined}
+                >
+                  <SelectValue placeholder={t('welcome.companyForm.selectIndustry') as string} />
+                </SelectTrigger>
+                <SelectContent style={{ backgroundColor: colors.surface, borderColor: colors.blue }}>
+                  {industries.map((industry) => (
+                    <SelectItem key={industry} value={industry}>
+                      {industry}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {errors.industry && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.industryRequired')}
                 </p>
               )}
@@ -299,7 +312,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="activities">
                 {t('welcome.companyForm.activities')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Textarea
                 id="activities"
@@ -307,10 +320,10 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 value={formData.activities || ''}
                 onChange={(e) => handleChange('activities', e.target.value)}
                 rows={2}
-                className={errors.activities ? 'border-red-500' : ''}
+                style={errors.activities ? { borderColor: colors.error } : undefined}
               />
               {errors.activities && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.activitiesRequired')}
                 </p>
               )}
@@ -318,17 +331,17 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="headquarters">
                 {t('welcome.companyForm.headquarters')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="headquarters"
                 placeholder={t('welcome.companyForm.headquartersPlaceholder')}
                 value={formData.headquarters || ''}
                 onChange={(e) => handleChange('headquarters', e.target.value)}
-                className={errors.headquarters ? 'border-red-500' : ''}
+                style={errors.headquarters ? { borderColor: colors.error } : undefined}
               />
               {errors.headquarters && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.headquartersRequired')}
                 </p>
               )}
@@ -336,7 +349,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="yearEstablished">
                 {t('welcome.companyForm.yearEstablished')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="yearEstablished"
@@ -346,10 +359,10 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 placeholder={t('welcome.companyForm.placeholders.yearEstablished')}
                 value={formData.yearEstablished || ''}
                 onChange={(e) => handleChange('yearEstablished', e.target.value)}
-                className={errors.yearEstablished ? 'border-red-500' : ''}
+                style={errors.yearEstablished ? { borderColor: colors.error } : undefined}
               />
               {errors.yearEstablished && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.yearEstablishedRequired')}
                 </p>
               )}
@@ -357,7 +370,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="technologies">
                 {t('welcome.companyForm.technologies')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="technologies"
@@ -367,14 +380,14 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                   const techArray = e.target.value.split(', ').filter(Boolean);
                   updateCompanyData({ technologies: techArray });
                 }}
-                className={errors.technologies ? 'border-red-500' : ''}
+                style={errors.technologies ? { borderColor: colors.error } : undefined}
               />
               {errors.technologies && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.technologiesRequired')}
                 </p>
               )}
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm" style={{ color: colors.textMuted }}>
                 {t('welcome.companyForm.technologiesHelp')}
               </p>
             </div>
@@ -387,25 +400,29 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="companySize">
                 {t('welcome.companyForm.companySize')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
-              <select
-                id="companySize"
+              <Select
                 value={formData.companySize}
-                onChange={(e) => handleChange('companySize', e.target.value)}
-                className={`w-full rounded-md border ${
-                  errors.companySize ? 'border-red-500' : 'border-input'
-                } bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring`}
+                onValueChange={(value) => handleChange('companySize', value)}
               >
-                <option value="">{t('welcome.companyForm.selectCompanySize')}</option>
-                {companySizes.map((size) => (
-                  <option key={size} value={size}>
-                    {size} {t('welcome.companyForm.employees')}
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger
+                  id="companySize"
+                  className="w-full"
+                  style={errors.companySize ? { borderColor: colors.error } : undefined}
+                >
+                  <SelectValue placeholder={t('welcome.companyForm.selectCompanySize') as string} />
+                </SelectTrigger>
+                <SelectContent style={{ backgroundColor: colors.surface, borderColor: colors.blue }}>
+                  {companySizes.map((size) => (
+                    <SelectItem key={size} value={size}>
+                      {size} {t('welcome.companyForm.employees')}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {errors.companySize && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.companySizeRequired')}
                 </p>
               )}
@@ -414,7 +431,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="website">
                 {t('welcome.companyForm.website')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="website"
@@ -422,10 +439,10 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 placeholder={t('welcome.companyForm.placeholders.website')}
                 value={formData.website}
                 onChange={(e) => handleChange('website', e.target.value)}
-                className={errors.website ? 'border-red-500' : ''}
+                style={errors.website ? { borderColor: colors.error } : undefined}
               />
               {errors.website && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.websiteRequired')}
                 </p>
               )}
@@ -434,7 +451,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="employeesWorldwide">
                 {t('welcome.companyForm.globalEmployees')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="employeesWorldwide"
@@ -443,10 +460,10 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 placeholder={t('welcome.companyForm.placeholders.globalEmployees')}
                 value={formData.globalEmployees || ''}
                 onChange={(e) => handleChange('globalEmployees', e.target.value)}
-                className={errors.globalEmployees ? 'border-red-500' : ''}
+                style={errors.globalEmployees ? { borderColor: colors.error } : undefined}
               />
               {errors.globalEmployees && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.globalEmployeesRequired')}
                 </p>
               )}
@@ -458,14 +475,14 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 )
               </Label>
               <div className="flex items-center space-x-3">
-                {' '}
-                <input
-                  type="checkbox"
+                <Checkbox
                   id="hasOfficesInBulgaria"
                   checked={formData.hasOfficesInBulgaria || false}
-                  onChange={(e) => updateCompanyData({ hasOfficesInBulgaria: e.target.checked })}
+                  onCheckedChange={(checked) =>
+                    updateCompanyData({ hasOfficesInBulgaria: Boolean(checked) })
+                  }
                 />
-                <span className="text-sm text-gray-700 dark:text-gray-300">
+                <span className="text-sm" style={{ color: colors.textSecondary }}>
                   {t('welcome.companyForm.hasOfficesInBulgaria')}
                 </span>
               </div>
@@ -501,7 +518,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                     updateCompanyData({ bulgarianOffices: officesArray });
                   }}
                 />
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm" style={{ color: colors.textMuted }}>
                   {t('welcome.companyForm.bulgarianOfficesHelp')}
                 </p>
               </div>
@@ -516,7 +533,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 {t('welcome.companyForm.companyLogo')} ({t('welcome.companyForm.optional')})
               </Label>
               <Input id="logo" type="file" accept="image/*" onChange={handleFileChange} />
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-sm mt-1" style={{ color: colors.textMuted }}>
                 {t('welcome.companyForm.logoHelp')}
               </p>
             </div>
@@ -524,7 +541,7 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2 mt-4">
               <Label htmlFor="about">
                 {t('welcome.companyForm.companyAbout')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Textarea
                 id="about"
@@ -532,10 +549,10 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
                 rows={3}
                 value={formData.about || ''}
                 onChange={(e) => handleChange('about', e.target.value)}
-                className={errors.about ? 'border-red-500' : ''}
+                style={errors.about ? { borderColor: colors.error } : undefined}
               />
               {errors.about && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.aboutRequired')}
                 </p>
               )}
@@ -544,17 +561,17 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="contactPerson">
                 {t('welcome.companyForm.contactPerson')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="contactPerson"
                 value={formData.contactPerson || ''}
                 onChange={(e) => handleChange('contactPerson', e.target.value)}
-                className={errors.contactPerson ? 'border-red-500' : ''}
+                style={errors.contactPerson ? { borderColor: colors.error } : undefined}
                 placeholder={t('welcome.companyForm.placeholders.contactPerson')}
               />
               {errors.contactPerson && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.contactPersonRequired')}
                 </p>
               )}
@@ -564,18 +581,18 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
               {' '}
               <Label htmlFor="contactEmail">
                 {t('welcome.companyForm.contactEmail')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="contactEmail"
                 type="email"
                 value={formData.contactEmail || ''}
                 onChange={(e) => handleChange('contactEmail', e.target.value)}
-                className={errors.contactEmail ? 'border-red-500' : ''}
+                style={errors.contactEmail ? { borderColor: colors.error } : undefined}
                 placeholder={t('welcome.companyForm.placeholders.contactEmail')}
               />
               {errors.contactEmail && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.contactEmailRequired')}
                 </p>
               )}
@@ -583,17 +600,17 @@ export function CompanyFormSteps({ onBackToRoleSelection }: CompanyFormStepsProp
             <div className="space-y-2">
               <Label htmlFor="contactPhone">
                 {t('welcome.companyForm.contactPhone')}
-                <span className="text-red-500 ml-1">*</span>
+                <span className="ml-1" style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="contactPhone"
                 value={formData.contactPhone || ''}
                 onChange={(e) => handleChange('contactPhone', e.target.value)}
-                className={errors.contactPhone ? 'border-red-500' : ''}
+                style={errors.contactPhone ? { borderColor: colors.error } : undefined}
                 placeholder={t('welcome.companyForm.placeholders.contactPhone')}
               />
               {errors.contactPhone && (
-                <p className="text-red-500 text-sm mt-1">
+                <p className="text-sm mt-1" style={{ color: colors.error }}>
                   {t('welcome.companyForm.contactPhoneRequired')}
                 </p>
               )}

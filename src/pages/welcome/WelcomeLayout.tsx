@@ -7,12 +7,7 @@ import { colors } from '@/lib/design-system';
  */
 export function WelcomeLayout() {
   return (
-    <div
-      className="min-h-screen w-full overflow-x-hidden"
-      style={{
-        background: `linear-gradient(135deg, ${colors.blueDark} 0%, ${colors.blue} 100%)`,
-      }}
-    >
+    <div className="min-h-screen w-full overflow-x-hidden" style={{ background: colors.dark }}>
       <main className="w-full h-full min-h-screen">
         <Outlet />
       </main>

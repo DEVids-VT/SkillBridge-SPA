@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { colors, typography } from "@/lib/design-system";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,14 +11,22 @@ import {
 } from "@/components/ui/select";
 
 import CandidateEditModal from "@/components/ui/EditProfileModal";
+import { useUserCredentials } from "@/hooks/useUserCredentials";
+import { useUpdateUserProfile, useUserProfile } from "./hooks/useUserProfile";
+import { mergeAndSaveUserProfile } from "./hooks/userProfileStorage";
 export default function AccountSettingsPage() {
+  const { user: session } = useUserCredentials();
+  const { data: profile } = useUserProfile();
+  const updateProfile = useUpdateUserProfile();
+
   const [user, setUser] = useState({
     avatar: "/images/avatar-placeholder.jpg",
-    fullName: "John Doe",
-    email: "johndoe@example.com",
-    username: "johndoe",
+    fullName: "",
+    email: "",
+    username: "",
     interests: ["Finances", "Coding", "Logistics"],
     cv: null as string | null,
+    githubConnection: "" as string | null,
     subscription: {
       current: "Free Tier",
       description: "Currently on free tier",
@@ -30,8 +37,33 @@ export default function AccountSettingsPage() {
   });
 
   const [editField, setEditField] = useState<
-    null | { field: "fullName" | "username"; title: string }
+    null | { field: "fullName" | "username" | "githubConnection"; title: string }
   >(null);
+
+  // Hidden input for avatar upload
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+
+  // Sync basic session details
+  useEffect(() => {
+    setUser((prev) => ({
+      ...prev,
+      fullName: session.name || prev.fullName,
+      email: session.email || prev.email,
+      username: session.username || prev.username,
+      avatar: session.picture || prev.avatar,
+    }));
+  }, [session.name, session.email, session.username, session.picture]);
+
+  // Sync profile details
+  useEffect(() => {
+    if (!profile) return;
+    setUser((prev) => ({
+      ...prev,
+      avatar: profile.profilePicture || prev.avatar,
+      cv: profile.cvUpload ?? prev.cv,
+      githubConnection: profile.gitHubConnection ?? prev.githubConnection,
+    }));
+  }, [profile]);
 
   return (
     <div
@@ -55,9 +87,33 @@ export default function AccountSettingsPage() {
               <p className={typography.body.sm}>Upload or change your avatar</p>
             </div>
           </div>
-          <Button variant="outline" className={`border-[${colors.blue}] text-[${colors.white}]`}>
-            Change avatar
-          </Button>
+          <div>
+            <input
+              ref={avatarInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                try {
+                  const updated = await updateProfile.mutateAsync({ profilePicture: file });
+                  setUser((prev) => ({ ...prev, avatar: updated.profilePicture || prev.avatar }));
+                  // also merge into local storage cache
+                  mergeAndSaveUserProfile({ id: updated.id, profilePicture: updated.profilePicture ?? undefined });
+                } finally {
+                  e.currentTarget.value = "";
+                }
+              }}
+            />
+            <Button
+              variant="outline"
+              className={`border-[${colors.blue}] text-[${colors.white}]`}
+              onClick={() => avatarInputRef.current?.click()}
+            >
+              Change avatar
+            </Button>
+          </div>
         </div>
 
         {/* Full Name */}
@@ -96,21 +152,6 @@ export default function AccountSettingsPage() {
           </Button>
         </div>
 
-        {/* Top 3 Interests */}
-        <div>
-          <p className="text-sm font-medium mb-2">Top 3 Interests</p>
-          <div className="flex gap-2">
-            {user.interests.map((interest, idx) => (
-              <Input
-                key={idx}
-                placeholder={`Interest ${idx + 1}`}
-                defaultValue={interest}
-                className={`bg-transparent border border-[${colors.blue}]`}
-              />
-            ))}
-          </div>
-        </div>
-
         {/* CV Upload */}
         <div>
           <p className="text-sm font-medium mb-2">CV Upload</p>
@@ -125,7 +166,11 @@ export default function AccountSettingsPage() {
               <Button
                 variant="outline"
                 className={`border-[${colors.blue}] text-[${colors.white}]`}
-                onClick={() => setUser((prev) => ({ ...prev, cv: null }))}
+                onClick={() => {
+                  setUser((prev) => ({ ...prev, cv: null }));
+                  // reflect removal in local storage cache
+                  mergeAndSaveUserProfile({ cvUpload: null });
+                }}
               >
                 Remove
               </Button>
@@ -133,11 +178,18 @@ export default function AccountSettingsPage() {
           ) : (
             <Input
               type="file"
+              accept=".pdf,.doc,.docx,image/*"
               className={`bg-transparent border border-[${colors.blue}]`}
-              onChange={(e) => {
+              onChange={async (e) => {
                 const file = e.target.files?.[0];
-                if (file) {
-                  setUser((prev) => ({ ...prev, cv: file.name }));
+                if (!file) return;
+                try {
+                  const updated = await updateProfile.mutateAsync({ cvUpload: file });
+                  setUser((prev) => ({ ...prev, cv: updated.cvUpload || file.name }));
+                  // also merge into local storage cache
+                  mergeAndSaveUserProfile({ id: updated.id, cvUpload: updated.cvUpload ?? undefined });
+                } finally {
+                  e.currentTarget.value = "";
                 }
               }}
             />
@@ -146,9 +198,18 @@ export default function AccountSettingsPage() {
 
         {/* GitHub Connection */}
         <div className="flex justify-between items-center">
-          <p className="text-sm font-medium">GitHub Connection</p>
-          <Button variant="outline" className={`border-[${colors.blue}] text-[${colors.white}]`}>
-            Connect
+          <div>
+            <p className="text-sm font-medium">GitHub Connection</p>
+            {user.githubConnection ? (
+              <p className={typography.body.sm}>{user.githubConnection}</p>
+            ) : null}
+          </div>
+          <Button
+            variant="outline"
+            className={`border-[${colors.blue}] text-[${colors.white}]`}
+            onClick={() => setEditField({ field: "githubConnection", title: "Set GitHub connection" })}
+          >
+            {user.githubConnection ? "Change" : "Connect"}
           </Button>
         </div>
       </div>
@@ -201,10 +262,16 @@ export default function AccountSettingsPage() {
         isOpen={!!editField}
         onClose={() => setEditField(null)}
         title={editField?.title || ""}
-        initialValue={editField ? user[editField.field] : ""}
-        onSave={(newValue) => {
+        initialValue={editField ? (user as any)[editField.field] ?? "" : ""}
+        onSave={async (newValue) => {
           if (!editField) return;
-          setUser((prev) => ({ ...prev, [editField.field]: newValue }));
+          if (editField.field === "githubConnection") {
+            const updated = await updateProfile.mutateAsync({ gitHubConnection: newValue });
+            setUser((prev) => ({ ...prev, githubConnection: updated.gitHubConnection || newValue }));
+            mergeAndSaveUserProfile({ id: updated.id, gitHubConnection: updated.gitHubConnection ?? undefined });
+          } else {
+            setUser((prev) => ({ ...prev, [editField.field]: newValue }));
+          }
         }}
       />
     </div>

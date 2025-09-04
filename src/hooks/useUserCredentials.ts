@@ -10,6 +10,7 @@ export interface UserCredentials {
   name: string;
   email: string;
   picture: string;
+  username?: string;
   roles: Auth0Role[];
   isCandidate: boolean;
   isCompany: boolean;
@@ -76,6 +77,10 @@ export const useUserCredentials = (): UseUserCredentialsReturnData => {
       name: user?.name || '',
       email: user?.email || '',
       picture: user?.picture || '',
+      username:
+        // try common fields from Auth0 / OIDC
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ((user as any)?.nickname || (user as any)?.preferred_username || (user as any)?.username || ''),
       roles,
       isCandidate: hasRole('candidate'),
       isCompany: hasRole('company'),

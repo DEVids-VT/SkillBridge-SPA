@@ -42,3 +42,17 @@ export interface CandidateFormData {
 }
 
 // Add more candidate-related types here
+
+// User profile API models
+export interface UserProfileResponse {
+  id: string;
+  profilePicture?: string | null;
+  cvUpload?: string | null;
+  gitHubConnection?: string | null;
+}
+
+export interface UpdateUserProfileRequest {
+  profilePicture?: File | null;
+  cvUpload?: File | null;
+  gitHubConnection?: string | null;
+}

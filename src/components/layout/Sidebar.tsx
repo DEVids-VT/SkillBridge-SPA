@@ -92,7 +92,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
   const getNavigationItems = () => {
     const authItems =
       isAuthenticated && hasCompletedOnboarding
-        ? [
+         ? [
             {
               to: '/dashboard',
               label: 'Dashboard',
@@ -117,41 +117,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               requiresOnboarding: true,
               requiresRole: 'candidate',
             },
-            {
-              to: '/companies',
-              label: t('headerComponent.navigation.partners'),
-              icon: Building2,
-              requiresAuth: false,
-              requiresOnboarding: false,
-              requiresRole: 'all',
-            },
-            {
-              to: '/about',
-              label: 'About',
-              icon: Info,
-              requiresAuth: false,
-              requiresOnboarding: false,
-              requiresRole: 'all',
-            },
-          ]
-        : [
-            {
-              to: '/companies',
-              label: t('headerComponent.navigation.partners'),
-              icon: Building2,
-              requiresAuth: false,
-              requiresOnboarding: false,
-              requiresRole: 'all',
-            },
-            {
-              to: '/about',
-              label: t('headerComponent.navigation.about'),
-              icon: Info,
-              requiresAuth: false,
-              requiresOnboarding: false,
-              requiresRole: 'all',
-            },
-          ];
+          ] : [];
 
     return authItems;
   };

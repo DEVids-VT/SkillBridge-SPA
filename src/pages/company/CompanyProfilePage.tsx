@@ -1,28 +1,13 @@
 import { useState } from "react";
-import { useTranslation } from 'react-i18next';
-import { Button } from "@/components/ui/button";
-import { colors, typography } from "@/lib/design-system";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import {
-  MapPin,
-  Users,
-  Calendar,
-  Tag,
-  Plus,
-} from 'lucide-react';
-
+import { colors } from "@/lib/design-system";
 import EditModal from "@/components/ui/EditProfileModal";
+import {
+  CompanyInformationSection,
+  CompanySubscriptionSection,
+  CompanySystemSection,
+} from "./components";
 
 export default function CompanyProfilePage() {
-  const { t } = useTranslation('companyProfile');
 
   const [company, setCompany] = useState({
     logo: "/images/companies/techcorp-logo.webp",
@@ -115,394 +100,41 @@ export default function CompanyProfilePage() {
     }));
   };
 
+  // Wrapper function to handle the type mismatch
+  const handleEditField = (field: { field: string; title: string; type: string }) => {
+    const validField = field.field as "companyName" | "about" | "contactInfo" | "whyWorkWithUs" | "yearEstablished";
+    const validType = field.type as "text" | "textarea" | "number";
+    setEditField({ field: validField, title: field.title, type: validType });
+  };
+
   return (
     <div
       className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 2xl:px-96"
       style={{ backgroundColor: colors.dark, color: colors.white }}
     >
-      {/* Company Information Section */}
-      <div className={`space-y-6 border-b pb-8 border-[${colors.blue}]`}>
-        <h2 className={typography.heading[4]}>Company Information</h2>
+      <CompanyInformationSection
+        company={company}
+        editActivities={editActivities}
+        editProcesses={editProcesses}
+        editOffices={editOffices}
+        onEditField={handleEditField}
+        onSetEditActivities={setEditActivities}
+        onSetEditProcesses={setEditProcesses}
+        onSetEditOffices={setEditOffices}
+        onAddActivity={addActivity}
+        onRemoveActivity={removeActivity}
+        onAddProcess={addProcess}
+        onRemoveProcess={removeProcess}
+        onAddOffice={addOffice}
+        onRemoveOffice={removeOffice}
+      />
 
-        {/* Company Logo */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img
-              src={company.logo}
-              alt="Company Logo"
-              className={`w-16 h-16 rounded-full border-2 border-[${colors.white}]`}
-            />
-            <div>
-              <p className="text-sm font-medium">Company Logo</p>
-              <p className={typography.body.sm}>Upload or change your company logo</p>
-            </div>
-          </div>
-          <Button variant="outline" className={`border-[${colors.blue}] text-[${colors.white}]`}>
-            Change logo
-          </Button>
-        </div>
+      <CompanySubscriptionSection subscription={company.subscription} />
 
-        {/* Company Name */}
-        <div className="flex justify-between items-center">
-          <div>
-            <p className="text-sm font-medium">Company Name</p>
-            <p className={typography.body.sm}>{company.companyName}</p>
-          </div>
-          <Button
-            variant="outline"
-            className={`border-[${colors.blue}] text-[${colors.white}]`}
-            onClick={() => setEditField({ field: "companyName", title: "Change company name", type: "text" })}
-          >
-            Edit
-          </Button>
-        </div>
-
-        {/* About */}
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <p className="text-sm font-medium">About</p>
-            <p className={typography.body.sm}>{company.about}</p>
-          </div>
-          <Button
-            variant="outline"
-            className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-            onClick={() => setEditField({ field: "about", title: "Change company about", type: "textarea" })}
-          >
-            Edit
-          </Button>
-        </div>
-
-        {/* Company Activities */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <p className="text-sm font-medium">Company Activities</p>
-            <div className="flex gap-2">
-              {editActivities ? (
-                <>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className={`border-[${colors.blue}] text-[${colors.white}]`}
-                    onClick={() => setEditActivities(false)}
-                  >
-                    Save
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className={`border-[${colors.blue}] text-[${colors.white}]`}
-                    onClick={() => setEditActivities(false)}
-                  >
-                    Cancel
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => setEditActivities(true)}
-                >
-                  Edit
-                </Button>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {company.activities.map((activity, idx) => (
-              <div key={idx} className="flex items-center gap-2">
-                <Badge className={`bg-[${colors.blue}] text-[${colors.white}]`}>
-                  {activity}
-                </Badge>
-                {editActivities && (
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="h-4 w-4 p-0 text-red-400 hover:text-red-300"
-                    onClick={() => removeActivity(idx)}
-                  >
-                    ×
-                  </Button>
-                )}
-              </div>
-            ))}
-            {editActivities && (
-              <Button
-                size="sm"
-                variant="outline"
-                className={`border-[${colors.blue}] text-[${colors.white}]`}
-                onClick={addActivity}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Add
-              </Button>
-            )}
-          </div>
-        </div>
-
-        {/* Contact Info */}
-        <div className="flex justify-between items-center">
-          <div>
-            <p className="text-sm font-medium">Contact Info</p>
-            <p className={typography.body.sm}>{company.contactInfo}</p>
-          </div>
-          <Button
-            variant="outline"
-            className={`border-[${colors.blue}] text-[${colors.white}]`}
-            onClick={() => setEditField({ field: "contactInfo", title: "Change contact info", type: "text" })}
-          >
-            Edit
-          </Button>
-        </div>
-
-        {/* Offices */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <p className="text-sm font-medium">Offices</p>
-            <div className="flex gap-2">
-              {editOffices ? (
-                <>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className={`border-[${colors.blue}] text-[${colors.white}]`}
-                    onClick={() => setEditOffices(false)}
-                  >
-                    Save
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className={`border-[${colors.blue}] text-[${colors.white}]`}
-                    onClick={() => setEditOffices(false)}
-                  >
-                    Cancel
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => setEditOffices(true)}
-                >
-                  Edit
-                </Button>
-              )}
-            </div>
-          </div>
-          <div className="space-y-3">
-            {company.offices.map((office, idx) => (
-              <Card key={idx} className="p-3" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <MapPin className="h-4 w-4" style={{ color: colors.yellow }} />
-                    <div>
-                      <p className="font-medium" style={{ color: colors.yellow }}>
-                        {office.city}, {office.country}
-                      </p>
-                      <p className="text-sm" style={{ color: colors.white }}>
-                        {office.address}
-                      </p>
-                    </div>
-                  </div>
-                  {editOffices && (
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-6 w-6 p-0 text-red-400 hover:text-red-300"
-                      onClick={() => removeOffice(idx)}
-                    >
-                      ×
-                    </Button>
-                  )}
-                </div>
-              </Card>
-            ))}
-            {editOffices && (
-              <Button
-                size="sm"
-                variant="outline"
-                className={`border-[${colors.blue}] text-[${colors.white}]`}
-                onClick={addOffice}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Add Office
-              </Button>
-            )}
-          </div>
-        </div>
-
-        {/* Employee Count and Status */}
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="text-sm font-medium">Employee Count</p>
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4" style={{ color: colors.yellow }} />
-              <p className={typography.body.sm}>{company.employeeCount} employees</p>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm font-medium">Status</p>
-            <Badge className={`bg-[${colors.orange}] text-[${colors.dark}]`}>
-              {company.employeeStatus}
-            </Badge>
-          </div>
-        </div>
-
-        {/* Sector */}
-        <div>
-          <p className="text-sm font-medium">Sector</p>
-          <Badge className={`bg-[${colors.blue}] text-[${colors.white}]`}>
-            {company.sector}
-          </Badge>
-        </div>
-
-        {/* Processes Used */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <p className="text-sm font-medium">Processes Used (Technologies, Tools, etc.)</p>
-            <div className="flex gap-2">
-              {editProcesses ? (
-                <>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className={`border-[${colors.blue}] text-[${colors.white}]`}
-                    onClick={() => setEditProcesses(false)}
-                  >
-                    Save
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className={`border-[${colors.blue}] text-[${colors.white}]`}
-                    onClick={() => setEditProcesses(false)}
-                  >
-                    Cancel
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => setEditProcesses(true)}
-                >
-                  Edit
-                </Button>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {company.processes.map((process, idx) => (
-              <div key={idx} className="flex items-center gap-2">
-                <Badge className={`bg-[${colors.yellow}] text-[${colors.dark}]`}>
-                  <Tag className="h-3 w-3 mr-1" />
-                  {process}
-                </Badge>
-                {editProcesses && (
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="h-4 w-4 p-0 text-red-400 hover:text-red-300"
-                    onClick={() => removeProcess(idx)}
-                  >
-                    ×
-                  </Button>
-                )}
-              </div>
-            ))}
-            {editProcesses && (
-              <Button
-                size="sm"
-                variant="outline"
-                className={`border-[${colors.blue}] text-[${colors.white}]`}
-                onClick={addProcess}
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Add
-              </Button>
-            )}
-          </div>
-        </div>
-
-        {/* Why Work With Us */}
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <p className="text-sm font-medium">Why Work With Us</p>
-            <p className={typography.body.sm}>{company.whyWorkWithUs}</p>
-          </div>
-          <Button
-            variant="outline"
-            className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-            onClick={() => setEditField({ field: "whyWorkWithUs", title: "Change why work with us message", type: "textarea" })}
-          >
-            Edit
-          </Button>
-        </div>
-
-        {/* Year Established */}
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4" style={{ color: colors.yellow }} />
-            <div>
-              <p className="text-sm font-medium">Year Established</p>
-              <p className={typography.body.sm}>{company.yearEstablished}</p>
-            </div>
-          </div>
-          <Button
-            variant="outline"
-            className={`border-[${colors.blue}] text-[${colors.white}]`}
-            onClick={() => setEditField({ field: "yearEstablished", title: "Change year established", type: "number" })}
-          >
-            Edit
-          </Button>
-        </div>
-      </div>
-
-      {/* Subscription Section */}
-      <div className={`space-y-6 border-b pb-8 border-[${colors.blue}]`}>
-        <h2 className={typography.heading[4]}>Subscription</h2>
-
-        <div>
-          <p className={typography.body.lg}>{company.subscription.current}</p>
-          <p className={typography.body.sm}>{company.subscription.description}</p>
-        </div>
-
-        <div>
-          <p className={typography.body.lg}>{company.subscription.upcoming}</p>
-          <p className={typography.body.sm}>{company.subscription.upcomingDescription}</p>
-        </div>
-      </div>
-
-      {/* System Section */}
-      <div className="space-y-6">
-        <h2 className={typography.heading[4]}>System</h2>
-
-        {/* Theme Preferences */}
-        <div>
-          <p className="text-sm font-medium mb-2">Theme Preferences</p>
-          <Select
-            value={company.theme}
-            onValueChange={(val) => setCompany((prev) => ({ ...prev, theme: val }))}
-          >
-            <SelectTrigger className={`w-[200px] bg-transparent border border-[${colors.blue}]`}>
-              <SelectValue placeholder="Select theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Support */}
-        <Button variant="outline" className={`border-[${colors.blue}] text-[${colors.white}]`}>
-          Support
-        </Button>
-      </div>
+      <CompanySystemSection
+        theme={company.theme}
+        onThemeChange={(val) => setCompany((prev) => ({ ...prev, theme: val }))}
+      />
 
       {/* Modal */}
       <EditModal

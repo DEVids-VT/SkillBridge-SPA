@@ -1,14 +1,5 @@
-export { default as CreateProjectForm } from './CreateProjectForm';
-export { default as CreateProjectHeader } from './CreateProjectHeader';
-export { default as CreateProjectProgress } from './CreateProjectProgress';
-export { default as CreateProjectVisualFeedback } from './CreateProjectVisualFeedback';
 export { default as Notification } from './Notification';
-export { default as TagInput } from './TagInput';
 export { default as CandidateRequirementsForm } from './CandidateRequirementsForm';
 export { BasicInfoTab } from './BasicInfoTab';
 export { SkillsTab } from './SkillsTab';
-export { DetailsTab } from './DetailsTab';
-export { ImprovedCompetencyList } from './ImprovedCompetencyList';
-export { ImprovedWorkConditionsList } from './ImprovedWorkConditionsList';
-export { ImprovedPersonalityTraitsList } from './ImprovedPersonalityTraitsList';
-export { ImprovedKeyValueList } from './ImprovedKeyValueList'; 
+export { DetailsTab } from './DetailsTab'; 

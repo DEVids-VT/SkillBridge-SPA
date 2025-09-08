@@ -3,7 +3,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { HelpCircle } from 'lucide-react';
 import { colors } from '@/lib/design-system';
-import TagInput from './TagInput';
+import { Input } from '@/components/ui/input';
 import { ImprovedCompetencyList } from './ImprovedCompetencyList';
 import { ImprovedWorkConditionsList } from './ImprovedWorkConditionsList';
 import type { CompetencyRequirement, WorkCondition } from '@/types/candidate/requirements';
@@ -55,12 +55,12 @@ export function SkillsTab({
             <Label htmlFor="preferredEducationFields" className="font-medium" style={{ color: colors.text }}>
               {t('createPersonaPage.form.preferredEducationFields.label')}
             </Label>
-            <TagInput 
+            <Input 
               id="preferredEducationFields" 
               name="preferredEducationFields" 
               placeholder={t('createPersonaPage.form.preferredEducationFields.placeholder')} 
               value={formData.preferredEducationFields} 
-              onChange={(n, v) => onCSVChange('preferredEducationFields', v)} 
+              onChange={(e) => onCSVChange('preferredEducationFields', e.target.value)} 
             />
           </div>
           
@@ -69,24 +69,24 @@ export function SkillsTab({
               <Label htmlFor="requiredCertifications" className="font-medium" style={{ color: colors.text }}>
                 {t('createPersonaPage.form.requiredCertifications.label')}
               </Label>
-              <TagInput 
+              <Input 
                 id="requiredCertifications" 
                 name="requiredCertifications" 
                 placeholder={t('createPersonaPage.form.requiredCertifications.placeholder')} 
                 value={formData.requiredCertifications} 
-                onChange={(n, v) => onCSVChange('requiredCertifications', v)} 
+                onChange={(e) => onCSVChange('requiredCertifications', e.target.value)} 
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="preferredCertifications" className="font-medium" style={{ color: colors.text }}>
                 {t('createPersonaPage.form.preferredCertifications.label')}
               </Label>
-              <TagInput 
+              <Input 
                 id="preferredCertifications" 
                 name="preferredCertifications" 
                 placeholder={t('createPersonaPage.form.preferredCertifications.placeholder')} 
                 value={formData.preferredCertifications} 
-                onChange={(n, v) => onCSVChange('preferredCertifications', v)} 
+                onChange={(e) => onCSVChange('preferredCertifications', e.target.value)} 
               />
             </div>
           </div>
@@ -95,12 +95,12 @@ export function SkillsTab({
             <Label htmlFor="languageRequirements" className="font-medium" style={{ color: colors.text }}>
               {t('createPersonaPage.form.languageRequirements.label')}
             </Label>
-            <TagInput 
+            <Input 
               id="languageRequirements" 
               name="languageRequirements" 
               placeholder={t('createPersonaPage.form.languageRequirements.placeholder')} 
               value={formData.languageRequirements} 
-              onChange={(n, v) => onCSVChange('languageRequirements', v)} 
+              onChange={(e) => onCSVChange('languageRequirements', e.target.value)} 
             />
           </div>
         </div>

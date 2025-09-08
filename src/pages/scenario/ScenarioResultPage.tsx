@@ -1,36 +1,21 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { spacing, colors, layouts } from '@/lib/design-system';
+import { spacing, colors } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
-import { 
-  FileText, 
-  Clock, 
-  User, 
-  Target, 
-  CheckCircle,
-  ArrowLeft,
-  Download,
-  Share2
-} from 'lucide-react';
-
-interface ScenarioData {
-  id: string;
-  title: string;
-  description: string;
-  roleTitle: string;
-  seniorityLevel: string;
-  estimatedDuration: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
-  objectives: string[];
-  scenario: string;
-  requirements: string[];
-  evaluationCriteria: string[];
-  createdAt: string;
-  status: 'draft' | 'published' | 'archived';
-}
+import {
+  ScenarioLoadingState,
+  ScenarioErrorState,
+  ScenarioBackground,
+  ScenarioHeader,
+  ScenarioOverview,
+  ScenarioContent,
+  ScenarioObjectives,
+  ScenarioEvaluationCriteria,
+  ScenarioInfo,
+  ScenarioRequirements,
+  ScenarioActions,
+  type ScenarioData
+} from './components';
 
 export default function ScenarioResultPage() {
   const { id } = useParams<{ id: string }>();
@@ -120,355 +105,48 @@ Your task is to:
     }
   }, [id]);
 
-  const handleBack = () => {
-    navigate('/create');
-  };
-
-  const handleDownload = () => {
-    // Implement download functionality
-    console.log('Download scenario as PDF');
-  };
-
-  const handleShare = () => {
-    // Implement share functionality
-    console.log('Share scenario');
-  };
+  // Handler functions
+  const handleBack = () => navigate('/create');
+  const handleDownload = () => console.log('Download scenario as PDF');
+  const handleShare = () => console.log('Share scenario');
+  const handleCreateAnother = () => navigate('/create/persona');
+  const handleBackToCreate = () => navigate('/create');
 
   if (loading) {
-    return (
-      <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div 
-              className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
-              style={{ borderColor: colors.blue }}
-            ></div>
-            <p style={{ color: colors.white }}>Loading scenario...</p>
-          </div>
-        </div>
-      </div>
-    );
+    return <ScenarioLoadingState />;
   }
 
   if (error || !scenario) {
-    return (
-      <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="mb-4" style={{ color: colors.orange }}>
-              <FileText className="h-12 w-12 mx-auto mb-2" />
-            </div>
-            <h2 className="text-xl mb-2" style={{ color: colors.white }}>Error Loading Scenario</h2>
-            <p className="mb-4" style={{ color: colors.white, opacity: 0.7 }}>{error}</p>
-            <Button onClick={handleBack} variant="outline">
-              Return to Create
-            </Button>
-          </div>
-        </div>
-      </div>
-    );
+    return <ScenarioErrorState error={error || 'Unknown error'} onBack={handleBack} />;
   }
-
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'Beginner': return { backgroundColor: colors.blue };
-      case 'Intermediate': return { backgroundColor: colors.yellow, color: colors.dark };
-      case 'Advanced': return { backgroundColor: colors.orange, color: colors.dark };
-      default: return { backgroundColor: colors.blueDark };
-    }
-  };
 
   return (
     <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
-      {/* Background pattern */}
-      <div 
-        className="absolute top-8 right-0 w-64 h-64 rounded-full opacity-20 blur-3xl -z-10"
-        style={{ backgroundColor: colors.blue }}
-      ></div>
-      <div 
-        className="absolute bottom-12 left-8 w-48 h-48 rounded-full opacity-20 blur-3xl -z-10"
-        style={{ backgroundColor: colors.blueDark }}
-      ></div>
+      <ScenarioBackground />
+      
+      <ScenarioHeader 
+        onBack={handleBack}
+        onShare={handleShare}
+        onDownload={handleDownload}
+      />
 
-      {/* Header */}
-      <div className={layouts.pageHeader}>
-        <div className={layouts.pageHeaderBackground}></div>
-        <div className="flex items-center justify-between">
-          <Button
-            onClick={handleBack}
-            variant="outline"
-            style={{ 
-              color: colors.white, 
-              borderColor: colors.blue, 
-              backgroundColor: 'transparent' 
-            }}
-            className="hover:opacity-80"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Create
-          </Button>
-          
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-2" style={{ color: colors.white }}>Scenario Generated</h1>
-            <p style={{ color: colors.white, opacity: 0.7 }}>Ready for implementation and testing</p>
-          </div>
-
-          <div className="flex space-x-2">
-            <Button
-              onClick={handleShare}
-              variant="outline"
-              style={{ 
-                color: colors.white, 
-                borderColor: colors.blue, 
-                backgroundColor: 'transparent' 
-              }}
-              className="hover:opacity-80"
-            >
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
-            </Button>
-            <Button
-              onClick={handleDownload}
-              variant="outline"
-              style={{ 
-                color: colors.white, 
-                borderColor: colors.blue, 
-                backgroundColor: 'transparent' 
-              }}
-              className="hover:opacity-80"
-            >
-              <Download className="h-4 w-4 mr-2" />
-              Download
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Scenario Overview */}
-          <Card 
-            className="border-2"
-            style={{ 
-              backgroundColor: colors.blueDark, 
-              borderColor: colors.blue 
-            }}
-          >
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-xl mb-2" style={{ color: colors.white }}>{scenario.title}</CardTitle>
-                  <p style={{ color: colors.white, opacity: 0.8 }}>{scenario.description}</p>
-                </div>
-                <Badge 
-                  className="border-0"
-                  style={{
-                    ...getDifficultyColor(scenario.difficulty),
-                    color: getDifficultyColor(scenario.difficulty).color || colors.white
-                  }}
-                >
-                  {scenario.difficulty}
-                </Badge>
-              </div>
-            </CardHeader>
-          </Card>
-
-          {/* Scenario Content */}
-          <Card 
-            className="border-2"
-            style={{ 
-              backgroundColor: colors.blueDark, 
-              borderColor: colors.blue 
-            }}
-          >
-            <CardHeader>
-              <CardTitle className="flex items-center" style={{ color: colors.white }}>
-                <FileText className="h-5 w-5 mr-2" />
-                Scenario Details
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="prose prose-invert max-w-none">
-                <div 
-                  className="whitespace-pre-wrap leading-relaxed"
-                  style={{ color: colors.white, opacity: 0.8 }}
-                >
-                  {scenario.scenario}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Objectives */}
-          <Card 
-            className="border-2"
-            style={{ 
-              backgroundColor: colors.blueDark, 
-              borderColor: colors.blue 
-            }}
-          >
-            <CardHeader>
-              <CardTitle className="flex items-center" style={{ color: colors.white }}>
-                <Target className="h-5 w-5 mr-2" />
-                Learning Objectives
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {scenario.objectives.map((objective, index) => (
-                  <li key={index} className="flex items-start" style={{ color: colors.white, opacity: 0.8 }}>
-                    <CheckCircle 
-                      className="h-4 w-4 mt-1 mr-2 flex-shrink-0" 
-                      style={{ color: colors.yellow }} 
-                    />
-                    {objective}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-
-          {/* Evaluation Criteria */}
-          <Card 
-            className="border-2"
-            style={{ 
-              backgroundColor: colors.blueDark, 
-              borderColor: colors.blue 
-            }}
-          >
-            <CardHeader>
-              <CardTitle style={{ color: colors.white }}>Evaluation Criteria</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {scenario.evaluationCriteria.map((criteria, index) => (
-                  <li key={index} className="flex items-start" style={{ color: colors.white, opacity: 0.8 }}>
-                    <div 
-                      className="w-2 h-2 rounded-full mt-2 mr-3 flex-shrink-0"
-                      style={{ backgroundColor: colors.blue }}
-                    ></div>
-                    {criteria}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+          <ScenarioOverview scenario={scenario} />
+          <ScenarioContent scenario={scenario} />
+          <ScenarioObjectives scenario={scenario} />
+          <ScenarioEvaluationCriteria scenario={scenario} />
         </div>
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {/* Scenario Info */}
-          <Card 
-            className="border-2"
-            style={{ 
-              backgroundColor: colors.blueDark, 
-              borderColor: colors.blue 
-            }}
-          >
-            <CardHeader>
-              <CardTitle style={{ color: colors.white }}>Scenario Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center" style={{ color: colors.white, opacity: 0.8 }}>
-                <User className="h-4 w-4 mr-2" />
-                <span className="text-sm">{scenario.roleTitle}</span>
-              </div>
-              <div className="flex items-center">
-                <Badge 
-                  variant="outline" 
-                  style={{ 
-                    color: colors.white, 
-                    borderColor: colors.blue,
-                    backgroundColor: 'transparent',
-                    opacity: 0.8
-                  }}
-                >
-                  {scenario.seniorityLevel}
-                </Badge>
-              </div>
-              <div className="flex items-center" style={{ color: colors.white, opacity: 0.8 }}>
-                <Clock className="h-4 w-4 mr-2" />
-                <span className="text-sm">{scenario.estimatedDuration}</span>
-              </div>
-              <div 
-                className="pt-2 border-t"
-                style={{ borderColor: colors.blue }}
-              >
-                <p 
-                  className="text-xs"
-                  style={{ color: colors.white, opacity: 0.6 }}
-                >
-                  Created: {new Date(scenario.createdAt).toLocaleDateString()}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Requirements */}
-          <Card 
-            className="border-2"
-            style={{ 
-              backgroundColor: colors.blueDark, 
-              borderColor: colors.blue 
-            }}
-          >
-            <CardHeader>
-              <CardTitle style={{ color: colors.white }}>Requirements</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {scenario.requirements.map((requirement, index) => (
-                  <li 
-                    key={index} 
-                    className="text-sm"
-                    style={{ color: colors.white, opacity: 0.8 }}
-                  >
-                    • {requirement}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-
-          {/* Actions */}
-          <Card 
-            className="border-2"
-            style={{ 
-              backgroundColor: colors.blueDark, 
-              borderColor: colors.blue 
-            }}
-          >
-            <CardHeader>
-              <CardTitle style={{ color: colors.white }}>Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Button 
-                onClick={() => navigate('/create/persona')}
-                className="w-full"
-                style={{
-                  backgroundColor: colors.blue,
-                  color: colors.white,
-                  border: 'none'
-                }}
-              >
-                Create Another Scenario
-              </Button>
-              <Button 
-                onClick={() => navigate('/create')}
-                variant="outline"
-                className="w-full hover:opacity-80"
-                style={{ 
-                  color: colors.white, 
-                  borderColor: colors.blue, 
-                  backgroundColor: 'transparent' 
-                }}
-              >
-                Back to Create
-              </Button>
-            </CardContent>
-          </Card>
+          <ScenarioInfo scenario={scenario} />
+          <ScenarioRequirements scenario={scenario} />
+          <ScenarioActions 
+            onCreateAnother={handleCreateAnother}
+            onBackToCreate={handleBackToCreate}
+          />
         </div>
       </div>
     </div>

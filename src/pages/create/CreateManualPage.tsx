@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useCreateProject } from '@/hooks/useCreateProject';
-import { spacing, colors, layouts, cards, typography } from '@/lib/design-system';
+import { useCreateProject } from './hooks/useCreateProject';
+import { spacing, colors } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { OutputTypeSelector } from './components/shared/OutputTypeSelector';
-import { Notification } from './components/persona';
-import { ArrowLeft } from 'lucide-react';
+import {
+  CreatePageBackground,
+  CreatePageHeader,
+  CreatePageBackButton,
+  CreateManualForm as CreateManualFormComponent,
+  OutputTypeSelector,
+  Notification
+} from './components';
 import {
   CreateManualForm,
   CreateManualFormErrors,
@@ -142,15 +144,7 @@ export default function CreateManualPage() {
 
   return (
     <div className="relative min-h-screen" style={{ backgroundColor: colors.dark }}>
-      {/* Background accent elements only - no grid pattern */}
-      <div 
-        className="absolute top-20 right-20 w-72 h-72 rounded-full opacity-10 blur-3xl"
-        style={{ backgroundColor: colors.orange }}
-      />
-      <div 
-        className="absolute bottom-20 left-20 w-60 h-60 rounded-full opacity-15 blur-3xl"
-        style={{ backgroundColor: colors.blueDark }}
-      />
+      <CreatePageBackground variant="manual" />
 
       <div className={cn(spacing.container, spacing.section)}>
         {notification.show && (
@@ -162,83 +156,25 @@ export default function CreateManualPage() {
           />
         )}
 
-        {/* Page Header - Single header div */}
-        <div className="text-center mb-12">
-          <h1 className={cn(typography.sectionTitle.large, 'mb-4')}>
-            <span style={{ color: colors.orange }}>{t('createManualPage.header.title1')}</span>{' '}
-            <span style={{ color: colors.white }}>{t('createManualPage.header.title2')}</span>
-          </h1>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            {t('createManualPage.header.subtitle')}
-          </p>
-        </div>
+        <CreatePageHeader
+          title1={t('createManualPage.header.title1')}
+          title2={t('createManualPage.header.title2')}
+          subtitle={t('createManualPage.header.subtitle')}
+        />
 
-        {/* Back Button - Positioned above the card */}
-        <div className="flex justify-start mb-6">
-          <Button
-            onClick={handleBack}
-            variant="ghost"
-            className="flex items-center gap-2 text-white"
-          >
-            <ArrowLeft className="h-5 w-5" />
-            {t('createManualPage.backButton')}
-          </Button>
-        </div>
+        <CreatePageBackButton
+          onBack={handleBack}
+          label={t('createManualPage.backButton')}
+        />
 
         {/* Main Content */}
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
-            {/* Main Form */}
-            <div className={cards.base}>
-              <div className={cards.header}>
-                <h2 className="text-2xl font-bold text-white">
-                  <span 
-                    className="inline-block w-2 h-6 mr-3 rounded"
-                    style={{ backgroundColor: colors.orange }}
-                  />
-                  {t('createManualPage.form.title')}
-                </h2>
-              </div>
-              
-              <div className={cards.body}>
-                <div className="space-y-6">
-                  <div className="space-y-3">
-                    <Label htmlFor="description" className="text-white font-medium">
-                      {t('createManualPage.form.description.label')}
-                    </Label>
-                    <Textarea
-                      id="description"
-                      name="description"
-                      placeholder={t('createManualPage.form.description.placeholder')}
-                      value={formData.description}
-                      onChange={handleInputChange}
-                      className={`min-h-40 resize-none ${formErrors.description ? 'border-red-500' : ''}`}
-                      style={{
-                        backgroundColor: colors.blueDark,
-                        borderColor: formErrors.description ? '#ef4444' : colors.blue,
-                        color: colors.white
-                      }}
-                    />
-                    {formErrors.description && (
-                      <p className="text-red-400 text-sm mt-1">{formErrors.description}</p>
-                    )}
-                    <p className="text-gray-400 text-sm">
-                      {t('createManualPage.form.description.help')}
-                    </p>
-                  </div>
-
-                  {/* Character Count */}
-                  <div className="text-right">
-                    <span 
-                      className="text-sm"
-                      style={{ color: formData.description.length > 50 ? colors.yellow : colors.white }}
-                    >
-                      {formData.description.length} {t('createManualPage.form.characters')}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CreateManualFormComponent
+              formData={formData}
+              formErrors={formErrors}
+              onInputChange={handleInputChange}
+            />
 
             {/* Output Type Selector */}
             <div className="mt-8 max-w-4xl mx-auto">

@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useCreateScenario } from '@/hooks/useCreateScenario';
+import { useCreateScenario } from './hooks/useCreateScenario';
 import type { CandidateRequirementsRequest } from '@/types/candidate/requirements';
-import { spacing, colors, typography } from '@/lib/design-system';
+import { spacing, colors } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import CandidateRequirementsForm, { CandidateRequirementsFormErrors, CandidateRequirementsFormState } from './components/persona/CandidateRequirementsForm';
-import Notification from './components/persona/Notification';
-import { OutputTypeSelector } from './components/shared/OutputTypeSelector';
-import { NotificationState } from './types.ts';
+import {
+  CreatePageBackground,
+  CreatePageHeader,
+  CreatePageBackButton,
+  CandidateRequirementsForm,
+  Notification,
+  OutputTypeSelector
+} from './components';
+import { CandidateRequirementsFormErrors, CandidateRequirementsFormState } from './components/persona/CandidateRequirementsForm';
+import { NotificationState } from './types';
 
 // Initial form state
 const initialFormState: CandidateRequirementsFormState = {
@@ -237,19 +241,7 @@ export default function CreatePersonaPage() {
 
   return (
     <div className="relative min-h-screen" style={{ backgroundColor: colors.dark }}>
-      {/* Background accent elements only - no grid pattern */}
-      <div 
-        className="absolute top-20 right-20 w-72 h-72 rounded-full opacity-10 blur-3xl"
-        style={{ backgroundColor: colors.blue }}
-      />
-      <div 
-        className="absolute bottom-20 left-20 w-60 h-60 rounded-full opacity-15 blur-3xl"
-        style={{ backgroundColor: colors.blueDark }}
-      />
-      <div 
-        className="absolute top-1/2 left-1/3 w-32 h-32 rounded-full opacity-15 blur-3xl"
-        style={{ backgroundColor: colors.orange }}
-      />
+      <CreatePageBackground variant="persona" />
 
       <div className={cn(spacing.container, spacing.section)}>
         {notification.show && (
@@ -261,28 +253,16 @@ export default function CreatePersonaPage() {
           />
         )}
 
-        {/* Page Header - Single header div */}
-        <div className="text-center mb-12">
-          <h1 className={cn(typography.sectionTitle.large, 'mb-4')}>
-            <span style={{ color: colors.orange }}>{t('createPersonaPage.header.title1')}</span>{' '}
-            <span style={{ color: colors.white }}>{t('createPersonaPage.header.title2')}</span>
-          </h1>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            {t('createPersonaPage.header.subtitle')}
-          </p>
-        </div>
+        <CreatePageHeader
+          title1={t('createPersonaPage.header.title1')}
+          title2={t('createPersonaPage.header.title2')}
+          subtitle={t('createPersonaPage.header.subtitle')}
+        />
 
-        {/* Back Button - Positioned above the card */}
-        <div className="flex justify-start mb-6">
-          <Button
-            onClick={handleBack}
-            variant="ghost"
-            className="flex items-center gap-2 text-white"
-          >
-            <ArrowLeft className="h-5 w-5" />
-            {t('createPersonaPage.backButton')}
-          </Button>
-        </div>
+        <CreatePageBackButton
+          onBack={handleBack}
+          label={t('createPersonaPage.backButton')}
+        />
 
         {/* Main Content - Simplified Layout */}
         <div className="flex justify-center">

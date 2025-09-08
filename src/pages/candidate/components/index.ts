@@ -1,2 +1,3 @@
-// Export candidate-related components here
-// Example: export { CandidateProfileForm } from './CandidateProfileForm';
+export { default as CandidateAccountSection } from './CandidateAccountSection';
+export { default as CandidateSubscriptionSection } from './CandidateSubscriptionSection';
+export { default as CandidateSystemSection } from './CandidateSystemSection';

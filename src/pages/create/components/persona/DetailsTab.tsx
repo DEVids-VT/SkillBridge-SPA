@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { colors } from '@/lib/design-system';
-import TagInput from './TagInput';
+import { Input } from '@/components/ui/input';
 import { ImprovedPersonalityTraitsList } from './ImprovedPersonalityTraitsList';
 import { ImprovedKeyValueList } from './ImprovedKeyValueList';
 import type { PersonalityTrait } from '@/types/candidate/requirements';
@@ -104,12 +104,12 @@ export function DetailsTab({
           <Label htmlFor="keyResponsibilities" className="font-medium" style={{ color: colors.text }}>
             {t('createPersonaPage.form.keyResponsibilities.label')}
           </Label>
-          <TagInput 
+          <Input 
             id="keyResponsibilities" 
             name="keyResponsibilities" 
             placeholder={t('createPersonaPage.form.keyResponsibilities.placeholder')} 
             value={formData.keyResponsibilities} 
-            onChange={(n, v) => onCSVChange('keyResponsibilities', v)} 
+            onChange={(e) => onCSVChange('keyResponsibilities', e.target.value)} 
           />
         </div>
 

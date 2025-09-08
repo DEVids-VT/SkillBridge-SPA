@@ -6,6 +6,7 @@ import { CompanyProjectDetailPage } from './pages/company-projects';
 import CompaniesPage from './pages/companies/CompaniesPage.tsx';
 import AboutPage from './pages/about/AboutPage.tsx';
 import WelcomePage from './pages/welcome/WelcomePage';
+import CreateCandidateProfilePage from './pages/welcome/CreateCandidateProfilePage';
 import Layout from './components/layout/Layout';
 import WelcomeLayout from './pages/welcome/WelcomeLayout';
 import OnboardingGuard from './components/authorize-route/OnboardingGuard';
@@ -74,6 +75,7 @@ export const router = createBrowserRouter(
       {/* Welcome/onboarding route should be accessible even with incomplete onboarding */}
       <Route path={RoutePage.WELCOME} element={<WelcomeLayout />}>
         <Route index element={<WelcomePage />} />
+        <Route path="candidate-profile" element={<CreateCandidateProfilePage onBackToRoleSelection={() => window.history.back()} />} />
       </Route>
     </>
   )

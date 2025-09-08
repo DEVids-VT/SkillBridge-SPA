@@ -4,22 +4,18 @@ import { Card, CardContent } from '@/components/ui/card';
 import { colors } from '@/lib/design-system';
 import { Building2, User, LogOut, Loader2 } from 'lucide-react';
 import { UserRole } from '@/types/user/UserOnboarding';
-import { useOnboarding } from '@/contexts/OnboardingContext';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useBecomeCandidate } from '@/hooks/useRoleMutations';
 import { useState } from 'react';
 
 interface RoleSelectorProps {
   onRoleSelect: (role: UserRole) => void;
+  onCandidateSelect?: () => void;
 }
 
-export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
+export function RoleSelector({ onRoleSelect, onCandidateSelect }: RoleSelectorProps) {
   const { t } = useTranslation('welcome');
-  const { completeOnboarding, refreshUserRoles } = useOnboarding();
   const { logout } = useAuth0();
   const [isLoading, setIsLoading] = useState<'company' | 'candidate' | null>(null);
-  // Use only the candidate mutation hook since company mutation happens after form completion
-  const becomeCandidateMutation = useBecomeCandidate();
 
   // Handler for company selection - just sets the role, API call will be made after form completion
   const handleCompanySelect = () => {
@@ -29,25 +25,13 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
     setIsLoading(null);
     // The API call and token refresh will happen after form completion in CompanyFormSteps.tsx
   };
-  // Handler for candidate selection that completes onboarding immediately
-  const handleCandidateSelect = async () => {
-    try {
-      setIsLoading('candidate');
+  // Handler for candidate selection - navigate to candidate profile page
+  const handleCandidateSelect = () => {
+    if (onCandidateSelect) {
+      onCandidateSelect();
+    } else {
+      // Fallback to the old behavior if no custom handler provided
       onRoleSelect('candidate');
-
-      // Call the API to become a candidate
-      await becomeCandidateMutation.mutateAsync();
-
-      // Refresh the token to get updated roles
-      await refreshUserRoles();
-
-      // Complete onboarding after successful API call
-      completeOnboarding();
-    } catch (error) {
-      console.error('Error becoming a candidate:', error);
-      // You might want to show an error message to the user
-    } finally {
-      setIsLoading(null);
     }
   };
 

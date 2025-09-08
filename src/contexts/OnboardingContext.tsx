@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, ReactNode, useEffect, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { UserOnboardingData, UserRole, CompanyFormData } from '@/types/user/UserOnboarding';
+import { UserOnboardingData, UserRole, CompanyFormData, CandidateFormData } from '@/types/user/UserOnboarding';
 import useUserCredentials, { Auth0Role } from '@/hooks/useUserCredentials';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -17,6 +17,7 @@ interface OnboardingContextType {
   hasRole: (role: string) => boolean;
   setRole: (role: UserRole) => void;
   updateCompanyData: (data: Partial<CompanyFormData>) => void;
+  updateCandidateData: (data: Partial<CandidateFormData>) => void;
   completeOnboarding: () => void;
   resetOnboarding: () => void;
   refreshUserRoles: () => Promise<void>;
@@ -120,12 +121,12 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     return user.roles.some((r) => r.toLowerCase() === role.toLowerCase());
   };
 
-  // Set the user role - simplified to only handle company role
+  // Set the user role - handle both company and candidate roles
   const setRole = (role: UserRole) => {
     setOnboardingData((prev) => ({
       ...prev,
       role,
-      // Only initialize company data structure
+      // Initialize appropriate data structure based on role
       ...(role === 'company'
         ? {
             company: {
@@ -149,6 +150,15 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
               contactPerson: '',
             },
           }
+        : role === 'candidate'
+        ? {
+            candidate: {
+              username: '',
+              cv: null,
+              profilePicture: null,
+              externalLink: '',
+            },
+          }
         : {}),
     }));
   };
@@ -161,6 +171,17 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         ...prev.company,
         ...data,
       } as CompanyFormData,
+    }));
+  };
+
+  // Update candidate form data
+  const updateCandidateData = (data: Partial<CandidateFormData>) => {
+    setOnboardingData((prev) => ({
+      ...prev,
+      candidate: {
+        ...prev.candidate,
+        ...data,
+      } as CandidateFormData,
     }));
   };
 
@@ -214,6 +235,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     hasRole,
     setRole,
     updateCompanyData,
+    updateCandidateData,
     completeOnboarding,
     resetOnboarding,
     refreshUserRoles,

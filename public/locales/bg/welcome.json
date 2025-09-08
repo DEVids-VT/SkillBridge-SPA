@@ -78,6 +78,30 @@
         "bulgarianOffices": "напр., София, Пловдив",
         "yearEstablished": "2000"
       }
+    },
+    "candidateForm": {
+      "candidateProfileSetup": "Настройка на Профил на Кандидат",
+      "username": "Потребителско Име",
+      "usernameRequired": "Потребителското име е задължително (3-50 символа)",
+      "cvUpload": "Качване на CV",
+      "cvRequired": "Качването на CV е задължително",
+      "cvUploadText": "Качете вашето CV",
+      "cvUploadHelp": "PDF, DOC или DOCX формат (макс. 10MB)",
+      "uploadCv": "Качи CV",
+      "profilePicture": "Профилна Снимка",
+      "profilePictureUploadText": "Качете вашата профилна снимка",
+      "profilePictureHelp": "JPG, PNG или GIF формат (макс. 5MB)",
+      "uploadPicture": "Качи Снимка",
+      "changePicture": "Промени Снимка",
+      "profilePictureInvalid": "Моля, качете валиден файл със снимка",
+      "externalLink": "Външна Връзка",
+      "externalLinkInvalid": "Моля, въведете валиден URL",
+      "externalLinkHelp": "Връзка към вашия личен уебсайт, LinkedIn или портфолио",
+      "optional": "По избор",
+      "placeholders": {
+        "username": "напр., ivan_petrov",
+        "externalLink": "https://linkedin.com/in/yourprofile"
+      }
     }
   },
   "roleVerificationError": "Грешка при Проверка на Роля",

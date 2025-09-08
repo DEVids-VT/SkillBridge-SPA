@@ -23,10 +23,10 @@ export interface CompanyFormData {
 }
 
 export interface CandidateFormData {
-  fullName: string;
-  dateOfBirth: string;
+  username: string;
   cv?: File | null;
-  areaOfInterest: string[];
+  profilePicture?: File | null;
+  externalLink?: string;
 }
 
 export interface UserOnboardingData {

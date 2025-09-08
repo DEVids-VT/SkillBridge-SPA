@@ -16,6 +16,7 @@ export enum RoutePage {
   QUIZ_DETAIL = '/quiz/:id',
   COMPANY_PROFILE = '/company/profile',
   CANDIDATE_PROFILE = '/candidate/profile',
+  CREATE_CANDIDATE_PROFILE = '/welcome/candidate-profile',
   // Legacy route - will be removed
   CREATE_PROJECT = '/create-project',
 }

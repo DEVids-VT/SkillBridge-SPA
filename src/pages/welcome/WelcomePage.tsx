@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import RoleSelector from './RoleSelector';
 import CompanyFormSteps from './CompanyFormSteps';
@@ -10,7 +9,6 @@ import { WelcomeSection, WelcomePageHeader } from './components';
 import { colors } from '@/lib/design-system';
 
 export function WelcomePage() {
-  const { t } = useTranslation('welcome');
   const navigate = useNavigate();
   const { onboardingData, setRole, resetOnboarding } = useOnboarding();
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(onboardingData.role);
@@ -33,8 +31,13 @@ export function WelcomePage() {
     setSelectedRole(null);
     resetOnboarding();
   };
+  // Handle candidate role selection - navigate to candidate profile page
+  const handleCandidateSelect = () => {
+    setRole('candidate');
+    navigate(RoutePage.CREATE_CANDIDATE_PROFILE);
+  };
+
   // Render form based on selected role
-  // Now we only need to handle company form steps as candidate onboarding is completed immediately
   const renderForm = () => {
     if (!selectedRole) return null;
 
@@ -56,7 +59,7 @@ export function WelcomePage() {
         <div className="flex justify-center">
           <div className="w-full max-w-6xl">
             {!selectedRole ? (
-              <RoleSelector onRoleSelect={handleRoleSelect} />
+              <RoleSelector onRoleSelect={handleRoleSelect} onCandidateSelect={handleCandidateSelect} />
             ) : (
               <div className="flex justify-center w-full">{renderForm()}</div>
             )}

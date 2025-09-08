@@ -78,6 +78,30 @@
         "bulgarianOffices": "e.g., Sofia, Plovdiv",
         "yearEstablished": "2000"
       }
+    },
+    "candidateForm": {
+      "candidateProfileSetup": "Candidate Profile Setup",
+      "username": "Username",
+      "usernameRequired": "Username is required (3-50 characters)",
+      "cvUpload": "CV Upload",
+      "cvRequired": "CV upload is required",
+      "cvUploadText": "Upload your CV",
+      "cvUploadHelp": "PDF, DOC, or DOCX format (max 10MB)",
+      "uploadCv": "Upload CV",
+      "profilePicture": "Profile Picture",
+      "profilePictureUploadText": "Upload your profile picture",
+      "profilePictureHelp": "JPG, PNG, or GIF format (max 5MB)",
+      "uploadPicture": "Upload Picture",
+      "changePicture": "Change Picture",
+      "profilePictureInvalid": "Please upload a valid image file",
+      "externalLink": "External Link",
+      "externalLinkInvalid": "Please enter a valid URL",
+      "externalLinkHelp": "Link to your personal website, LinkedIn, or portfolio",
+      "optional": "Optional",
+      "placeholders": {
+        "username": "e.g., john_doe",
+        "externalLink": "https://linkedin.com/in/yourprofile"
+      }
     }
   },
   "roleVerificationError": "Role Verification Error",

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RoleSelector from './RoleSelector';
 import CompanyFormSteps from './CompanyFormSteps';
+import CandidateFormSteps from './CandidateFormSteps';
 import { UserRole } from '@/types/user/UserOnboarding';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { RoutePage } from '@/types/enums/RoutePage';
@@ -31,20 +32,17 @@ export function WelcomePage() {
     setSelectedRole(null);
     resetOnboarding();
   };
-  // Handle candidate role selection - navigate to candidate profile page
-  const handleCandidateSelect = () => {
-    setRole('candidate');
-    navigate(RoutePage.CREATE_CANDIDATE_PROFILE);
-  };
+  // Candidate now follows the same in-page step flow
 
   // Render form based on selected role
   const renderForm = () => {
     if (!selectedRole) return null;
 
-    // Only company role needs form steps now
     return selectedRole === 'company' ? (
       <CompanyFormSteps onBackToRoleSelection={handleBackToRoleSelection} />
-    ) : null;
+    ) : (
+      <CandidateFormSteps onBackToRoleSelection={handleBackToRoleSelection} />
+    );
   };
 
   return (
@@ -59,7 +57,7 @@ export function WelcomePage() {
         <div className="flex justify-center">
           <div className="w-full max-w-6xl">
             {!selectedRole ? (
-              <RoleSelector onRoleSelect={handleRoleSelect} onCandidateSelect={handleCandidateSelect} />
+              <RoleSelector onRoleSelect={handleRoleSelect} />
             ) : (
               <div className="flex justify-center w-full">{renderForm()}</div>
             )}

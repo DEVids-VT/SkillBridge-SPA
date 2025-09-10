@@ -9,10 +9,9 @@ import { useState } from 'react';
 
 interface RoleSelectorProps {
   onRoleSelect: (role: UserRole) => void;
-  onCandidateSelect?: () => void;
 }
 
-export function RoleSelector({ onRoleSelect, onCandidateSelect }: RoleSelectorProps) {
+export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
   const { t } = useTranslation('welcome');
   const { logout } = useAuth0();
   const [isLoading, setIsLoading] = useState<'company' | 'candidate' | null>(null);
@@ -25,14 +24,11 @@ export function RoleSelector({ onRoleSelect, onCandidateSelect }: RoleSelectorPr
     setIsLoading(null);
     // The API call and token refresh will happen after form completion in CompanyFormSteps.tsx
   };
-  // Handler for candidate selection - navigate to candidate profile page
+  // Handler for candidate selection - same page flow
   const handleCandidateSelect = () => {
-    if (onCandidateSelect) {
-      onCandidateSelect();
-    } else {
-      // Fallback to the old behavior if no custom handler provided
-      onRoleSelect('candidate');
-    }
+    setIsLoading('candidate');
+    onRoleSelect('candidate');
+    setIsLoading(null);
   };
 
   return (

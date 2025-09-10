@@ -163,20 +163,6 @@ const ProjectsBoardPage = () => {
     setDeadlineFilter(deadline);
     setShowDeadlineDropdown(false);
   };
-  
-  // Toggle company dropdown
-  const toggleCompanyDropdown = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setShowCompanyDropdown(prev => !prev);
-    setShowDeadlineDropdown(false);
-  };
-  
-  // Toggle deadline dropdown
-  const toggleDeadlineDropdown = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setShowDeadlineDropdown(prev => !prev);
-    setShowCompanyDropdown(false);
-  };
 
   // Handler functions for the filter sidebar
   const handleClearFilters = () => {

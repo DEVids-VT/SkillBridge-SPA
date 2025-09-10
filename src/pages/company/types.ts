@@ -1,8 +1,47 @@
-// Company profile related types
-export interface CompanyProfile {
+// Company profile related types matching API models
+
+export interface CompanyResponse {
   id: string;
   name: string;
-  // Add more company profile fields as needed
+  about: string;
+  logoUrl?: string;
+  bannerUrl?: string;
+  activities: string;
+  sector: string;
+  headOfficeLocation: string;
+  technologies: string;
+  yearEstablished?: number;
+  hasOfficesInBulgaria: boolean;
+  bulgarianOfficeLocations?: string;
+  employeesInBulgaria?: number;
+  employeesWorldwide: number;
+  whyWorkWithUs?: string;
+  websiteUrl: string;
+  contactName: string;
+  contactEmail: string;
+  contactPhone: string;
+  auth0UserId: string;
+  createdAt: string;
+  updatedAt?: string;
 }
 
-// Add more company-related types here
+export interface UpdateCompanyRequest {
+  name?: string;
+  about?: string;
+  logoUrl?: string;
+  bannerUrl?: string;
+  activities?: string;
+  sector?: string;
+  headOfficeLocation?: string;
+  technologies?: string;
+  yearEstablished?: number;
+  hasOfficesInBulgaria?: boolean;
+  bulgarianOfficeLocations?: string;
+  employeesInBulgaria?: number;
+  employeesWorldwide?: number;
+  whyWorkWithUs?: string;
+  websiteUrl?: string;
+  contactName?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+}

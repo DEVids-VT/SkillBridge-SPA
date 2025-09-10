@@ -89,11 +89,12 @@ const ProjectsBoardPage = () => {
       company: project.companyName,
       logo: `/images/companies/${project.companyName.toLowerCase().replace(/\s/g, '_')}_logo.png`, // Fallback logo path
       title: project.title,
-      description: project.description,
+      description: project.learningBenefits,
       category: project.category || 'development', // Default category if not provided
       skills: project.skills.map((skill) => skill.name),
-      postedDate: new Date(project.createdAt).toLocaleDateString(),
-      deadline: new Date(project.deadline).toLocaleDateString(),
+      // Use ISO strings to ensure reliable date math across locales
+      postedDate: new Date(project.createdAt).toISOString(),
+      deadline: new Date(project.deadline).toISOString(),
     })) || [];
 
   // Get all unique companies

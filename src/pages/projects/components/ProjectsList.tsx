@@ -16,10 +16,11 @@ export const ProjectsList = ({ projects, categories, isLoading = false }: Projec
   // Show skeleton loader if loading
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-4">
-        {[1, 2, 3].map((n) => (
-          <div key={n} className="animate-pulse">
-            <div className="rounded-lg border p-4 h-48" style={{ backgroundColor: colors.blueDark, borderColor: 'transparent' }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        {[1, 2, 3, 4, 5, 6].map((n) => (
+          <div key={n} className="animate-pulse rounded-xl overflow-hidden" style={{ backgroundColor: colors.blueDark }}>
+            <div className="h-36 w-full bg-slate-700" />
+            <div className="p-4">
               <div className="flex items-start gap-3 mb-3">
                 <div className="w-10 h-10 rounded-md bg-slate-700"></div>
                 <div className="flex-1">
@@ -32,9 +33,7 @@ export const ProjectsList = ({ projects, categories, isLoading = false }: Projec
                 <div className="h-5 bg-slate-700 rounded w-20"></div>
                 <div className="h-5 bg-slate-700 rounded w-14"></div>
               </div>
-              <div className="flex justify-end pt-2 border-t border-slate-700">
-                <div className="h-3 bg-slate-700 rounded w-24"></div>
-              </div>
+              <div className="h-2 w-full bg-slate-700 rounded-full" />
             </div>
           </div>
         ))}
@@ -65,9 +64,9 @@ export const ProjectsList = ({ projects, categories, isLoading = false }: Projec
         </span>{' '}
         {t('projectsPage.projectsList.projects')}
       </div>
-      
-      {/* Flex column layout - each card on its own row */}
-      <div className="flex flex-col gap-4">
+
+      {/* Responsive grid layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} categories={categories} />
         ))}

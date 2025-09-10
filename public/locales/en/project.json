@@ -17,6 +17,18 @@
       "marketing": "Marketing",
       "content": "Content",
       "architecture": "Architecture",
+      "business": "Business",
+      "data": "Data",
+      "qa": "QA",
+      "companies": "Companies",
+      "allCompanies": "All Companies",
+      "companiesSelected": "companies selected",
+      "deadline": "Deadline",
+      "anyTime": "Any time",
+      "today": "Today",
+      "thisWeek": "This Week",
+      "thisMonth": "This Month",
+      "searchPlaceholder": "Search projects, companies, or skills...",
       "otherOptions": "Other Options",
       "mostRecent": "Most Recent",
       "upcoming": "Upcoming"
@@ -24,10 +36,18 @@
     "projectsList": {
       "showing": "Showing",
       "projects": "projects",
-      "noProjectsFound": "No projects found matching your criteria."
+      "noProjectsFound": "No projects found matching your criteria.",
+      "tryAdjustingFilters": "Try adjusting or clearing filters."
     },
     "projectCard": {
+      "today": "Today",
+      "oneDayAgo": "1 day ago",
       "daysAgo": "days ago",
+      "deadlinePassed": "Deadline passed",
+      "daysLeft": "days left",
+      "timeRemaining": "Time remaining",
+      "showMore": "Show more",
+      "showLess": "Show less",
       "details": "Details",
       "deadline": "Deadline:",
       "more": "more",

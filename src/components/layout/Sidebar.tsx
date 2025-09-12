@@ -222,7 +222,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden sidebar-overlay"
+            className="fixed inset-0 bg-slate-900 z-40 lg:hidden sidebar-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

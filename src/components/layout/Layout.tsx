@@ -91,37 +91,36 @@ export function Layout() {
         {/* Mobile Menu Toggle - Only visible on mobile */}
         <div className="sticky top-0 z-10 lg:hidden p-4 bg-background/80 backdrop-blur-lg border-b border-border/40">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent event bubbling
-                  toggleSidebar();
-                }} 
-                aria-label="Toggle main menu"
-                className="hover:bg-slate-800"
-              >
-                <Menu className="h-6 w-6" />
-              </Button>
-              
-              {/* ActiveSidebar Toggle - only show on dashboard pages */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:bg-slate-800"
-                onClick={toggleActiveSidebar}
-                aria-label="Toggle active sidebar"
-              >
-                <SidebarIcon className="h-6 w-6" />
-              </Button>
-            </div>
+            {/* Left side - Main menu toggle */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent event bubbling
+                toggleSidebar();
+              }} 
+              aria-label="Toggle main menu"
+              className="hover:bg-slate-800"
+            >
+              <Menu className="h-6 w-6" />
+            </Button>
             
+            {/* Center - Logo */}
             <div className="flex items-center">
               <img src="/images/horasussvoeniruce.png" alt="SkillBridge" className="h-8" />
               <span className="ml-2 font-semibold text-white">SkillBridge</span>
             </div>
-            <div className="w-10"></div> {/* Empty div for balanced layout */}
+            
+            {/* Right side - ActiveSidebar Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hover:bg-slate-800"
+              onClick={toggleActiveSidebar}
+              aria-label="Toggle active sidebar"
+            >
+              <SidebarIcon className="h-6 w-6" />
+            </Button>
           </div>
         </div>
 

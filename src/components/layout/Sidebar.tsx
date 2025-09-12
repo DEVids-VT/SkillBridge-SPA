@@ -349,17 +349,12 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                 )}
                 style={{ textDecoration: 'none', outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
                 title={isCollapsed && !isMobile ? item.label : undefined}
-                onClick={() => {
-                  if (isMobile) {
-                    // Only close the sidebar if navigating to a different route
-                    if (location.pathname !== item.to) {
-                      // Small delay to allow navigation to happen first
-                      setTimeout(() => {
-                        handleToggle();
-                      }, 150);
-                    }
-                  }
-                }}
+                 onClick={() => {
+                   if (isMobile) {
+                     // Close the sidebar immediately on mobile when any option is selected
+                     handleToggle();
+                   }
+                 }}
               >
                   <Icon className={cn(sidebar.navigation.icon)} />
                 <motion.span
@@ -395,17 +390,12 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                 )}
                 style={{ textDecoration: 'none', outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
                 title={isCollapsed && !isMobile ? profileInfo.label : undefined}
-                onClick={() => {
-                  if (isMobile) {
-                    // Only close the sidebar if navigating to a different route
-                    if (location.pathname !== profileInfo.route) {
-                      // Small delay to allow navigation to happen first
-                      setTimeout(() => {
-                        handleToggle();
-                      }, 150);
-                    }
-                  }
-                }}
+                 onClick={() => {
+                   if (isMobile) {
+                     // Close the sidebar immediately on mobile when profile option is selected
+                     handleToggle();
+                   }
+                 }}
               >
                   <profileInfo.icon className={sidebar.navigation.icon} />
                 <motion.span
@@ -427,7 +417,13 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             variant="ghost"
             size="sm"
             className={cn(sidebar.buttons.secondary, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-            onClick={toggleLanguage}
+             onClick={() => {
+               toggleLanguage();
+               if (isMobile) {
+                 // Close sidebar after language change
+                 handleToggle();
+               }
+             }}
             title={isCollapsed && !isMobile ? (isEnglish ? 'English' : 'Bulgarian') : undefined}
             style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
           >
@@ -448,7 +444,13 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               variant="ghost"
               size="sm"
               className={cn(sidebar.buttons.danger, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-              onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+               onClick={() => {
+                 logout({ logoutParams: { returnTo: window.location.origin } });
+                 if (isMobile) {
+                   // Close sidebar after logout
+                   handleToggle();
+                 }
+               }}
               title={isCollapsed && !isMobile ? 'Logout' : undefined}
               style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
             >
@@ -465,7 +467,13 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               variant="default"
               size="sm"
               className={cn(sidebar.buttons.primary, 'h-12 px-2', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-              onClick={() => loginWithRedirect()}
+               onClick={() => {
+                 loginWithRedirect();
+                 if (isMobile) {
+                   // Close sidebar after login redirect
+                   handleToggle();
+                 }
+               }}
               style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
             >
               <motion.span

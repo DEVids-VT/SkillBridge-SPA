@@ -277,27 +277,28 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
           </div>
 
           <div className={cn(!isCollapsed && !isMobile ? 'flex items-center gap-2 flex-shrink-0' : 'w-full pt-4')}> 
-            {/* Collapse button - only visible on desktop */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className={cn(
-                sidebar.navigation.base,
-                sidebar.navigation.default,
-                isCollapsed && !isMobile && 'justify-center w-full py-6',
-                'sidebar-no-focus',
-                '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
-              )}
-              onClick={toggleCollapse}
-              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-              style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
-            >
-                   {isCollapsed ? (
-                <ChevronRight className={sidebar.navigation.icon} />
-              ) : (
-                <ChevronLeft className={sidebar.navigation.icon} />
-              )}
-            </Button>
+             {/* Collapse button - only visible on desktop */}
+             <Button
+               variant="ghost"
+               size="icon"
+               className={cn(
+                 sidebar.navigation.base,
+                 sidebar.navigation.default,
+                 isCollapsed && !isMobile && 'justify-center w-full py-6',
+                 'sidebar-no-focus',
+                 '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0',
+                 'hidden lg:flex' // Hide on mobile, show on desktop
+               )}
+               onClick={toggleCollapse}
+               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+               style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
+             >
+                    {isCollapsed ? (
+                 <ChevronRight className={sidebar.navigation.icon} />
+               ) : (
+                 <ChevronLeft className={sidebar.navigation.icon} />
+               )}
+             </Button>
 
             {/* Close button for mobile */}
             <Button 

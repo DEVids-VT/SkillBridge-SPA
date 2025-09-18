@@ -23,11 +23,11 @@ export default function ProjectCandidatesTab() {
                     <p className="text-xs mt-1" style={{ color: colors.textMuted }}>Progress: {Math.floor(Math.random()*100)}%</p>
                   </div>
                 </div>
-                <div className="mt-3 flex items-center gap-2">
-                  <Button variant="outline" className="gap-2" style={{ borderColor: colors.blue, color: colors.white }}>
+                <div className="mt-3 flex flex-col gap-2">
+                  <Button variant="outline" className="gap-2 font-normal px-3 py-2" style={{ borderColor: colors.blue, color: colors.white }}>
                     <Download className="size-4" /> Download CV
                   </Button>
-                  <a href="#" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-3 py-2 rounded-md border"
+                  <a href="#" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md border h-9 text-sm"
                     style={{ borderColor: colors.blue, color: colors.white }}>
                     <ExternalLink className="size-4" /> Open Tracker
                   </a>

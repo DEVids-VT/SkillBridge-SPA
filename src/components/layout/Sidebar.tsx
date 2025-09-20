@@ -253,7 +253,8 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       >
         {/* Sidebar Header */}
         <div className={cn(
-          !isCollapsed && !isMobile ? 'flex justify-between items-center' : ''
+          'flex items-center justify-between',
+          !isCollapsed && !isMobile ? 'items-center' : ''
         )}>
           <div className={cn(
             'flex items-center min-w-0',
@@ -276,7 +277,10 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             </motion.span>
           </div>
 
-          <div className={cn(!isCollapsed && !isMobile ? 'flex items-center gap-2 flex-shrink-0' : 'w-full pt-4')}> 
+          <div className={cn(
+            'flex items-center gap-2 flex-shrink-0',
+            isMobile ? 'ml-auto' : ''
+          )}> 
              {/* Collapse button - only visible on desktop */}
              <Button
                variant="ghost"
@@ -300,18 +304,15 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                )}
              </Button>
 
-            {/* Close button for mobile */}
+            {/* Close button for mobile - positioned to the right of logo */}
             <Button 
               variant="ghost" 
               size="icon" 
-              className="lg:hidden !text-white !bg-red-500 hover:!bg-red-600 focus:!bg-red-600 !p-2 !min-w-0 !h-auto sidebar-no-focus !outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0" 
+              className="lg:hidden !text-white hover:!bg-slate-700 focus:!bg-slate-700 !p-2 !min-w-0 !h-auto sidebar-no-focus !outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0" 
               onClick={handleToggle}
               aria-label="Close sidebar"
               style={{ 
-                backgroundColor: '#ef4444', 
                 color: 'white',
-                border: '2px solid white',
-                borderRadius: '8px',
                 padding: '8px',
                 minWidth: '40px',
                 height: '40px',
@@ -319,7 +320,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                 boxShadow: 'none !important'
               }}
             >
-              <X className={sidebar.navigation.icon} style={{ color: 'white' }} />
+              <ChevronLeft className={sidebar.navigation.icon} style={{ color: 'white' }} />
             </Button>
           </div>
         </div>

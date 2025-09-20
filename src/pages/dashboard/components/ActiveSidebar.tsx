@@ -5,6 +5,7 @@ import { useActiveSidebar } from '@/contexts/ActiveSidebarContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLocation } from 'react-router-dom';
 
 interface ActiveSidebarProps {
   title: string;
@@ -17,6 +18,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const location = useLocation();
 
   // Update mobile state when window resizes
   useEffect(() => {
@@ -30,10 +32,10 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
 
   // Close sidebar on route change (mobile only)
   useEffect(() => {
-    if (isMobile && isOpen) {
-      close();
-    }
-  }, [isMobile, isOpen, close]);
+    if (!isMobile) return;
+    // Close when the route changes to ensure the overlay does not persist
+    close();
+  }, [location.pathname, isMobile, close]);
 
   // Prevent scroll propagation
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {

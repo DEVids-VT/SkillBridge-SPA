@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Menu, X, LayoutDashboard, User, Plus, Sidebar } from 'lucide-react';
@@ -15,6 +15,7 @@ export function Header() {
   const { toggle: toggleActiveSidebar } = useActiveSidebar();
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const { onboardingData } = useOnboarding();
+  const location = useLocation();
 
   // Current language
   const currentLanguage = i18n.language || 'en';
@@ -41,6 +42,10 @@ export function Header() {
     return null;
   };
   const profileInfo = getProfileInfo();
+
+  // Show ActiveSidebar toggle only on routes that render it
+  const showActiveSidebarToggle =
+    location.pathname.startsWith('/dashboard') || location.pathname === '/projects';
 
   // Check if user is a company
   const isCompany = onboardingData.role === 'company';
@@ -200,7 +205,8 @@ export function Header() {
             
             {/* Mobile Controls */}
             <div className="flex items-center gap-2 md:hidden">
-              {/* ActiveSidebar Toggle - only show on dashboard pages */}
+            {/* ActiveSidebar Toggle - only show on supported pages */}
+            {showActiveSidebarToggle && (
               <Button
                 variant="ghost"
                 size="icon"
@@ -210,6 +216,7 @@ export function Header() {
               >
                 <Sidebar className="h-5 w-5" />
               </Button>
+            )}
               
               {/* Main Menu Toggle */}
               <Button

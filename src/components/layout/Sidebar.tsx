@@ -222,7 +222,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden sidebar-overlay"
+            className="fixed inset-0 bg-slate-900 z-40 lg:hidden sidebar-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -233,27 +233,34 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       </AnimatePresence>
 
       {/* Sidebar */}
-      <motion.aside
-        className={cn(
-          'fixed left-0 top-0 z-50 h-screen flex flex-col transform',
-          isMobile ? 'mobile-sidebar' : '',
-          isMobile ? isOpen ? 'translate-x-0' : '-translate-x-full' : 'translate-x-0',
-          !isCollapsed && !isMobile ? 'pt-7 pl-2' : 'pt-2 pl-2'
-        )}
-        variants={!isMobile ? sidebarVariants : undefined}
-        animate={!isMobile ? (isCollapsed ? 'collapsed' : 'expanded') : undefined}
-        initial={false}
-        style={isMobile ? { width: isOpen ? '100%' : '0' } : undefined}
-        transition={isMobile ? { 
-          duration: 0.25, 
-          type: "spring",
-          stiffness: 300,
-          damping: 25
-        } : undefined}
-      >
+      <AnimatePresence>
+        {(!isMobile || isOpen) && (
+          <motion.aside
+            className={cn(
+              'fixed left-0 top-0 z-50 h-screen flex flex-col',
+              isMobile ? 'mobile-sidebar' : '',
+              !isCollapsed && !isMobile ? 'pt-7 pl-2' : 'pt-2 pl-2'
+            )}
+            variants={!isMobile ? sidebarVariants : undefined}
+            animate={
+              isMobile 
+                ? { x: 0 }
+                : (isCollapsed ? 'collapsed' : 'expanded')
+            }
+            initial={isMobile ? { x: '-100%' } : false}
+            exit={isMobile ? { x: '-100%' } : undefined}
+            style={isMobile ? { width: '100%' } : undefined}
+            transition={isMobile ? { 
+              duration: 0.25, 
+              type: "spring",
+              stiffness: 300,
+              damping: 25
+            } : undefined}
+          >
         {/* Sidebar Header */}
         <div className={cn(
-          !isCollapsed && !isMobile ? 'flex justify-between items-center' : ''
+          'flex items-center justify-between',
+          !isCollapsed && !isMobile ? 'items-center' : ''
         )}>
           <div className={cn(
             'flex items-center min-w-0',
@@ -276,49 +283,42 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             </motion.span>
           </div>
 
-          <div className={cn(!isCollapsed && !isMobile ? 'flex items-center gap-2 flex-shrink-0' : 'w-full pt-4')}> 
-            {/* Collapse button - only visible on desktop */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className={cn(
-                sidebar.navigation.base,
-                sidebar.navigation.default,
-                isCollapsed && !isMobile && 'justify-center w-full py-6',
-                'sidebar-no-focus',
-                '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
-              )}
-              onClick={toggleCollapse}
-              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-              style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
-            >
-                   {isCollapsed ? (
-                <ChevronRight className={sidebar.navigation.icon} />
-              ) : (
-                <ChevronLeft className={sidebar.navigation.icon} />
-              )}
-            </Button>
+          <div className={cn(
+            'flex items-center gap-2 flex-shrink-0',
+            isMobile ? 'ml-auto' : ''
+          )}> 
+             {/* Collapse button - only visible on desktop */}
+             <Button
+               variant="ghost"
+               size="icon"
+               className={cn(
+                 sidebar.navigation.base,
+                 sidebar.navigation.default,
+                 isCollapsed && !isMobile && 'justify-center w-full py-6',
+                 'sidebar-no-focus',
+                 '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0',
+                 'hidden lg:flex' // Hide on mobile, show on desktop
+               )}
+               onClick={toggleCollapse}
+               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+               style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
+             >
+                    {isCollapsed ? (
+                 <ChevronRight className={sidebar.navigation.icon} />
+               ) : (
+                 <ChevronLeft className={sidebar.navigation.icon} />
+               )}
+             </Button>
 
             {/* Close button for mobile */}
             <Button 
               variant="ghost" 
               size="icon" 
-              className="lg:hidden !text-white !bg-red-500 hover:!bg-red-600 focus:!bg-red-600 !p-2 !min-w-0 !h-auto sidebar-no-focus !outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0" 
+              className="lg:hidden text-white hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white" 
               onClick={handleToggle}
               aria-label="Close sidebar"
-              style={{ 
-                backgroundColor: '#ef4444', 
-                color: 'white',
-                border: '2px solid white',
-                borderRadius: '8px',
-                padding: '8px',
-                minWidth: '40px',
-                height: '40px',
-                outline: 'none !important',
-                boxShadow: 'none !important'
-              }}
             >
-              <X className={sidebar.navigation.icon} style={{ color: 'white' }} />
+              <ChevronLeft className="h-6 w-6 text-white" />
             </Button>
           </div>
         </div>
@@ -349,17 +349,12 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                 )}
                 style={{ textDecoration: 'none', outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
                 title={isCollapsed && !isMobile ? item.label : undefined}
-                onClick={() => {
-                  if (isMobile) {
-                    // Only close the sidebar if navigating to a different route
-                    if (location.pathname !== item.to) {
-                      // Small delay to allow navigation to happen first
-                      setTimeout(() => {
-                        handleToggle();
-                      }, 150);
-                    }
-                  }
-                }}
+                 onClick={() => {
+                   if (isMobile) {
+                     // Close the sidebar immediately on mobile when any option is selected
+                     handleToggle();
+                   }
+                 }}
               >
                   <Icon className={cn(sidebar.navigation.icon)} />
                 <motion.span
@@ -395,17 +390,12 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                 )}
                 style={{ textDecoration: 'none', outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
                 title={isCollapsed && !isMobile ? profileInfo.label : undefined}
-                onClick={() => {
-                  if (isMobile) {
-                    // Only close the sidebar if navigating to a different route
-                    if (location.pathname !== profileInfo.route) {
-                      // Small delay to allow navigation to happen first
-                      setTimeout(() => {
-                        handleToggle();
-                      }, 150);
-                    }
-                  }
-                }}
+                 onClick={() => {
+                   if (isMobile) {
+                     // Close the sidebar immediately on mobile when profile option is selected
+                     handleToggle();
+                   }
+                 }}
               >
                   <profileInfo.icon className={sidebar.navigation.icon} />
                 <motion.span
@@ -427,7 +417,13 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             variant="ghost"
             size="sm"
             className={cn(sidebar.buttons.secondary, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-            onClick={toggleLanguage}
+             onClick={() => {
+               toggleLanguage();
+               if (isMobile) {
+                 // Close sidebar after language change
+                 handleToggle();
+               }
+             }}
             title={isCollapsed && !isMobile ? (isEnglish ? 'English' : 'Bulgarian') : undefined}
             style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
           >
@@ -448,7 +444,13 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               variant="ghost"
               size="sm"
               className={cn(sidebar.buttons.danger, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-              onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+               onClick={() => {
+                 logout({ logoutParams: { returnTo: window.location.origin } });
+                 if (isMobile) {
+                   // Close sidebar after logout
+                   handleToggle();
+                 }
+               }}
               title={isCollapsed && !isMobile ? 'Logout' : undefined}
               style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
             >
@@ -465,7 +467,13 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               variant="default"
               size="sm"
               className={cn(sidebar.buttons.primary, 'h-12 px-2', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-              onClick={() => loginWithRedirect()}
+               onClick={() => {
+                 loginWithRedirect();
+                 if (isMobile) {
+                   // Close sidebar after login redirect
+                   handleToggle();
+                 }
+               }}
               style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
             >
               <motion.span
@@ -478,7 +486,9 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             </Button>
           )}
         </div>
-      </motion.aside>
+          </motion.aside>
+        )}
+      </AnimatePresence>
     </>
   );
 }

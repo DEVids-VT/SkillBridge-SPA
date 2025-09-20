@@ -58,7 +58,7 @@ export const CompanyProjectDetailPage = () => {
 
         <div>
           <Tabs defaultValue="view" className="w-full">
-            <TabsList className="mb-4" style={{ backgroundColor: colors.blueDark }}>
+            <TabsList className="mb-4 w-full" style={{ backgroundColor: colors.blueDark }}>
               {tabs.map(({ id, label, icon: Icon }) => (
                 <TabsTrigger key={id} value={id} className="gap-2" style={{ color: colors.white }}>
                   <Icon className="size-4" /> {label}

@@ -12,9 +12,18 @@ const ActiveSidebarContext = createContext<ActiveSidebarContextType | undefined>
 export function ActiveSidebarProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(prev => !prev);
-  const close = () => setIsOpen(false);
-  const open = () => setIsOpen(true);
+  const toggle = () => {
+    console.log('ActiveSidebar toggle called, current state:', isOpen);
+    setIsOpen(prev => !prev);
+  };
+  const close = () => {
+    console.log('ActiveSidebar close called');
+    setIsOpen(false);
+  };
+  const open = () => {
+    console.log('ActiveSidebar open called');
+    setIsOpen(true);
+  };
 
   return (
     <ActiveSidebarContext.Provider value={{ isOpen, toggle, close, open }}>

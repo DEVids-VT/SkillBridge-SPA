@@ -233,24 +233,30 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       </AnimatePresence>
 
       {/* Sidebar */}
-      <motion.aside
-        className={cn(
-          'fixed left-0 top-0 z-50 h-screen flex flex-col transform',
-          isMobile ? 'mobile-sidebar' : '',
-          isMobile ? isOpen ? 'translate-x-0' : '-translate-x-full' : 'translate-x-0',
-          !isCollapsed && !isMobile ? 'pt-7 pl-2' : 'pt-2 pl-2'
-        )}
-        variants={!isMobile ? sidebarVariants : undefined}
-        animate={!isMobile ? (isCollapsed ? 'collapsed' : 'expanded') : undefined}
-        initial={false}
-        style={isMobile ? { width: isOpen ? '100%' : '0' } : undefined}
-        transition={isMobile ? { 
-          duration: 0.25, 
-          type: "spring",
-          stiffness: 300,
-          damping: 25
-        } : undefined}
-      >
+      <AnimatePresence>
+        {(!isMobile || isOpen) && (
+          <motion.aside
+            className={cn(
+              'fixed left-0 top-0 z-50 h-screen flex flex-col',
+              isMobile ? 'mobile-sidebar' : '',
+              !isCollapsed && !isMobile ? 'pt-7 pl-2' : 'pt-2 pl-2'
+            )}
+            variants={!isMobile ? sidebarVariants : undefined}
+            animate={
+              isMobile 
+                ? { x: 0 }
+                : (isCollapsed ? 'collapsed' : 'expanded')
+            }
+            initial={isMobile ? { x: '-100%' } : false}
+            exit={isMobile ? { x: '-100%' } : undefined}
+            style={isMobile ? { width: '100%' } : undefined}
+            transition={isMobile ? { 
+              duration: 0.25, 
+              type: "spring",
+              stiffness: 300,
+              damping: 25
+            } : undefined}
+          >
         {/* Sidebar Header */}
         <div className={cn(
           'flex items-center justify-between',
@@ -304,23 +310,15 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
                )}
              </Button>
 
-            {/* Close button for mobile - positioned to the right of logo */}
+            {/* Close button for mobile */}
             <Button 
               variant="ghost" 
               size="icon" 
-              className="lg:hidden !text-white hover:!bg-slate-700 focus:!bg-slate-700 !p-2 !min-w-0 !h-auto sidebar-no-focus !outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0" 
+              className="lg:hidden text-white hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white" 
               onClick={handleToggle}
               aria-label="Close sidebar"
-              style={{ 
-                color: 'white',
-                padding: '8px',
-                minWidth: '40px',
-                height: '40px',
-                outline: 'none !important',
-                boxShadow: 'none !important'
-              }}
             >
-              <ChevronLeft className={sidebar.navigation.icon} style={{ color: 'white' }} />
+              <ChevronLeft className="h-6 w-6 text-white" />
             </Button>
           </div>
         </div>
@@ -488,7 +486,9 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             </Button>
           )}
         </div>
-      </motion.aside>
+          </motion.aside>
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -13,6 +13,10 @@ export function Layout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { toggle: toggleActiveSidebar } = useActiveSidebar();
   
+  // Show ActiveSidebar toggle only on routes that render it
+  const showActiveSidebarToggle =
+    location.pathname.startsWith('/dashboard') || location.pathname === '/projects';
+  
   // Detect if we're on mobile
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   
@@ -111,16 +115,21 @@ export function Layout() {
               <span className="ml-2 font-semibold text-white">SkillBridge</span>
             </div>
             
-            {/* Right side - ActiveSidebar Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hover:bg-slate-800"
-              onClick={toggleActiveSidebar}
-              aria-label="Toggle active sidebar"
-            >
-              <SidebarIcon className="h-6 w-6" />
-            </Button>
+            {/* Right side - ActiveSidebar Toggle (only on supported routes) */}
+            {showActiveSidebarToggle && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-slate-800"
+                onClick={() => {
+                  console.log('Layout ActiveSidebar toggle clicked');
+                  toggleActiveSidebar();
+                }}
+                aria-label="Toggle active sidebar"
+              >
+                <SidebarIcon className="h-6 w-6" />
+              </Button>
+            )}
           </div>
         </div>
 

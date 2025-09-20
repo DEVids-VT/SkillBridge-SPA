@@ -17,6 +17,18 @@
       "marketing": "Маркетинг",
       "content": "Съдържание",
       "architecture": "Архитектура",
+      "business": "Бизнес",
+      "data": "Данни",
+      "qa": "QA",
+      "companies": "Компании",
+      "allCompanies": "Всички компании",
+      "companiesSelected": "избрани компании",
+      "deadline": "Краен срок",
+      "anyTime": "По всяко време",
+      "today": "Днес",
+      "thisWeek": "Тази седмица",
+      "thisMonth": "Този месец",
+      "searchPlaceholder": "Търсете проекти, компании или умения...",
       "otherOptions": "Други Опции",
       "mostRecent": "Най-нови",
       "upcoming": "Предстоящи"
@@ -24,10 +36,18 @@
     "projectsList": {
       "showing": "Показване на",
       "projects": "проекти",
-      "noProjectsFound": "Няма намерени проекти, отговарящи на вашите критерии."
+      "noProjectsFound": "Няма намерени проекти, отговарящи на вашите критерии.",
+      "tryAdjustingFilters": "Опитайте да промените или изчистите филтрите."
     },
     "projectCard": {
+      "today": "Днес",
+      "oneDayAgo": "Преди 1 ден",
       "daysAgo": "дни назад",
+      "deadlinePassed": "Краен срок изтекъл",
+      "daysLeft": "дни остава",
+      "timeRemaining": "Оставащо време",
+      "showMore": "Покажи повече",
+      "showLess": "Покажи по-малко",
       "details": "Детайли",
       "deadline": "Краен срок:",
       "more": "още",

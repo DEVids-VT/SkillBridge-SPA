@@ -18,11 +18,6 @@ export default function CompanySubscriptionSection({ subscription }: CompanySubs
         <p className={typography.body.lg}>{subscription.current}</p>
         <p className={typography.body.sm}>{subscription.description}</p>
       </div>
-
-      <div>
-        <p className={typography.body.lg}>{subscription.upcoming}</p>
-        <p className={typography.body.sm}>{subscription.upcomingDescription}</p>
-      </div>
     </div>
   );
 }

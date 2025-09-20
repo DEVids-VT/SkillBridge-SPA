@@ -1,34 +1,37 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useCreateProject } from './hooks/useCreateProject';
+import { useCreateProjectAssignment } from './hooks/useCreateProjectAssignment';
 import { spacing, colors } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import {
   CreatePageBackground,
   CreatePageHeader,
   CreatePageBackButton,
-  CreateManualForm as CreateManualFormComponent,
-  OutputTypeSelector,
+  ProjectAssignmentManualForm,
   Notification
 } from './components';
-import {
-  CreateManualForm,
-  CreateManualFormErrors,
-  NotificationState,
-} from './types';
+import { NotificationState, CreateProjectAssignmentRequest } from './types';
+import { ProjectAssignmentManualFormState, TaskEditorItem } from './components/ProjectAssignmentManualForm';
 
-// Initial form state
-const initialFormState: CreateManualForm = {
+// Initial manual assignment state
+const initialFormState: ProjectAssignmentManualFormState = {
+  title: '',
   description: '',
+  summary: '',
+  learningBenefits: '',
+  suggestedApproach: '',
+  level: '1',
+  status: '0',
+  deadline: '',
+  skillIdsInput: '',
+  tasks: [],
 };
 
 export default function CreateManualPage() {
   const navigate = useNavigate();
   const { t } = useTranslation('createProject');
-  const [formData, setFormData] = useState<CreateManualForm>(initialFormState);
-  const [formErrors, setFormErrors] = useState<CreateManualFormErrors>({});
-  const [selectedOutputType, setSelectedOutputType] = useState<'scenario' | 'quiz' | null>(null);
+  const [formData, setFormData] = useState<ProjectAssignmentManualFormState>(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState<NotificationState>({
     show: false,
@@ -37,101 +40,58 @@ export default function CreateManualPage() {
     message: '',
   });
 
-  // Use the createProject mutation
-  const createProject = useCreateProject();
+  // Use the create assignment mutation
+  const createAssignment = useCreateProjectAssignment();
 
-  // Handle form input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const setState = (patch: Partial<ProjectAssignmentManualFormState>) => setFormData((prev) => ({ ...prev, ...patch }));
+  const onTasksChange = (tasks: TaskEditorItem[]) => setFormData((prev) => ({ ...prev, tasks }));
 
-    // Clear error for the field being edited
-    if (formErrors[name as keyof CreateManualFormErrors]) {
-      setFormErrors((prev) => ({
-        ...prev,
-        [name]: undefined,
-      }));
-    }
-  };
-
-  // Handle output type selection
-  const handleOutputTypeSelect = (type: 'scenario' | 'quiz') => {
-    if (!validateForm()) {
-      setNotification({
-        show: true,
-        type: 'error',
-        title: t('createManualPage.notifications.formIncomplete.title'),
-        message: t('createManualPage.notifications.formIncomplete.message'),
-      });
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // simple validation
+    if (!formData.title.trim() || !formData.summary.trim() || !formData.learningBenefits.trim() || !formData.suggestedApproach.trim()) {
+      setNotification({ show: true, type: 'error', title: 'Missing fields', message: 'Please fill title, summary, learning benefits, and suggested approach.' });
       return;
     }
-    
-    setSelectedOutputType(type);
-    handleGenerate(type);
-  };
-
-  // Validate form
-  const validateForm = (): boolean => {
-    const errors: CreateManualFormErrors = {};
-    let isValid = true;
-
-    if (!formData.description.trim()) {
-      errors.description = t('createManualPage.form.description.error');
-      isValid = false;
+    if (!formData.deadline) {
+      setNotification({ show: true, type: 'error', title: 'Missing deadline', message: 'Please select a deadline.' });
+      return;
     }
 
-    setFormErrors(errors);
-    return isValid;
-  };
+    const skillIds = formData.skillIdsInput
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
 
-  // Handle generation
-  const handleGenerate = (outputType: 'scenario' | 'quiz') => {
-    setIsSubmitting(true);
-    console.log('Manual Description Submitted:', formData, 'Output Type:', outputType);
-
-    // Prepare data for API request (simplified for manual input)
-    const manualData = {
-      description: formData.description,
-      outputType: outputType,
-      type: 'manual', // Flag to indicate this is manual input
+    const payload: CreateProjectAssignmentRequest = {
+      title: formData.title.trim(),
+      description: formData.description?.trim() || undefined,
+      summary: formData.summary.trim(),
+      learningBenefits: formData.learningBenefits.trim(),
+      suggestedApproach: formData.suggestedApproach.trim(),
+      level: Number(formData.level) as 0 | 1 | 2,
+      deadline: new Date(formData.deadline).toISOString(),
+      status: Number(formData.status) as 0 | 1 | 2 | 3,
+      skillIds,
+      tasks: formData.tasks.map((t, idx) => ({
+        title: t.title.trim(),
+        description: t.description?.trim() || undefined,
+        isCompleted: false,
+        sequence: t.sequence || idx + 1,
+      })),
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    createProject.mutate(manualData as any, {
+    setIsSubmitting(true);
+    createAssignment.mutate(payload, {
       onSuccess: (data) => {
-        console.log('Manual input processed successfully:', data);
         setIsSubmitting(false);
-
-        // Reset form after successful submission
         setFormData(initialFormState);
-        setSelectedOutputType(null);
-
-        // Show success notification
-        setNotification({
-          show: true,
-          type: 'success',
-          title: t('createManualPage.notifications.success.title'),
-          message: t('createManualPage.notifications.success.message'),
-        });
-
-        // Redirect to the appropriate result page based on output type
-        setTimeout(() => {
-          navigate(`/${outputType}/${data.id}`);
-        }, 2000);
+        setNotification({ show: true, type: 'success', title: t('createManualPage.notifications.success.title'), message: t('createManualPage.notifications.success.message') });
+        setTimeout(() => navigate(`/projects/${data.id}`), 1000);
       },
       onError: (error) => {
         setIsSubmitting(false);
-        setSelectedOutputType(null);
-        // Show error notification
-        setNotification({
-          show: true,
-          type: 'error',
-          title: t('createManualPage.notifications.error.title'),
-          message: error.message || t('createManualPage.notifications.error.defaultMessage'),
-        });
+        setNotification({ show: true, type: 'error', title: t('createManualPage.notifications.error.title'), message: error.message || t('createManualPage.notifications.error.defaultMessage') });
       },
     });
   };
@@ -170,21 +130,13 @@ export default function CreateManualPage() {
         {/* Main Content */}
         <div className="flex justify-center">
           <div className="w-full max-w-4xl">
-            <CreateManualFormComponent
-              formData={formData}
-              formErrors={formErrors}
-              onInputChange={handleInputChange}
+            <ProjectAssignmentManualForm
+              state={formData}
+              onChange={setState}
+              onTasksChange={onTasksChange}
+              onSubmit={onSubmit}
+              submitting={isSubmitting}
             />
-
-            {/* Output Type Selector */}
-            <div className="mt-8 max-w-4xl mx-auto">
-              <OutputTypeSelector
-                onSelect={handleOutputTypeSelect}
-                disabled={!isFormValid}
-                loading={isSubmitting}
-                selectedType={selectedOutputType}
-              />
-            </div>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ export interface Project {
   category: string;
   skills: string[];
   postedDate: string;
+  learningBenefits: string;
   deadline: string;
 }
 

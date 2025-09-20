@@ -71,3 +71,31 @@ export interface CreateManualForm {
 export interface CreateManualFormErrors {
   description?: string;
 } 
+
+// Manual project assignment creation types
+export interface CreateAssignmentTaskRequest {
+  title: string;
+  description?: string;
+  isCompleted?: boolean; // defaults false on backend
+  sequence: number;
+}
+
+export type ProjectAssignmentLevel = 0 | 1 | 2; // Beginner, Intermediate, Advanced
+export type ProjectAssignmentStatus = 0 | 1 | 2 | 3; // Draft, Published, Completed, Cancelled
+
+export interface CreateProjectAssignmentRequest {
+  title: string;
+  description?: string;
+  summary: string;
+  learningBenefits: string;
+  suggestedApproach: string;
+  level: ProjectAssignmentLevel;
+  deadline: string; // ISO string
+  status: ProjectAssignmentStatus;
+  skillIds: string[]; // Guid strings
+  tasks: CreateAssignmentTaskRequest[];
+}
+
+export interface ProjectAssignmentResponse {
+  id: string;
+}

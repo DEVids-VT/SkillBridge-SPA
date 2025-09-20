@@ -1,66 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { colors, typography } from "@/lib/design-system";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import {
   MapPin,
   Users,
   Calendar,
   Tag,
-  Plus,
+  Globe,
+  Mail,
+  Phone,
+  User,
 } from 'lucide-react';
-
-interface Office {
-  city: string;
-  country: string;
-  address: string;
-}
+import { CompanyResponse } from '../types';
 
 interface CompanyInformationSectionProps {
-  company: {
-    logo: string;
-    companyName: string;
-    about: string;
-    activities: string[];
-    contactInfo: string;
-    offices: Office[];
-    employeeCount: number;
-    employeeStatus: string;
-    sector: string;
-    processes: string[];
-    whyWorkWithUs: string;
-    yearEstablished: number;
-  };
-  editActivities: boolean;
-  editProcesses: boolean;
-  editOffices: boolean;
-  onEditField: (field: { field: string; title: string; type: string }) => void;
-  onSetEditActivities: (value: boolean) => void;
-  onSetEditProcesses: (value: boolean) => void;
-  onSetEditOffices: (value: boolean) => void;
-  onAddActivity: () => void;
-  onRemoveActivity: (index: number) => void;
-  onAddProcess: () => void;
-  onRemoveProcess: (index: number) => void;
-  onAddOffice: () => void;
-  onRemoveOffice: (index: number) => void;
+  company: CompanyResponse;
+  onEditField: (field: { field: keyof CompanyResponse; title: string; type: string }) => void;
 }
 
 export default function CompanyInformationSection({
   company,
-  editActivities,
-  editProcesses,
-  editOffices,
   onEditField,
-  onSetEditActivities,
-  onSetEditProcesses,
-  onSetEditOffices,
-  onAddActivity,
-  onRemoveActivity,
-  onAddProcess,
-  onRemoveProcess,
-  onAddOffice,
-  onRemoveOffice,
 }: CompanyInformationSectionProps) {
   return (
     <div className={`space-y-6 border-b pb-8 border-[${colors.blue}]`}>
@@ -70,7 +30,7 @@ export default function CompanyInformationSection({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <img
-            src={company.logo}
+            src={company.logoUrl || "/images/companies/default-logo.png"}
             alt="Company Logo"
             className={`w-16 h-16 rounded-full border-2 border-[${colors.white}]`}
           />
@@ -79,21 +39,46 @@ export default function CompanyInformationSection({
             <p className={typography.body.sm}>Upload or change your company logo</p>
           </div>
         </div>
-        <Button variant="outline" className={`border-[${colors.blue}] text-[${colors.white}]`}>
+        <Button 
+          variant="outline" 
+          className={`border-[${colors.blue}] text-[${colors.white}]`}
+          onClick={() => onEditField({ field: "logoUrl", title: "Change logo URL", type: "text" })}
+        >
           Change logo
         </Button>
       </div>
+
+      {/* Banner */}
+      {company.bannerUrl && (
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <p className="text-sm font-medium">Banner Image</p>
+            <img
+              src={company.bannerUrl}
+              alt="Company Banner"
+              className="w-full h-32 object-cover rounded-lg mt-2"
+            />
+          </div>
+          <Button
+            variant="outline"
+            className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
+            onClick={() => onEditField({ field: "bannerUrl", title: "Change banner URL", type: "text" })}
+          >
+            Edit
+          </Button>
+        </div>
+      )}
 
       {/* Company Name */}
       <div className="flex justify-between items-center">
         <div>
           <p className="text-sm font-medium">Company Name</p>
-          <p className={typography.body.sm}>{company.companyName}</p>
+          <p className={typography.body.sm}>{company.name}</p>
         </div>
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "companyName", title: "Change company name", type: "text" })}
+          onClick={() => onEditField({ field: "name", title: "Change company name", type: "text" })}
         >
           Edit
         </Button>
@@ -114,292 +99,276 @@ export default function CompanyInformationSection({
         </Button>
       </div>
 
-      {/* Company Activities */}
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <p className="text-sm font-medium">Company Activities</p>
-          <div className="flex gap-2">
-            {editActivities ? (
-              <>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => onSetEditActivities(false)}
-                >
-                  Save
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => onSetEditActivities(false)}
-                >
-                  Cancel
-                </Button>
-              </>
-            ) : (
-              <Button
-                size="sm"
-                variant="outline"
-                className={`border-[${colors.blue}] text-[${colors.white}]`}
-                onClick={() => onSetEditActivities(true)}
-              >
-                Edit
-              </Button>
-            )}
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {company.activities.map((activity, idx) => (
-            <div key={idx} className="flex items-center gap-2">
-              <Badge className={`bg-[${colors.blue}] text-[${colors.white}]`}>
-                {activity}
-              </Badge>
-              {editActivities && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-4 w-4 p-0 text-red-400 hover:text-red-300"
-                  onClick={() => onRemoveActivity(idx)}
-                >
-                  ×
-                </Button>
-              )}
-            </div>
-          ))}
-          {editActivities && (
-            <Button
-              size="sm"
-              variant="outline"
-              className={`border-[${colors.blue}] text-[${colors.white}]`}
-              onClick={onAddActivity}
-            >
-              <Plus className="h-4 w-4 mr-1" />
-              Add
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {/* Contact Info */}
-      <div className="flex justify-between items-center">
-        <div>
-          <p className="text-sm font-medium">Contact Info</p>
-          <p className={typography.body.sm}>{company.contactInfo}</p>
+      {/* Activities */}
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <p className="text-sm font-medium">Activities</p>
+          <p className={typography.body.sm}>{company.activities}</p>
         </div>
         <Button
           variant="outline"
-          className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "contactInfo", title: "Change contact info", type: "text" })}
+          className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
+          onClick={() => onEditField({ field: "activities", title: "Change activities", type: "textarea" })}
         >
           Edit
         </Button>
       </div>
 
-      {/* Offices */}
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <p className="text-sm font-medium">Offices</p>
-          <div className="flex gap-2">
-            {editOffices ? (
-              <>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => onSetEditOffices(false)}
-                >
-                  Save
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => onSetEditOffices(false)}
-                >
-                  Cancel
-                </Button>
-              </>
-            ) : (
-              <Button
-                size="sm"
-                variant="outline"
-                className={`border-[${colors.blue}] text-[${colors.white}]`}
-                onClick={() => onSetEditOffices(true)}
-              >
-                Edit
-              </Button>
-            )}
-          </div>
-        </div>
-        <div className="space-y-3">
-          {company.offices.map((office, idx) => (
-            <Card key={idx} className="p-3" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <MapPin className="h-4 w-4" style={{ color: colors.yellow }} />
-                  <div>
-                    <p className="font-medium" style={{ color: colors.yellow }}>
-                      {office.city}, {office.country}
-                    </p>
-                    <p className="text-sm" style={{ color: colors.white }}>
-                      {office.address}
-                    </p>
-                  </div>
-                </div>
-                {editOffices && (
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="h-6 w-6 p-0 text-red-400 hover:text-red-300"
-                    onClick={() => onRemoveOffice(idx)}
-                  >
-                    ×
-                  </Button>
-                )}
-              </div>
-            </Card>
-          ))}
-          {editOffices && (
-            <Button
-              size="sm"
-              variant="outline"
-              className={`border-[${colors.blue}] text-[${colors.white}]`}
-              onClick={onAddOffice}
-            >
-              <Plus className="h-4 w-4 mr-1" />
-              Add Office
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {/* Employee Count and Status */}
-      <div className="grid grid-cols-2 gap-4">
+      {/* Sector */}
+      <div className="flex justify-between items-center">
         <div>
-          <p className="text-sm font-medium">Employee Count</p>
-          <div className="flex items-center gap-2">
-            <Users className="h-4 w-4" style={{ color: colors.yellow }} />
-            <p className={typography.body.sm}>{company.employeeCount} employees</p>
-          </div>
-        </div>
-        <div>
-          <p className="text-sm font-medium">Status</p>
-          <Badge className={`bg-[${colors.orange}] text-[${colors.dark}]`}>
-            {company.employeeStatus}
+          <p className="text-sm font-medium">Sector</p>
+          <Badge className={`bg-[${colors.blue}] text-[${colors.white}]`}>
+            {company.sector}
           </Badge>
         </div>
+        <Button
+          variant="outline"
+          className={`border-[${colors.blue}] text-[${colors.white}]`}
+          onClick={() => onEditField({ field: "sector", title: "Change sector", type: "text" })}
+        >
+          Edit
+        </Button>
       </div>
 
-      {/* Sector */}
-      <div>
-        <p className="text-sm font-medium">Sector</p>
-        <Badge className={`bg-[${colors.blue}] text-[${colors.white}]`}>
-          {company.sector}
-        </Badge>
-      </div>
-
-      {/* Processes Used */}
-      <div>
-        <div className="flex justify-between items-center mb-2">
-          <p className="text-sm font-medium">Processes Used (Technologies, Tools, etc.)</p>
-          <div className="flex gap-2">
-            {editProcesses ? (
-              <>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => onSetEditProcesses(false)}
-                >
-                  Save
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`border-[${colors.blue}] text-[${colors.white}]`}
-                  onClick={() => onSetEditProcesses(false)}
-                >
-                  Cancel
-                </Button>
-              </>
-            ) : (
-              <Button
-                size="sm"
-                variant="outline"
-                className={`border-[${colors.blue}] text-[${colors.white}]`}
-                onClick={() => onSetEditProcesses(true)}
-              >
-                Edit
-              </Button>
-            )}
+      {/* Head Office Location */}
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <MapPin className="h-4 w-4" style={{ color: colors.yellow }} />
+          <div>
+            <p className="text-sm font-medium">Head Office Location</p>
+            <p className={typography.body.sm}>{company.headOfficeLocation}</p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-2">
-          {company.processes.map((process, idx) => (
-            <div key={idx} className="flex items-center gap-2">
-              <Badge className={`bg-[${colors.yellow}] text-[${colors.dark}]`}>
-                <Tag className="h-3 w-3 mr-1" />
-                {process}
-              </Badge>
-              {editProcesses && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-4 w-4 p-0 text-red-400 hover:text-red-300"
-                  onClick={() => onRemoveProcess(idx)}
-                >
-                  ×
-                </Button>
-              )}
-            </div>
-          ))}
-          {editProcesses && (
-            <Button
-              size="sm"
-              variant="outline"
-              className={`border-[${colors.blue}] text-[${colors.white}]`}
-              onClick={onAddProcess}
-            >
-              <Plus className="h-4 w-4 mr-1" />
-              Add
-            </Button>
-          )}
-        </div>
+        <Button
+          variant="outline"
+          className={`border-[${colors.blue}] text-[${colors.white}]`}
+          onClick={() => onEditField({ field: "headOfficeLocation", title: "Change head office location", type: "text" })}
+        >
+          Edit
+        </Button>
       </div>
 
-      {/* Why Work With Us */}
+      {/* Technologies */}
       <div className="flex justify-between items-start">
         <div className="flex-1">
-          <p className="text-sm font-medium">Why Work With Us</p>
-          <p className={typography.body.sm}>{company.whyWorkWithUs}</p>
+          <p className="text-sm font-medium">Technologies</p>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {company.technologies.split(',').map((tech, idx) => (
+              <Badge key={idx} className={`bg-[${colors.blue}] text-[${colors.white}]`}>
+                <Tag className="h-3 w-3 mr-1" />
+                {tech.trim()}
+              </Badge>
+            ))}
+          </div>
         </div>
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-          onClick={() => onEditField({ field: "whyWorkWithUs", title: "Change why work with us message", type: "textarea" })}
+          onClick={() => onEditField({ field: "technologies", title: "Change technologies (comma-separated)", type: "textarea" })}
         >
           Edit
         </Button>
       </div>
 
       {/* Year Established */}
+      {company.yearEstablished && (
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4" style={{ color: colors.yellow }} />
+            <div>
+              <p className="text-sm font-medium">Year Established</p>
+              <p className={typography.body.sm}>{company.yearEstablished}</p>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            className={`border-[${colors.blue}] text-[${colors.white}]`}
+            onClick={() => onEditField({ field: "yearEstablished", title: "Change year established", type: "number" })}
+          >
+            Edit
+          </Button>
+        </div>
+      )}
+
+      {/* Bulgaria Office Information */}
+      <div className="space-y-4">
+        <div className="flex justify-between items-center">
+          <div>
+            <p className="text-sm font-medium">Has Offices in Bulgaria</p>
+            <Badge className={company.hasOfficesInBulgaria ? `bg-[${colors.success}] text-[${colors.white}]` : `bg-[${colors.blue}] text-[${colors.white}]`}>
+              {company.hasOfficesInBulgaria ? 'Yes' : 'No'}
+            </Badge>
+          </div>
+          <Button
+            variant="outline"
+            className={`border-[${colors.blue}] text-[${colors.white}]`}
+            onClick={() => onEditField({ field: "hasOfficesInBulgaria", title: "Has offices in Bulgaria", type: "boolean" })}
+          >
+            Edit
+          </Button>
+        </div>
+
+        {company.hasOfficesInBulgaria && company.bulgarianOfficeLocations && (
+          <div className="flex justify-between items-start">
+            <div className="flex-1">
+              <p className="text-sm font-medium">Bulgarian Office Locations</p>
+              <p className={typography.body.sm}>{company.bulgarianOfficeLocations}</p>
+            </div>
+            <Button
+              variant="outline"
+              className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
+              onClick={() => onEditField({ field: "bulgarianOfficeLocations", title: "Change Bulgarian office locations", type: "textarea" })}
+            >
+              Edit
+            </Button>
+          </div>
+        )}
+
+        {company.hasOfficesInBulgaria && company.employeesInBulgaria && (
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4" style={{ color: colors.yellow }} />
+              <div>
+                <p className="text-sm font-medium">Employees in Bulgaria</p>
+                <p className={typography.body.sm}>{company.employeesInBulgaria} employees</p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              className={`border-[${colors.blue}] text-[${colors.white}]`}
+              onClick={() => onEditField({ field: "employeesInBulgaria", title: "Change employees in Bulgaria", type: "number" })}
+            >
+              Edit
+            </Button>
+          </div>
+        )}
+      </div>
+
+      {/* Employees Worldwide */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4" style={{ color: colors.yellow }} />
+          <Users className="h-4 w-4" style={{ color: colors.yellow }} />
           <div>
-            <p className="text-sm font-medium">Year Established</p>
-            <p className={typography.body.sm}>{company.yearEstablished}</p>
+            <p className="text-sm font-medium">Employees Worldwide</p>
+            <p className={typography.body.sm}>{company.employeesWorldwide} employees</p>
           </div>
         </div>
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "yearEstablished", title: "Change year established", type: "number" })}
+          onClick={() => onEditField({ field: "employeesWorldwide", title: "Change employees worldwide", type: "number" })}
         >
           Edit
         </Button>
+      </div>
+
+      {/* Why Work With Us */}
+      {company.whyWorkWithUs && (
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <p className="text-sm font-medium">Why Work With Us</p>
+            <p className={typography.body.sm}>{company.whyWorkWithUs}</p>
+          </div>
+          <Button
+            variant="outline"
+            className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
+            onClick={() => onEditField({ field: "whyWorkWithUs", title: "Change why work with us message", type: "textarea" })}
+          >
+            Edit
+          </Button>
+        </div>
+      )}
+
+      {/* Website */}
+      <div className="flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <Globe className="h-4 w-4" style={{ color: colors.yellow }} />
+          <div>
+            <p className="text-sm font-medium">Website</p>
+            <a 
+              href={company.websiteUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={`${typography.body.sm} text-blue-400 hover:text-blue-300 underline`}
+            >
+              {company.websiteUrl}
+            </a>
+          </div>
+        </div>
+        <Button
+          variant="outline"
+          className={`border-[${colors.blue}] text-[${colors.white}]`}
+          onClick={() => onEditField({ field: "websiteUrl", title: "Change website URL", type: "text" })}
+        >
+          Edit
+        </Button>
+      </div>
+
+      {/* Contact Information */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Contact Information</h3>
+        
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <User className="h-4 w-4" style={{ color: colors.yellow }} />
+            <div>
+              <p className="text-sm font-medium">Contact Name</p>
+              <p className={typography.body.sm}>{company.contactName}</p>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            className={`border-[${colors.blue}] text-[${colors.white}]`}
+            onClick={() => onEditField({ field: "contactName", title: "Change contact name", type: "text" })}
+          >
+            Edit
+          </Button>
+        </div>
+
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Mail className="h-4 w-4" style={{ color: colors.yellow }} />
+            <div>
+              <p className="text-sm font-medium">Contact Email</p>
+              <a 
+                href={`mailto:${company.contactEmail}`}
+                className={`${typography.body.sm} text-blue-400 hover:text-blue-300 underline`}
+              >
+                {company.contactEmail}
+              </a>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            className={`border-[${colors.blue}] text-[${colors.white}]`}
+            onClick={() => onEditField({ field: "contactEmail", title: "Change contact email", type: "text" })}
+          >
+            Edit
+          </Button>
+        </div>
+
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Phone className="h-4 w-4" style={{ color: colors.yellow }} />
+            <div>
+              <p className="text-sm font-medium">Contact Phone</p>
+              <a 
+                href={`tel:${company.contactPhone}`}
+                className={`${typography.body.sm} text-blue-400 hover:text-blue-300 underline`}
+              >
+                {company.contactPhone}
+              </a>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            className={`border-[${colors.blue}] text-[${colors.white}]`}
+            onClick={() => onEditField({ field: "contactPhone", title: "Change contact phone", type: "text" })}
+          >
+            Edit
+          </Button>
+        </div>
       </div>
     </div>
   );

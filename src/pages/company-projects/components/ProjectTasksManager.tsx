@@ -20,9 +20,10 @@ type TaskItem = {
 interface ProjectTasksManagerProps {
   initialTasks: TaskItem[];
   onTasksChange: (tasks: TaskItem[]) => void;
+  showSaveButton?: boolean;
 }
 
-export default function ProjectTasksManager({ initialTasks, onTasksChange }: ProjectTasksManagerProps) {
+export default function ProjectTasksManager({ initialTasks, onTasksChange, showSaveButton = true }: ProjectTasksManagerProps) {
   const [tasks, setTasks] = useState<TaskItem[]>(initialTasks);
 
   const generateTempId = () => `temp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -176,9 +177,11 @@ export default function ProjectTasksManager({ initialTasks, onTasksChange }: Pro
               Add Task
             </Button>
             <div className="flex gap-2">
-              <Button style={{ backgroundColor: colors.blue, color: colors.white }}>
-                Save Changes
-              </Button>
+              {showSaveButton && (
+                <Button style={{ backgroundColor: colors.blue, color: colors.white }}>
+                  Save Changes
+                </Button>
+              )}
             </div>
           </div>
         </div>

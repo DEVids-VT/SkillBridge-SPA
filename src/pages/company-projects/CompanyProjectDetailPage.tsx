@@ -4,11 +4,11 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { colors } from '@/lib/design-system';
 import { Eye, Pencil, Users } from 'lucide-react';
 import { useProjectDetail } from '@/pages/projects/hooks/useProjectDetail';
-import ProjectHeader from './ProjectHeader';
-import ProjectViewTab from './ProjectViewTab';
-import ProjectDetailsForm from './ProjectDetailsForm';
-import ProjectTasksManager from './ProjectTasksManager';
-import ProjectCandidatesTab from './ProjectCandidatesTab';
+import ProjectPageHeader from './components/ProjectPageHeader';
+import CandidatePreviewTab from './components/CandidatePreviewTab';
+import ProjectEditForm from './components/ProjectEditForm';
+import TaskManagementEditor from './components/TaskManagementEditor';
+import ProjectCandidatesTab from './components/ProjectCandidatesTab';
 
 export const CompanyProjectDetailPage = () => {
   const { projectId } = useParams();
@@ -40,20 +40,22 @@ export const CompanyProjectDetailPage = () => {
     setTasks(newTasks);
   };
 
-  const tabs = useMemo(() => (
-    [
-      { id: 'view', label: 'View', icon: Eye },
-      { id: 'edit', label: 'Edit', icon: Pencil },
-      { id: 'candidates', label: 'Candidates', icon: Users },
-    ] as const
-  ), []);
+  const tabs = useMemo(
+    () =>
+      [
+        { id: 'view', label: 'View', icon: Eye },
+        { id: 'edit', label: 'Edit', icon: Pencil },
+        { id: 'candidates', label: 'Candidates', icon: Users },
+      ] as const,
+    []
+  );
 
   return (
     <div className="h-full overflow-y-auto">
       <div className="max-w-6xl mx-auto px-4 py-6">
-        <ProjectHeader 
-          title={project?.title || 'Project'} 
-          companyName={project?.companyName || ''} 
+        <ProjectPageHeader
+          title={project?.title || 'Project'}
+          companyName={project?.companyName || ''}
         />
 
         <div>
@@ -67,15 +69,12 @@ export const CompanyProjectDetailPage = () => {
             </TabsList>
 
             <TabsContent value="view" className="space-y-4">
-              <ProjectViewTab projectId={projectId || ''} />
+              <CandidatePreviewTab projectId={projectId || ''} />
             </TabsContent>
 
             <TabsContent value="edit" className="space-y-6">
-              <ProjectDetailsForm project={project} />
-              <ProjectTasksManager 
-                initialTasks={tasks} 
-                onTasksChange={handleTasksChange} 
-              />
+              <ProjectEditForm project={project} />
+              <TaskManagementEditor initialTasks={tasks} onTasksChange={handleTasksChange} />
             </TabsContent>
 
             <TabsContent value="candidates" className="space-y-4">
@@ -87,5 +86,3 @@ export const CompanyProjectDetailPage = () => {
     </div>
   );
 };
-
-

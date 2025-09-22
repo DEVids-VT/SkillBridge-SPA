@@ -4,8 +4,20 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { colors, typography } from '@/lib/design-system';
 import { GripVertical, Trash } from 'lucide-react';
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable';
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  useSortable,
+  arrayMove,
+} from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Badge } from '@/components/ui/badge';
 
@@ -17,13 +29,17 @@ type TaskItem = {
   sequence?: number;
 };
 
-interface ProjectTasksManagerProps {
+interface TaskManagementEditorProps {
   initialTasks: TaskItem[];
   onTasksChange: (tasks: TaskItem[]) => void;
   showSaveButton?: boolean;
 }
 
-export default function ProjectTasksManager({ initialTasks, onTasksChange, showSaveButton = true }: ProjectTasksManagerProps) {
+export default function TaskManagementEditor({
+  initialTasks,
+  onTasksChange,
+  showSaveButton = true,
+}: TaskManagementEditorProps) {
   const [tasks, setTasks] = useState<TaskItem[]>(initialTasks);
 
   const generateTempId = () => `temp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -54,11 +70,11 @@ export default function ProjectTasksManager({ initialTasks, onTasksChange, showS
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
-    
+
     const oldIndex = tasks.findIndex((t) => String(t.id) === String(active.id));
     const newIndex = tasks.findIndex((t) => String(t.id) === String(over.id));
     if (oldIndex === -1 || newIndex === -1) return;
-    
+
     const moved = arrayMove(tasks, oldIndex, newIndex);
     const updatedTasks = moved.map((t, idx) => ({ ...t, sequence: idx + 1 }));
     setTasks(updatedTasks);
@@ -66,13 +82,17 @@ export default function ProjectTasksManager({ initialTasks, onTasksChange, showS
   };
 
   const handleDeleteTask = (taskId: string) => {
-    const updatedTasks = tasks.filter((t) => String(t.id) !== String(taskId)).map((t, idx) => ({ ...t, sequence: idx + 1 }));
+    const updatedTasks = tasks
+      .filter((t) => String(t.id) !== String(taskId))
+      .map((t, idx) => ({ ...t, sequence: idx + 1 }));
     setTasks(updatedTasks);
     onTasksChange(updatedTasks);
   };
 
   const SortableTaskCard = ({ task, index }: { task: TaskItem; index: number }) => {
-    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: String(task.id) });
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+      id: String(task.id),
+    });
     const style = {
       transform: CSS.Transform.toString(transform),
       transition,
@@ -106,7 +126,11 @@ export default function ProjectTasksManager({ initialTasks, onTasksChange, showS
               type="button"
               onClick={() => handleDeleteTask(String(task.id))}
               className="h-8 px-2"
-              style={{ borderColor: colors.yellow, color: colors.yellow, backgroundColor: 'transparent' }}
+              style={{
+                borderColor: colors.yellow,
+                color: colors.yellow,
+                backgroundColor: 'transparent',
+              }}
               title="Delete task"
             >
               <Trash className="size-4" />
@@ -115,20 +139,20 @@ export default function ProjectTasksManager({ initialTasks, onTasksChange, showS
         </div>
         <div className="space-y-2">
           <div>
-            <Input 
+            <Input
               placeholder="Task title"
               defaultValue={task.title}
-              className="bg-transparent h-9 text-sm" 
-              style={{ borderColor: colors.borderLight, color: colors.white }} 
+              className="bg-transparent h-9 text-sm"
+              style={{ borderColor: colors.borderLight, color: colors.white }}
             />
           </div>
           <div>
-            <Textarea 
-              placeholder="Short description (optional)" 
+            <Textarea
+              placeholder="Short description (optional)"
               defaultValue={task.description}
               rows={2}
-              className="bg-transparent text-sm" 
-              style={{ borderColor: colors.borderLight, color: colors.white }} 
+              className="bg-transparent text-sm"
+              style={{ borderColor: colors.borderLight, color: colors.white }}
             />
           </div>
         </div>
@@ -156,8 +180,15 @@ export default function ProjectTasksManager({ initialTasks, onTasksChange, showS
                   Drag and drop tasks to reorder them
                 </p>
               </div>
-              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                <SortableContext items={tasks.map((t) => String(t.id))} strategy={verticalListSortingStrategy}>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
+                <SortableContext
+                  items={tasks.map((t) => String(t.id))}
+                  strategy={verticalListSortingStrategy}
+                >
                   <div className="space-y-3">
                     {tasks.map((task, index) => (
                       <SortableTaskCard key={task.id} task={task} index={index} />
@@ -171,9 +202,13 @@ export default function ProjectTasksManager({ initialTasks, onTasksChange, showS
               <p style={{ color: colors.textSecondary }}>No tasks defined yet</p>
             </div>
           )}
-          
+
           <div className="flex items-center justify-between gap-2 pt-2">
-            <Button variant="outline" onClick={handleAddTask} style={{ borderColor: colors.blue, color: colors.white }}>
+            <Button
+              variant="outline"
+              onClick={handleAddTask}
+              style={{ borderColor: colors.blue, color: colors.white }}
+            >
               Add Task
             </Button>
             <div className="flex gap-2">

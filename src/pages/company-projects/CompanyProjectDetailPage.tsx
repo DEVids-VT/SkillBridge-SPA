@@ -74,7 +74,11 @@ export const CompanyProjectDetailPage = () => {
 
             <TabsContent value="edit" className="space-y-6">
               <ProjectEditForm project={project} />
-              <TaskManagementEditor initialTasks={tasks} onTasksChange={handleTasksChange} />
+              <TaskManagementEditor
+                projectId={projectId || ''}
+                initialTasks={tasks}
+                onTasksChange={handleTasksChange}
+              />
             </TabsContent>
 
             <TabsContent value="candidates" className="space-y-4">

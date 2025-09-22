@@ -205,6 +205,7 @@ export function ProjectAssignmentManualForm({
         </div>
         <div className={cards.body}>
           <TaskManagementEditor
+            projectId="" // Empty for new projects, tasks won't be saved individually here
             initialTasks={state.tasks.map((t, idx) => ({
               id: String(idx + 1),
               title: t.title,

@@ -9,3 +9,5 @@ export { default as ProjectCandidatesTab } from './components/ProjectCandidatesT
 // Hooks
 export { useUpdateProject } from './hooks/useUpdateProject';
 export type { UpdateProjectRequest, UpdateProjectResponse } from './hooks/useUpdateProject';
+export { useUpdateTask, useDeleteTask } from './hooks/useTaskMutations';
+export type { UpdateTaskRequest, TaskResponse } from './hooks/useTaskMutations';

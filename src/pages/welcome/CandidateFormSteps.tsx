@@ -78,7 +78,7 @@ export function CandidateFormSteps({ onBackToRoleSelection }: CandidateFormSteps
       const link = formData.externalLink?.trim();
       if (link) {
         try {
-          // eslint-disable-next-line no-new
+           
           new URL(link);
         } catch {
           newErrors.externalLink = true;

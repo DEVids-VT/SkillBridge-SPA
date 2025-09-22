@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { Eye } from 'lucide-react';
 import { colors, typography } from '@/lib/design-system';
 
-interface ProjectViewTabProps {
+interface CandidatePreviewTabProps {
   projectId: string;
 }
 
-export default function ProjectViewTab({ projectId }: ProjectViewTabProps) {
+export default function CandidatePreviewTab({ projectId }: CandidatePreviewTabProps) {
   return (
     <div className="space-y-4">
       <div

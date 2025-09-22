@@ -3,12 +3,12 @@ import { Button } from '@/components/ui/button';
 import { colors } from '@/lib/design-system';
 import { ChevronLeft } from 'lucide-react';
 
-interface ProjectHeaderProps {
+interface ProjectPageHeaderProps {
   title: string;
   companyName: string;
 }
 
-export default function ProjectHeader({ title, companyName }: ProjectHeaderProps) {
+export default function ProjectPageHeader({ title, companyName }: ProjectPageHeaderProps) {
   const navigate = useNavigate();
 
   return (
@@ -24,13 +24,18 @@ export default function ProjectHeader({ title, companyName }: ProjectHeaderProps
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="ghost" onClick={() => navigate(-1)} style={{ backgroundColor: colors.blueDark, color: colors.white }} className="gap-2 h-9">
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
+            style={{ backgroundColor: colors.blueDark, color: colors.white }}
+            className="gap-2 h-9"
+          >
             <ChevronLeft className="size-4" />
             Back
           </Button>
         </div>
       </div>
-      
+
       {/* Mobile layout */}
       <div className="md:hidden">
         <div>
@@ -42,7 +47,12 @@ export default function ProjectHeader({ title, companyName }: ProjectHeaderProps
           </p>
         </div>
         <div className="flex gap-2 mt-4">
-          <Button variant="ghost" onClick={() => navigate(-1)} style={{ backgroundColor: colors.blueDark, color: colors.white }} className="gap-2 h-9">
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
+            style={{ backgroundColor: colors.blueDark, color: colors.white }}
+            className="gap-2 h-9"
+          >
             <ChevronLeft className="size-4" />
             Back
           </Button>

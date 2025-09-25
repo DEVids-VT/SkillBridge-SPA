@@ -7,22 +7,25 @@ import Auth0Provider from './components/auth-provider/Auth0Provider';
 import { OnboardingProvider } from './contexts/OnboardingContext';
 import { ActiveSidebarProvider } from './contexts/ActiveSidebarContext';
 import QueryClientProvider from './components/query-client-provider/QueryClientProvider';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 function App() {
   return (
-    <Auth0Provider>
-      <AuthorizeGuard>
-        <QueryClientProvider>
-          <OnboardingProvider>
-            <LenisProvider>
-              <ActiveSidebarProvider>
-                <RouterProvider router={router} />
-              </ActiveSidebarProvider>
-            </LenisProvider>
-          </OnboardingProvider>
-        </QueryClientProvider>
-      </AuthorizeGuard>
-    </Auth0Provider>
+    <ThemeProvider>
+      <Auth0Provider>
+        <AuthorizeGuard>
+          <QueryClientProvider>
+            <OnboardingProvider>
+              <LenisProvider>
+                <ActiveSidebarProvider>
+                  <RouterProvider router={router} />
+                </ActiveSidebarProvider>
+              </LenisProvider>
+            </OnboardingProvider>
+          </QueryClientProvider>
+        </AuthorizeGuard>
+      </Auth0Provider>
+    </ThemeProvider>
   );
 }
 

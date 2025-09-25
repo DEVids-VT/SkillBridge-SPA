@@ -1,4 +1,4 @@
-import { colors, spacing } from '@/lib/design-system';
+import { spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import AboutHero from './components/AboutHero';
 import AboutCompanies from './components/AboutCompanies';
@@ -7,13 +7,13 @@ import AboutTeam from './components/AboutTeam';
 
 const AboutPage = () => {
   return (
-    <section className={cn('relative min-h-screen overflow-hidden py-20')} style={{ backgroundColor: colors.dark }}>
+    <section className={cn('relative min-h-screen overflow-hidden py-20 bg-background')}>
       {/* Modern Dots Background Pattern */}
       <div className="absolute inset-0 opacity-25">
         <div
           className="w-full h-full"
           style={{
-            backgroundImage: `radial-gradient(circle, ${colors.blue} 1px, transparent 1px)`,
+            backgroundImage: `radial-gradient(circle, var(--color-border) 1px, transparent 1px)`,
             backgroundSize: '30px 30px',
             backgroundPosition: '0 0, 15px 15px',
           }}
@@ -21,7 +21,7 @@ const AboutPage = () => {
       </div>
 
       {/* Solid overlay for better readability */}
-      <div className="absolute inset-0" style={{ backgroundColor: colors.dark, opacity: 0.85 }} />
+      <div className="absolute inset-0 bg-background opacity-85" />
 
       {/* Content Container */}
       <div className="relative z-10 px-6 lg:px-8">
@@ -39,7 +39,7 @@ const AboutPage = () => {
       </div>
 
       {/* Floating Elements */}
-      <div className="absolute top-1/4 right-20 w-16 h-16 rounded-full mix-blend-multiply filter blur-xl opacity-30" style={{ backgroundColor: colors.blue }} />
+      <div className="absolute top-1/4 right-20 w-16 h-16 rounded-full mix-blend-multiply filter blur-xl opacity-30 bg-primary" />
     </section>
   );
 };

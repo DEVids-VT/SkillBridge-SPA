@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Badge } from '@/components/ui/badge';
-import { cards, colors, components } from '@/lib/design-system';
+import { cards, components } from '@/lib/design-system';
 import { Briefcase, Calendar, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
@@ -40,10 +40,7 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
         {/* Header Section */}
         <div className="flex items-start gap-3 mb-3">
           {/* Company logo */}
-          <div
-            className="w-10 h-10 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden"
-            style={{ backgroundColor: colors.blueDark }}
-          >
+          <div className="w-10 h-10 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden bg-muted">
             {project.logo ? (
               <img
                 src={project.logo}
@@ -60,16 +57,16 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
                 }}
               />
             ) : (
-              <Briefcase className="w-5 h-5 text-gray-400" />
+              <Briefcase className="w-5 h-5 text-muted-foreground" />
             )}
           </div>
 
           {/* Title and company info */}
           <div className="flex-1 min-w-0">
-            <h3 className="font-medium text-sm leading-tight mb-1 overflow-hidden" style={{ color: colors.white, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+            <h3 className="font-medium text-sm leading-tight mb-1 overflow-hidden text-foreground" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
               {project.title}
             </h3>
-            <div className="flex items-center text-xs" style={{ color: colors.white }}>
+            <div className="flex items-center text-xs text-muted-foreground">
               <span className="truncate">{project.company}</span>
               <span className="mx-1">•</span>
               <span className="flex items-center">

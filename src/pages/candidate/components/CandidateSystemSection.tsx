@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { colors, typography } from "@/lib/design-system";
+import { typography } from "@/lib/design-system";
+import { useTheme } from "@/contexts/ThemeContext";
 import {
   Select,
   SelectContent,
@@ -14,6 +15,13 @@ interface CandidateSystemSectionProps {
 }
 
 export default function CandidateSystemSection({ theme, onThemeChange }: CandidateSystemSectionProps) {
+  const { setTheme } = useTheme();
+
+  const handleThemeChange = (newTheme: string) => {
+    setTheme(newTheme as 'light' | 'dark' | 'system');
+    onThemeChange(newTheme);
+  };
+
   return (
     <div className="space-y-6">
       <h2 className={typography.heading[4]}>System</h2>
@@ -21,8 +29,8 @@ export default function CandidateSystemSection({ theme, onThemeChange }: Candida
       {/* Theme Preferences */}
       <div>
         <p className="text-sm font-medium mb-2">Theme Preferences</p>
-        <Select value={theme} onValueChange={onThemeChange}>
-          <SelectTrigger className={`w-[200px] bg-transparent border border-[${colors.blue}]`}>
+        <Select value={theme} onValueChange={handleThemeChange}>
+          <SelectTrigger className="w-[200px] bg-transparent border border-border">
             <SelectValue placeholder="Select theme" />
           </SelectTrigger>
           <SelectContent>
@@ -34,7 +42,7 @@ export default function CandidateSystemSection({ theme, onThemeChange }: Candida
       </div>
 
       {/* Support */}
-      <Button variant="outline" className={`border-[${colors.blue}] text-[${colors.white}]`}>
+      <Button variant="outline" className="border-border text-foreground">
         Support
       </Button>
     </div>

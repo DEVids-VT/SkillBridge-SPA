@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { colors, cards, typography } from '@/lib/design-system';
+import { cards, typography } from '@/lib/design-system';
 import { CheckCircle, BrainCircuit } from 'lucide-react';
 
 export default function ProjectHowItWorks() {
@@ -11,81 +11,66 @@ export default function ProjectHowItWorks() {
       <div className={cards.body}>
         <div className="space-y-4">
           <div className="flex items-start gap-3">
-            <div
-              className="flex items-center justify-center w-8 h-8 rounded-full shrink-0"
-              style={{ backgroundColor: `${colors.blue}30` }}
-            >
-              <span className="text-sm font-medium" style={{ color: colors.blue }}>
+            <div className="flex items-center justify-center w-8 h-8 rounded-full shrink-0 bg-primary/30">
+              <span className="text-sm font-medium text-primary">
                 1
               </span>
             </div>
             <div>
-              <h5 className="font-medium mb-1">Claim the Project</h5>
-              <p className="text-sm text-gray-400">
+              <h5 className="font-medium mb-1 text-foreground">Claim the Project</h5>
+              <p className="text-sm text-muted-foreground">
                 Click "Claim Project" to add it to your dashboard and start working on it.
               </p>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
-            <div
-              className="flex items-center justify-center w-8 h-8 rounded-full shrink-0"
-              style={{ backgroundColor: `${colors.blue}30` }}
-            >
-              <span className="text-sm font-medium" style={{ color: colors.blue }}>
+            <div className="flex items-center justify-center w-8 h-8 rounded-full shrink-0 bg-primary/30">
+              <span className="text-sm font-medium text-primary">
                 2
               </span>
             </div>
             <div>
-              <h5 className="font-medium mb-1">Work on Tasks</h5>
-              <p className="text-sm text-gray-400">
+              <h5 className="font-medium mb-1 text-foreground">Work on Tasks</h5>
+              <p className="text-sm text-muted-foreground">
                 Follow the project requirements and implement the solution at your own pace.
               </p>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
-            <div
-              className="flex items-center justify-center w-8 h-8 rounded-full shrink-0"
-              style={{ backgroundColor: `${colors.blue}30` }}
-            >
-              <span className="text-sm font-medium" style={{ color: colors.blue }}>
+            <div className="flex items-center justify-center w-8 h-8 rounded-full shrink-0 bg-primary/30">
+              <span className="text-sm font-medium text-primary">
                 3
               </span>
             </div>
             <div>
-              <h5 className="font-medium mb-1">Connect GitHub</h5>
-              <p className="text-sm text-gray-400">
+              <h5 className="font-medium mb-1 text-foreground">Connect GitHub</h5>
+              <p className="text-sm text-muted-foreground">
                 Link your repository for automatic assessment and progress tracking.
               </p>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
-            <div
-              className="flex items-center justify-center w-8 h-8 rounded-full shrink-0"
-              style={{ backgroundColor: `${colors.yellow}30` }}
-            >
-              <CheckCircle size={16} style={{ color: colors.yellow }} />
+            <div className="flex items-center justify-center w-8 h-8 rounded-full shrink-0 bg-accent/30">
+              <CheckCircle size={16} className="text-accent" />
             </div>
             <div>
-              <h5 className="font-medium mb-1">Get Assessed</h5>
-              <p className="text-sm text-gray-400">
+              <h5 className="font-medium mb-1 text-foreground">Get Assessed</h5>
+              <p className="text-sm text-muted-foreground">
                 Receive AI-powered feedback on your implementation when the deadline is reached.
               </p>
             </div>
           </div>
         </div>
 
-        <div
-          className="mt-6 p-4 rounded-lg bg-opacity-50"
-          style={{ backgroundColor: `${colors.blueDark}60` }}
-        >
+        <div className="mt-6 p-4 rounded-lg bg-muted/50">
           <div className="flex items-start gap-3">
-            <BrainCircuit size={20} className="text-yellow-400 mt-1" />
+            <BrainCircuit size={20} className="text-accent mt-1" />
             <div>
-              <h5 className="font-medium mb-1">AI-Powered Learning</h5>
-              <p className="text-sm text-gray-400">
+              <h5 className="font-medium mb-1 text-foreground">AI-Powered Learning</h5>
+              <p className="text-sm text-muted-foreground">
                 SkillBridge uses advanced AI to analyze your code, provide personalized
                 feedback, and help you improve your skills through real-world projects from
                 actual companies.

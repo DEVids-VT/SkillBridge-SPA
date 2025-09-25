@@ -33,28 +33,17 @@ export const WelcomeState = () => {
         </div>
 
         {/* Welcome Text */}
-        <h2 className="text-2xl font-bold text-white mb-3">
+        <h2 className="text-2xl font-bold text-foreground mb-3">
           Welcome to SkillBridge 🏠
         </h2>
-        <p className="text-gray-400 text-sm leading-relaxed">
+        <p className="text-muted-foreground text-sm leading-relaxed">
           Select a project or app to open it here
         </p>
         
         {/* Optional CTA */}
         <div className="mt-8">
           <button 
-            className="px-6 py-2 text-sm font-medium rounded-lg transition-colors duration-200 border-2"
-            style={{ 
-              backgroundColor: colors.orange,
-              color: colors.blueDark,
-              borderColor: colors.orange
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = colors.yellow;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = colors.orange;
-            }}
+            className="px-6 py-2 text-sm font-medium rounded-lg transition-colors duration-200 border-2 bg-accent text-accent-foreground border-accent hover:bg-accent/80"
           >
             Browse Projects
           </button>

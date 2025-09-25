@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
 import { useActiveSidebar } from '@/contexts/ActiveSidebarContext';
 import { RoutePage } from '@/types/enums/RoutePage';
-import { colors } from '@/lib/design-system';
+// Removed colors import - now using theme-aware classes
 
 export function Header() {
   const { t, i18n } = useTranslation('header');
@@ -69,20 +69,14 @@ export function Header() {
   return (
     <>
       {/* Beta Announcement Banner */}
-      <div className="w-full" style={{ background: colors.blue, color: colors.white }}>
+      <div className="w-full bg-primary text-primary-foreground">
         <div className="py-2 text-center font-medium flex items-center justify-center gap-2">
           <span>{t('headerComponent.betaBanner.skillbridge')} </span>
           <span
-            className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold bg-white text-blue-700 transform -rotate-6 border-2 border-white shadow-md relative animate-pulse"
-            style={{
-              background: colors.white,
-              color: colors.blue,
-              border: `2px solid ${colors.white}`,
-            }}
+            className="inline-flex items-center px-3 py-1 rounded-md text-xs font-extrabold bg-primary-foreground text-primary transform -rotate-6 border-2 border-primary-foreground shadow-md relative animate-pulse"
           >
             <span
-              className="absolute inset-0 rounded-md border"
-              style={{ borderColor: colors.yellow, opacity: 0.5 }}
+              className="absolute inset-0 rounded-md border border-accent opacity-50"
             ></span>
             <span className="relative z-10 tracking-wider">
               {t('headerComponent.betaBanner.beta')}
@@ -148,8 +142,8 @@ export function Header() {
                       size="sm"
                       className="flex items-center gap-1"
                       style={{
-                        borderColor: colors.blue,
-                        color: colors.blue,
+                        borderColor: 'var(--color-primary)',
+                        color: 'var(--color-primary)',
                         backgroundColor: 'transparent'
                       }}
                     >
@@ -171,12 +165,7 @@ export function Header() {
                 <Button
                   variant="default"
                   size="sm"
-                  className="text-sm font-medium hover:opacity-80"
-                  style={{
-                    backgroundColor: colors.blue,
-                    color: colors.white,
-                    border: 'none'
-                  }}
+                  className="text-sm font-medium hover:opacity-80 bg-primary text-primary-foreground border-none"
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >
                   {t('headerComponent.navigation.logout')}
@@ -186,12 +175,7 @@ export function Header() {
               <Button
                 variant="default"
                 size="sm"
-                className="text-sm font-medium hover:opacity-80"
-                style={{
-                  backgroundColor: colors.blue,
-                  color: colors.white,
-                  border: 'none'
-                }}
+                className="text-sm font-medium hover:opacity-80 bg-primary text-primary-foreground border-none"
                 onClick={() => loginWithRedirect()}
               >
                 {t('headerComponent.navigation.login')}
@@ -243,8 +227,7 @@ export function Header() {
               {hasCompletedOnboarding && isCompany && (
                 <Link
                   to={RoutePage.CREATE_PROJECT}
-                  className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium hover:opacity-80"
-                  style={{ color: colors.blue }}
+                  className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium hover:opacity-80 text-primary"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {t('headerComponent.navigation.postNewProject')}

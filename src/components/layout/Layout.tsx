@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, Sidebar as SidebarIcon } from 'lucide-react';
 import Sidebar from './Sidebar';
 import { useActiveSidebar } from '@/contexts/ActiveSidebarContext';
-import { colors } from '@/lib/design-system';
+// Removed colors import - now using theme-aware classes
 
 export function Layout() {
   const location = useLocation();
@@ -74,7 +74,7 @@ export function Layout() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden font-rubik" style={{ backgroundColor: colors.bgSlate900 }}>
+    <div className="flex h-screen overflow-hidden font-rubik bg-background">
       {/* Sidebar */}
       <Sidebar 
         isOpen={sidebarOpen} 
@@ -119,7 +119,7 @@ export function Layout() {
             
             <div className="flex items-center">
               <img src="/images/horasussvoeniruce.png" alt="SkillBridge" className="h-8" />
-              <span className="ml-2 font-semibold text-white">SkillBridge</span>
+              <span className="ml-2 font-semibold text-foreground">SkillBridge</span>
             </div>
             <div className="w-10"></div> {/* Empty div for balanced layout */}
           </div>

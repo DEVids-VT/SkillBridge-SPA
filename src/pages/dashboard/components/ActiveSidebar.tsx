@@ -110,8 +110,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
     return (
       <div className="w-64 flex-shrink-0 mr-2">
         <div
-          className="sticky top-0 w-64 h-full min-h-0 rounded-xl overflow-hidden"
-          style={{ backgroundColor: colors.dark, borderColor: colors.dark }}
+          className="sticky top-0 w-64 h-full min-h-0 rounded-xl overflow-hidden bg-background border-border"
         >
           <div className="h-full flex flex-col">
             {/* Header */}
@@ -163,8 +162,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className={`fixed left-0 top-0 z-50 h-screen w-80 max-w-[90vw] flex flex-col`}
-            style={{ backgroundColor: colors.bgSlate900, borderColor: colors.bgSlate900 }}
+            className={`fixed left-0 top-0 z-50 h-screen w-80 max-w-[90vw] flex flex-col bg-background border-border`}
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}

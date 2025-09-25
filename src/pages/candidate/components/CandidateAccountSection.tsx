@@ -23,7 +23,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className={`space-y-6 border-b pb-8 border-[${colors.blue}]`}>
+    <div className="space-y-6 border-b pb-8 border-border">
       <h2 className={typography.heading[4]}>Account</h2>
 
       {/* Profile Picture */}
@@ -32,7 +32,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
           <img
             src={user.avatar}
             alt="Avatar"
-            className={`w-16 h-16 rounded-full border-2 border-[${colors.white}]`}
+            className="w-16 h-16 rounded-full border-2 border-border"
           />
           <div>
             <p className="text-sm font-medium">Profile Picture</p>
@@ -60,7 +60,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
           />
           <Button
             variant="outline"
-            className={`border-[${colors.blue}] text-[${colors.white}]`}
+            className="border-border text-foreground"
             onClick={() => avatarInputRef.current?.click()}
           >
             Change avatar
@@ -76,7 +76,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
         </div>
         <Button
           variant="outline"
-          className={`border-[${colors.blue}] text-[${colors.white}]`}
+          className="border-border text-foreground"
           onClick={() => onEditField({ field: "fullName", title: "Change full name" })}
         >
           Edit
@@ -97,7 +97,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
         </div>
         <Button
           variant="outline"
-          className={`border-[${colors.blue}] text-[${colors.white}]`}
+          className="border-border text-foreground"
           onClick={() => onEditField({ field: "username", title: "Change username" })}
         >
           Change
@@ -110,14 +110,14 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
 
         {user.cv ? (
           <div
-            className={`flex items-center justify-between border rounded-md p-2 border-[${colors.blue}]`}
+            className="flex items-center justify-between border rounded-md p-2 border-border"
           >
-            <span className={`text-sm truncate max-w-[250px]`} style={{ color: colors.white }}>
+            <span className="text-sm truncate max-w-[250px] text-foreground">
               {user.cv}
             </span>
             <Button
               variant="outline"
-              className={`border-[${colors.blue}] text-[${colors.white}]`}
+              className="border-border text-foreground"
               onClick={() => {
                 setUser((prev: any) => ({ ...prev, cv: null }));
                 // reflect removal in local storage cache
@@ -131,7 +131,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
           <Input
             type="file"
             accept=".pdf,.doc,.docx,image/*"
-            className={`bg-transparent border border-[${colors.blue}]`}
+            className="bg-transparent border border-border"
             onChange={async (e) => {
               const file = e.target.files?.[0];
               if (!file) return;
@@ -158,7 +158,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
         </div>
         <Button
           variant="outline"
-          className={`border-[${colors.blue}] text-[${colors.white}]`}
+          className="border-border text-foreground"
           onClick={() => onEditField({ field: "githubConnection", title: "Set GitHub connection" })}
         >
           {user.githubConnection ? "Change" : "Connect"}

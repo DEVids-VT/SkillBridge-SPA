@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { spacing, colors, layouts, typography } from '@/lib/design-system';
+import { spacing, layouts, typography } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -19,14 +19,14 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="relative h-full min-h-0" style={{ backgroundColor: colors.dark }}>
+    <div className="relative h-full min-h-0 bg-background">
       {/* Soft Grid Pattern Background */}
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(${colors.blue}33 1px, transparent 1px),
-            linear-gradient(90deg, ${colors.blue}33 1px, transparent 1px)
+            linear-gradient(var(--color-border) 1px, transparent 1px),
+            linear-gradient(90deg, var(--color-border) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px',
           maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 70%)',
@@ -36,12 +36,10 @@ export default function CreatePage() {
       
       {/* Background accent elements */}
       <div 
-        className="absolute top-20 right-20 w-72 h-72 rounded-full opacity-10 blur-3xl"
-        style={{ backgroundColor: colors.blue }}
+        className="absolute top-20 right-20 w-72 h-72 rounded-full opacity-10 blur-3xl bg-primary"
       />
       <div 
-        className="absolute bottom-20 left-20 w-60 h-60 rounded-full opacity-15 blur-3xl"
-        style={{ backgroundColor: colors.orange }}
+        className="absolute bottom-20 left-20 w-60 h-60 rounded-full opacity-15 blur-3xl bg-accent"
       />
 
       <div className={cn(spacing.container, spacing.section)}>
@@ -49,8 +47,8 @@ export default function CreatePage() {
         <div className={layouts.pageHeader}>
           <div className={layouts.pageHeaderBackground} />
           <h1 className={layouts.pageTitle}>
-            <span style={{ color: colors.yellow }}>{t('createPage.header.title1')}</span>{' '}
-            <span style={{ color: colors.white }}>{t('createPage.header.title2')}</span>
+            <span className="text-accent">{t('createPage.header.title1')}</span>{' '}
+            <span className="text-foreground">{t('createPage.header.title2')}</span>
           </h1>
           <p className={layouts.pageDescription}>
             {t('createPage.header.subtitle')}
@@ -63,35 +61,30 @@ export default function CreatePage() {
             
             {/* Persona Card */}
             <div 
-              className="group relative overflow-hidden border-2 cursor-pointer rounded-xl"
+              className="group relative overflow-hidden border-2 cursor-pointer rounded-xl bg-card border-border hover:border-accent transition-colors"
               onClick={handlePersonaClick}
-              style={{ 
-                backgroundColor: colors.blueDark,
-                borderColor: colors.blue
-              }}
             >
               {/* Card Header with Icon */}
               <div className="p-8">
                 <div className="flex items-start justify-between mb-6">
                   <div 
-                    className="w-16 h-16 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: colors.blue }}
+                    className="w-16 h-16 rounded-xl flex items-center justify-center bg-primary"
                   >
-                    <User className="h-8 w-8" style={{ color: colors.white }} />
+                    <User className="h-8 w-8 text-primary-foreground" />
                   </div>
                   
                   {/* Info Button */}
                   <div className="relative group/tooltip">
                     <div 
                       className="w-8 h-8 rounded-full flex items-center justify-center cursor-help transition-colors"
-                      style={{ backgroundColor: colors.blue + '40' }}
+                      className="bg-primary/40"
                     >
-                      <Info className="h-4 w-4" style={{ color: colors.white }} />
+                      <Info className="h-4 w-4 text-primary-foreground" />
                     </div>
                     
                     {/* Tooltip */}
                     <div className="absolute right-0 top-10 w-64 p-3 rounded-lg border opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-opacity z-10"
-                         style={{ backgroundColor: colors.dark, borderColor: colors.blue }}>
+                         className="bg-background border-border">
                       <p className={cn('text-xs', typography.body.sm)}>
                         {t('createPage.personaCard.infoTooltip')}
                       </p>
@@ -110,8 +103,7 @@ export default function CreatePage() {
                   </p>
 
                   <Button 
-                    className="w-full py-3 font-medium"
-                    style={{ backgroundColor: colors.blue, color: colors.white }}
+                    className="w-full py-3 font-medium bg-primary text-primary-foreground"
                   >
                     {t('createPage.personaCard.button')}
                   </Button>
@@ -121,35 +113,30 @@ export default function CreatePage() {
 
             {/* Manual Card */}
             <div 
-              className="group relative overflow-hidden border-2 cursor-pointer rounded-xl"
+              className="group relative overflow-hidden border-2 cursor-pointer rounded-xl bg-card border-border hover:border-accent transition-colors"
               onClick={handleManualClick}
-              style={{ 
-                backgroundColor: colors.blueDark,
-                borderColor: colors.blue
-              }}
             >
               {/* Card Header with Icon */}
               <div className="p-8">
                 <div className="flex items-start justify-between mb-6">
                   <div 
-                    className="w-16 h-16 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: colors.orange }}
+                    className="w-16 h-16 rounded-xl flex items-center justify-center bg-accent"
                   >
-                    <Edit3 className="h-8 w-8" style={{ color: colors.dark }} />
+                    <Edit3 className="h-8 w-8 text-accent-foreground" />
                   </div>
                   
                   {/* Info Button */}
                   <div className="relative group/tooltip">
                     <div 
                       className="w-8 h-8 rounded-full flex items-center justify-center cursor-help transition-colors"
-                      style={{ backgroundColor: colors.blue + '40' }}
+                      className="bg-primary/40"
                     >
-                      <Info className="h-4 w-4" style={{ color: colors.white }} />
+                      <Info className="h-4 w-4 text-primary-foreground" />
                     </div>
                     
                     {/* Tooltip */}
                     <div className="absolute right-0 top-10 w-64 p-3 rounded-lg border opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-opacity z-10"
-                         style={{ backgroundColor: colors.dark, borderColor: colors.blue }}>
+                         className="bg-background border-border">
                       <p className={cn('text-xs', typography.body.sm)}>
                         {t('createPage.manualCard.infoTooltip')}
                       </p>
@@ -168,8 +155,7 @@ export default function CreatePage() {
                   </p>
 
                   <Button 
-                    className="w-full py-3 font-medium"
-                    style={{ backgroundColor: colors.orange, color: colors.dark }}
+                    className="w-full py-3 font-medium bg-accent text-accent-foreground"
                   >
                     {t('createPage.manualCard.button')}
                   </Button>

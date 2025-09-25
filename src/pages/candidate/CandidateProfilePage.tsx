@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { colors } from "@/lib/design-system";
 import CandidateEditModal from "@/components/ui/EditProfileModal";
 import { useUserCredentials } from "@/hooks/useUserCredentials";
 import { useUpdateUserProfile, useUserProfile } from "./hooks/useUserProfile";
 import { mergeAndSaveUserProfile } from "./hooks/userProfileStorage";
+import { useTheme } from "@/contexts/ThemeContext";
 import {
   CandidateAccountSection,
   CandidateSubscriptionSection,
@@ -13,6 +13,7 @@ export default function CandidateProfilePage() {
   const { user: session } = useUserCredentials();
   const { data: profile } = useUserProfile();
   const updateProfile = useUpdateUserProfile();
+  const { theme } = useTheme();
 
   const [user, setUser] = useState({
     avatar: "/images/avatar-placeholder.jpg",
@@ -28,7 +29,7 @@ export default function CandidateProfilePage() {
       upcoming: "Pro (Coming Soon)",
       upcomingDescription: "Stay tuned for new features",
     },
-    theme: "system",
+    theme: theme,
   });
 
   const [editField, setEditField] = useState<
@@ -58,10 +59,7 @@ export default function CandidateProfilePage() {
   }, [profile]);
 
   return (
-    <div
-      className="w-full py-10 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 2xl:px-96 space-y-10"
-      style={{ backgroundColor: colors.dark, color: colors.white }}
-    >
+    <div className="w-full py-10 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 2xl:px-96 space-y-10 bg-background text-foreground">
       <CandidateAccountSection 
         user={user} 
         setUser={setUser} 

@@ -10,33 +10,25 @@ interface ScenarioOverviewProps {
 export default function ScenarioOverview({ scenario }: ScenarioOverviewProps) {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Beginner': return { backgroundColor: colors.blue };
-      case 'Intermediate': return { backgroundColor: colors.yellow, color: colors.dark };
-      case 'Advanced': return { backgroundColor: colors.orange, color: colors.dark };
-      default: return { backgroundColor: colors.blueDark };
+      case 'Beginner': return 'bg-primary text-primary-foreground';
+      case 'Intermediate': return 'bg-yellow-500 text-dark';
+      case 'Advanced': return 'bg-accent text-accent-foreground';
+      default: return 'bg-muted text-muted-foreground';
     }
   };
 
   return (
     <Card 
-      className="border-2"
-      style={{ 
-        backgroundColor: colors.blueDark, 
-        borderColor: colors.blue 
-      }}
+      className="border-2 bg-card border-border"
     >
       <CardHeader>
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle className="text-xl mb-2" style={{ color: colors.white }}>{scenario.title}</CardTitle>
-            <p style={{ color: colors.white, opacity: 0.8 }}>{scenario.description}</p>
+            <CardTitle className="text-xl mb-2 text-card-foreground">{scenario.title}</CardTitle>
+            <p className="text-card-foreground opacity-80">{scenario.description}</p>
           </div>
           <Badge 
-            className="border-0"
-            style={{
-              ...getDifficultyColor(scenario.difficulty),
-              color: getDifficultyColor(scenario.difficulty).color || colors.white
-            }}
+            className={`border-0 ${getDifficultyColor(scenario.difficulty)}`}
           >
             {scenario.difficulty}
           </Badge>

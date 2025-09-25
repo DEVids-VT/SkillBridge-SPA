@@ -64,13 +64,9 @@ export const ProjectsList = () => {
           <Link
             key={projectAssignment.id}
             to={`/dashboard/project/${projectAssignment.id}`}
-            className={`block rounded-lg transition-all duration-200 border-2 ${
-              projectId === projectAssignment.id ? '' : 'hover:border-[#003566]'
+            className={`block rounded-lg transition-all duration-200 border-2 bg-card ${
+              projectId === projectAssignment.id ? 'border-accent' : 'border-transparent hover:border-border'
             }`}
-            style={{
-              backgroundColor: colors.blueDark,
-              borderColor: projectId === projectAssignment.id ? colors.orange : 'transparent',
-            }}
           >
             <div className="p-3">
               {/* Company Section */}

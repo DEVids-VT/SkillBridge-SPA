@@ -1,6 +1,8 @@
-// Design system constants for consistent dark theme styling
+// Design system constants for consistent theme styling
+// This file provides theme-aware design tokens that work with the ThemeProvider
 
-// Color Constants - Hex Values
+// Legacy color constants for backward compatibility
+// These are now replaced by CSS variables from the theme system
 const COLOR_DARK = '#000814';
 const COLOR_BLUE_DARK = '#001d3d';
 const COLOR_BLUE = '#003566';
@@ -21,30 +23,55 @@ const GRAY_400 = 'gray-400';
 const WHITE = 'white';
 const BLACK = 'black';
 
-// Color palette
+/**
+ * Theme-aware color palette
+ * 
+ * IMPORTANT: For new components, prefer using CSS variables from the theme system:
+ * - Use `bg-background`, `text-foreground`, etc. instead of hardcoded colors
+ * - Use Tailwind's theme-aware classes like `bg-primary`, `text-primary-foreground`
+ * - Import and use the `useTheme()` hook from '@/contexts/ThemeContext' for theme state
+ * 
+ * The legacy colors below are maintained for backward compatibility only.
+ * 
+ * @deprecated Use CSS variables and Tailwind theme classes instead
+ * 
+ * @example
+ * ```tsx
+ * // ✅ Good - Theme-aware
+ * <div className="bg-background text-foreground border-border">
+ *   <button className="bg-primary text-primary-foreground">Click me</button>
+ * </div>
+ * 
+ * // ❌ Avoid - Hardcoded colors
+ * <div style={{ backgroundColor: colors.dark, color: colors.white }}>
+ *   <button className={`bg-[${colors.orange}] text-[${colors.blueDark}]`}>Click me</button>
+ * </div>
+ * ```
+ */
 export const colors = {
-  dark: COLOR_DARK, // Main dark background
-  blueDark: COLOR_BLUE_DARK, // Deep blue
-  blue: COLOR_BLUE, // Lighter dark blue
-  orange: COLOR_ORANGE, // Orange accent
-  yellow: COLOR_YELLOW, // Yellow accent
-  white: COLOR_WHITE, // White for text and highlights
-  bgSlate900: COLOR_SLATE, // Background slate 900
+  // Legacy colors for backward compatibility
+  dark: COLOR_DARK,
+  blueDark: COLOR_BLUE_DARK,
+  blue: COLOR_BLUE,
+  orange: COLOR_ORANGE,
+  yellow: COLOR_YELLOW,
+  white: COLOR_WHITE,
+  bgSlate900: COLOR_SLATE,
   
-  // UI Colors based on design system
+  // UI Colors - prefer CSS variables for theme support
   background: COLOR_DARK,
   surface: COLOR_BLUE_DARK,
   surfaceLight: COLOR_BLUE,
   accent: COLOR_ORANGE,
-  accentHover: '#e6b000', // Darker orange for hover
+  accentHover: '#e6b000',
   text: COLOR_WHITE,
-  textSecondary: '#d1d5db', // Light gray for secondary text
-  textMuted: '#9ca3af', // Muted gray for placeholders
+  textSecondary: '#d1d5db',
+  textMuted: '#9ca3af',
   border: COLOR_BLUE,
-  borderLight: '#374151', // Lighter border
-  error: '#ef4444', // Red for errors
-  errorHover: '#dc2626', // Darker red for hover
-  success: '#10b981', // Green for success
+  borderLight: '#374151',
+  error: '#ef4444',
+  errorHover: '#dc2626',
+  success: '#10b981',
   warning: COLOR_ORANGE,
 };
 
@@ -111,50 +138,48 @@ export const components = {
   },
 };
 
-// Sidebar design system
+// Sidebar design system - Updated for theme compatibility
 export const sidebar = {
-  // Base sidebar styles
+  // Base sidebar styles - now theme-aware
   container:
-    `fixed left-0 top-0 z-50 h-screen w-64 flex flex-col transform lg:translate-x-0 bg-${SLATE_900} border-r border-${SLATE_700}`,
+    'fixed left-0 top-0 z-50 h-screen w-64 flex flex-col transform lg:translate-x-0 bg-sidebar border-r border-sidebar-border',
 
-  // Navigation link styles
+  // Navigation link styles - theme-aware
   navigation: {
     base: 'flex items-center gap-4 px-2 py-3 rounded-lg text-base font-medium transition-colors no-underline hover:no-underline',
-    default: `text-${WHITE} hover:bg-primary/20 hover:text-${WHITE}`,
-    active: 'bg-primary text-primary-foreground font-semibold',
+    default: 'text-sidebar-foreground hover:bg-sidebar-accent/20 hover:text-sidebar-foreground',
+    active: 'bg-sidebar-primary text-sidebar-primary-foreground font-semibold',
     icon: 'size-5',
   },
 
-  // Button styles for sidebar
+  // Button styles for sidebar - theme-aware
   buttons: {
     // Primary action button (Login)
-    primary: `w-full bg-primary hover:bg-[${COLOR_BLUE_DARK}] text-${WHITE} font-medium transition-colors py-3 text-base`,
+    primary: 'w-full bg-sidebar-primary hover:bg-sidebar-primary/80 text-sidebar-primary-foreground font-medium transition-colors py-3 text-base',
 
     // Secondary action button (Language switcher)
-    secondary:
-      `w-full justify-start gap-4 text-${WHITE} hover:text-primary-foreground hover:bg-primary/20 transition-colors py-3 text-base`,
+    secondary: 'w-full justify-start gap-4 text-sidebar-foreground hover:text-sidebar-primary-foreground hover:bg-sidebar-accent/20 transition-colors py-3 text-base',
 
     // Danger action button (Logout)
-    danger:
-      `w-full justify-start gap-4 text-${RED_400} hover:text-${RED_300} hover:bg-${RED_900}/20 transition-colors py-3 text-base`,
+    danger: 'w-full justify-start gap-4 text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors py-3 text-base',
 
     // Logo link
-    logo: `flex items-center text-xl font-semibold text-${WHITE} no-underline hover:no-underline hover:text-primary-foreground transition-colors`,
+    logo: 'flex items-center text-xl font-semibold text-sidebar-foreground no-underline hover:no-underline hover:text-sidebar-primary-foreground transition-colors',
   },
 
-  // Section styles
+  // Section styles - theme-aware
   sections: {
-    header: `flex h-20 items-center justify-between px-4`,
+    header: 'flex h-20 items-center justify-between px-4',
     navigation: 'flex-1 px-4 py-6 space-y-3 overflow-y-auto',
-    profile: `pt-6 mt-6 border-t border-${SLATE_700}`,
-    bottom: `px-4 py-6 border-t border-${SLATE_700} space-y-3`,
-    profileTitle: `px-2 mb-3 text-sm font-semibold text-${WHITE}/70 uppercase tracking-wider`,
+    profile: 'pt-6 mt-6 border-t border-sidebar-border',
+    bottom: 'px-4 py-6 border-t border-sidebar-border space-y-3',
+    profileTitle: 'px-2 mb-3 text-sm font-semibold text-sidebar-foreground/70 uppercase tracking-wider',
   },
 
-  // State classes
+  // State classes - theme-aware
   states: {
     open: 'translate-x-0 w-full lg:w-64',
     closed: '-translate-x-full',
-    overlay: `fixed inset-0 bg-${BLACK}/50 z-40 lg:hidden`,
+    overlay: 'fixed inset-0 bg-black/50 z-40 lg:hidden',
   },
 };

@@ -43,6 +43,8 @@
 
 :root {
   --radius: 0.625rem;
+  
+  /* Default theme (dark) - these will be overridden by ThemeProvider */
   --foreground: #ffffff;
   --card: #001d3d;
   --card-foreground: #ffffff;

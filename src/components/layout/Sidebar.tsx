@@ -20,7 +20,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useOnboarding } from '@/contexts/OnboardingContext.tsx';
 import { RoutePage } from '@/types/enums/RoutePage';
 import { cn } from '@/lib/utils';
-import { sidebar, colors } from '@/lib/design-system';
+import { sidebar } from '@/lib/design-system';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface SidebarProps {
@@ -235,7 +235,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       {/* Sidebar */}
       <motion.aside
         className={cn(
-          'fixed left-0 top-0 z-50 h-screen flex flex-col transform',
+          'fixed left-0 top-0 z-50 h-screen flex flex-col transform bg-sidebar border-r border-sidebar-border',
           isMobile ? 'mobile-sidebar' : '',
           isMobile ? isOpen ? 'translate-x-0' : '-translate-x-full' : 'translate-x-0',
           !isCollapsed && !isMobile ? 'pt-7 pl-2' : 'pt-2 pl-2'
@@ -270,7 +270,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
             <motion.span
               variants={textVariants}
               animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
-              className="ml-3 text-xl font-semibold text-white truncate"
+              className="ml-3 text-xl font-semibold text-sidebar-foreground truncate"
             >
               SkillBridge
             </motion.span>
@@ -420,8 +420,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
         </nav>
 
         {/* Bottom Section - Fixed at bottom */}
-        <div className='py-6 border-t space-y-3'
-        style={{ borderColor: colors.bgSlate900 }}>
+        <div className='py-6 border-t border-sidebar-border space-y-3'>
           {/* Language Switcher */}
           <Button
             variant="ghost"

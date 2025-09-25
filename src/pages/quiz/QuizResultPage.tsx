@@ -164,10 +164,10 @@ export default function QuizResultPage() {
 
   if (loading) {
     return (
-      <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
+      <div className={cn(spacing.container, spacing.section, 'relative min-h-screen bg-background')}>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderBottomColor: colors.blue }}></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4 border-primary"></div>
             <p className="text-white">Loading quiz...</p>
           </div>
         </div>
@@ -177,15 +177,15 @@ export default function QuizResultPage() {
 
   if (error || !quiz) {
     return (
-      <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
+      <div className={cn(spacing.container, spacing.section, 'relative min-h-screen bg-background')}>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="mb-4" style={{ color: colors.orange }}>
+            <div className="mb-4 text-accent">
               <Brain className="h-12 w-12 mx-auto mb-2" />
             </div>
             <h2 className="text-white text-xl mb-2">Error Loading Quiz</h2>
             <p className={cn('mb-4', typography.body.default)}>{error}</p>
-            <Button onClick={handleBack} variant="outline" style={{ borderColor: colors.blue, color: colors.white }}>
+            <Button onClick={handleBack} variant="outline" className="border-border text-foreground">
               Return to Create
             </Button>
           </div>
@@ -196,10 +196,10 @@ export default function QuizResultPage() {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Easy': return { backgroundColor: colors.orange };
-      case 'Medium': return { backgroundColor: colors.yellow };
-      case 'Hard': return { backgroundColor: colors.blue };
-      default: return { backgroundColor: colors.blue };
+      case 'Easy': return 'bg-accent';
+      case 'Medium': return 'bg-yellow-500';
+      case 'Hard': return 'bg-primary';
+      default: return 'bg-primary';
     }
   };
 

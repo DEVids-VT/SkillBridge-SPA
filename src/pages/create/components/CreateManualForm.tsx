@@ -20,10 +20,9 @@ export default function CreateManualFormComponent({
   return (
     <div className={cards.base}>
       <div className={cards.header}>
-        <h2 className="text-2xl font-bold text-white">
+        <h2 className="text-2xl font-bold text-card-foreground">
           <span 
-            className="inline-block w-2 h-6 mr-3 rounded"
-            style={{ backgroundColor: colors.orange }}
+            className="inline-block w-2 h-6 mr-3 rounded bg-accent"
           />
           {t('createManualPage.form.title')}
         </h2>
@@ -32,7 +31,7 @@ export default function CreateManualFormComponent({
       <div className={cards.body}>
         <div className="space-y-6">
           <div className="space-y-3">
-            <Label htmlFor="description" className="text-white font-medium">
+            <Label htmlFor="description" className="text-card-foreground font-medium">
               {t('createManualPage.form.description.label')}
             </Label>
             <Textarea
@@ -41,12 +40,7 @@ export default function CreateManualFormComponent({
               placeholder={t('createManualPage.form.description.placeholder')}
               value={formData.description}
               onChange={onInputChange}
-              className={`min-h-40 resize-none ${formErrors.description ? 'border-red-500' : ''}`}
-              style={{
-                backgroundColor: colors.blueDark,
-                borderColor: formErrors.description ? '#ef4444' : colors.blue,
-                color: colors.white
-              }}
+              className={`min-h-40 resize-none bg-card border-border text-card-foreground ${formErrors.description ? 'border-destructive' : ''}`}
             />
             {formErrors.description && (
               <p className="text-red-400 text-sm mt-1">{formErrors.description}</p>
@@ -59,8 +53,7 @@ export default function CreateManualFormComponent({
           {/* Character Count */}
           <div className="text-right">
             <span 
-              className="text-sm"
-              style={{ color: formData.description.length > 50 ? colors.yellow : colors.white }}
+              className={`text-sm ${formData.description.length > 50 ? 'text-accent' : 'text-card-foreground'}`}
             >
               {formData.description.length} {t('createManualPage.form.characters')}
             </span>

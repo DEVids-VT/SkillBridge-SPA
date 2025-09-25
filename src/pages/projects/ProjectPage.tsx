@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { spacing, colors } from '@/lib/design-system';
+import { spacing } from '@/lib/design-system';
 import { useProjectDetail } from './hooks/useProjectDetail';
 import { useClaimProject } from './hooks/useClaimProject';
 import {
@@ -56,8 +56,8 @@ export default function ProjectPage() {
         )}
       >
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-lg font-medium text-gray-600">{t('projectPage.loading.message')}</p>
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-lg font-medium text-muted-foreground">{t('projectPage.loading.message')}</p>
         </div>
       </div>
     );
@@ -74,8 +74,8 @@ export default function ProjectPage() {
         )}
       >
         <div className="text-center">
-          <h2 className="text-xl text-white mb-2">Project not found</h2>
-          <p className="text-gray-400">The requested project could not be found.</p>
+          <h2 className="text-xl text-foreground mb-2">Project not found</h2>
+          <p className="text-muted-foreground">The requested project could not be found.</p>
         </div>
       </div>
     );

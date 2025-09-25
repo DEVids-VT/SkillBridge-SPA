@@ -1,23 +1,20 @@
 import { cn } from '@/lib/utils';
-import { colors, cards, typography } from '@/lib/design-system';
+import { cards, typography } from '@/lib/design-system';
 import { Badge } from '@/components/ui/badge';
 
 // Status badge component
 const StatusBadge = ({ status }: { status: number }) => {
   const statusMap = {
-    0: { label: 'Draft', color: colors.blue },
-    1: { label: 'Active', color: colors.yellow },
-    2: { label: 'Completed', color: colors.orange },
-    3: { label: 'Archived', color: colors.blue },
+    0: { label: 'Draft', className: 'bg-muted text-muted-foreground' },
+    1: { label: 'Active', className: 'bg-accent text-accent-foreground' },
+    2: { label: 'Completed', className: 'bg-green-500 text-white' },
+    3: { label: 'Archived', className: 'bg-muted text-muted-foreground' },
   };
 
-  const { label, color } = statusMap[status as keyof typeof statusMap] || statusMap[1];
+  const { label, className } = statusMap[status as keyof typeof statusMap] || statusMap[1];
 
   return (
-    <span
-      className="px-2 py-1 rounded text-xs font-medium"
-      style={{ backgroundColor: `${color}30`, color }}
-    >
+    <span className={`px-2 py-1 rounded text-xs font-medium ${className}`}>
       {label}
     </span>
   );
@@ -38,7 +35,7 @@ export default function ProjectCompanyInfo({ project }: ProjectCompanyInfoProps)
         <h3 className={typography.heading[4]}>About {project.companyName}</h3>
       </div>
       <div className={cards.body}>
-        <p className="text-gray-300 mb-4">
+        <p className="text-muted-foreground mb-4">
           This project is provided by {project.companyName}. Work on real-world challenges and
           gain practical experience that companies are looking for.
         </p>
@@ -47,12 +44,7 @@ export default function ProjectCompanyInfo({ project }: ProjectCompanyInfoProps)
           {project.skills.map((skill) => (
             <Badge
               key={skill.id}
-              style={{
-                backgroundColor: `${colors.blue}30`,
-                color: colors.yellow,
-                borderColor: colors.blue,
-              }}
-              className="border"
+              className="border bg-primary/20 text-primary border-primary"
             >
               {skill.name}
             </Badge>

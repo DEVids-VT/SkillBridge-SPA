@@ -186,7 +186,7 @@ const ProjectsBoardPage = () => {
   };
 
   return (
-    <div className="flex h-full min-h-0" style={{ backgroundColor: colors.bgSlate900 }}>
+    <div className="flex h-full min-h-0 bg-background">
       {/* Left Sidebar - Responsive */}
       <ActiveSidebar title={t('projectsPage.filters.title')}>
         <ProjectsFilterSidebar
@@ -206,7 +206,7 @@ const ProjectsBoardPage = () => {
       </ActiveSidebar>
       
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto rounded-xl" style={{ backgroundColor: colors.dark }}>
+      <div className="flex-1 overflow-y-auto rounded-xl bg-background">
         <main className="p-4 lg:p-6">
           <ProjectsList 
             projects={filteredProjects} 
@@ -216,7 +216,7 @@ const ProjectsBoardPage = () => {
 
           {error && (
             <div className="p-8 text-center">
-              <p className="font-medium" style={{ color: colors.orange }}>
+              <p className="font-medium text-accent">
                 {t('projectsPage.states.errorLoadingProjects')}
               </p>
             </div>

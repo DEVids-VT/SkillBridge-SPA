@@ -168,7 +168,7 @@ export const useCreateScenario = () => {
         throw new Error('Company ID is missing');
       }
       // Map enums to numeric values expected by backend and send in body
-      const { outputType: _omitOutputType, ...request } = payload as CandidateRequirementsRequest & { outputType?: 'scenario' | 'quiz' };
+      const { outputType, ...request } = payload as CandidateRequirementsRequest & { outputType?: 'scenario' | 'quiz' };
       const mapped = mapToBackendRequest(request as CandidateRequirementsRequest);
       const response = await axiosInstance.post<ScenarioResponse>(`/g/${companyId}`, mapped, {
         headers: { 'Content-Type': 'application/json' },

@@ -14,7 +14,6 @@ import RoleGuard from './components/authorize-route/RoleGuard';
 import ProjectsBoardPage from './pages/projects/ProjectsBoardPage.tsx';
 import ProjectPage from './pages/projects/ProjectPage.tsx';
 import { CreatePage, CreatePersonaPage, CreateManualPage } from './pages/create';
-import ScenarioResultPage from './pages/scenario/ScenarioResultPage';
 import QuizResultPage from './pages/quiz/QuizResultPage';
 import CompanyProfilePage from './pages/company/CompanyProfilePage';
 import CandidateProfilePage from './pages/candidate/CandidateProfilePage';
@@ -49,7 +48,6 @@ export const router = createBrowserRouter(
         {/* Legacy route - redirect to new create flow */}
         <Route path={RoutePage.CREATE_PROJECT} element={<Navigate to={RoutePage.CREATE} replace />} />
         {/* Result pages */}
-        <Route path={RoutePage.SCENARIO_DETAIL} element={<ScenarioResultPage />} />
         <Route path={RoutePage.QUIZ_DETAIL} element={<QuizResultPage />} />
         {/* Profile routes - role-based access */}
         <Route

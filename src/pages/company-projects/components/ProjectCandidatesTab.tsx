@@ -14,21 +14,40 @@ export default function ProjectCandidatesTab() {
         </div>
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[1,2,3,4,5,6].map((n) => (
-              <div key={n} className="rounded-lg border p-4" style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}>
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div
+                key={n}
+                className="rounded-lg border p-4"
+                style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}
+              >
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="font-medium" style={{ color: colors.white }}>Candidate {n}</p>
-                    <p className="text-sm" style={{ color: colors.textSecondary }}>Frontend Developer</p>
-                    <p className="text-xs mt-1" style={{ color: colors.textMuted }}>Progress: {Math.floor(Math.random()*100)}%</p>
+                    <p className="font-medium" style={{ color: colors.white }}>
+                      Candidate {n}
+                    </p>
+                    <p className="text-sm" style={{ color: colors.textSecondary }}>
+                      Frontend Developer
+                    </p>
+                    <p className="text-xs mt-1" style={{ color: colors.textMuted }}>
+                      Progress: {Math.floor(Math.random() * 100)}%
+                    </p>
                   </div>
                 </div>
                 <div className="mt-3 flex flex-col gap-2">
-                  <Button variant="outline" className="gap-2 font-normal px-3 py-2" style={{ borderColor: colors.blue, color: colors.white }}>
+                  <Button
+                    variant="outline"
+                    className="gap-2 font-normal px-3 py-2"
+                    style={{ borderColor: colors.blue, color: colors.white }}
+                  >
                     <Download className="size-4" /> Download CV
                   </Button>
-                  <a href="#" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md border h-9 text-sm"
-                    style={{ borderColor: colors.blue, color: colors.white }}>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md border h-9 text-sm"
+                    style={{ borderColor: colors.blue, color: colors.white }}
+                  >
                     <ExternalLink className="size-4" /> Open Tracker
                   </a>
                 </div>

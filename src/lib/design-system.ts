@@ -30,7 +30,7 @@ export const colors = {
   yellow: COLOR_YELLOW, // Yellow accent
   white: COLOR_WHITE, // White for text and highlights
   bgSlate900: COLOR_SLATE, // Background slate 900
-  
+
   // UI Colors based on design system
   background: COLOR_DARK,
   surface: COLOR_BLUE_DARK,
@@ -80,8 +80,7 @@ export const typography = {
 // Layouts
 export const layouts = {
   pageHeader: 'text-center mb-16 relative',
-  pageHeaderBackground:
-    `absolute -top-10 left-0 right-0 h-20 bg-gradient-to-r from-[${COLOR_BLUE_DARK}] to-[${COLOR_BLUE}] rounded-b-3xl -z-10`,
+  pageHeaderBackground: `absolute -top-10 left-0 right-0 h-20 bg-gradient-to-r from-[${COLOR_BLUE_DARK}] to-[${COLOR_BLUE}] rounded-b-3xl -z-10`,
   pageTitle: `${typography.sectionTitle.main} mb-6`,
   pageDescription: `text-lg text-${GRAY_300} max-w-3xl mx-auto mb-10`,
   grid: {
@@ -114,8 +113,7 @@ export const components = {
 // Sidebar design system
 export const sidebar = {
   // Base sidebar styles
-  container:
-    `fixed left-0 top-0 z-50 h-screen w-64 flex flex-col transform lg:translate-x-0 bg-${SLATE_900} border-r border-${SLATE_700}`,
+  container: `fixed left-0 top-0 z-50 h-screen w-64 flex flex-col transform lg:translate-x-0 bg-${SLATE_900} border-r border-${SLATE_700}`,
 
   // Navigation link styles
   navigation: {
@@ -131,12 +129,10 @@ export const sidebar = {
     primary: `w-full bg-primary hover:bg-[${COLOR_BLUE_DARK}] text-${WHITE} font-medium transition-colors py-3 text-base`,
 
     // Secondary action button (Language switcher)
-    secondary:
-      `w-full justify-start gap-4 text-${WHITE} hover:text-primary-foreground hover:bg-primary/20 transition-colors py-3 text-base`,
+    secondary: `w-full justify-start gap-4 text-${WHITE} hover:text-primary-foreground hover:bg-primary/20 transition-colors py-3 text-base`,
 
     // Danger action button (Logout)
-    danger:
-      `w-full justify-start gap-4 text-${RED_400} hover:text-${RED_300} hover:bg-${RED_900}/20 transition-colors py-3 text-base`,
+    danger: `w-full justify-start gap-4 text-${RED_400} hover:text-${RED_300} hover:bg-${RED_900}/20 transition-colors py-3 text-base`,
 
     // Logo link
     logo: `flex items-center text-xl font-semibold text-${WHITE} no-underline hover:no-underline hover:text-primary-foreground transition-colors`,

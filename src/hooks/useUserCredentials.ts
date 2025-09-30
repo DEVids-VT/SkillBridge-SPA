@@ -80,7 +80,10 @@ export const useUserCredentials = (): UseUserCredentialsReturnData => {
       username:
         // try common fields from Auth0 / OIDC
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ((user as any)?.nickname || (user as any)?.preferred_username || (user as any)?.username || ''),
+        (user as any)?.nickname ||
+        (user as any)?.preferred_username ||
+        (user as any)?.username ||
+        '',
       roles,
       isCandidate: hasRole('candidate'),
       isCompany: hasRole('company'),

@@ -20,11 +20,11 @@ interface ProjectClaimSectionProps {
   onClaimProject: () => void;
 }
 
-export default function ProjectClaimSection({ 
-  project, 
-  isClaimingProject, 
-  claimError, 
-  onClaimProject 
+export default function ProjectClaimSection({
+  project,
+  isClaimingProject,
+  claimError,
+  onClaimProject,
 }: ProjectClaimSectionProps) {
   const daysRemaining = getDaysRemaining(project.deadline);
 

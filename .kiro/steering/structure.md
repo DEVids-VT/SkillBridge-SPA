@@ -3,6 +3,7 @@
 ## Key Directories
 
 - **`src/`**: Main application source code
+
   - **`assets/`**: Static assets processed by Vite (images, fonts, etc.)
   - **`components/`**: Reusable React components
     - **`layout/`**: Layout components (Header, Footer, Layout)
@@ -18,6 +19,7 @@
   - **`types/`**: TypeScript type definitions and enums
 
 - **`public/`**: Static assets served directly
+
   - **`images/`**: Static image files
   - **`locales/`**: Translation files organized by language code
   - **`videos/`**: Video assets
@@ -35,7 +37,7 @@
 ## Naming Conventions
 
 - **Components**: PascalCase (e.g., `Header.tsx`, `Button.tsx`)
-- **Files**: 
+- **Files**:
   - React components: PascalCase (e.g., `ProjectDetail.tsx`)
   - Utilities and hooks: camelCase (e.g., `useAuth.ts`)
 - **Folders**: camelCase (e.g., `components/`, `pages/`)

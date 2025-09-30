@@ -85,7 +85,11 @@ export function StepFormWrapper({
           onClick={onNext}
           disabled={isNextDisabled || isLoading}
           className="gap-2 px-5 hover:opacity-90"
-          style={{ backgroundColor: colors.orange, color: colors.blueDark, borderColor: colors.orange }}
+          style={{
+            backgroundColor: colors.orange,
+            color: colors.blueDark,
+            borderColor: colors.orange,
+          }}
         >
           {isLoading ? (
             <>

@@ -1,6 +1,11 @@
 import { createContext, useState, useContext, ReactNode, useEffect, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { UserOnboardingData, UserRole, CompanyFormData, CandidateFormData } from '@/types/user/UserOnboarding';
+import {
+  UserOnboardingData,
+  UserRole,
+  CompanyFormData,
+  CandidateFormData,
+} from '@/types/user/UserOnboarding';
 import useUserCredentials, { Auth0Role } from '@/hooks/useUserCredentials';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -151,15 +156,15 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
             },
           }
         : role === 'candidate'
-        ? {
-            candidate: {
-              username: '',
-              cv: null,
-              profilePicture: null,
-              externalLink: '',
-            },
-          }
-        : {}),
+          ? {
+              candidate: {
+                username: '',
+                cv: null,
+                profilePicture: null,
+                externalLink: '',
+              },
+            }
+          : {}),
     }));
   };
 

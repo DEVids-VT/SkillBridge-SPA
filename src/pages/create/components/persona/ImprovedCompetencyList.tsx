@@ -1,8 +1,18 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { CompetencyRequirement, CompetencyType, ProficiencyLevel } from '@/types/candidate/requirements';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import type {
+  CompetencyRequirement,
+  CompetencyType,
+  ProficiencyLevel,
+} from '@/types/candidate/requirements';
 
 interface CompetencyListProps {
   title: string;
@@ -12,16 +22,50 @@ interface CompetencyListProps {
 }
 
 const typeOptions: CompetencyType[] = [
-  'Technical','Functional','Leadership','Communication','Analytical','Creative','ProjectManagement','CustomerService','Financial','Regulatory','Industry','Language','Software','Hardware','Process','Safety','Quality','Other',
+  'Technical',
+  'Functional',
+  'Leadership',
+  'Communication',
+  'Analytical',
+  'Creative',
+  'ProjectManagement',
+  'CustomerService',
+  'Financial',
+  'Regulatory',
+  'Industry',
+  'Language',
+  'Software',
+  'Hardware',
+  'Process',
+  'Safety',
+  'Quality',
+  'Other',
 ];
 
-const levelOptions: ProficiencyLevel[] = ['Beginner','Intermediate','Advanced','Expert','Master'];
+const levelOptions: ProficiencyLevel[] = [
+  'Beginner',
+  'Intermediate',
+  'Advanced',
+  'Expert',
+  'Master',
+];
 
-export function ImprovedCompetencyList({ title, list, onChange, requireMandatory }: CompetencyListProps) {
+export function ImprovedCompetencyList({
+  title,
+  list,
+  onChange,
+  requireMandatory,
+}: CompetencyListProps) {
   const addItem = () => {
     onChange([
       ...list,
-      { name: '', type: 'Technical', requiredLevel: 'Intermediate', description: '', isMandatory: !!requireMandatory },
+      {
+        name: '',
+        type: 'Technical',
+        requiredLevel: 'Intermediate',
+        description: '',
+        isMandatory: !!requireMandatory,
+      },
     ]);
   };
 
@@ -39,7 +83,9 @@ export function ImprovedCompetencyList({ title, list, onChange, requireMandatory
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <Label className="font-medium">{title}</Label>
-        <Button type="button" size="sm" onClick={addItem}>+ Add</Button>
+        <Button type="button" size="sm" onClick={addItem}>
+          + Add
+        </Button>
       </div>
       <div className="space-y-4">
         {list.map((item, index) => (
@@ -52,25 +98,35 @@ export function ImprovedCompetencyList({ title, list, onChange, requireMandatory
               />
             </div>
             <div>
-              <Select value={item.type} onValueChange={(v) => updateItem(index, { type: v as CompetencyType })}>
+              <Select
+                value={item.type}
+                onValueChange={(v) => updateItem(index, { type: v as CompetencyType })}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Type" />
                 </SelectTrigger>
                 <SelectContent>
                   {typeOptions.map((opt) => (
-                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <Select value={item.requiredLevel} onValueChange={(v) => updateItem(index, { requiredLevel: v as ProficiencyLevel })}>
+              <Select
+                value={item.requiredLevel}
+                onValueChange={(v) => updateItem(index, { requiredLevel: v as ProficiencyLevel })}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Level" />
                 </SelectTrigger>
                 <SelectContent>
                   {levelOptions.map((opt) => (
-                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -91,7 +147,9 @@ export function ImprovedCompetencyList({ title, list, onChange, requireMandatory
                 />
                 Mandatory
               </label>
-              <Button type="button" variant="outline" onClick={() => removeItem(index)}>Remove</Button>
+              <Button type="button" variant="outline" onClick={() => removeItem(index)}>
+                Remove
+              </Button>
             </div>
           </div>
         ))}
@@ -101,5 +159,3 @@ export function ImprovedCompetencyList({ title, list, onChange, requireMandatory
 }
 
 export default ImprovedCompetencyList;
-
-

@@ -143,16 +143,10 @@ const Notification: React.FC<NotificationProps> = ({
         <Icon />
       </div>
       <div className="ms-3 text-sm font-normal">
-        <span 
-          className="mb-1 text-sm font-semibold block"
-          style={{ color: colorScheme.textColor }}
-        >
+        <span className="mb-1 text-sm font-semibold block" style={{ color: colorScheme.textColor }}>
           {title}
         </span>
-        <div 
-          className="text-sm font-normal"
-          style={{ color: colorScheme.textColor }}
-        >
+        <div className="text-sm font-normal" style={{ color: colorScheme.textColor }}>
           {message}
         </div>
       </div>
@@ -171,4 +165,4 @@ const Notification: React.FC<NotificationProps> = ({
   );
 };
 
-export default Notification; 
+export default Notification;

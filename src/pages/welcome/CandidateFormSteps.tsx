@@ -78,7 +78,6 @@ export function CandidateFormSteps({ onBackToRoleSelection }: CandidateFormSteps
       const link = formData.externalLink?.trim();
       if (link) {
         try {
-           
           new URL(link);
         } catch {
           newErrors.externalLink = true;
@@ -183,5 +182,3 @@ export function CandidateFormSteps({ onBackToRoleSelection }: CandidateFormSteps
 }
 
 export default CandidateFormSteps;
-
-

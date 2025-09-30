@@ -3,7 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { cards, colors, components } from '@/lib/design-system';
-import { Briefcase, Calendar, Clock, ChevronDown, ChevronUp, Cpu, Code, Layers, Database } from 'lucide-react';
+import {
+  Briefcase,
+  Calendar,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+  Cpu,
+  Code,
+  Layers,
+  Database,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import { Project, CategoryFilter } from '../types';
@@ -20,7 +30,8 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
   // Derive banner image (use project ID as seed for consistent unique images)
   const bannerUrl = useMemo(() => {
     // Using Picsum with seed parameter to ensure each project gets a unique but consistent image
-    const seed = project.id || Math.abs(project.title.split('').reduce((a, b) => a + b.charCodeAt(0), 0));
+    const seed =
+      project.id || Math.abs(project.title.split('').reduce((a, b) => a + b.charCodeAt(0), 0));
     return `https://picsum.photos/seed/${seed}/800/300`;
   }, [project.id, project.title]);
 
@@ -43,7 +54,10 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
     const remaining = Math.max(0, deadline.getTime() - now.getTime());
     const pct = Math.min(100, Math.max(0, (remaining / total) * 100));
     const days = Math.ceil(remaining / (1000 * 60 * 60 * 24));
-    const label = days <= 0 ? t('projectsPage.projectCard.deadlinePassed') : `${days} ${t('projectsPage.projectCard.daysLeft')}`;
+    const label =
+      days <= 0
+        ? t('projectsPage.projectCard.deadlinePassed')
+        : `${days} ${t('projectsPage.projectCard.daysLeft')}`;
     return { percentLeft: pct, daysLeft: days, deadlineLabel: label };
   }, [project.deadline, project.postedDate, t]);
 
@@ -51,9 +65,12 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
   const techIconFor = (skill: string) => {
     const s = skill.toLowerCase();
     if (s.includes('react') || s.includes('ui')) return <Code className="w-3.5 h-3.5 mr-1" />;
-    if (s.includes('api') || s.includes('backend') || s.includes('server')) return <Layers className="w-3.5 h-3.5 mr-1" />;
-    if (s.includes('data') || s.includes('sql') || s.includes('database')) return <Database className="w-3.5 h-3.5 mr-1" />;
-    if (s.includes('node') || s.includes('python') || s.includes('java')) return <Cpu className="w-3.5 h-3.5 mr-1" />;
+    if (s.includes('api') || s.includes('backend') || s.includes('server'))
+      return <Layers className="w-3.5 h-3.5 mr-1" />;
+    if (s.includes('data') || s.includes('sql') || s.includes('database'))
+      return <Database className="w-3.5 h-3.5 mr-1" />;
+    if (s.includes('node') || s.includes('python') || s.includes('java'))
+      return <Cpu className="w-3.5 h-3.5 mr-1" />;
     return null;
   };
 
@@ -76,11 +93,11 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
           }}
         />
         {/* Company badge over banner */}
-        <div className="absolute top-2 left-2 flex items-center gap-2 rounded-full px-2 py-1 text-xs"
-             style={{ backgroundColor: colors.blue, color: colors.yellow }}>
-          <div
-            className="w-6 h-6 rounded bg-black/30 backdrop-blur flex items-center justify-center overflow-hidden"
-          >
+        <div
+          className="absolute top-2 left-2 flex items-center gap-2 rounded-full px-2 py-1 text-xs"
+          style={{ backgroundColor: colors.blue, color: colors.yellow }}
+        >
+          <div className="w-6 h-6 rounded bg-black/30 backdrop-blur flex items-center justify-center overflow-hidden">
             {project.logo ? (
               <img
                 src={project.logo}
@@ -99,18 +116,34 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
       </div>
 
       {/* Body */}
-      <div className={cn(cards.body, 'space-y-3')}
-           onClick={(e) => { /* keep card navigable, but allow toggles below to stop propagation */ }}>
+      <div
+        className={cn(cards.body, 'space-y-3')}
+        onClick={(e) => {
+          /* keep card navigable, but allow toggles below to stop propagation */
+        }}
+      >
         {/* Title & meta */}
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h3 className="font-semibold text-base leading-snug mb-1 truncate" style={{ color: colors.white }}>
+            <h3
+              className="font-semibold text-base leading-snug mb-1 truncate"
+              style={{ color: colors.white }}
+            >
               {project.title}
             </h3>
-            <div className="flex items-center gap-2 text-xs" style={{ color: colors.textSecondary }}>
-              <span className="inline-flex items-center"><Clock className="w-3 h-3 mr-1" />{postedLabel}</span>
+            <div
+              className="flex items-center gap-2 text-xs"
+              style={{ color: colors.textSecondary }}
+            >
+              <span className="inline-flex items-center">
+                <Clock className="w-3 h-3 mr-1" />
+                {postedLabel}
+              </span>
               <span className="mx-1">•</span>
-              <span className="inline-flex items-center"><Calendar className="w-3 h-3 mr-1" />{deadlineLabel}</span>
+              <span className="inline-flex items-center">
+                <Calendar className="w-3 h-3 mr-1" />
+                {deadlineLabel}
+              </span>
             </div>
           </div>
         </div>
@@ -129,14 +162,20 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
           {project.skills.slice(0, 4).map((skill, index) => (
             <Badge
               key={index}
-              className={cn(components.tag, components.tagColors.blue, 'text-[11px] px-2 py-1 inline-flex items-center')}
+              className={cn(
+                components.tag,
+                components.tagColors.blue,
+                'text-[11px] px-2 py-1 inline-flex items-center'
+              )}
             >
               {techIconFor(skill)}
               {skill}
             </Badge>
           ))}
           {project.skills.length > 4 && (
-            <Badge className={cn(components.tag, components.tagColors.blue, 'text-[11px] px-2 py-1')}>
+            <Badge
+              className={cn(components.tag, components.tagColors.blue, 'text-[11px] px-2 py-1')}
+            >
               +{project.skills.length - 4} {t('projectsPage.projectCard.more')}
             </Badge>
           )}
@@ -144,14 +183,23 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
 
         {/* Expandable description preview */}
         <div className="text-xs" style={{ color: colors.text }}>
-          <p className={cn('overflow-hidden transition-all duration-300', expanded ? 'line-clamp-none' : 'line-clamp-2')}>
+          <p
+            className={cn(
+              'overflow-hidden transition-all duration-300',
+              expanded ? 'line-clamp-none' : 'line-clamp-2'
+            )}
+          >
             {project.description}
           </p>
           <button
             type="button"
             className="mt-2 inline-flex items-center gap-1 text-[11px] underline underline-offset-2"
             style={{ color: colors.yellow }}
-            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExpanded((v) => !v); }}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setExpanded((v) => !v);
+            }}
           >
             {expanded ? (
               <>

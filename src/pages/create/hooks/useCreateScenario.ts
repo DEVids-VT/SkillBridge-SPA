@@ -27,8 +27,8 @@ export const useCreateScenario = () => {
   });
 
   // Map string enums to backend numeric enum values
-  const mapExperienceLevel = (value: ExperienceLevel): number => (
-    {
+  const mapExperienceLevel = (value: ExperienceLevel): number =>
+    ({
       EntryLevel: 0,
       Junior: 1,
       MidLevel: 2,
@@ -36,11 +36,10 @@ export const useCreateScenario = () => {
       Lead: 4,
       Executive: 5,
       Intern: 6,
-    }[value]
-  );
+    })[value];
 
-  const mapEducationLevel = (value: EducationLevel): number => (
-    {
+  const mapEducationLevel = (value: EducationLevel): number =>
+    ({
       None: 0,
       HighSchool: 1,
       Vocational: 2,
@@ -49,11 +48,10 @@ export const useCreateScenario = () => {
       MastersDegree: 5,
       Doctorate: 6,
       Professional: 7,
-    }[value]
-  );
+    })[value];
 
-  const mapCompetencyType = (value: CompetencyType): number => (
-    {
+  const mapCompetencyType = (value: CompetencyType): number =>
+    ({
       Technical: 0,
       Functional: 1,
       Leadership: 2,
@@ -72,29 +70,27 @@ export const useCreateScenario = () => {
       Safety: 15,
       Quality: 16,
       Other: 17,
-    }[value]
-  );
+    })[value];
 
-  const mapProficiencyLevel = (value: ProficiencyLevel): number => (
-    {
+  const mapProficiencyLevel = (value: ProficiencyLevel): number =>
+    ({
       Beginner: 0,
       Intermediate: 1,
       Advanced: 2,
       Expert: 3,
       Master: 4,
-    }[value]
-  );
+    })[value];
 
-  const mapImportanceLevel = (value: ImportanceLevel): number => (
-    {
+  const mapImportanceLevel = (value: ImportanceLevel): number =>
+    ({
       Low: 0,
       Medium: 1,
       High: 2,
       Critical: 3,
-    }[value]
-  );
+    })[value];
 
-  interface BackendCompetencyRequirement extends Omit<CompetencyRequirement, 'type' | 'requiredLevel'> {
+  interface BackendCompetencyRequirement
+    extends Omit<CompetencyRequirement, 'type' | 'requiredLevel'> {
     type: number;
     requiredLevel: number;
   }
@@ -103,10 +99,16 @@ export const useCreateScenario = () => {
     importance: number;
   }
 
-  interface BackendCandidateRequirementsRequest extends Omit<
-    CandidateRequirementsRequest,
-    'experienceLevel' | 'minEducationLevel' | 'requiredCompetencies' | 'preferredCompetencies' | 'desiredPersonalityTraits' | 'outputType'
-  > {
+  interface BackendCandidateRequirementsRequest
+    extends Omit<
+      CandidateRequirementsRequest,
+      | 'experienceLevel'
+      | 'minEducationLevel'
+      | 'requiredCompetencies'
+      | 'preferredCompetencies'
+      | 'desiredPersonalityTraits'
+      | 'outputType'
+    > {
     experienceLevel: number;
     minEducationLevel: number;
     requiredCompetencies: BackendCompetencyRequirement[];
@@ -168,7 +170,9 @@ export const useCreateScenario = () => {
         throw new Error('Company ID is missing');
       }
       // Map enums to numeric values expected by backend and send in body
-      const { outputType, ...request } = payload as CandidateRequirementsRequest & { outputType?: 'scenario' | 'quiz' };
+      const { outputType, ...request } = payload as CandidateRequirementsRequest & {
+        outputType?: 'scenario' | 'quiz';
+      };
       const mapped = mapToBackendRequest(request as CandidateRequirementsRequest);
       const response = await axiosInstance.post<ScenarioResponse>(`/g/${companyId}`, mapped, {
         headers: { 'Content-Type': 'application/json' },
@@ -177,6 +181,3 @@ export const useCreateScenario = () => {
     },
   });
 };
-
-
-

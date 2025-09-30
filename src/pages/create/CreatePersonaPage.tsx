@@ -11,9 +11,12 @@ import {
   CreatePageBackButton,
   CandidateRequirementsForm,
   Notification,
-  OutputTypeSelector
+  OutputTypeSelector,
 } from './components';
-import { CandidateRequirementsFormErrors, CandidateRequirementsFormState } from './components/persona/CandidateRequirementsForm';
+import {
+  CandidateRequirementsFormErrors,
+  CandidateRequirementsFormState,
+} from './components/persona/CandidateRequirementsForm';
 import { NotificationState } from './types';
 
 // Initial form state
@@ -59,7 +62,12 @@ export default function CreatePersonaPage() {
   const createScenario = useCreateScenario();
 
   const splitCSV = (value: string): string[] =>
-    value ? value.split(',').map((s) => s.trim()).filter(Boolean) : [];
+    value
+      ? value
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : [];
 
   // Calculate progress (kept for validation, but not displayed)
   useEffect(() => {
@@ -134,7 +142,7 @@ export default function CreatePersonaPage() {
       });
       return;
     }
-    
+
     setSelectedOutputType(type);
     handleGenerate(type);
   };
@@ -259,10 +267,7 @@ export default function CreatePersonaPage() {
           subtitle={t('createPersonaPage.header.subtitle')}
         />
 
-        <CreatePageBackButton
-          onBack={handleBack}
-          label={t('createPersonaPage.backButton')}
-        />
+        <CreatePageBackButton onBack={handleBack} label={t('createPersonaPage.backButton')} />
 
         {/* Main Content - Simplified Layout */}
         <div className="flex justify-center">
@@ -274,11 +279,21 @@ export default function CreatePersonaPage() {
               onFieldChange={handleInputChange}
               onCSVChange={(name, value) => handleTagInputChange(name, value)}
               onSelectChange={handleSelectChange}
-              onUpdateRequiredCompetencies={(list) => setFormData((p) => ({ ...p, requiredCompetencies: list }))}
-              onUpdatePreferredCompetencies={(list) => setFormData((p) => ({ ...p, preferredCompetencies: list }))}
-              onUpdateWorkConditions={(list) => setFormData((p) => ({ ...p, workConditions: list }))}
-              onUpdatePersonalityTraits={(list) => setFormData((p) => ({ ...p, desiredPersonalityTraits: list }))}
-              onUpdateCustomCriteria={(list) => setFormData((p) => ({ ...p, customCriteria: list }))}
+              onUpdateRequiredCompetencies={(list) =>
+                setFormData((p) => ({ ...p, requiredCompetencies: list }))
+              }
+              onUpdatePreferredCompetencies={(list) =>
+                setFormData((p) => ({ ...p, preferredCompetencies: list }))
+              }
+              onUpdateWorkConditions={(list) =>
+                setFormData((p) => ({ ...p, workConditions: list }))
+              }
+              onUpdatePersonalityTraits={(list) =>
+                setFormData((p) => ({ ...p, desiredPersonalityTraits: list }))
+              }
+              onUpdateCustomCriteria={(list) =>
+                setFormData((p) => ({ ...p, customCriteria: list }))
+              }
             />
 
             {/* Output Type Selector */}
@@ -295,4 +310,4 @@ export default function CreatePersonaPage() {
       </div>
     </div>
   );
-} 
+}

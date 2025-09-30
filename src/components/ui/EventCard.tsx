@@ -101,13 +101,13 @@ export function EventCard({
 
         {isVirtual && (
           <div className="absolute top-3 right-3">
-            <Badge 
-              variant="outline" 
+            <Badge
+              variant="outline"
               className="text-xs font-medium"
-              style={{ 
-                backgroundColor: colors.blue, 
+              style={{
+                backgroundColor: colors.blue,
                 color: colors.yellow,
-                borderColor: colors.yellow
+                borderColor: colors.yellow,
               }}
             >
               Virtual
@@ -118,19 +118,20 @@ export function EventCard({
 
       {/* Event Content */}
       <div className={cn(cards.body, 'flex-1 flex flex-col text-white')}>
-        <h3 className="text-xl font-bold mb-2 line-clamp-2" style={{ color: colors.white }}>{title}</h3>
-        <p className="text-sm font-medium mb-1" style={{ color: colors.yellow }}>By {organizer}</p>
+        <h3 className="text-xl font-bold mb-2 line-clamp-2" style={{ color: colors.white }}>
+          {title}
+        </h3>
+        <p className="text-sm font-medium mb-1" style={{ color: colors.yellow }}>
+          By {organizer}
+        </p>
 
-        <p 
-          className="text-sm mb-4 line-clamp-2"
-          style={{ color: colors.white, opacity: 0.7 }}
-        >
+        <p className="text-sm mb-4 line-clamp-2" style={{ color: colors.white, opacity: 0.7 }}>
           {description}
         </p>
 
         {/* Event Meta */}
         <div className="space-y-2 mb-4">
-          <div 
+          <div
             className="flex items-center gap-2 text-sm"
             style={{ color: colors.white, opacity: 0.8 }}
           >
@@ -138,7 +139,7 @@ export function EventCard({
             <span>{formatDate(date)}</span>
           </div>
 
-          <div 
+          <div
             className="flex items-center gap-2 text-sm"
             style={{ color: colors.white, opacity: 0.8 }}
           >
@@ -146,7 +147,7 @@ export function EventCard({
             <span>{time}</span>
           </div>
 
-          <div 
+          <div
             className="flex items-center gap-2 text-sm"
             style={{ color: colors.white, opacity: 0.8 }}
           >
@@ -155,7 +156,7 @@ export function EventCard({
           </div>
 
           {attendeesCount && (
-            <div 
+            <div
               className="flex items-center gap-2 text-sm"
               style={{ color: colors.white, opacity: 0.8 }}
             >
@@ -164,10 +165,7 @@ export function EventCard({
                 {attendeesCount} {maxAttendees && `/ ${maxAttendees}`} attendees
               </span>
               {capacityStatus && (
-                <span 
-                  className="text-xs font-medium ml-2"
-                  style={{ color: capacityStatus.color }}
-                >
+                <span className="text-xs font-medium ml-2" style={{ color: capacityStatus.color }}>
                   {capacityStatus.text}
                 </span>
               )}
@@ -197,7 +195,7 @@ export function EventCard({
             style={{
               color: colors.dark,
               borderColor: colors.orange,
-              backgroundColor: colors.orange
+              backgroundColor: colors.orange,
             }}
           >
             Register Now

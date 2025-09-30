@@ -86,9 +86,8 @@ export default function ProjectHowItWorks() {
             <div>
               <h5 className="font-medium mb-1">AI-Powered Learning</h5>
               <p className="text-sm text-gray-400">
-                SkillBridge uses advanced AI to analyze your code, provide personalized
-                feedback, and help you improve your skills through real-world projects from
-                actual companies.
+                SkillBridge uses advanced AI to analyze your code, provide personalized feedback,
+                and help you improve your skills through real-world projects from actual companies.
               </p>
             </div>
           </div>

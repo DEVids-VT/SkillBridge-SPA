@@ -39,12 +39,7 @@ export type CompetencyType =
   | 'Quality'
   | 'Other';
 
-export type ProficiencyLevel =
-  | 'Beginner'
-  | 'Intermediate'
-  | 'Advanced'
-  | 'Expert'
-  | 'Master';
+export type ProficiencyLevel = 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert' | 'Master';
 
 export type ImportanceLevel = 'Low' | 'Medium' | 'High' | 'Critical';
 
@@ -96,6 +91,3 @@ export interface CandidateRequirementsRequest {
 export interface ScenarioResponse {
   id: string;
 }
-
-
-

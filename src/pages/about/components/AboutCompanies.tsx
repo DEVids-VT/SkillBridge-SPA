@@ -27,7 +27,10 @@ const AboutCompanies = () => {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border mb-4" style={{ backgroundColor: colors.blue, color: colors.yellow, borderColor: colors.blue }}>
+        <div
+          className="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border mb-4"
+          style={{ backgroundColor: colors.blue, color: colors.yellow, borderColor: colors.blue }}
+        >
           <Building className="h-4 w-4" />
           <span>{t('aboutPage.companies.badge')}</span>
         </div>
@@ -45,7 +48,10 @@ const AboutCompanies = () => {
             style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}
           >
             <div className="flex items-start gap-3">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0" style={{ backgroundColor: colors.blue }}>
+              <div
+                className="flex items-center justify-center w-8 h-8 rounded-lg flex-shrink-0"
+                style={{ backgroundColor: colors.blue }}
+              >
                 <div style={{ color: colors.yellow }}>{benefit.icon}</div>
               </div>
               <div>

@@ -59,9 +59,8 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
               <p className="text-gray-300">
                 By working on this project, you'll gain hands-on experience with{' '}
                 {project.skills.map((s) => s.name).join(', ')}
-                and develop practical skills that are highly valued in the industry. You'll
-                learn how to tackle real-world problems and deliver production-quality
-                solutions.
+                and develop practical skills that are highly valued in the industry. You'll learn
+                how to tackle real-world problems and deliver production-quality solutions.
               </p>
             </div>
           </div>

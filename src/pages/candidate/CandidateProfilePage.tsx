@@ -1,39 +1,40 @@
-import { useEffect, useState } from "react";
-import { colors } from "@/lib/design-system";
-import CandidateEditModal from "@/components/ui/EditProfileModal";
-import { useUserCredentials } from "@/hooks/useUserCredentials";
-import { useUpdateUserProfile, useUserProfile } from "./hooks/useUserProfile";
-import { mergeAndSaveUserProfile } from "./hooks/userProfileStorage";
+import { useEffect, useState } from 'react';
+import { colors } from '@/lib/design-system';
+import CandidateEditModal from '@/components/ui/EditProfileModal';
+import { useUserCredentials } from '@/hooks/useUserCredentials';
+import { useUpdateUserProfile, useUserProfile } from './hooks/useUserProfile';
+import { mergeAndSaveUserProfile } from './hooks/userProfileStorage';
 import {
   CandidateAccountSection,
   CandidateSubscriptionSection,
   CandidateSystemSection,
-} from "./components";
+} from './components';
 export default function CandidateProfilePage() {
   const { user: session } = useUserCredentials();
   const { data: profile } = useUserProfile();
   const updateProfile = useUpdateUserProfile();
 
   const [user, setUser] = useState({
-    avatar: "/images/avatar-placeholder.jpg",
-    fullName: "",
-    email: "",
-    username: "",
-    interests: ["Finances", "Coding", "Logistics"],
+    avatar: '/images/avatar-placeholder.jpg',
+    fullName: '',
+    email: '',
+    username: '',
+    interests: ['Finances', 'Coding', 'Logistics'],
     cv: null as string | null,
-    githubConnection: "" as string | null,
+    githubConnection: '' as string | null,
     subscription: {
-      current: "Free Tier",
-      description: "Currently on free tier",
-      upcoming: "Pro (Coming Soon)",
-      upcomingDescription: "Stay tuned for new features",
+      current: 'Free Tier',
+      description: 'Currently on free tier',
+      upcoming: 'Pro (Coming Soon)',
+      upcomingDescription: 'Stay tuned for new features',
     },
-    theme: "system",
+    theme: 'system',
   });
 
-  const [editField, setEditField] = useState<
-    null | { field: "fullName" | "username" | "githubConnection"; title: string }
-  >(null);
+  const [editField, setEditField] = useState<null | {
+    field: 'fullName' | 'username' | 'githubConnection';
+    title: string;
+  }>(null);
 
   // Sync basic session details
   useEffect(() => {
@@ -62,17 +63,11 @@ export default function CandidateProfilePage() {
       className="w-full py-10 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 2xl:px-96 space-y-10"
       style={{ backgroundColor: colors.dark, color: colors.white }}
     >
-      <CandidateAccountSection 
-        user={user} 
-        setUser={setUser} 
-        onEditField={setEditField} 
-      />
-      
-      <CandidateSubscriptionSection 
-        subscription={user.subscription} 
-      />
-      
-      <CandidateSystemSection 
+      <CandidateAccountSection user={user} setUser={setUser} onEditField={setEditField} />
+
+      <CandidateSubscriptionSection subscription={user.subscription} />
+
+      <CandidateSystemSection
         theme={user.theme}
         onThemeChange={(val) => setUser((prev) => ({ ...prev, theme: val }))}
       />
@@ -81,14 +76,20 @@ export default function CandidateProfilePage() {
       <CandidateEditModal
         isOpen={!!editField}
         onClose={() => setEditField(null)}
-        title={editField?.title || ""}
-        initialValue={editField ? (user as any)[editField.field] ?? "" : ""}
+        title={editField?.title || ''}
+        initialValue={editField ? ((user as any)[editField.field] ?? '') : ''}
         onSave={async (newValue) => {
           if (!editField) return;
-          if (editField.field === "githubConnection") {
+          if (editField.field === 'githubConnection') {
             const updated = await updateProfile.mutateAsync({ gitHubConnection: newValue });
-            setUser((prev) => ({ ...prev, githubConnection: updated.gitHubConnection || newValue }));
-            mergeAndSaveUserProfile({ id: updated.id, gitHubConnection: updated.gitHubConnection ?? undefined });
+            setUser((prev) => ({
+              ...prev,
+              githubConnection: updated.gitHubConnection || newValue,
+            }));
+            mergeAndSaveUserProfile({
+              id: updated.id,
+              gitHubConnection: updated.gitHubConnection ?? undefined,
+            });
           } else {
             setUser((prev) => ({ ...prev, [editField.field]: newValue }));
           }

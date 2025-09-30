@@ -18,7 +18,11 @@ export const ProjectsList = ({ projects, categories, isLoading = false }: Projec
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {[1, 2, 3, 4, 5, 6].map((n) => (
-          <div key={n} className="animate-pulse rounded-xl overflow-hidden" style={{ backgroundColor: colors.blueDark }}>
+          <div
+            key={n}
+            className="animate-pulse rounded-xl overflow-hidden"
+            style={{ backgroundColor: colors.blueDark }}
+          >
             <div className="h-36 w-full bg-slate-700" />
             <div className="p-4">
               <div className="flex items-start gap-3 mb-3">
@@ -45,11 +49,18 @@ export const ProjectsList = ({ projects, categories, isLoading = false }: Projec
   if (projects.length === 0) {
     return (
       <div className="py-12 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style={{ backgroundColor: colors.blueDark }}>
+        <div
+          className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
+          style={{ backgroundColor: colors.blueDark }}
+        >
           <Briefcase className="h-8 w-8" style={{ color: colors.yellow }} />
         </div>
-        <p className="text-xl font-medium" style={{ color: colors.white }}>{t('projectsPage.projectsList.noProjectsFound')}</p>
-        <p className="text-sm mt-2" style={{ color: colors.white }}>{t('projectsPage.projectsList.tryAdjustingFilters')}</p>
+        <p className="text-xl font-medium" style={{ color: colors.white }}>
+          {t('projectsPage.projectsList.noProjectsFound')}
+        </p>
+        <p className="text-sm mt-2" style={{ color: colors.white }}>
+          {t('projectsPage.projectsList.tryAdjustingFilters')}
+        </p>
       </div>
     );
   }

@@ -33,9 +33,7 @@ export default function WelcomePageHeader() {
           )}
           style={{ color: colors.white }}
         >
-          <span>
-            {t('welcome.title', { appName: t('welcome.appName') })}
-          </span>
+          <span>{t('welcome.title', { appName: t('welcome.appName') })}</span>
         </h1>
       </div>
     </>

@@ -20,7 +20,9 @@ export function saveCompanyProfileToStorage(profile: CompanyResponse): void {
   }
 }
 
-export function mergeAndSaveCompanyProfile(partial: Partial<CompanyResponse>): CompanyResponse | null {
+export function mergeAndSaveCompanyProfile(
+  partial: Partial<CompanyResponse>
+): CompanyResponse | null {
   const existing = loadCompanyProfileFromStorage();
   if (existing) {
     const merged: CompanyResponse = {
@@ -33,12 +35,20 @@ export function mergeAndSaveCompanyProfile(partial: Partial<CompanyResponse>): C
       sector: partial.sector ?? existing.sector,
       headOfficeLocation: partial.headOfficeLocation ?? existing.headOfficeLocation,
       technologies: partial.technologies ?? existing.technologies,
-      yearEstablished: partial.yearEstablished !== undefined ? partial.yearEstablished : existing.yearEstablished,
+      yearEstablished:
+        partial.yearEstablished !== undefined ? partial.yearEstablished : existing.yearEstablished,
       hasOfficesInBulgaria: partial.hasOfficesInBulgaria ?? existing.hasOfficesInBulgaria,
-      bulgarianOfficeLocations: partial.bulgarianOfficeLocations !== undefined ? partial.bulgarianOfficeLocations : existing.bulgarianOfficeLocations,
-      employeesInBulgaria: partial.employeesInBulgaria !== undefined ? partial.employeesInBulgaria : existing.employeesInBulgaria,
+      bulgarianOfficeLocations:
+        partial.bulgarianOfficeLocations !== undefined
+          ? partial.bulgarianOfficeLocations
+          : existing.bulgarianOfficeLocations,
+      employeesInBulgaria:
+        partial.employeesInBulgaria !== undefined
+          ? partial.employeesInBulgaria
+          : existing.employeesInBulgaria,
       employeesWorldwide: partial.employeesWorldwide ?? existing.employeesWorldwide,
-      whyWorkWithUs: partial.whyWorkWithUs !== undefined ? partial.whyWorkWithUs : existing.whyWorkWithUs,
+      whyWorkWithUs:
+        partial.whyWorkWithUs !== undefined ? partial.whyWorkWithUs : existing.whyWorkWithUs,
       websiteUrl: partial.websiteUrl ?? existing.websiteUrl,
       contactName: partial.contactName ?? existing.contactName,
       contactEmail: partial.contactEmail ?? existing.contactEmail,

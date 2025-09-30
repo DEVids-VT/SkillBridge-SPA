@@ -14,7 +14,12 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
   const { t } = useTranslation('landing');
 
   return (
-    <section className={cn('relative min-h-screen overflow-hidden bg-gradient-to-br from-[#000814] via-[#001d3d] to-[#003566]', 'py-20')}>
+    <section
+      className={cn(
+        'relative min-h-screen overflow-hidden bg-gradient-to-br from-[#000814] via-[#001d3d] to-[#003566]',
+        'py-20'
+      )}
+    >
       {/* Modern Dots Background Pattern */}
       <div className="absolute inset-0 opacity-20">
         <div
@@ -34,14 +39,18 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
       <div className={cn('relative z-10', 'container mx-auto px-6 lg:px-8')}>
         {/* Section Header */}
         <div className="text-center mb-16 space-y-6">
-          <div className={cn(components.tag, components.tagColors.blue, 'inline-flex items-center space-x-2 border border-[#ffd60a]')}>
+          <div
+            className={cn(
+              components.tag,
+              components.tagColors.blue,
+              'inline-flex items-center space-x-2 border border-[#ffd60a]'
+            )}
+          >
             <Building2 className="h-4 w-4" />
             <span>{t('landingPage.companyMarquee.badge')}</span>
           </div>
 
-          <h2 className={typography.sectionTitle.main}>
-            {t('landingPage.companyMarquee.title')}
-          </h2>
+          <h2 className={typography.sectionTitle.main}>{t('landingPage.companyMarquee.title')}</h2>
 
           <p className={cn(typography.body.lg, 'text-[#ffd60a] max-w-3xl mx-auto leading-relaxed')}>
             {t('landingPage.companyMarquee.subtitle')}
@@ -54,11 +63,13 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
             <div key={company.id} className="group cursor-pointer">
               <div className="relative flex flex-col items-center space-y-4">
                 {/* Company Card */}
-                <div className={cn(
-                  cards.base,
-                  'w-full aspect-square max-w-[160px] flex items-center justify-center p-6',
-                  'backdrop-blur-sm transition-colors'
-                )}>
+                <div
+                  className={cn(
+                    cards.base,
+                    'w-full aspect-square max-w-[160px] flex items-center justify-center p-6',
+                    'backdrop-blur-sm transition-colors'
+                  )}
+                >
                   <img
                     src={company.logo}
                     alt={`${company.name} logo`}
@@ -69,7 +80,12 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
 
                 {/* Company Info */}
                 <div className="text-center space-y-1">
-                  <h3 className={cn(typography.body.default, 'text-sm font-semibold group-hover:text-[#ffd60a] transition-colors duration-300 line-clamp-1')}>
+                  <h3
+                    className={cn(
+                      typography.body.default,
+                      'text-sm font-semibold group-hover:text-[#ffd60a] transition-colors duration-300 line-clamp-1'
+                    )}
+                  >
                     {company.name}
                   </h3>
                   <p className={cn(typography.body.sm, 'text-[#ffd60a]')}>{company.industry}</p>
@@ -110,9 +126,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
         {/* Bottom CTA */}
         <div className="text-center space-y-6">
           <div className="space-y-3">
-            <h3 className={typography.heading[3]}>
-              {t('landingPage.companyMarquee.cta.title')}
-            </h3>
+            <h3 className={typography.heading[3]}>{t('landingPage.companyMarquee.cta.title')}</h3>
             <p className={cn(typography.body.lg, 'text-[#ffd60a] max-w-2xl mx-auto')}>
               {t('landingPage.companyMarquee.cta.subtitle')}
             </p>

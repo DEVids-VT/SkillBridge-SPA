@@ -10,9 +10,8 @@ import {
   ProjectCompanyInfo,
   ProjectDetails,
   ProjectClaimSection,
-  ProjectHowItWorks
+  ProjectHowItWorks,
 } from './components';
-
 
 export default function ProjectPage() {
   const { t } = useTranslation('project');
@@ -85,11 +84,11 @@ export default function ProjectPage() {
     <div className={cn(spacing.container, spacing.headerOffset, 'py-4 md:py-8')}>
       <div className="max-w-4xl mx-auto px-4">
         <ProjectHeader project={project} />
-        
+
         <ProjectCompanyInfo project={project} />
 
         <ProjectDetails project={project} />
-        
+
         <ProjectClaimSection
           project={project}
           isClaimingProject={isClaimingProject}

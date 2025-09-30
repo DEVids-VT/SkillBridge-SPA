@@ -14,9 +14,7 @@ export default function CreatePageHeader({ title1, title2, subtitle }: CreatePag
         <span style={{ color: colors.orange }}>{title1}</span>{' '}
         <span style={{ color: colors.white }}>{title2}</span>
       </h1>
-      <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-        {subtitle}
-      </p>
+      <p className="text-gray-300 text-lg max-w-2xl mx-auto">{subtitle}</p>
     </div>
   );
 }

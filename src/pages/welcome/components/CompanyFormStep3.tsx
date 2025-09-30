@@ -45,7 +45,9 @@ export default function CompanyFormStep3({
       <div className="space-y-2 mt-4">
         <Label htmlFor="about">
           {t('welcome.companyForm.companyAbout')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Textarea
           id="about"
@@ -65,7 +67,9 @@ export default function CompanyFormStep3({
       <div className="space-y-2">
         <Label htmlFor="contactPerson">
           {t('welcome.companyForm.contactPerson')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="contactPerson"
@@ -84,7 +88,9 @@ export default function CompanyFormStep3({
       <div className="space-y-2">
         <Label htmlFor="contactEmail">
           {t('welcome.companyForm.contactEmail')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="contactEmail"
@@ -104,7 +110,9 @@ export default function CompanyFormStep3({
       <div className="space-y-2">
         <Label htmlFor="contactPhone">
           {t('welcome.companyForm.contactPhone')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="contactPhone"

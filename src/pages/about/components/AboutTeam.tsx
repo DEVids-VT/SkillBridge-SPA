@@ -30,7 +30,10 @@ const AboutTeam = () => {
   return (
     <div className={cn('mb-16', spacing.container, 'max-w-4xl mx-auto')}>
       <div className="text-center mb-12">
-        <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border mb-4" style={{ backgroundColor: colors.blue, color: colors.yellow, borderColor: colors.blue }}>
+        <div
+          className="inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border mb-4"
+          style={{ backgroundColor: colors.blue, color: colors.yellow, borderColor: colors.blue }}
+        >
           <Users className="h-4 w-4" />
           <span>{t('aboutPage.team.badge')}</span>
         </div>
@@ -48,7 +51,10 @@ const AboutTeam = () => {
             style={{ backgroundColor: colors.blueDark, borderColor: colors.blue }}
           >
             <div className="text-center space-y-4">
-              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto border-4" style={{ backgroundColor: colors.blue, borderColor: colors.blue }}>
+              <div
+                className="w-24 h-24 rounded-full overflow-hidden mx-auto border-4"
+                style={{ backgroundColor: colors.blue, borderColor: colors.blue }}
+              >
                 <img
                   src={member.image}
                   alt={member.name}
@@ -63,13 +69,18 @@ const AboutTeam = () => {
                     }
                   }}
                 />
-                <div className="w-full h-full rounded-full flex items-center justify-center hidden" style={{ backgroundColor: colors.blue }}>
+                <div
+                  className="w-full h-full rounded-full flex items-center justify-center hidden"
+                  style={{ backgroundColor: colors.blue }}
+                >
                   <Users className="h-10 w-10" style={{ color: colors.yellow }} />
                 </div>
               </div>
               <div>
                 <h3 className={cn('font-bold text-lg', typography.heading[4])}>{member.name}</h3>
-                <p className="font-medium" style={{ color: colors.yellow }}>{member.role}</p>
+                <p className="font-medium" style={{ color: colors.yellow }}>
+                  {member.role}
+                </p>
               </div>
               <p className={cn('text-sm leading-relaxed', typography.body.sm)}>{member.bio}</p>
             </div>

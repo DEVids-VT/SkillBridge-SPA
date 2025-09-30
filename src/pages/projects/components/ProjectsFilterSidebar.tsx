@@ -2,71 +2,123 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { colors } from '@/lib/design-system';
-import { Plus, X, Search, CheckSquare, ChevronDown, Calendar } from 'lucide-react';
+import { Plus, X, Search, CheckSquare, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RoutePage } from '@/types/enums/RoutePage';
-import { CategoryFilter } from '../types';
+import { ProjectAssignmentLevel } from '../types';
 
 interface ProjectsFilterSidebarProps {
-  categories: CategoryFilter[];
-  companies: string[];
-  selectedCategory: string;
-  selectedCompanies: string[];
-  deadlineFilter: string;
   searchQuery: string;
+  selectedLevel?: ProjectAssignmentLevel;
+  companyName: string;
+  companySector: string;
+  selectedSkills: string[];
+  deadlineAfter?: Date;
   isCompany: boolean;
-  onCategoryChange: (category: string) => void;
-  onCompanyToggle: (company: string) => void;
-  onDeadlineChange: (deadline: string) => void;
   onSearchChange: (query: string) => void;
+  onLevelChange: (level?: ProjectAssignmentLevel) => void;
+  onCompanyNameChange: (name: string) => void;
+  onCompanySectorChange: (sector: string) => void;
+  onSkillsChange: (skills: string[]) => void;
+  onDeadlineAfterChange: (date?: Date) => void;
   onClearFilters: () => void;
+  availableSkills?: string[];
 }
 
 export default function ProjectsFilterSidebar({
-  categories,
-  companies,
-  selectedCategory,
-  selectedCompanies,
-  deadlineFilter,
   searchQuery,
+  selectedLevel,
+  companyName,
+  companySector,
+  selectedSkills,
+  deadlineAfter,
   isCompany,
-  onCategoryChange,
-  onCompanyToggle,
-  onDeadlineChange,
   onSearchChange,
+  onLevelChange,
+  onCompanyNameChange,
+  onCompanySectorChange,
+  onSkillsChange,
+  onDeadlineAfterChange,
   onClearFilters,
+  availableSkills = [],
 }: ProjectsFilterSidebarProps) {
   const { t } = useTranslation('project');
   const navigate = useNavigate();
-  const [showCompanyDropdown, setShowCompanyDropdown] = useState(false);
-  const [showDeadlineDropdown, setShowDeadlineDropdown] = useState(false);
+  const [showLevelDropdown, setShowLevelDropdown] = useState(false);
+  const [showSkillsDropdown, setShowSkillsDropdown] = useState(false);
 
-  const toggleCompanyDropdown = (e: React.MouseEvent) => {
+  const levels = [
+    { value: ProjectAssignmentLevel.Beginner, label: 'Beginner' },
+    { value: ProjectAssignmentLevel.Intermediate, label: 'Intermediate' },
+    { value: ProjectAssignmentLevel.Advanced, label: 'Advanced' },
+  ];
+
+  const toggleLevelDropdown = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setShowCompanyDropdown(prev => !prev);
-    setShowDeadlineDropdown(false);
+    setShowLevelDropdown((prev) => !prev);
+    setShowSkillsDropdown(false);
   };
 
-  const toggleDeadlineDropdown = (e: React.MouseEvent) => {
+  const toggleSkillsDropdown = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setShowDeadlineDropdown(prev => !prev);
-    setShowCompanyDropdown(false);
+    setShowSkillsDropdown((prev) => !prev);
+    setShowLevelDropdown(false);
   };
 
-  const handleDeadlineChange = (deadline: string) => {
-    onDeadlineChange(deadline);
-    setShowDeadlineDropdown(false);
+  const handleLevelSelect = (level?: ProjectAssignmentLevel) => {
+    onLevelChange(level);
+    setShowLevelDropdown(false);
   };
+
+  const handleSkillToggle = (skill: string) => {
+    if (selectedSkills.includes(skill)) {
+      onSkillsChange(selectedSkills.filter((s) => s !== skill));
+    } else {
+      onSkillsChange([...selectedSkills, skill]);
+    }
+  };
+
+  const getLevelLabel = () => {
+    if (selectedLevel === undefined) return t('projectsPage.filters.allLevels') || 'All Levels';
+    const level = levels.find((l) => l.value === selectedLevel);
+    return level?.label || 'All Levels';
+  };
+
+  // Format date for input
+  const formatDateForInput = (date?: Date) => {
+    if (!date) return '';
+    return date.toISOString().split('T')[0];
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value) {
+      onDeadlineAfterChange(new Date(value));
+    } else {
+      onDeadlineAfterChange(undefined);
+    }
+  };
+
+  const hasActiveFilters =
+    searchQuery ||
+    selectedLevel !== undefined ||
+    companyName ||
+    companySector ||
+    selectedSkills.length > 0 ||
+    deadlineAfter;
 
   return (
     <div className="space-y-6">
       {/* Search input */}
       <div>
+        <label className="text-sm font-medium mb-2 block text-white">
+          {t('projectsPage.filters.searchByTitle') || 'Search by Title'}
+        </label>
         <div className="relative">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
           <Input
-            placeholder={t('projectsPage.filters.searchPlaceholder')}
+            placeholder={t('projectsPage.filters.searchPlaceholder') || 'Search projects...'}
             className="pl-8 bg-transparent border-white/20 text-white placeholder:text-gray-400"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -82,89 +134,43 @@ export default function ProjectsFilterSidebar({
         </div>
       </div>
 
-      {/* Category filters */}
+      {/* Level filter */}
       <div>
-        <h4 className="text-sm font-medium mb-3 text-white">
-          {t('projectsPage.filters.categories')}
-        </h4>
-        <div className="space-y-2">
-          {categories.map((category) => (
-            <div
-              key={category.id}
-              className={`flex items-center justify-between p-2 rounded-md cursor-pointer transition-colors ${
-                selectedCategory === category.id ? 'bg-primary/20' : 'hover:bg-primary/10'
-              }`}
-              onClick={() => onCategoryChange(category.id)}
-            >
-              <div className="flex items-center">
-                {category.id !== 'all' && (
-                  <div className={`w-2 h-2 rounded-full mr-2 ${category.color || 'bg-gray-200'}`} />
-                )}
-                <span className="text-sm text-white">
-                  {category.name}
-                </span>
-              </div>
-
-              {selectedCategory === category.id && (
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke={colors.yellow} 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Company filter */}
-      <div>
-        <h4 className="text-sm font-medium mb-3 text-white">
-          {t('projectsPage.filters.companies')}
-        </h4>
+        <label className="text-sm font-medium mb-2 block text-white">
+          {t('projectsPage.filters.difficulty') || 'Difficulty Level'}
+        </label>
         <div className="relative">
           <button
             className="flex items-center justify-between w-full p-2.5 rounded-md bg-transparent border border-white/20 text-white text-sm"
-            onClick={toggleCompanyDropdown}
+            onClick={toggleLevelDropdown}
           >
-            <span>
-              {selectedCompanies.length === 0
-                ? t('projectsPage.filters.allCompanies')
-                : selectedCompanies.length === 1
-                ? selectedCompanies[0]
-                : `${selectedCompanies.length} ${t('projectsPage.filters.companiesSelected')}`}
-            </span>
+            <span>{getLevelLabel()}</span>
             <ChevronDown className="h-4 w-4" />
           </button>
-          
-          {showCompanyDropdown && (
+
+          {showLevelDropdown && (
             <div
-              className="absolute z-10 mt-1 w-full bg-slate-800 border border-white/20 rounded-md shadow-lg max-h-60 overflow-auto"
+              className="absolute z-10 mt-1 w-full bg-slate-800 border border-white/20 rounded-md shadow-lg"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-2 flex flex-col gap-1">
-                {companies.map((company) => (
+              <div className="p-1 flex flex-col">
+                <div
+                  className={`flex items-center p-2 hover:bg-slate-700 rounded-md cursor-pointer ${
+                    selectedLevel === undefined ? 'bg-slate-700' : ''
+                  }`}
+                  onClick={() => handleLevelSelect(undefined)}
+                >
+                  <span className="text-sm text-white">All Levels</span>
+                </div>
+                {levels.map((level) => (
                   <div
-                    key={company}
-                    className="flex items-center p-2 hover:bg-slate-700 rounded-md cursor-pointer"
-                    onClick={() => onCompanyToggle(company)}
+                    key={level.value}
+                    className={`flex items-center p-2 hover:bg-slate-700 rounded-md cursor-pointer ${
+                      selectedLevel === level.value ? 'bg-slate-700' : ''
+                    }`}
+                    onClick={() => handleLevelSelect(level.value)}
                   >
-                    <CheckSquare
-                      className={`h-4 w-4 mr-2 ${
-                        selectedCompanies.includes(company)
-                          ? 'text-yellow-400'
-                          : 'text-gray-400'
-                      }`}
-                    />
-                    <span className="text-sm text-white">{company}</span>
+                    <span className="text-sm text-white">{level.label}</span>
                   </div>
                 ))}
               </div>
@@ -173,102 +179,128 @@ export default function ProjectsFilterSidebar({
         </div>
       </div>
 
-      {/* Deadline filter */}
+      {/* Company Name filter */}
       <div>
-        <h4 className="text-sm font-medium mb-3 text-white">
-          {t('projectsPage.filters.deadline')}
-        </h4>
-        <div className="relative">
-          <button
-            className="flex items-center justify-between w-full p-2.5 rounded-md bg-transparent border border-white/20 text-white text-sm"
-            onClick={toggleDeadlineDropdown}
-          >
-            <span>
-              {deadlineFilter === 'all' && t('projectsPage.filters.anyTime')}
-              {deadlineFilter === 'today' && t('projectsPage.filters.today')}
-              {deadlineFilter === 'week' && t('projectsPage.filters.thisWeek')}
-              {deadlineFilter === 'month' && t('projectsPage.filters.thisMonth')}
-            </span>
-            <ChevronDown className="h-4 w-4" />
-          </button>
-          
-          {showDeadlineDropdown && (
-            <div
-              className="absolute z-10 mt-1 w-full bg-slate-800 border border-white/20 rounded-md shadow-lg"
-              onClick={(e) => e.stopPropagation()}
+        <label className="text-sm font-medium mb-2 block text-white">
+          {t('projectsPage.filters.companyName') || 'Company Name'}
+        </label>
+        <Input
+          placeholder={t('projectsPage.filters.companyNamePlaceholder') || 'Filter by company...'}
+          className="bg-transparent border-white/20 text-white placeholder:text-gray-400"
+          value={companyName}
+          onChange={(e) => onCompanyNameChange(e.target.value)}
+        />
+      </div>
+
+      {/* Company Sector filter */}
+      <div>
+        <label className="text-sm font-medium mb-2 block text-white">
+          {t('projectsPage.filters.companySector') || 'Company Sector'}
+        </label>
+        <Input
+          placeholder={
+            t('projectsPage.filters.companySectorPlaceholder') || 'e.g., Technology, Finance...'
+          }
+          className="bg-transparent border-white/20 text-white placeholder:text-gray-400"
+          value={companySector}
+          onChange={(e) => onCompanySectorChange(e.target.value)}
+        />
+      </div>
+
+      {/* Skills filter */}
+      {availableSkills.length > 0 && (
+        <div>
+          <label className="text-sm font-medium mb-2 block text-white">
+            {t('projectsPage.filters.skills') || 'Skills'}
+          </label>
+          <div className="relative">
+            <button
+              className="flex items-center justify-between w-full p-2.5 rounded-md bg-transparent border border-white/20 text-white text-sm"
+              onClick={toggleSkillsDropdown}
             >
-              <div className="p-1 flex flex-col">
-                <div
-                  className={`flex items-center p-2 hover:bg-slate-700 rounded-md cursor-pointer ${
-                    deadlineFilter === 'all' ? 'bg-slate-700' : ''
-                  }`}
-                  onClick={() => handleDeadlineChange('all')}
-                >
-                  <span className="text-sm text-white">{t('projectsPage.filters.anyTime')}</span>
-                </div>
-                <div
-                  className={`flex items-center p-2 hover:bg-slate-700 rounded-md cursor-pointer ${
-                    deadlineFilter === 'today' ? 'bg-slate-700' : ''
-                  }`}
-                  onClick={() => handleDeadlineChange('today')}
-                >
-                  <span className="text-sm text-white">{t('projectsPage.filters.today')}</span>
-                </div>
-                <div
-                  className={`flex items-center p-2 hover:bg-slate-700 rounded-md cursor-pointer ${
-                    deadlineFilter === 'week' ? 'bg-slate-700' : ''
-                  }`}
-                  onClick={() => handleDeadlineChange('week')}
-                >
-                  <span className="text-sm text-white">{t('projectsPage.filters.thisWeek')}</span>
-                </div>
-                <div
-                  className={`flex items-center p-2 hover:bg-slate-700 rounded-md cursor-pointer ${
-                    deadlineFilter === 'month' ? 'bg-slate-700' : ''
-                  }`}
-                  onClick={() => handleDeadlineChange('month')}
-                >
-                  <span className="text-sm text-white">{t('projectsPage.filters.thisMonth')}</span>
+              <span>
+                {selectedSkills.length === 0
+                  ? t('projectsPage.filters.allSkills') || 'All Skills'
+                  : selectedSkills.length === 1
+                    ? selectedSkills[0]
+                    : `${selectedSkills.length} ${t('projectsPage.filters.skillsSelected') || 'skills selected'}`}
+              </span>
+              <ChevronDown className="h-4 w-4" />
+            </button>
+
+            {showSkillsDropdown && (
+              <div
+                className="absolute z-10 mt-1 w-full bg-slate-800 border border-white/20 rounded-md shadow-lg max-h-60 overflow-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="p-2 flex flex-col gap-1">
+                  {availableSkills.map((skill) => (
+                    <div
+                      key={skill}
+                      className="flex items-center p-2 hover:bg-slate-700 rounded-md cursor-pointer"
+                      onClick={() => handleSkillToggle(skill)}
+                    >
+                      <CheckSquare
+                        className={`h-4 w-4 mr-2 ${
+                          selectedSkills.includes(skill) ? 'text-yellow-400' : 'text-gray-400'
+                        }`}
+                      />
+                      <span className="text-sm text-white">{skill}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
+            )}
+          </div>
+
+          {/* Selected skills tags */}
+          {selectedSkills.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {selectedSkills.map((skill) => (
+                <div
+                  key={skill}
+                  className="flex items-center gap-1 px-2 py-1 rounded-md text-xs"
+                  style={{ backgroundColor: colors.blueDark, color: colors.white }}
+                >
+                  <span>{skill}</span>
+                  <button onClick={() => handleSkillToggle(skill)} className="hover:text-gray-300">
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
             </div>
           )}
         </div>
-      </div>
+      )}
 
-      {/* Other filter options */}
+      {/* Deadline After filter */}
       <div>
-        <h4 className="text-sm font-medium mb-3 text-white">
-          {t('projectsPage.filters.otherOptions')}
-        </h4>
-        <div className="space-y-1">
-          <div className="flex items-center p-2 rounded-md cursor-pointer hover:bg-primary/10">
-            <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-            <span className="text-sm text-white">
-              {t('projectsPage.filters.mostRecent')}
-            </span>
-          </div>
-          <div className="flex items-center p-2 rounded-md cursor-pointer hover:bg-primary/10">
-            <Calendar className="h-4 w-4 mr-2 text-gray-400" />
-            <span className="text-sm text-white">
-              {t('projectsPage.filters.upcoming')}
-            </span>
-          </div>
-        </div>
+        <label className="text-sm font-medium mb-2 block text-white">
+          {t('projectsPage.filters.deadlineAfter') || 'Deadline After'}
+        </label>
+        <Input
+          type="date"
+          className="bg-transparent border-white/20 text-white"
+          value={formatDateForInput(deadlineAfter)}
+          onChange={handleDateChange}
+        />
+        {deadlineAfter && (
+          <p className="text-xs mt-1" style={{ color: colors.textSecondary }}>
+            {t('projectsPage.filters.showingProjectsAfter') || 'Showing projects after'}{' '}
+            {deadlineAfter.toLocaleDateString()}
+          </p>
+        )}
       </div>
 
       {/* Clear filters button */}
-      {(selectedCategory !== 'all' || 
-        selectedCompanies.length > 0 || 
-        deadlineFilter !== 'all' ||
-        searchQuery) && (
+      {hasActiveFilters && (
         <Button
           variant="outline"
           size="sm"
           onClick={onClearFilters}
           className="w-full mt-4 border-white/20 text-white hover:bg-white/10 hover:text-white"
         >
-          {t('projectsPage.filters.clear')}
+          {t('projectsPage.filters.clear') || 'Clear Filters'}
         </Button>
       )}
 
@@ -280,7 +312,7 @@ export default function ProjectsFilterSidebar({
           onClick={() => navigate(RoutePage.CREATE_PROJECT)}
         >
           <Plus className="h-4 w-4 mr-2" />
-          {t('projectsPage.actions.postNewProject')}
+          {t('projectsPage.actions.postNewProject') || 'Post New Project'}
         </Button>
       )}
     </div>

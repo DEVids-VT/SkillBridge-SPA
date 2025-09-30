@@ -7,7 +7,10 @@ import AboutTeam from './components/AboutTeam';
 
 const AboutPage = () => {
   return (
-    <section className={cn('relative min-h-screen overflow-hidden py-20')} style={{ backgroundColor: colors.dark }}>
+    <section
+      className={cn('relative min-h-screen overflow-hidden py-20')}
+      style={{ backgroundColor: colors.dark }}
+    >
       {/* Modern Dots Background Pattern */}
       <div className="absolute inset-0 opacity-25">
         <div
@@ -29,7 +32,13 @@ const AboutPage = () => {
         <AboutHero />
 
         {/* Content Grid */}
-        <div className={cn('grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16', spacing.container, 'max-w-6xl')}>
+        <div
+          className={cn(
+            'grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16',
+            spacing.container,
+            'max-w-6xl'
+          )}
+        >
           <AboutCompanies />
           <AboutStudents />
         </div>
@@ -39,7 +48,10 @@ const AboutPage = () => {
       </div>
 
       {/* Floating Elements */}
-      <div className="absolute top-1/4 right-20 w-16 h-16 rounded-full mix-blend-multiply filter blur-xl opacity-30" style={{ backgroundColor: colors.blue }} />
+      <div
+        className="absolute top-1/4 right-20 w-16 h-16 rounded-full mix-blend-multiply filter blur-xl opacity-30"
+        style={{ backgroundColor: colors.blue }}
+      />
     </section>
   );
 };

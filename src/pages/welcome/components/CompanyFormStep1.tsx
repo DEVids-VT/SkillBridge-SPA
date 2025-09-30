@@ -59,7 +59,9 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="companyName">
           {t('welcome.companyForm.companyName')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="companyName"
@@ -77,7 +79,9 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="industry">
           {t('welcome.companyForm.industry')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Select
           value={formData.industry}
@@ -108,7 +112,9 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="activities">
           {t('welcome.companyForm.activities')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Textarea
           id="activities"
@@ -128,7 +134,9 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="headquarters">
           {t('welcome.companyForm.headquarters')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="headquarters"
@@ -147,7 +155,9 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="yearEstablished">
           {t('welcome.companyForm.yearEstablished')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="yearEstablished"
@@ -169,7 +179,9 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="technologies">
           {t('welcome.companyForm.technologies')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="technologies"

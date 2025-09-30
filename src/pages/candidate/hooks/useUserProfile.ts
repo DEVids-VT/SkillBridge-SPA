@@ -1,7 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { axiosInstance } from '@/components/axios-interceptor/AxiosInterceptor';
 import type { UpdateUserProfileRequest, UserProfileResponse } from '@/pages/candidate/types';
-import { loadUserProfileFromStorage, saveUserProfileToStorage, mergeAndSaveUserProfile } from './userProfileStorage';
+import {
+  loadUserProfileFromStorage,
+  saveUserProfileToStorage,
+  mergeAndSaveUserProfile,
+} from './userProfileStorage';
 
 const USER_PROFILE_PATH = '/u';
 
@@ -59,5 +63,3 @@ export const useUpdateUserProfile = () => {
     },
   });
 };
-
-

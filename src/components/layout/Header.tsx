@@ -155,7 +155,7 @@ export function Header() {
                       style={{
                         borderColor: colors.blue,
                         color: colors.blue,
-                        backgroundColor: 'transparent'
+                        backgroundColor: 'transparent',
                       }}
                     >
                       <Plus className="h-4 w-4" />
@@ -180,7 +180,7 @@ export function Header() {
                   style={{
                     backgroundColor: colors.blue,
                     color: colors.white,
-                    border: 'none'
+                    border: 'none',
                   }}
                   onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 >
@@ -195,29 +195,28 @@ export function Header() {
                 style={{
                   backgroundColor: colors.blue,
                   color: colors.white,
-                  border: 'none'
+                  border: 'none',
                 }}
                 onClick={() => loginWithRedirect()}
               >
                 {t('headerComponent.navigation.login')}
               </Button>
             )}
-            
             {/* Mobile Controls */}
             <div className="flex items-center gap-2 md:hidden">
-            {/* ActiveSidebar Toggle - only show on supported pages */}
-            {showActiveSidebarToggle && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full"
-                onClick={toggleActiveSidebar}
-                aria-label="Toggle active sidebar"
-              >
-                <Sidebar className="h-5 w-5" />
-              </Button>
-            )}
-              
+              {/* ActiveSidebar Toggle - only show on supported pages */}
+              {showActiveSidebarToggle && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full"
+                  onClick={toggleActiveSidebar}
+                  aria-label="Toggle active sidebar"
+                >
+                  <Sidebar className="h-5 w-5" />
+                </Button>
+              )}
+
               {/* Main Menu Toggle */}
               <Button
                 variant="ghost"

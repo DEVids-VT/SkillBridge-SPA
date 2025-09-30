@@ -11,7 +11,12 @@ export interface OutputTypeSelectorProps {
   selectedType?: 'scenario' | 'quiz' | null;
 }
 
-export function OutputTypeSelector({ onSelect, disabled = false, loading = false, selectedType = null }: OutputTypeSelectorProps) {
+export function OutputTypeSelector({
+  onSelect,
+  disabled = false,
+  loading = false,
+  selectedType = null,
+}: OutputTypeSelectorProps) {
   const { t } = useTranslation('createProject');
 
   return (
@@ -19,19 +24,18 @@ export function OutputTypeSelector({ onSelect, disabled = false, loading = false
       <h3 className="text-xl font-semibold text-white mb-4 text-center">
         {t('outputTypeSelector.title')}
       </h3>
-      <p className="text-gray-300 text-center mb-6">
-        {t('outputTypeSelector.subtitle')}
-      </p>
-      
+      <p className="text-gray-300 text-center mb-6">{t('outputTypeSelector.subtitle')}</p>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Scenario Option */}
-        <Card 
+        <Card
           className={cn(
-            "p-6 cursor-pointer transition-all border-2 relative",
-            selectedType === 'scenario' 
-              ? "border-blue-500 bg-blue-900/20" 
-              : "border-gray-700 bg-gray-800 hover:bg-gray-750",
-            (disabled || (loading && selectedType !== 'scenario')) && "opacity-50 cursor-not-allowed"
+            'p-6 cursor-pointer transition-all border-2 relative',
+            selectedType === 'scenario'
+              ? 'border-blue-500 bg-blue-900/20'
+              : 'border-gray-700 bg-gray-800 hover:bg-gray-750',
+            (disabled || (loading && selectedType !== 'scenario')) &&
+              'opacity-50 cursor-not-allowed'
           )}
           onClick={() => !disabled && !loading && onSelect('scenario')}
         >
@@ -42,10 +46,8 @@ export function OutputTypeSelector({ onSelect, disabled = false, loading = false
             <h4 className="text-lg font-semibold text-white mb-2">
               {t('outputTypeSelector.scenario.title')}
             </h4>
-            <p className="text-gray-300 text-sm">
-              {t('outputTypeSelector.scenario.description')}
-            </p>
-            
+            <p className="text-gray-300 text-sm">{t('outputTypeSelector.scenario.description')}</p>
+
             {/* Loading animation inside the card */}
             {loading && selectedType === 'scenario' && (
               <div className="mt-4">
@@ -61,10 +63,10 @@ export function OutputTypeSelector({ onSelect, disabled = false, loading = false
         </Card>
 
         {/* Quiz Option - Coming Soon */}
-        <Card 
+        <Card
           className={cn(
-            "p-6 transition-all border-2 relative opacity-50 cursor-not-allowed",
-            "border-gray-700 bg-gray-800"
+            'p-6 transition-all border-2 relative opacity-50 cursor-not-allowed',
+            'border-gray-700 bg-gray-800'
           )}
         >
           <div className="text-center">
@@ -74,15 +76,11 @@ export function OutputTypeSelector({ onSelect, disabled = false, loading = false
             <h4 className="text-lg font-semibold text-white mb-2">
               {t('outputTypeSelector.quiz.title')}
             </h4>
-            <p className="text-gray-300 text-sm mb-3">
-              {t('outputTypeSelector.quiz.description')}
-            </p>
-            
+            <p className="text-gray-300 text-sm mb-3">{t('outputTypeSelector.quiz.description')}</p>
+
             {/* Coming Soon Badge */}
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-gray-700 border border-gray-600">
-              <span className="text-gray-400 text-xs font-medium">
-                Coming Soon
-              </span>
+              <span className="text-gray-400 text-xs font-medium">Coming Soon</span>
             </div>
           </div>
         </Card>
@@ -94,8 +92,8 @@ export function OutputTypeSelector({ onSelect, disabled = false, loading = false
           <Button
             disabled={disabled}
             className="px-8 py-3"
-            style={{ 
-              backgroundColor: selectedType === 'scenario' ? colors.blue : colors.orange 
+            style={{
+              backgroundColor: selectedType === 'scenario' ? colors.blue : colors.orange,
             }}
           >
             {t(`outputTypeSelector.generateButton.${selectedType}`)}
@@ -104,4 +102,4 @@ export function OutputTypeSelector({ onSelect, disabled = false, loading = false
       )}
     </div>
   );
-} 
+}

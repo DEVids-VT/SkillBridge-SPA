@@ -46,7 +46,10 @@ export const router = createBrowserRouter(
         <Route path={RoutePage.CREATE_PERSONA} element={<CreatePersonaPage />} />
         <Route path={RoutePage.CREATE_MANUAL} element={<CreateManualPage />} />
         {/* Legacy route - redirect to new create flow */}
-        <Route path={RoutePage.CREATE_PROJECT} element={<Navigate to={RoutePage.CREATE} replace />} />
+        <Route
+          path={RoutePage.CREATE_PROJECT}
+          element={<Navigate to={RoutePage.CREATE} replace />}
+        />
         {/* Result pages */}
         <Route path={RoutePage.QUIZ_DETAIL} element={<QuizResultPage />} />
         {/* Profile routes - role-based access */}
@@ -73,7 +76,12 @@ export const router = createBrowserRouter(
       {/* Welcome/onboarding route should be accessible even with incomplete onboarding */}
       <Route path={RoutePage.WELCOME} element={<WelcomeLayout />}>
         <Route index element={<WelcomePage />} />
-        <Route path="candidate-profile" element={<CreateCandidateProfilePage onBackToRoleSelection={() => window.history.back()} />} />
+        <Route
+          path="candidate-profile"
+          element={
+            <CreateCandidateProfilePage onBackToRoleSelection={() => window.history.back()} />
+          }
+        />
       </Route>
     </>
   )

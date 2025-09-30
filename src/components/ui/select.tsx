@@ -47,38 +47,36 @@ interface SelectTriggerProps {
   id?: string;
 }
 
-const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps & { style?: React.CSSProperties }>(
-  ({ className, children, id, style, ...props }, _ref) => {
-    const { open, setOpen, disabled, triggerRef } = useSelectContext();
+const SelectTrigger = React.forwardRef<
+  HTMLButtonElement,
+  SelectTriggerProps & { style?: React.CSSProperties }
+>(({ className, children, id, style, ...props }, _ref) => {
+  const { open, setOpen, disabled, triggerRef } = useSelectContext();
 
-    return (
-      <button
-        ref={triggerRef}
-        id={id}
-        type="button"
-        onClick={() => !disabled && setOpen(!open)}
-        className={cn(
-          'flex h-9 w-full items-center justify-between rounded-md border px-3 py-1 text-sm shadow-sm focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
-          className
-        )}
-        style={{
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          color: colors.text,
-          ...style,
-        }}
-        disabled={disabled}
-        {...props}
-      >
-        {children}
-        <ChevronDown 
-          className="h-4 w-4 opacity-70" 
-          style={{ color: colors.textMuted }}
-        />
-      </button>
-    );
-  }
-);
+  return (
+    <button
+      ref={triggerRef}
+      id={id}
+      type="button"
+      onClick={() => !disabled && setOpen(!open)}
+      className={cn(
+        'flex h-9 w-full items-center justify-between rounded-md border px-3 py-1 text-sm shadow-sm focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        className
+      )}
+      style={{
+        backgroundColor: colors.surface,
+        borderColor: colors.border,
+        color: colors.text,
+        ...style,
+      }}
+      disabled={disabled}
+      {...props}
+    >
+      {children}
+      <ChevronDown className="h-4 w-4 opacity-70" style={{ color: colors.textMuted }} />
+    </button>
+  );
+});
 SelectTrigger.displayName = 'SelectTrigger';
 
 interface SelectValueProps {
@@ -88,9 +86,7 @@ interface SelectValueProps {
 const SelectValue: React.FC<SelectValueProps> = ({ placeholder }) => {
   const { value } = useSelectContext();
   return (
-    <span style={{ color: value ? colors.text : colors.textMuted }}>
-      {value || placeholder}
-    </span>
+    <span style={{ color: value ? colors.text : colors.textMuted }}>{value || placeholder}</span>
   );
 };
 
@@ -102,7 +98,11 @@ interface SelectContentProps {
 const SelectContent: React.FC<SelectContentProps> = ({ className, children }) => {
   const { open, setOpen, triggerRef } = useSelectContext();
   const contentRef = React.useRef<HTMLDivElement>(null);
-  const [position, setPosition] = React.useState<{ top: number; left: number; width: number }>({ top: 0, left: 0, width: 0 });
+  const [position, setPosition] = React.useState<{ top: number; left: number; width: number }>({
+    top: 0,
+    left: 0,
+    width: 0,
+  });
 
   React.useLayoutEffect(() => {
     if (!open) return;
@@ -150,9 +150,9 @@ const SelectContent: React.FC<SelectContentProps> = ({ className, children }) =>
         'fixed z-[9999] min-w-[8rem] overflow-hidden rounded-md border shadow-md',
         className
       )}
-      style={{ 
-        top: position.top, 
-        left: position.left, 
+      style={{
+        top: position.top,
+        left: position.left,
         width: position.width,
         backgroundColor: colors.surface,
         borderColor: colors.border,
@@ -230,7 +230,7 @@ interface SelectLabelProps {
 
 const SelectLabel: React.FC<SelectLabelProps> = ({ className, children }) => {
   return (
-    <div 
+    <div
       className={cn('px-2 py-1.5 text-sm font-semibold', className)}
       style={{ color: colors.textSecondary }}
     >
@@ -241,10 +241,7 @@ const SelectLabel: React.FC<SelectLabelProps> = ({ className, children }) => {
 
 const SelectSeparator: React.FC<{ className?: string }> = ({ className }) => {
   return (
-    <div 
-      className={cn('-mx-1 my-1 h-px', className)} 
-      style={{ backgroundColor: colors.border }}
-    />
+    <div className={cn('-mx-1 my-1 h-px', className)} style={{ backgroundColor: colors.border }} />
   );
 };
 

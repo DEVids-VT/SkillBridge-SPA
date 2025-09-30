@@ -1,7 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosInstance } from '@/components/axios-interceptor/AxiosInterceptor';
 import { CompanyResponse, UpdateCompanyRequest } from '../types';
-import { loadCompanyProfileFromStorage, saveCompanyProfileToStorage, mergeAndSaveCompanyProfile } from './companyProfileStorage';
+import {
+  loadCompanyProfileFromStorage,
+  saveCompanyProfileToStorage,
+  mergeAndSaveCompanyProfile,
+} from './companyProfileStorage';
 
 const COMPANY_PROFILE_PATH = '/c/my';
 

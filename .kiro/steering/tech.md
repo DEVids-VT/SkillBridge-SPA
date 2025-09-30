@@ -1,6 +1,7 @@
 # Technical Stack
 
 ## Core Technologies
+
 - **Framework**: React 19
 - **Build Tool**: Vite 6
 - **Language**: TypeScript 5.7
@@ -14,6 +15,7 @@
 - **Utility Libraries**: class-variance-authority, clsx, tailwind-merge
 
 ## Code Quality Tools
+
 - **Linting**: ESLint v9
 - **Formatting**: Prettier v3
 - **Type Checking**: TypeScript with strict mode
@@ -21,6 +23,7 @@
 ## Common Commands
 
 ### Development
+
 ```bash
 # Start development server
 npm run dev
@@ -33,6 +36,7 @@ npm run preview
 ```
 
 ### Code Quality
+
 ```bash
 # Run linter with auto-fix
 npm run lint
@@ -42,6 +46,7 @@ npm run format
 ```
 
 ## Build Configuration
+
 - Path aliases configured with `@/*` pointing to `./src/*`
 - TypeScript configuration split into app and node configs
 - Tailwind configured with custom theme including animations, colors, and typography

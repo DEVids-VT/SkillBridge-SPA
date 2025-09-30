@@ -12,10 +12,13 @@ interface CreateCandidateProfilePageProps {
   onBackToRoleSelection: () => void;
 }
 
-export function CreateCandidateProfilePage({ onBackToRoleSelection }: CreateCandidateProfilePageProps) {
+export function CreateCandidateProfilePage({
+  onBackToRoleSelection,
+}: CreateCandidateProfilePageProps) {
   const { t } = useTranslation('welcome');
   const navigate = useNavigate();
-  const { updateCandidateData, onboardingData, completeOnboarding, refreshUserRoles } = useOnboarding();
+  const { updateCandidateData, onboardingData, completeOnboarding, refreshUserRoles } =
+    useOnboarding();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 2;
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -77,7 +80,11 @@ export function CreateCandidateProfilePage({ onBackToRoleSelection }: CreateCand
 
     if (currentStep === 1) {
       // Username validation
-      if (!formData.username.trim() || formData.username.length < 3 || formData.username.length > 50) {
+      if (
+        !formData.username.trim() ||
+        formData.username.length < 3 ||
+        formData.username.length > 50
+      ) {
         newErrors.username = true;
         isValid = false;
       }

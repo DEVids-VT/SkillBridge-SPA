@@ -219,7 +219,7 @@ export default function CreatePersonaPage() {
           message: t('createPersonaPage.notifications.success.message'),
         });
         setTimeout(() => {
-          navigate(`/${outputType}/${data.id}`);
+          navigate(`/dashboard/company/project/${data.id}`);
         }, 2000);
       },
       onError: (error) => {

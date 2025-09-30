@@ -12,7 +12,6 @@ export enum RoutePage {
   CREATE = '/create',
   CREATE_PERSONA = '/create/persona',
   CREATE_MANUAL = '/create/manual',
-  SCENARIO_DETAIL = '/scenario/:id',
   QUIZ_DETAIL = '/quiz/:id',
   COMPANY_PROFILE = '/company/profile',
   CANDIDATE_PROFILE = '/candidate/profile',

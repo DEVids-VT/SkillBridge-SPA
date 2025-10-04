@@ -35,10 +35,10 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const { onboardingData } = useOnboarding();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  
+
   // Determine if we're on mobile based on viewport width
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
-  
+
   // Track previous path for route change detection
   const prevPathRef = useRef(location.pathname);
 
@@ -82,7 +82,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       onCollapse(newCollapsedState);
     }
   };
-  
+
   // Handle manual toggle
   const handleToggle = () => {
     onToggle();
@@ -92,7 +92,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
   const getNavigationItems = () => {
     const authItems =
       isAuthenticated && hasCompletedOnboarding
-         ? [
+        ? [
             {
               to: '/dashboard',
               label: 'Dashboard',
@@ -117,7 +117,8 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               requiresOnboarding: true,
               requiresRole: 'candidate',
             },
-          ] : [];
+          ]
+        : [];
 
     return authItems;
   };
@@ -128,8 +129,8 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
   useEffect(() => {
     // Only close if we're on mobile and the route actually changed (not just opening the sidebar)
     if (
-      isMobile && 
-      isOpen && 
+      isMobile &&
+      isOpen &&
       prevPathRef.current !== location.pathname &&
       prevPathRef.current !== location.pathname // Prevent closing on first load
     ) {
@@ -139,10 +140,10 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
           onToggle();
         }
       }, 100);
-      
+
       return () => clearTimeout(timer);
     }
-    
+
     // Update the previous path after the check
     prevPathRef.current = location.pathname;
   }, [location.pathname, isOpen, isMobile, onToggle]);
@@ -159,7 +160,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       width: '16rem', // 64 * 0.25 = 16rem (w-64)
       transition: {
         duration: 0.15,
-        type: "spring" as const,
+        type: 'spring' as const,
         stiffness: 400,
         damping: 30,
       },
@@ -168,7 +169,7 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
       width: '5rem', // Collapsed width - reduced for narrower sidebar
       transition: {
         duration: 0.15,
-        type: "spring" as const,
+        type: 'spring' as const,
         stiffness: 400,
         damping: 30,
       },
@@ -201,17 +202,17 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
   useEffect(() => {
     const handleResize = () => {
       const newMobileState = window.innerWidth < 1024;
-      console.log('Mobile state changed:', { 
-        windowWidth: window.innerWidth, 
+      console.log('Mobile state changed:', {
+        windowWidth: window.innerWidth,
         isMobile: newMobileState,
-        sidebarOpen: isOpen 
+        sidebarOpen: isOpen,
       });
       setIsMobile(newMobileState);
     };
-    
+
     // Set initial state
     handleResize();
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [isOpen]);
@@ -242,250 +243,299 @@ export function Sidebar({ isOpen, onToggle, onCollapse }: SidebarProps) {
               !isCollapsed && !isMobile ? 'pt-7 pl-2' : 'pt-2 pl-2'
             )}
             variants={!isMobile ? sidebarVariants : undefined}
-            animate={
-              isMobile 
-                ? { x: 0 }
-                : (isCollapsed ? 'collapsed' : 'expanded')
-            }
+            animate={isMobile ? { x: 0 } : isCollapsed ? 'collapsed' : 'expanded'}
             initial={isMobile ? { x: '-100%' } : false}
             exit={isMobile ? { x: '-100%' } : undefined}
             style={isMobile ? { width: '100%' } : undefined}
-            transition={isMobile ? { 
-              duration: 0.25, 
-              type: "spring",
-              stiffness: 300,
-              damping: 25
-            } : undefined}
+            transition={
+              isMobile
+                ? {
+                    duration: 0.25,
+                    type: 'spring',
+                    stiffness: 300,
+                    damping: 25,
+                  }
+                : undefined
+            }
           >
-        {/* Sidebar Header */}
-        <div className={cn(
-          'flex items-center justify-between',
-          !isCollapsed && !isMobile ? 'items-center' : ''
-        )}>
-          <div className={cn(
-            'flex items-center min-w-0',
-            isCollapsed && !isMobile ? 'hidden' : 'flex-1'
-          )}>
-            <motion.div
-              variants={textVariants}
-              animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+            {/* Sidebar Header */}
+            <div
+              className={cn(
+                'flex items-center justify-between',
+                !isCollapsed && !isMobile ? 'items-center' : ''
+              )}
             >
-              <Link to="/" className={sidebar.buttons.logo} style={{ textDecoration: 'none' }}>
-                <img src="/images/horasussvoeniruce.png" alt={t('headerComponent.logo.alt')} className="h-10" />
-              </Link>
-            </motion.div>
-            <motion.span
-              variants={textVariants}
-              animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
-              className="ml-3 text-xl font-semibold text-white truncate"
-            >
-              SkillBridge
-            </motion.span>
-          </div>
-
-          <div className={cn(
-            'flex items-center gap-2 flex-shrink-0',
-            isMobile ? 'ml-auto' : ''
-          )}> 
-             {/* Collapse button - only visible on desktop */}
-             <Button
-               variant="ghost"
-               size="icon"
-               className={cn(
-                 sidebar.navigation.base,
-                 sidebar.navigation.default,
-                 isCollapsed && !isMobile && 'justify-center w-full py-6',
-                 'sidebar-no-focus',
-                 '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0',
-                 'hidden lg:flex' // Hide on mobile, show on desktop
-               )}
-               onClick={toggleCollapse}
-               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-               style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
-             >
-                    {isCollapsed ? (
-                 <ChevronRight className={sidebar.navigation.icon} />
-               ) : (
-                 <ChevronLeft className={sidebar.navigation.icon} />
-               )}
-             </Button>
-
-            {/* Close button for mobile */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="lg:hidden text-white hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white" 
-              onClick={handleToggle}
-              aria-label="Close sidebar"
-            >
-              <ChevronLeft className="h-6 w-6 text-white" />
-            </Button>
-          </div>
-        </div>
-
-        {/* Navigation - Scrollable */}
-        <nav className='flex-1 py-6 space-y-3 overflow-y-auto'>
-          {navigationItems.map((item) => {
-            const Icon = item.icon;
-            const active = isActiveRoute(item.to);
-
-            if(item.requiresRole === 'company' && onboardingData.role !== 'company') {
-              return null;
-            }
-            if(item.requiresRole === 'candidate' && onboardingData.role !== 'candidate') {
-              return null;
-            }
-
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
+              <div
                 className={cn(
-                  sidebar.navigation.base,
-                  active ? sidebar.navigation.active : sidebar.navigation.default,
-                  isCollapsed && !isMobile && 'justify-center',
-                  'sidebar-no-focus',
-                  '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
+                  'flex items-center min-w-0',
+                  isCollapsed && !isMobile ? 'hidden' : 'flex-1'
                 )}
-                style={{ textDecoration: 'none', outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
-                title={isCollapsed && !isMobile ? item.label : undefined}
-                 onClick={() => {
-                   if (isMobile) {
-                     // Close the sidebar immediately on mobile when any option is selected
-                     handleToggle();
-                   }
-                 }}
               >
-                  <Icon className={cn(sidebar.navigation.icon)} />
-                <motion.span
+                <motion.div
                   variants={textVariants}
                   animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
                 >
-                  {item.label}
-                </motion.span>
-              </Link>
-            );
-          })}
-
-          {/* Profile Section */}
-          {hasCompletedOnboarding && profileInfo && (
-            <div className={sidebar.sections.profile}>
-              <motion.p
-                className={sidebar.sections.profileTitle}
-                variants={textVariants}
-                animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
-              >
-                Profile
-              </motion.p>
-              <Link
-                to={profileInfo.route}
-                className={cn(
-                  sidebar.navigation.base,
-                  isActiveRoute(profileInfo.route)
-                    ? sidebar.navigation.active
-                    : sidebar.navigation.default,
-                  isCollapsed && !isMobile && 'justify-center',
-                  'sidebar-no-focus',
-                  '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
-                )}
-                style={{ textDecoration: 'none', outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
-                title={isCollapsed && !isMobile ? profileInfo.label : undefined}
-                 onClick={() => {
-                   if (isMobile) {
-                     // Close the sidebar immediately on mobile when profile option is selected
-                     handleToggle();
-                   }
-                 }}
-              >
-                  <profileInfo.icon className={sidebar.navigation.icon} />
+                  <Link to="/" className={sidebar.buttons.logo} style={{ textDecoration: 'none' }}>
+                    <img
+                      src="/images/horasussvoeniruce.png"
+                      alt={t('headerComponent.logo.alt')}
+                      className="h-10"
+                    />
+                  </Link>
+                </motion.div>
                 <motion.span
                   variants={textVariants}
                   animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+                  className="ml-3 text-xl font-semibold text-white truncate"
                 >
-                  {profileInfo.label}
+                  SkillBridge
                 </motion.span>
-              </Link>
+              </div>
+
+              <div
+                className={cn('flex items-center gap-2 flex-shrink-0', isMobile ? 'ml-auto' : '')}
+              >
+                {/* Collapse button - only visible on desktop */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={cn(
+                    sidebar.navigation.base,
+                    sidebar.navigation.default,
+                    isCollapsed && !isMobile && 'justify-center w-full py-6',
+                    'sidebar-no-focus',
+                    '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0',
+                    'hidden lg:flex' // Hide on mobile, show on desktop
+                  )}
+                  onClick={toggleCollapse}
+                  aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                  style={{
+                    outline: 'none !important',
+                    border: 'none !important',
+                    boxShadow: 'none !important',
+                  }}
+                >
+                  {isCollapsed ? (
+                    <ChevronRight className={sidebar.navigation.icon} />
+                  ) : (
+                    <ChevronLeft className={sidebar.navigation.icon} />
+                  )}
+                </Button>
+
+                {/* Close button for mobile */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="lg:hidden text-white hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white"
+                  onClick={handleToggle}
+                  aria-label="Close sidebar"
+                >
+                  <ChevronLeft className="h-6 w-6 text-white" />
+                </Button>
+              </div>
             </div>
-          )}
-        </nav>
 
-        {/* Bottom Section - Fixed at bottom */}
-        <div className='py-6 border-t space-y-3'
-        style={{ borderColor: colors.bgSlate900 }}>
-          {/* Language Switcher */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className={cn(sidebar.buttons.secondary, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-             onClick={() => {
-               toggleLanguage();
-               if (isMobile) {
-                 // Close sidebar after language change
-                 handleToggle();
-               }
-             }}
-            title={isCollapsed && !isMobile ? (isEnglish ? 'English' : 'Bulgarian') : undefined}
-            style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
-          >
-              <Settings className={sidebar.navigation.icon} />
-            <motion.span
-              variants={textVariants}
-              animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
-            >
-              {isEnglish
-                ? t('headerComponent.language.english')
-                : t('headerComponent.language.bulgarian')}
-            </motion.span>
-          </Button>
+            {/* Navigation - Scrollable */}
+            <nav className="flex-1 py-6 space-y-3 overflow-y-auto">
+              {navigationItems.map((item) => {
+                const Icon = item.icon;
+                const active = isActiveRoute(item.to);
 
-          {/* Auth Controls */}
-          {isAuthenticated ? (
-            <Button
-              variant="ghost"
-              size="sm"
-              className={cn(sidebar.buttons.danger, 'h-12 px-2', isCollapsed && !isMobile && 'justify-center', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-               onClick={() => {
-                 logout({ logoutParams: { returnTo: window.location.origin } });
-                 if (isMobile) {
-                   // Close sidebar after logout
-                   handleToggle();
-                 }
-               }}
-              title={isCollapsed && !isMobile ? 'Logout' : undefined}
-              style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
-            >
-                <LogOut className={sidebar.navigation.icon} />
-              <motion.span
-                variants={textVariants}
-                animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+                if (item.requiresRole === 'company' && onboardingData.role !== 'company') {
+                  return null;
+                }
+                if (item.requiresRole === 'candidate' && onboardingData.role !== 'candidate') {
+                  return null;
+                }
+
+                return (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className={cn(
+                      sidebar.navigation.base,
+                      active ? sidebar.navigation.active : sidebar.navigation.default,
+                      isCollapsed && !isMobile && 'justify-center',
+                      'sidebar-no-focus',
+                      '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
+                    )}
+                    style={{
+                      textDecoration: 'none',
+                      outline: 'none !important',
+                      border: 'none !important',
+                      boxShadow: 'none !important',
+                    }}
+                    title={isCollapsed && !isMobile ? item.label : undefined}
+                    onClick={() => {
+                      if (isMobile) {
+                        // Close the sidebar immediately on mobile when any option is selected
+                        handleToggle();
+                      }
+                    }}
+                  >
+                    <Icon className={cn(sidebar.navigation.icon)} />
+                    <motion.span
+                      variants={textVariants}
+                      animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+                    >
+                      {item.label}
+                    </motion.span>
+                  </Link>
+                );
+              })}
+
+              {/* Profile Section */}
+              {hasCompletedOnboarding && profileInfo && (
+                <div className={sidebar.sections.profile}>
+                  <motion.p
+                    className={sidebar.sections.profileTitle}
+                    variants={textVariants}
+                    animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+                  >
+                    Profile
+                  </motion.p>
+                  <Link
+                    to={profileInfo.route}
+                    className={cn(
+                      sidebar.navigation.base,
+                      isActiveRoute(profileInfo.route)
+                        ? sidebar.navigation.active
+                        : sidebar.navigation.default,
+                      isCollapsed && !isMobile && 'justify-center',
+                      'sidebar-no-focus',
+                      '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
+                    )}
+                    style={{
+                      textDecoration: 'none',
+                      outline: 'none !important',
+                      border: 'none !important',
+                      boxShadow: 'none !important',
+                    }}
+                    title={isCollapsed && !isMobile ? profileInfo.label : undefined}
+                    onClick={() => {
+                      if (isMobile) {
+                        // Close the sidebar immediately on mobile when profile option is selected
+                        handleToggle();
+                      }
+                    }}
+                  >
+                    <profileInfo.icon className={sidebar.navigation.icon} />
+                    <motion.span
+                      variants={textVariants}
+                      animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+                    >
+                      {profileInfo.label}
+                    </motion.span>
+                  </Link>
+                </div>
+              )}
+            </nav>
+
+            {/* Bottom Section - Fixed at bottom */}
+            <div className="py-6 border-t space-y-3" style={{ borderColor: colors.bgSlate900 }}>
+              {/* Language Switcher */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className={cn(
+                  sidebar.buttons.secondary,
+                  'h-12 px-2',
+                  isCollapsed && !isMobile && 'justify-center',
+                  'sidebar-no-focus',
+                  '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
+                )}
+                onClick={() => {
+                  toggleLanguage();
+                  if (isMobile) {
+                    // Close sidebar after language change
+                    handleToggle();
+                  }
+                }}
+                title={isCollapsed && !isMobile ? (isEnglish ? 'English' : 'Bulgarian') : undefined}
+                style={{
+                  outline: 'none !important',
+                  border: 'none !important',
+                  boxShadow: 'none !important',
+                }}
               >
-                {t('headerComponent.navigation.logout')}
-              </motion.span>
-            </Button>
-          ) : (
-            <Button
-              variant="default"
-              size="sm"
-              className={cn(sidebar.buttons.primary, 'h-12 px-2', 'sidebar-no-focus', '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0')}
-               onClick={() => {
-                 loginWithRedirect();
-                 if (isMobile) {
-                   // Close sidebar after login redirect
-                   handleToggle();
-                 }
-               }}
-              style={{ outline: 'none !important', border: 'none !important', boxShadow: 'none !important' }}
-            >
-              <motion.span
-                variants={textVariants}
-                animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
-              >
-                {t('headerComponent.navigation.login')}
-              </motion.span>
-                <LogOut className={sidebar.navigation.icon} />
-            </Button>
-          )}
-        </div>
+                <Settings className={sidebar.navigation.icon} />
+                <motion.span
+                  variants={textVariants}
+                  animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+                >
+                  {isEnglish
+                    ? t('headerComponent.language.english')
+                    : t('headerComponent.language.bulgarian')}
+                </motion.span>
+              </Button>
+
+              {/* Auth Controls */}
+              {isAuthenticated ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={cn(
+                    sidebar.buttons.danger,
+                    'h-12 px-2',
+                    isCollapsed && !isMobile && 'justify-center',
+                    'sidebar-no-focus',
+                    '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
+                  )}
+                  onClick={() => {
+                    logout({ logoutParams: { returnTo: window.location.origin } });
+                    if (isMobile) {
+                      // Close sidebar after logout
+                      handleToggle();
+                    }
+                  }}
+                  title={isCollapsed && !isMobile ? 'Logout' : undefined}
+                  style={{
+                    outline: 'none !important',
+                    border: 'none !important',
+                    boxShadow: 'none !important',
+                  }}
+                >
+                  <LogOut className={sidebar.navigation.icon} />
+                  <motion.span
+                    variants={textVariants}
+                    animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+                  >
+                    {t('headerComponent.navigation.logout')}
+                  </motion.span>
+                </Button>
+              ) : (
+                <Button
+                  variant="default"
+                  size="sm"
+                  className={cn(
+                    sidebar.buttons.primary,
+                    'h-12 px-2',
+                    'sidebar-no-focus',
+                    '!outline-none !focus:outline-none !focus-visible:outline-none !focus:ring-0 !focus-visible:ring-0 !focus:border-none !focus-visible:border-none !active:outline-none !active:ring-0 !active:border-none !ring-0 !border-0'
+                  )}
+                  onClick={() => {
+                    loginWithRedirect();
+                    if (isMobile) {
+                      // Close sidebar after login redirect
+                      handleToggle();
+                    }
+                  }}
+                  style={{
+                    outline: 'none !important',
+                    border: 'none !important',
+                    boxShadow: 'none !important',
+                  }}
+                >
+                  <motion.span
+                    variants={textVariants}
+                    animate={isCollapsed && !isMobile ? 'hidden' : 'visible'}
+                  >
+                    {t('headerComponent.navigation.login')}
+                  </motion.span>
+                  <LogOut className={sidebar.navigation.icon} />
+                </Button>
+              )}
+            </div>
           </motion.aside>
         )}
       </AnimatePresence>

@@ -19,7 +19,12 @@ interface CandidateFormStep1Props {
   onCvChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function CandidateFormStep1({ formData, errors, onFieldChange, onCvChange }: CandidateFormStep1Props) {
+export function CandidateFormStep1({
+  formData,
+  errors,
+  onFieldChange,
+  onCvChange,
+}: CandidateFormStep1Props) {
   const { t } = useTranslation('welcome');
 
   return (
@@ -36,10 +41,10 @@ export function CandidateFormStep1({ formData, errors, onFieldChange, onCvChange
           onChange={(e) => onFieldChange('username', e.target.value)}
           placeholder={t('welcome.candidateForm.placeholders.username')}
           className={`w-full ${errors.username ? 'border-red-500' : ''}`}
-          style={{ 
-            backgroundColor: colors.blueDark, 
+          style={{
+            backgroundColor: colors.blueDark,
             borderColor: errors.username ? '#ef4444' : colors.blue,
-            color: colors.white 
+            color: colors.white,
           }}
         />
         {errors.username && (
@@ -70,12 +75,14 @@ export function CandidateFormStep1({ formData, errors, onFieldChange, onCvChange
               type="button"
               variant="outline"
               size="sm"
-              style={{ 
-                borderColor: colors.red, 
-                color: colors.red, 
-                backgroundColor: 'transparent' 
+              style={{
+                borderColor: colors.red,
+                color: colors.red,
+                backgroundColor: 'transparent',
               }}
-              onClick={() => onCvChange({ target: { files: null } } as React.ChangeEvent<HTMLInputElement>)}
+              onClick={() =>
+                onCvChange({ target: { files: null } } as React.ChangeEvent<HTMLInputElement>)
+              }
             >
               Remove
             </Button>
@@ -84,17 +91,15 @@ export function CandidateFormStep1({ formData, errors, onFieldChange, onCvChange
           <Input
             type="file"
             accept=".pdf,.doc,.docx"
-            className={`bg-transparent ${
-              errors.cv ? 'border-red-500' : 'border-blue-400'
-            }`}
-            style={{ 
+            className={`bg-transparent ${errors.cv ? 'border-red-500' : 'border-blue-400'}`}
+            style={{
               borderColor: errors.cv ? '#ef4444' : colors.blue,
-              color: colors.white 
+              color: colors.white,
             }}
             onChange={onCvChange}
           />
         )}
-        
+
         {errors.cv && (
           <div className="flex items-center gap-2 text-red-400 text-sm">
             <AlertCircle className="h-4 w-4" />

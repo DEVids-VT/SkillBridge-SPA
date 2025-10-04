@@ -61,7 +61,7 @@
       "title": "Candidate Requirements",
       "tabs": {
         "basic": "Basic Info",
-        "skills": "Skills & Requirements", 
+        "skills": "Skills & Requirements",
         "details": "Position Details",
         "basicDescription": "Essential position information and experience requirements",
         "skillsDescription": "Technical skills, certifications, and competency requirements",
@@ -341,4 +341,4 @@
       }
     }
   }
-} 
+}

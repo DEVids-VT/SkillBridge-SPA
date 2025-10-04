@@ -47,7 +47,9 @@ export default function CompanyFormStep2({
       <div className="space-y-2">
         <Label htmlFor="companySize">
           {t('welcome.companyForm.companySize')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Select
           value={formData.companySize}
@@ -78,7 +80,9 @@ export default function CompanyFormStep2({
       <div className="space-y-2">
         <Label htmlFor="website">
           {t('welcome.companyForm.website')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="website"
@@ -98,7 +102,9 @@ export default function CompanyFormStep2({
       <div className="space-y-2">
         <Label htmlFor="employeesWorldwide">
           {t('welcome.companyForm.globalEmployees')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1" style={{ color: colors.error }}>
+            *
+          </span>
         </Label>
         <Input
           id="employeesWorldwide"
@@ -124,7 +130,9 @@ export default function CompanyFormStep2({
           <Checkbox
             id="hasOfficesInBulgaria"
             checked={formData.hasOfficesInBulgaria || false}
-            onCheckedChange={(checked) => onCheckboxChange('hasOfficesInBulgaria', Boolean(checked))}
+            onCheckedChange={(checked) =>
+              onCheckboxChange('hasOfficesInBulgaria', Boolean(checked))
+            }
           />
           <span className="text-sm" style={{ color: colors.textSecondary }}>
             {t('welcome.companyForm.hasOfficesInBulgaria')}

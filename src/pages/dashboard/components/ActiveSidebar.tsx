@@ -1,4 +1,12 @@
-import React, { ReactNode, useRef, useEffect, useState, TouchEvent, MouseEvent, CSSProperties } from 'react';
+import React, {
+  ReactNode,
+  useRef,
+  useEffect,
+  useState,
+  TouchEvent,
+  MouseEvent,
+  CSSProperties,
+} from 'react';
 import { colors, sidebar } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { useActiveSidebar } from '@/contexts/ActiveSidebarContext';
@@ -15,14 +23,16 @@ interface ActiveSidebarProps {
 export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { isOpen, close } = useActiveSidebar();
-  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth < 1024 : false
+  );
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const location = useLocation();
-  
+
   // Track previous path for route change detection
   const prevPathRef = useRef(location.pathname);
-  
+
   // Debug logging
   useEffect(() => {
     console.log('ActiveSidebar render - isOpen:', isOpen, 'isMobile:', isMobile);
@@ -33,7 +43,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024);
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -41,15 +51,17 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   // Close sidebar on route change (mobile only)
   useEffect(() => {
     // Only close if we're on mobile, sidebar is open, and route actually changed
-    if (
-      isMobile && 
-      isOpen && 
-      prevPathRef.current !== location.pathname
-    ) {
-      console.log('Route changed from', prevPathRef.current, 'to', location.pathname, '- closing ActiveSidebar');
+    if (isMobile && isOpen && prevPathRef.current !== location.pathname) {
+      console.log(
+        'Route changed from',
+        prevPathRef.current,
+        'to',
+        location.pathname,
+        '- closing ActiveSidebar'
+      );
       close();
     }
-    
+
     // Update the previous path after the check
     prevPathRef.current = location.pathname;
   }, [location.pathname, isMobile, isOpen, close]);
@@ -58,16 +70,16 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    
+
     // Always stop propagation when scrolling inside the sidebar
     e.stopPropagation();
-    
+
     const { scrollTop, scrollHeight, clientHeight } = container;
     const isScrollingUp = e.deltaY < 0;
     const isScrollingDown = e.deltaY > 0;
     const isAtTop = scrollTop === 0;
     const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
-    
+
     // Prevent default browser behavior only at boundaries
     if ((isScrollingUp && isAtTop) || (isScrollingDown && isAtBottom)) {
       e.preventDefault();
@@ -81,7 +93,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
 
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
     if (touchStartY === null || !scrollContainerRef.current) return;
-    
+
     const container = scrollContainerRef.current;
     const { scrollTop, scrollHeight, clientHeight } = container;
     const currentY = e.touches[0].clientY;
@@ -117,11 +129,11 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
   };
 
   // Custom style with proper TypeScript typing
-  const containerStyle: CSSProperties = { 
+  const containerStyle: CSSProperties = {
     willChange: 'transform',
     overscrollBehavior: 'contain',
     msOverflowStyle: 'none' as any,
-    scrollbarWidth: 'none' as any
+    scrollbarWidth: 'none' as any,
   };
 
   // Desktop version - always visible
@@ -139,7 +151,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
             </div>
 
             {/* Content Area */}
-            <div 
+            <div
               ref={scrollContainerRef}
               className="flex-1 overflow-y-auto hide-scrollbar"
               style={containerStyle}
@@ -151,9 +163,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
               onMouseLeave={handleMouseLeave}
               onMouseMove={handleMouseMove}
             >
-              <div className="p-4 space-y-3">
-                {children}
-              </div>
+              <div className="p-4 space-y-3">{children}</div>
             </div>
           </div>
         </div>
@@ -183,28 +193,28 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
         {isOpen && (
           <motion.div
             className={`fixed right-0 top-0 z-50 h-screen flex flex-col`}
-            style={{ 
-              backgroundColor: colors.bgSlate900, 
+            style={{
+              backgroundColor: colors.bgSlate900,
               borderColor: colors.bgSlate900,
-              width: '100%'
+              width: '100%',
             }}
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ duration: 0.25, type: "spring", stiffness: 300, damping: 25 }}
+            transition={{ duration: 0.25, type: 'spring', stiffness: 300, damping: 25 }}
           >
             {/* Header */}
             <div className={cn(sidebar.sections.header)}>
               <div className="flex items-center min-w-0 flex-1">
                 <h1 className="text-xl font-semibold text-white truncate">{title}</h1>
               </div>
-              
+
               <div className="flex items-center gap-2 flex-shrink-0">
                 {/* Close button for mobile */}
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="text-white hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white" 
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-white hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white"
                   onClick={close}
                   aria-label="Close sidebar"
                 >
@@ -214,7 +224,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
             </div>
 
             {/* Content Area */}
-            <div 
+            <div
               ref={scrollContainerRef}
               className="flex-1 px-4 py-6 space-y-3 overflow-y-auto hide-scrollbar"
               style={containerStyle}
@@ -233,4 +243,4 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
       </AnimatePresence>
     </>
   );
-}; 
+};

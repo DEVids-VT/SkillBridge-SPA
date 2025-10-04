@@ -6,3 +6,4 @@ export { default as ProjectCompanyInfo } from './ProjectCompanyInfo';
 export { default as ProjectDetails } from './ProjectDetails';
 export { default as ProjectClaimSection } from './ProjectClaimSection';
 export { default as ProjectHowItWorks } from './ProjectHowItWorks';
+export { default as Pagination } from './Pagination';

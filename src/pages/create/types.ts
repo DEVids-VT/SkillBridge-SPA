@@ -70,7 +70,7 @@ export interface CreateManualForm {
 // Manual form errors
 export interface CreateManualFormErrors {
   description?: string;
-} 
+}
 
 // Manual project assignment creation types
 export interface CreateAssignmentTaskRequest {
@@ -92,10 +92,44 @@ export interface CreateProjectAssignmentRequest {
   level: ProjectAssignmentLevel;
   deadline: string; // ISO string
   status: ProjectAssignmentStatus;
-  skillIds: string[]; // Guid strings
+  skills: string[]; // Array of skill name strings or IDs
   tasks: CreateAssignmentTaskRequest[];
 }
 
+// Skill response interface
+export interface SkillResponse {
+  id: string;
+  name: string;
+  description: string;
+}
+
+// Task response interface (from backend)
+export interface TaskResponse {
+  id: string;
+  title: string;
+  description: string;
+  isCompleted: boolean;
+  sequence: number;
+  projectAssignmentId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// Complete project assignment response from backend
 export interface ProjectAssignmentResponse {
   id: string;
+  title: string;
+  description: string;
+  summary: string;
+  learningBenefits: string;
+  suggestedApproach: string;
+  level: ProjectAssignmentLevel;
+  deadline: string;
+  status: ProjectAssignmentStatus;
+  companyId: string;
+  companyName: string;
+  skills: SkillResponse[];
+  tasks: TaskResponse[];
+  createdAt: string;
+  updatedAt: string;
 }

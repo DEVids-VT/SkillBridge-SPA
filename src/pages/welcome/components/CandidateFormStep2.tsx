@@ -19,7 +19,12 @@ interface CandidateFormStep2Props {
   onProfilePictureChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function CandidateFormStep2({ formData, errors, onFieldChange, onProfilePictureChange }: CandidateFormStep2Props) {
+export function CandidateFormStep2({
+  formData,
+  errors,
+  onFieldChange,
+  onProfilePictureChange,
+}: CandidateFormStep2Props) {
   const { t } = useTranslation('welcome');
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -28,7 +33,7 @@ export function CandidateFormStep2({ formData, errors, onFieldChange, onProfileP
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       onProfilePictureChange(event);
-      
+
       // Create preview URL
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
@@ -54,11 +59,16 @@ export function CandidateFormStep2({ formData, errors, onFieldChange, onProfileP
             ({t('welcome.candidateForm.optional')})
           </span>
         </Label>
-        
+
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <img
-              src={previewUrl || (formData.profilePicture ? URL.createObjectURL(formData.profilePicture) : '/images/avatar-placeholder.jpg')}
+              src={
+                previewUrl ||
+                (formData.profilePicture
+                  ? URL.createObjectURL(formData.profilePicture)
+                  : '/images/avatar-placeholder.jpg')
+              }
               alt="Profile preview"
               className="w-16 h-16 rounded-full border-2 object-cover"
               style={{ borderColor: colors.white }}
@@ -68,7 +78,9 @@ export function CandidateFormStep2({ formData, errors, onFieldChange, onProfileP
                 {t('welcome.candidateForm.profilePicture')}
               </p>
               <p className="text-xs" style={{ color: colors.textSecondary }}>
-                {formData.profilePicture ? formData.profilePicture.name : t('welcome.candidateForm.profilePictureUploadText')}
+                {formData.profilePicture
+                  ? formData.profilePicture.name
+                  : t('welcome.candidateForm.profilePictureUploadText')}
               </p>
             </div>
           </div>
@@ -78,10 +90,10 @@ export function CandidateFormStep2({ formData, errors, onFieldChange, onProfileP
                 type="button"
                 variant="outline"
                 size="sm"
-                style={{ 
-                  borderColor: colors.red, 
-                  color: colors.red, 
-                  backgroundColor: 'transparent' 
+                style={{
+                  borderColor: colors.red,
+                  color: colors.red,
+                  backgroundColor: 'transparent',
                 }}
                 onClick={removeProfilePicture}
               >
@@ -92,14 +104,16 @@ export function CandidateFormStep2({ formData, errors, onFieldChange, onProfileP
             <Button
               type="button"
               variant="outline"
-              style={{ 
-                borderColor: colors.blue, 
-                color: colors.white, 
-                backgroundColor: 'transparent' 
+              style={{
+                borderColor: colors.blue,
+                color: colors.white,
+                backgroundColor: 'transparent',
               }}
               onClick={() => document.getElementById('profile-picture-upload')?.click()}
             >
-              {formData.profilePicture ? t('welcome.candidateForm.changePicture') : t('welcome.candidateForm.uploadPicture')}
+              {formData.profilePicture
+                ? t('welcome.candidateForm.changePicture')
+                : t('welcome.candidateForm.uploadPicture')}
             </Button>
           </div>
         </div>
@@ -111,7 +125,7 @@ export function CandidateFormStep2({ formData, errors, onFieldChange, onProfileP
           onChange={handleProfilePictureChange}
           className="hidden"
         />
-        
+
         {errors.profilePicture && (
           <div className="flex items-center gap-2 text-red-400 text-sm">
             <AlertCircle className="h-4 w-4" />
@@ -122,7 +136,11 @@ export function CandidateFormStep2({ formData, errors, onFieldChange, onProfileP
 
       {/* External Link Field */}
       <div className="space-y-2">
-        <Label htmlFor="externalLink" className="text-sm font-medium" style={{ color: colors.white }}>
+        <Label
+          htmlFor="externalLink"
+          className="text-sm font-medium"
+          style={{ color: colors.white }}
+        >
           {t('welcome.candidateForm.externalLink')}
           <span className="text-xs ml-1" style={{ color: colors.textSecondary }}>
             ({t('welcome.candidateForm.optional')})
@@ -135,10 +153,10 @@ export function CandidateFormStep2({ formData, errors, onFieldChange, onProfileP
           onChange={(e) => onFieldChange('externalLink', e.target.value)}
           placeholder={t('welcome.candidateForm.placeholders.externalLink')}
           className={`w-full ${errors.externalLink ? 'border-red-500' : ''}`}
-          style={{ 
-            backgroundColor: colors.blueDark, 
+          style={{
+            backgroundColor: colors.blueDark,
             borderColor: errors.externalLink ? '#ef4444' : colors.blue,
-            color: colors.white 
+            color: colors.white,
           }}
         />
         {errors.externalLink && (

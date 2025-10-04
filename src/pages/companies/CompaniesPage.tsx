@@ -17,14 +17,17 @@ const CompaniesPage = () => {
 
   // Filter companies based on search and filters
   const filteredCompanies = companiesData.filter((company) => {
-    const matchesSearch = company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch =
+      company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       company.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       company.industry.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesIndustry = selectedIndustry === 'all' || 
+
+    const matchesIndustry =
+      selectedIndustry === 'all' ||
       company.industry.toLowerCase().replace(/\s+/g, '-') === selectedIndustry;
-    
-    const matchesPartnership = selectedPartnership === 'all' || 
+
+    const matchesPartnership =
+      selectedPartnership === 'all' ||
       company.partnershipLevel.toLowerCase() === selectedPartnership;
 
     return matchesSearch && matchesIndustry && matchesPartnership;
@@ -135,7 +138,8 @@ const CompaniesPage = () => {
       <div className={cn('space-y-8', spacing.container)}>
         {/* Results Count */}
         <div className="text-center text-gray-300">
-          <span className="text-[#ffd60a] font-semibold">{filteredCompanies.length}</span> companies found
+          <span className="text-[#ffd60a] font-semibold">{filteredCompanies.length}</span> companies
+          found
         </div>
 
         {/* Company Cards Grid */}
@@ -155,7 +159,9 @@ const CompaniesPage = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className={typography.heading[4]}>{company.name}</h3>
-                    <Badge className={cn('mt-1', getPartnershipBadgeStyle(company.partnershipLevel))}>
+                    <Badge
+                      className={cn('mt-1', getPartnershipBadgeStyle(company.partnershipLevel))}
+                    >
                       <Award className="h-3 w-3 mr-1" />
                       {company.partnershipLevel} Partner
                     </Badge>

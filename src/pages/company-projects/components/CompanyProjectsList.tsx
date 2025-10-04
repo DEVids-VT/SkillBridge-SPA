@@ -8,7 +8,11 @@ import { useTranslation } from 'react-i18next';
 export const CompanyProjectsList = () => {
   const { t } = useTranslation('project');
   const { projectId } = useParams();
-  const { data: companyProfile, isLoading: loadingProfile, error: profileError } = useCompanyProfile();
+  const {
+    data: companyProfile,
+    isLoading: loadingProfile,
+    error: profileError,
+  } = useCompanyProfile();
   const companyId = companyProfile?.id;
   const { data: projects, isLoading, error } = useCompanyProjects(companyId);
 
@@ -26,7 +30,9 @@ export const CompanyProjectsList = () => {
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-sm" style={{ color: colors.textSecondary }}>{t('companyProjects.loading', 'Loading your company projects...')}</p>
+          <p className="text-sm" style={{ color: colors.textSecondary }}>
+            {t('companyProjects.loading', 'Loading your company projects...')}
+          </p>
         </div>
       </div>
     );
@@ -36,8 +42,12 @@ export const CompanyProjectsList = () => {
     return (
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
-          <p className="text-sm" style={{ color: colors.error }}>{t('companyProjects.profileError', 'Failed to load company profile')}</p>
-          <p className="text-xs" style={{ color: colors.textMuted }}>{profileError.message}</p>
+          <p className="text-sm" style={{ color: colors.error }}>
+            {t('companyProjects.profileError', 'Failed to load company profile')}
+          </p>
+          <p className="text-xs" style={{ color: colors.textMuted }}>
+            {profileError.message}
+          </p>
         </div>
       </div>
     );
@@ -47,8 +57,12 @@ export const CompanyProjectsList = () => {
     return (
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
-          <p className="text-sm" style={{ color: colors.error }}>{t('companyProjects.error', 'Failed to load projects')}</p>
-          <p className="text-xs" style={{ color: colors.textMuted }}>{error.message}</p>
+          <p className="text-sm" style={{ color: colors.error }}>
+            {t('companyProjects.error', 'Failed to load projects')}
+          </p>
+          <p className="text-xs" style={{ color: colors.textMuted }}>
+            {error.message}
+          </p>
         </div>
       </div>
     );
@@ -58,8 +72,12 @@ export const CompanyProjectsList = () => {
     return (
       <div className="flex items-center justify-center py-8">
         <div className="text-center">
-          <p className="text-sm mb-2" style={{ color: colors.textSecondary }}>{t('companyProjects.empty', 'No projects yet')}</p>
-          <p className="text-xs" style={{ color: colors.textMuted }}>{t('companyProjects.emptyCta', 'Create your first assessment to see it here')}</p>
+          <p className="text-sm mb-2" style={{ color: colors.textSecondary }}>
+            {t('companyProjects.empty', 'No projects yet')}
+          </p>
+          <p className="text-xs" style={{ color: colors.textMuted }}>
+            {t('companyProjects.emptyCta', 'Create your first assessment to see it here')}
+          </p>
         </div>
       </div>
     );
@@ -86,7 +104,10 @@ export const CompanyProjectsList = () => {
             <div className="p-3">
               {/* Company */}
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border-2" style={{ borderColor: colors.borderLight }}>
+                <div
+                  className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border-2"
+                  style={{ borderColor: colors.borderLight }}
+                >
                   <div
                     className="w-full h-full flex items-center justify-center text-white text-xs font-bold"
                     style={{ backgroundColor: colors.blue }}
@@ -103,7 +124,10 @@ export const CompanyProjectsList = () => {
 
               {/* Due date and completion */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1 text-xs" style={{ color: colors.textSecondary }}>
+                <div
+                  className="flex items-center gap-1 text-xs"
+                  style={{ color: colors.textSecondary }}
+                >
                   <Calendar size={12} />
                   <span>{formatDate(project.deadline)}</span>
                 </div>
@@ -117,7 +141,10 @@ export const CompanyProjectsList = () => {
 
               {/* Progress bar */}
               <div className="mt-2">
-                <div className="w-full rounded-full h-1.5" style={{ backgroundColor: colors.borderLight }}>
+                <div
+                  className="w-full rounded-full h-1.5"
+                  style={{ backgroundColor: colors.borderLight }}
+                >
                   <div
                     className="h-1.5 rounded-full transition-all duration-300"
                     style={{
@@ -134,5 +161,3 @@ export const CompanyProjectsList = () => {
     </div>
   );
 };
-
-

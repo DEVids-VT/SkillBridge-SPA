@@ -53,7 +53,10 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
           >
             <CardContent className="flex flex-col items-center p-6 h-full">
               {/* Icon */}
-              <div className="relative mb-6 p-4 rounded-2xl" style={{ backgroundColor: colors.blue }}>
+              <div
+                className="relative mb-6 p-4 rounded-2xl"
+                style={{ backgroundColor: colors.blue }}
+              >
                 <Building2 className="h-12 w-12" style={{ color: colors.yellow }} />
               </div>
               {/* Content */}
@@ -69,7 +72,11 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
               <Button
                 size="default"
                 className="w-full py-3 px-6 font-medium rounded-lg shadow-lg border"
-                style={{ backgroundColor: colors.blue, color: colors.white, borderColor: colors.blue }}
+                style={{
+                  backgroundColor: colors.blue,
+                  color: colors.white,
+                  borderColor: colors.blue,
+                }}
                 disabled={isLoading !== null}
               >
                 {isLoading === 'company' ? (
@@ -92,7 +99,10 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
           >
             <CardContent className="flex flex-col items-center p-6 h-full">
               {/* Icon */}
-              <div className="relative mb-6 p-4 rounded-2xl" style={{ backgroundColor: colors.blue }}>
+              <div
+                className="relative mb-6 p-4 rounded-2xl"
+                style={{ backgroundColor: colors.blue }}
+              >
                 <User className="h-12 w-12" style={{ color: colors.yellow }} />
               </div>
               {/* Content */}
@@ -108,7 +118,11 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
               <Button
                 size="default"
                 className="w-full py-3 px-6 font-medium rounded-lg shadow-lg border"
-                style={{ backgroundColor: colors.blue, color: colors.white, borderColor: colors.blue }}
+                style={{
+                  backgroundColor: colors.blue,
+                  color: colors.white,
+                  borderColor: colors.blue,
+                }}
                 disabled={isLoading !== null}
               >
                 {isLoading === 'candidate' ? (
@@ -131,7 +145,11 @@ export function RoleSelector({ onRoleSelect }: RoleSelectorProps) {
           variant="outline"
           size="sm"
           className="hover:opacity-90"
-          style={{ color: colors.textSecondary, borderColor: colors.blue, backgroundColor: 'transparent' }}
+          style={{
+            color: colors.textSecondary,
+            borderColor: colors.blue,
+            backgroundColor: 'transparent',
+          }}
           onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
         >
           <LogOut className="h-4 w-4 mr-2" />

@@ -1,7 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import type { PersonalityTrait, ImportanceLevel } from '@/types/candidate/requirements';
 
@@ -13,12 +19,13 @@ interface PersonalityTraitsListProps {
 
 const importanceOptions: ImportanceLevel[] = ['Low', 'Medium', 'High', 'Critical'];
 
-export function ImprovedPersonalityTraitsList({ title, list, onChange }: PersonalityTraitsListProps) {
+export function ImprovedPersonalityTraitsList({
+  title,
+  list,
+  onChange,
+}: PersonalityTraitsListProps) {
   const addTrait = () => {
-    onChange([
-      ...list,
-      { traitName: '', description: '', importance: 'Medium' },
-    ]);
+    onChange([...list, { traitName: '', description: '', importance: 'Medium' }]);
   };
 
   const updateTrait = (index: number, patch: Partial<PersonalityTrait>) => {
@@ -35,7 +42,9 @@ export function ImprovedPersonalityTraitsList({ title, list, onChange }: Persona
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <Label className="font-medium">{title}</Label>
-        <Button type="button" size="sm" onClick={addTrait}>+ Add</Button>
+        <Button type="button" size="sm" onClick={addTrait}>
+          + Add
+        </Button>
       </div>
       <div className="space-y-4">
         {list.map((item, index) => (
@@ -65,11 +74,15 @@ export function ImprovedPersonalityTraitsList({ title, list, onChange }: Persona
                 </SelectTrigger>
                 <SelectContent>
                   {importanceOptions.map((opt) => (
-                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-              <Button type="button" variant="outline" onClick={() => removeTrait(index)}>Remove</Button>
+              <Button type="button" variant="outline" onClick={() => removeTrait(index)}>
+                Remove
+              </Button>
             </div>
           </div>
         ))}
@@ -79,5 +92,3 @@ export function ImprovedPersonalityTraitsList({ title, list, onChange }: Persona
 }
 
 export default ImprovedPersonalityTraitsList;
-
-

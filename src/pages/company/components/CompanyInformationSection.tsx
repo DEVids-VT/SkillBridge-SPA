@@ -1,16 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { colors, typography } from "@/lib/design-system";
-import { Badge } from "@/components/ui/badge";
-import {
-  MapPin,
-  Users,
-  Calendar,
-  Tag,
-  Globe,
-  Mail,
-  Phone,
-  User,
-} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { colors, typography } from '@/lib/design-system';
+import { Badge } from '@/components/ui/badge';
+import { MapPin, Users, Calendar, Tag, Globe, Mail, Phone, User } from 'lucide-react';
 import { CompanyResponse } from '../types';
 
 interface CompanyInformationSectionProps {
@@ -30,7 +21,7 @@ export default function CompanyInformationSection({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <img
-            src={company.logoUrl || "/images/companies/default-logo.png"}
+            src={company.logoUrl || '/images/companies/default-logo.png'}
             alt="Company Logo"
             className={`w-16 h-16 rounded-full border-2 border-[${colors.white}]`}
           />
@@ -39,10 +30,10 @@ export default function CompanyInformationSection({
             <p className={typography.body.sm}>Upload or change your company logo</p>
           </div>
         </div>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "logoUrl", title: "Change logo URL", type: "text" })}
+          onClick={() => onEditField({ field: 'logoUrl', title: 'Change logo URL', type: 'text' })}
         >
           Change logo
         </Button>
@@ -62,7 +53,9 @@ export default function CompanyInformationSection({
           <Button
             variant="outline"
             className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-            onClick={() => onEditField({ field: "bannerUrl", title: "Change banner URL", type: "text" })}
+            onClick={() =>
+              onEditField({ field: 'bannerUrl', title: 'Change banner URL', type: 'text' })
+            }
           >
             Edit
           </Button>
@@ -78,7 +71,7 @@ export default function CompanyInformationSection({
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "name", title: "Change company name", type: "text" })}
+          onClick={() => onEditField({ field: 'name', title: 'Change company name', type: 'text' })}
         >
           Edit
         </Button>
@@ -93,7 +86,9 @@ export default function CompanyInformationSection({
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-          onClick={() => onEditField({ field: "about", title: "Change company about", type: "textarea" })}
+          onClick={() =>
+            onEditField({ field: 'about', title: 'Change company about', type: 'textarea' })
+          }
         >
           Edit
         </Button>
@@ -108,7 +103,9 @@ export default function CompanyInformationSection({
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-          onClick={() => onEditField({ field: "activities", title: "Change activities", type: "textarea" })}
+          onClick={() =>
+            onEditField({ field: 'activities', title: 'Change activities', type: 'textarea' })
+          }
         >
           Edit
         </Button>
@@ -118,14 +115,12 @@ export default function CompanyInformationSection({
       <div className="flex justify-between items-center">
         <div>
           <p className="text-sm font-medium">Sector</p>
-          <Badge className={`bg-[${colors.blue}] text-[${colors.white}]`}>
-            {company.sector}
-          </Badge>
+          <Badge className={`bg-[${colors.blue}] text-[${colors.white}]`}>{company.sector}</Badge>
         </div>
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "sector", title: "Change sector", type: "text" })}
+          onClick={() => onEditField({ field: 'sector', title: 'Change sector', type: 'text' })}
         >
           Edit
         </Button>
@@ -143,7 +138,13 @@ export default function CompanyInformationSection({
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "headOfficeLocation", title: "Change head office location", type: "text" })}
+          onClick={() =>
+            onEditField({
+              field: 'headOfficeLocation',
+              title: 'Change head office location',
+              type: 'text',
+            })
+          }
         >
           Edit
         </Button>
@@ -165,7 +166,13 @@ export default function CompanyInformationSection({
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-          onClick={() => onEditField({ field: "technologies", title: "Change technologies (comma-separated)", type: "textarea" })}
+          onClick={() =>
+            onEditField({
+              field: 'technologies',
+              title: 'Change technologies (comma-separated)',
+              type: 'textarea',
+            })
+          }
         >
           Edit
         </Button>
@@ -184,7 +191,13 @@ export default function CompanyInformationSection({
           <Button
             variant="outline"
             className={`border-[${colors.blue}] text-[${colors.white}]`}
-            onClick={() => onEditField({ field: "yearEstablished", title: "Change year established", type: "number" })}
+            onClick={() =>
+              onEditField({
+                field: 'yearEstablished',
+                title: 'Change year established',
+                type: 'number',
+              })
+            }
           >
             Edit
           </Button>
@@ -196,14 +209,26 @@ export default function CompanyInformationSection({
         <div className="flex justify-between items-center">
           <div>
             <p className="text-sm font-medium">Has Offices in Bulgaria</p>
-            <Badge className={company.hasOfficesInBulgaria ? `bg-[${colors.success}] text-[${colors.white}]` : `bg-[${colors.blue}] text-[${colors.white}]`}>
+            <Badge
+              className={
+                company.hasOfficesInBulgaria
+                  ? `bg-[${colors.success}] text-[${colors.white}]`
+                  : `bg-[${colors.blue}] text-[${colors.white}]`
+              }
+            >
               {company.hasOfficesInBulgaria ? 'Yes' : 'No'}
             </Badge>
           </div>
           <Button
             variant="outline"
             className={`border-[${colors.blue}] text-[${colors.white}]`}
-            onClick={() => onEditField({ field: "hasOfficesInBulgaria", title: "Has offices in Bulgaria", type: "boolean" })}
+            onClick={() =>
+              onEditField({
+                field: 'hasOfficesInBulgaria',
+                title: 'Has offices in Bulgaria',
+                type: 'boolean',
+              })
+            }
           >
             Edit
           </Button>
@@ -218,7 +243,13 @@ export default function CompanyInformationSection({
             <Button
               variant="outline"
               className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-              onClick={() => onEditField({ field: "bulgarianOfficeLocations", title: "Change Bulgarian office locations", type: "textarea" })}
+              onClick={() =>
+                onEditField({
+                  field: 'bulgarianOfficeLocations',
+                  title: 'Change Bulgarian office locations',
+                  type: 'textarea',
+                })
+              }
             >
               Edit
             </Button>
@@ -237,7 +268,13 @@ export default function CompanyInformationSection({
             <Button
               variant="outline"
               className={`border-[${colors.blue}] text-[${colors.white}]`}
-              onClick={() => onEditField({ field: "employeesInBulgaria", title: "Change employees in Bulgaria", type: "number" })}
+              onClick={() =>
+                onEditField({
+                  field: 'employeesInBulgaria',
+                  title: 'Change employees in Bulgaria',
+                  type: 'number',
+                })
+              }
             >
               Edit
             </Button>
@@ -257,7 +294,13 @@ export default function CompanyInformationSection({
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "employeesWorldwide", title: "Change employees worldwide", type: "number" })}
+          onClick={() =>
+            onEditField({
+              field: 'employeesWorldwide',
+              title: 'Change employees worldwide',
+              type: 'number',
+            })
+          }
         >
           Edit
         </Button>
@@ -273,7 +316,13 @@ export default function CompanyInformationSection({
           <Button
             variant="outline"
             className={`border-[${colors.blue}] text-[${colors.white}] ml-4`}
-            onClick={() => onEditField({ field: "whyWorkWithUs", title: "Change why work with us message", type: "textarea" })}
+            onClick={() =>
+              onEditField({
+                field: 'whyWorkWithUs',
+                title: 'Change why work with us message',
+                type: 'textarea',
+              })
+            }
           >
             Edit
           </Button>
@@ -286,9 +335,9 @@ export default function CompanyInformationSection({
           <Globe className="h-4 w-4" style={{ color: colors.yellow }} />
           <div>
             <p className="text-sm font-medium">Website</p>
-            <a 
-              href={company.websiteUrl} 
-              target="_blank" 
+            <a
+              href={company.websiteUrl}
+              target="_blank"
               rel="noopener noreferrer"
               className={`${typography.body.sm} text-blue-400 hover:text-blue-300 underline`}
             >
@@ -299,7 +348,9 @@ export default function CompanyInformationSection({
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "websiteUrl", title: "Change website URL", type: "text" })}
+          onClick={() =>
+            onEditField({ field: 'websiteUrl', title: 'Change website URL', type: 'text' })
+          }
         >
           Edit
         </Button>
@@ -308,7 +359,7 @@ export default function CompanyInformationSection({
       {/* Contact Information */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Contact Information</h3>
-        
+
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             <User className="h-4 w-4" style={{ color: colors.yellow }} />
@@ -320,7 +371,9 @@ export default function CompanyInformationSection({
           <Button
             variant="outline"
             className={`border-[${colors.blue}] text-[${colors.white}]`}
-            onClick={() => onEditField({ field: "contactName", title: "Change contact name", type: "text" })}
+            onClick={() =>
+              onEditField({ field: 'contactName', title: 'Change contact name', type: 'text' })
+            }
           >
             Edit
           </Button>
@@ -331,7 +384,7 @@ export default function CompanyInformationSection({
             <Mail className="h-4 w-4" style={{ color: colors.yellow }} />
             <div>
               <p className="text-sm font-medium">Contact Email</p>
-              <a 
+              <a
                 href={`mailto:${company.contactEmail}`}
                 className={`${typography.body.sm} text-blue-400 hover:text-blue-300 underline`}
               >
@@ -342,7 +395,9 @@ export default function CompanyInformationSection({
           <Button
             variant="outline"
             className={`border-[${colors.blue}] text-[${colors.white}]`}
-            onClick={() => onEditField({ field: "contactEmail", title: "Change contact email", type: "text" })}
+            onClick={() =>
+              onEditField({ field: 'contactEmail', title: 'Change contact email', type: 'text' })
+            }
           >
             Edit
           </Button>
@@ -353,7 +408,7 @@ export default function CompanyInformationSection({
             <Phone className="h-4 w-4" style={{ color: colors.yellow }} />
             <div>
               <p className="text-sm font-medium">Contact Phone</p>
-              <a 
+              <a
                 href={`tel:${company.contactPhone}`}
                 className={`${typography.body.sm} text-blue-400 hover:text-blue-300 underline`}
               >
@@ -364,7 +419,9 @@ export default function CompanyInformationSection({
           <Button
             variant="outline"
             className={`border-[${colors.blue}] text-[${colors.white}]`}
-            onClick={() => onEditField({ field: "contactPhone", title: "Change contact phone", type: "text" })}
+            onClick={() =>
+              onEditField({ field: 'contactPhone', title: 'Change contact phone', type: 'text' })
+            }
           >
             Edit
           </Button>

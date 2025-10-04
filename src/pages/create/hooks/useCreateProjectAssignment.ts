@@ -1,31 +1,67 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosInstance } from '@/components/axios-interceptor/AxiosInterceptor';
 import { useCompanyProfile } from '@/pages/company/hooks/useCompanyProfile';
 import { CreateProjectAssignmentRequest, ProjectAssignmentResponse } from '../types';
 
 /**
- * Creates a new Project Assignment for the current company
+ * Creates a new Project Assignment via POST /api/p?companyId={companyId}
+ *
+ * This endpoint creates a project assignment for the specified company.
+ * The companyId is passed as a query parameter.
+ */
+const createProjectAssignment = async (params: {
+  companyId: string;
+  data: CreateProjectAssignmentRequest;
+}): Promise<ProjectAssignmentResponse> => {
+  const response = await axiosInstance.post<ProjectAssignmentResponse>(
+    `/p?companyId=${params.companyId}`,
+    params.data,
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+  return response.data;
+};
+
+/**
+ * Hook to create a new Project Assignment for the current company
+ * Automatically invalidates relevant queries on success
  */
 export const useCreateProjectAssignment = () => {
-  const { data: companyData, isLoading: isLoadingCompany } = useCompanyProfile();
+  const queryClient = useQueryClient();
+  const { data: companyData } = useCompanyProfile();
 
   return useMutation<ProjectAssignmentResponse, Error, CreateProjectAssignmentRequest>({
     mutationFn: async (payload) => {
-      if (isLoadingCompany || !companyData) {
-        throw new Error('Company data is not available yet');
+      if (!companyData?.id) {
+        throw new Error('Company profile is not available. Please ensure you are logged in.');
       }
 
-      const companyId = companyData.id;
-      if (!companyId) {
-        throw new Error('Company ID is missing');
-      }
-
-      const response = await axiosInstance.post<ProjectAssignmentResponse>(`/g/${companyId}`, payload, {
-        headers: { 'Content-Type': 'application/json' },
+      return createProjectAssignment({
+        companyId: companyData.id,
+        data: payload,
       });
-      return response.data;
+    },
+    onSuccess: (newProject) => {
+      // Update the company projects cache by adding the new project
+      if (companyData?.id) {
+        queryClient.setQueryData(
+          ['companyProjects', companyData.id],
+          (oldData: ProjectAssignmentResponse[] | undefined) => {
+            if (!oldData) return [newProject];
+            return [...oldData, newProject];
+          }
+        );
+
+        // Invalidate related queries to refetch fresh data
+        queryClient.invalidateQueries({ queryKey: ['companyProjects', companyData.id] });
+      }
+
+      // Also invalidate company profile in case project count changed
+      queryClient.invalidateQueries({ queryKey: ['companyProfile'] });
+    },
+    onError: (error: Error) => {
+      console.error('Failed to create project assignment:', error);
     },
   });
 };
-
-

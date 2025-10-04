@@ -20,7 +20,9 @@ export function saveUserProfileToStorage(profile: UserProfileResponse): void {
   }
 }
 
-export function mergeAndSaveUserProfile(partial: Partial<UserProfileResponse>): UserProfileResponse | null {
+export function mergeAndSaveUserProfile(
+  partial: Partial<UserProfileResponse>
+): UserProfileResponse | null {
   const existing = loadUserProfileFromStorage();
   if (existing) {
     const merged: UserProfileResponse = {
@@ -38,7 +40,9 @@ export function mergeAndSaveUserProfile(partial: Partial<UserProfileResponse>): 
             : partial.cvUpload
           : existing.cvUpload,
       gitHubConnection:
-        partial.gitHubConnection !== undefined ? partial.gitHubConnection : existing.gitHubConnection,
+        partial.gitHubConnection !== undefined
+          ? partial.gitHubConnection
+          : existing.gitHubConnection,
     };
     saveUserProfileToStorage(merged);
     return merged;
@@ -65,5 +69,3 @@ export function clearUserProfileStorage(): void {
     // ignore
   }
 }
-
-

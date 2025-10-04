@@ -14,7 +14,7 @@ export function ActiveSidebarProvider({ children }: { children: ReactNode }) {
 
   const toggle = () => {
     console.log('ActiveSidebar toggle called, current state:', isOpen);
-    setIsOpen(prev => !prev);
+    setIsOpen((prev) => !prev);
   };
   const close = () => {
     console.log('ActiveSidebar close called');
@@ -38,4 +38,4 @@ export function useActiveSidebar() {
     throw new Error('useActiveSidebar must be used within an ActiveSidebarProvider');
   }
   return context;
-} 
+}

@@ -1,9 +1,9 @@
-import { useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { colors, typography } from "@/lib/design-system";
-import { Input } from "@/components/ui/input";
-import { useUpdateUserProfile } from "../hooks/useUserProfile";
-import { mergeAndSaveUserProfile } from "../hooks/userProfileStorage";
+import { useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { colors, typography } from '@/lib/design-system';
+import { Input } from '@/components/ui/input';
+import { useUpdateUserProfile } from '../hooks/useUserProfile';
+import { mergeAndSaveUserProfile } from '../hooks/userProfileStorage';
 
 interface CandidateAccountSectionProps {
   user: {
@@ -15,10 +15,17 @@ interface CandidateAccountSectionProps {
     githubConnection: string | null;
   };
   setUser: React.Dispatch<React.SetStateAction<any>>;
-  onEditField: (field: { field: "fullName" | "username" | "githubConnection"; title: string }) => void;
+  onEditField: (field: {
+    field: 'fullName' | 'username' | 'githubConnection';
+    title: string;
+  }) => void;
 }
 
-export default function CandidateAccountSection({ user, setUser, onEditField }: CandidateAccountSectionProps) {
+export default function CandidateAccountSection({
+  user,
+  setUser,
+  onEditField,
+}: CandidateAccountSectionProps) {
   const updateProfile = useUpdateUserProfile();
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
@@ -50,11 +57,17 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
               if (!file) return;
               try {
                 const updated = await updateProfile.mutateAsync({ profilePicture: file });
-                setUser((prev: any) => ({ ...prev, avatar: updated.profilePicture || prev.avatar }));
+                setUser((prev: any) => ({
+                  ...prev,
+                  avatar: updated.profilePicture || prev.avatar,
+                }));
                 // also merge into local storage cache
-                mergeAndSaveUserProfile({ id: updated.id, profilePicture: updated.profilePicture ?? undefined });
+                mergeAndSaveUserProfile({
+                  id: updated.id,
+                  profilePicture: updated.profilePicture ?? undefined,
+                });
               } finally {
-                e.currentTarget.value = "";
+                e.currentTarget.value = '';
               }
             }}
           />
@@ -77,7 +90,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "fullName", title: "Change full name" })}
+          onClick={() => onEditField({ field: 'fullName', title: 'Change full name' })}
         >
           Edit
         </Button>
@@ -98,7 +111,7 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "username", title: "Change username" })}
+          onClick={() => onEditField({ field: 'username', title: 'Change username' })}
         >
           Change
         </Button>
@@ -139,9 +152,12 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
                 const updated = await updateProfile.mutateAsync({ cvUpload: file });
                 setUser((prev: any) => ({ ...prev, cv: updated.cvUpload || file.name }));
                 // also merge into local storage cache
-                mergeAndSaveUserProfile({ id: updated.id, cvUpload: updated.cvUpload ?? undefined });
+                mergeAndSaveUserProfile({
+                  id: updated.id,
+                  cvUpload: updated.cvUpload ?? undefined,
+                });
               } finally {
-                e.currentTarget.value = "";
+                e.currentTarget.value = '';
               }
             }}
           />
@@ -159,9 +175,9 @@ export default function CandidateAccountSection({ user, setUser, onEditField }: 
         <Button
           variant="outline"
           className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: "githubConnection", title: "Set GitHub connection" })}
+          onClick={() => onEditField({ field: 'githubConnection', title: 'Set GitHub connection' })}
         >
-          {user.githubConnection ? "Change" : "Connect"}
+          {user.githubConnection ? 'Change' : 'Connect'}
         </Button>
       </div>
     </div>

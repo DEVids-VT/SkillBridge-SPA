@@ -10,10 +10,10 @@ interface CreateManualFormProps {
   onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export default function CreateManualFormComponent({ 
-  formData, 
-  formErrors, 
-  onInputChange 
+export default function CreateManualFormComponent({
+  formData,
+  formErrors,
+  onInputChange,
 }: CreateManualFormProps) {
   const { t } = useTranslation('createProject');
 
@@ -21,14 +21,14 @@ export default function CreateManualFormComponent({
     <div className={cards.base}>
       <div className={cards.header}>
         <h2 className="text-2xl font-bold text-white">
-          <span 
+          <span
             className="inline-block w-2 h-6 mr-3 rounded"
             style={{ backgroundColor: colors.orange }}
           />
           {t('createManualPage.form.title')}
         </h2>
       </div>
-      
+
       <div className={cards.body}>
         <div className="space-y-6">
           <div className="space-y-3">
@@ -45,20 +45,18 @@ export default function CreateManualFormComponent({
               style={{
                 backgroundColor: colors.blueDark,
                 borderColor: formErrors.description ? '#ef4444' : colors.blue,
-                color: colors.white
+                color: colors.white,
               }}
             />
             {formErrors.description && (
               <p className="text-red-400 text-sm mt-1">{formErrors.description}</p>
             )}
-            <p className="text-gray-400 text-sm">
-              {t('createManualPage.form.description.help')}
-            </p>
+            <p className="text-gray-400 text-sm">{t('createManualPage.form.description.help')}</p>
           </div>
 
           {/* Character Count */}
           <div className="text-right">
-            <span 
+            <span
               className="text-sm"
               style={{ color: formData.description.length > 50 ? colors.yellow : colors.white }}
             >

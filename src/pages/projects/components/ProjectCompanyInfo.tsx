@@ -39,8 +39,8 @@ export default function ProjectCompanyInfo({ project }: ProjectCompanyInfoProps)
       </div>
       <div className={cards.body}>
         <p className="text-gray-300 mb-4">
-          This project is provided by {project.companyName}. Work on real-world challenges and
-          gain practical experience that companies are looking for.
+          This project is provided by {project.companyName}. Work on real-world challenges and gain
+          practical experience that companies are looking for.
         </p>
         <div className="flex flex-wrap gap-2">
           <StatusBadge status={project.status} />

@@ -28,7 +28,9 @@ export function ImprovedWorkConditionsList({ title, list, onChange }: WorkCondit
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <Label className="font-medium">{title}</Label>
-        <Button type="button" size="sm" onClick={addItem}>+ Add</Button>
+        <Button type="button" size="sm" onClick={addItem}>
+          + Add
+        </Button>
       </div>
       <div className="space-y-3">
         {list.map((item, index) => (
@@ -52,7 +54,9 @@ export function ImprovedWorkConditionsList({ title, list, onChange }: WorkCondit
               Required
             </label>
             <div>
-              <Button type="button" variant="outline" onClick={() => removeItem(index)}>Remove</Button>
+              <Button type="button" variant="outline" onClick={() => removeItem(index)}>
+                Remove
+              </Button>
             </div>
           </div>
         ))}
@@ -62,5 +66,3 @@ export function ImprovedWorkConditionsList({ title, list, onChange }: WorkCondit
 }
 
 export default ImprovedWorkConditionsList;
-
-

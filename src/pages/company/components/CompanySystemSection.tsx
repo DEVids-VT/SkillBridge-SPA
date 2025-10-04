@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { colors, typography } from "@/lib/design-system";
+import { Button } from '@/components/ui/button';
+import { colors, typography } from '@/lib/design-system';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 interface CompanySystemSectionProps {
   theme: string;

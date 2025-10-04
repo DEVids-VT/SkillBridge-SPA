@@ -50,8 +50,9 @@ function AxiosInterceptor({ children }: PropsWithChildren) {
           if (pd.title) parts.push(pd.title);
           if (pd.detail) parts.push(pd.detail);
           if (pd.errors && typeof pd.errors === 'object') {
-            const fieldErrors = Object.entries(pd.errors)
-              .flatMap(([field, msgs]) => (Array.isArray(msgs) ? msgs.map((m) => `${field}: ${m}`) : []));
+            const fieldErrors = Object.entries(pd.errors).flatMap(([field, msgs]) =>
+              Array.isArray(msgs) ? msgs.map((m) => `${field}: ${m}`) : []
+            );
             if (fieldErrors.length) parts.push(fieldErrors.join('\n'));
           }
           message = parts.filter(Boolean).join('\n') || JSON.stringify(data);

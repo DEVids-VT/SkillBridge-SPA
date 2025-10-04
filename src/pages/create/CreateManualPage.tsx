@@ -9,20 +9,22 @@ import {
   CreatePageHeader,
   CreatePageBackButton,
   ProjectAssignmentManualForm,
-  Notification
+  Notification,
 } from './components';
 import { NotificationState, CreateProjectAssignmentRequest } from './types';
-import { ProjectAssignmentManualFormState, TaskEditorItem } from './components/ProjectAssignmentManualForm';
+import {
+  ProjectAssignmentManualFormState,
+  TaskEditorItem,
+} from './components/ProjectAssignmentManualForm';
 
-// Initial manual assignment state
+// Initial manual assignment state with sensible defaults
 const initialFormState: ProjectAssignmentManualFormState = {
   title: '',
   description: '',
   summary: '',
   learningBenefits: '',
   suggestedApproach: '',
-  level: '1',
-  status: '0',
+  level: '1', // Default to Intermediate
   deadline: '',
   skillIdsInput: '',
   tasks: [],
@@ -43,26 +45,61 @@ export default function CreateManualPage() {
   // Use the create assignment mutation
   const createAssignment = useCreateProjectAssignment();
 
-  const setState = (patch: Partial<ProjectAssignmentManualFormState>) => setFormData((prev) => ({ ...prev, ...patch }));
+  const setState = (patch: Partial<ProjectAssignmentManualFormState>) =>
+    setFormData((prev) => ({ ...prev, ...patch }));
   const onTasksChange = (tasks: TaskEditorItem[]) => setFormData((prev) => ({ ...prev, tasks }));
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // simple validation
-    if (!formData.title.trim() || !formData.summary.trim() || !formData.learningBenefits.trim() || !formData.suggestedApproach.trim()) {
-      setNotification({ show: true, type: 'error', title: 'Missing fields', message: 'Please fill title, summary, learning benefits, and suggested approach.' });
-      return;
-    }
-    if (!formData.deadline) {
-      setNotification({ show: true, type: 'error', title: 'Missing deadline', message: 'Please select a deadline.' });
+
+    // Comprehensive validation
+    if (
+      !formData.title.trim() ||
+      !formData.summary.trim() ||
+      !formData.learningBenefits.trim() ||
+      !formData.suggestedApproach.trim()
+    ) {
+      setNotification({
+        show: true,
+        type: 'error',
+        title: t('createManualPage.notifications.error.title'),
+        message:
+          'Please fill in all required fields: title, summary, learning benefits, and suggested approach.',
+      });
       return;
     }
 
-    const skillIds = formData.skillIdsInput
+    if (!formData.deadline) {
+      setNotification({
+        show: true,
+        type: 'error',
+        title: t('createManualPage.notifications.error.title'),
+        message: 'Please select a deadline for the project.',
+      });
+      return;
+    }
+
+    // Validate deadline is in the future
+    const deadlineDate = new Date(formData.deadline);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (deadlineDate < today) {
+      setNotification({
+        show: true,
+        type: 'error',
+        title: t('createManualPage.notifications.error.title'),
+        message: 'Deadline must be today or in the future.',
+      });
+      return;
+    }
+
+    // Parse skills from comma-separated input
+    const skills = formData.skillIdsInput
       .split(',')
       .map((s) => s.trim())
       .filter(Boolean);
 
+    // Build the payload according to backend requirements
     const payload: CreateProjectAssignmentRequest = {
       title: formData.title.trim(),
       description: formData.description?.trim() || undefined,
@@ -71,8 +108,8 @@ export default function CreateManualPage() {
       suggestedApproach: formData.suggestedApproach.trim(),
       level: Number(formData.level) as 0 | 1 | 2,
       deadline: new Date(formData.deadline).toISOString(),
-      status: Number(formData.status) as 0 | 1 | 2 | 3,
-      skillIds,
+      status: 0, // Backend will manage status, default to Draft (0)
+      skills,
       tasks: formData.tasks.map((t, idx) => ({
         title: t.title.trim(),
         description: t.description?.trim() || undefined,
@@ -86,12 +123,22 @@ export default function CreateManualPage() {
       onSuccess: (data) => {
         setIsSubmitting(false);
         setFormData(initialFormState);
-        setNotification({ show: true, type: 'success', title: t('createManualPage.notifications.success.title'), message: t('createManualPage.notifications.success.message') });
+        setNotification({
+          show: true,
+          type: 'success',
+          title: t('createManualPage.notifications.success.title'),
+          message: t('createManualPage.notifications.success.message'),
+        });
         setTimeout(() => navigate(`/projects/${data.id}`), 1000);
       },
       onError: (error) => {
         setIsSubmitting(false);
-        setNotification({ show: true, type: 'error', title: t('createManualPage.notifications.error.title'), message: error.message || t('createManualPage.notifications.error.defaultMessage') });
+        setNotification({
+          show: true,
+          type: 'error',
+          title: t('createManualPage.notifications.error.title'),
+          message: error.message || t('createManualPage.notifications.error.defaultMessage'),
+        });
       },
     });
   };
@@ -99,8 +146,6 @@ export default function CreateManualPage() {
   const handleBack = () => {
     navigate('/create');
   };
-
-  const isFormValid = formData.description.trim().length > 0;
 
   return (
     <div className="relative min-h-screen" style={{ backgroundColor: colors.dark }}>
@@ -122,10 +167,7 @@ export default function CreateManualPage() {
           subtitle={t('createManualPage.header.subtitle')}
         />
 
-        <CreatePageBackButton
-          onBack={handleBack}
-          label={t('createManualPage.backButton')}
-        />
+        <CreatePageBackButton onBack={handleBack} label={t('createManualPage.backButton')} />
 
         {/* Main Content */}
         <div className="flex justify-center">
@@ -142,4 +184,4 @@ export default function CreateManualPage() {
       </div>
     </div>
   );
-} 
+}

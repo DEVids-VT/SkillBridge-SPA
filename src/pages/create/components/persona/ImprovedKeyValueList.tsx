@@ -27,7 +27,9 @@ export function ImprovedKeyValueList({ title, list, onChange }: KeyValueListProp
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <Label className="font-medium">{title}</Label>
-        <Button type="button" size="sm" onClick={addPair}>+ Add</Button>
+        <Button type="button" size="sm" onClick={addPair}>
+          + Add
+        </Button>
       </div>
       <div className="space-y-3">
         {list.map((item, index) => (
@@ -43,7 +45,9 @@ export function ImprovedKeyValueList({ title, list, onChange }: KeyValueListProp
               onChange={(e) => updatePair(index, { value: e.target.value })}
             />
             <div>
-              <Button type="button" variant="outline" onClick={() => removePair(index)}>Remove</Button>
+              <Button type="button" variant="outline" onClick={() => removePair(index)}>
+                Remove
+              </Button>
             </div>
           </div>
         ))}
@@ -53,5 +57,3 @@ export function ImprovedKeyValueList({ title, list, onChange }: KeyValueListProp
 }
 
 export default ImprovedKeyValueList;
-
-

@@ -11,8 +11,17 @@ import type { CandidateRequirementsFormState } from './CandidateRequirementsForm
 
 interface SkillsTabProps {
   formData: CandidateRequirementsFormState;
-  onCSVChange: (name: keyof Pick<CandidateRequirementsFormState,
-    'preferredEducationFields' | 'requiredCertifications' | 'preferredCertifications' | 'languageRequirements' | 'keyResponsibilities'>, value: string) => void;
+  onCSVChange: (
+    name: keyof Pick<
+      CandidateRequirementsFormState,
+      | 'preferredEducationFields'
+      | 'requiredCertifications'
+      | 'preferredCertifications'
+      | 'languageRequirements'
+      | 'keyResponsibilities'
+    >,
+    value: string
+  ) => void;
   onUpdateRequiredCompetencies: (list: CompetencyRequirement[]) => void;
   onUpdatePreferredCompetencies: (list: CompetencyRequirement[]) => void;
   onUpdateWorkConditions: (list: WorkCondition[]) => void;
@@ -20,23 +29,23 @@ interface SkillsTabProps {
   description: string;
 }
 
-export function SkillsTab({ 
-  formData, 
-  onCSVChange, 
-  onUpdateRequiredCompetencies, 
-  onUpdatePreferredCompetencies, 
+export function SkillsTab({
+  formData,
+  onCSVChange,
+  onUpdateRequiredCompetencies,
+  onUpdatePreferredCompetencies,
   onUpdateWorkConditions,
   title,
-  description
+  description,
 }: SkillsTabProps) {
   const { t } = useTranslation('createProject');
 
   return (
-    <Card 
+    <Card
       className="border"
-      style={{ 
+      style={{
         backgroundColor: `${colors.surface}80`, // 50% opacity
-        borderColor: colors.border 
+        borderColor: colors.border,
       }}
     >
       <CardHeader>
@@ -44,87 +53,101 @@ export function SkillsTab({
           {title}
           <HelpCircle className="h-4 w-4" style={{ color: colors.textMuted }} />
         </CardTitle>
-        <CardDescription style={{ color: colors.textSecondary }}>
-          {description}
-        </CardDescription>
+        <CardDescription style={{ color: colors.textSecondary }}>{description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Skills and Certifications */}
         <div className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="preferredEducationFields" className="font-medium" style={{ color: colors.text }}>
+            <Label
+              htmlFor="preferredEducationFields"
+              className="font-medium"
+              style={{ color: colors.text }}
+            >
               {t('createPersonaPage.form.preferredEducationFields.label')}
             </Label>
-            <Input 
-              id="preferredEducationFields" 
-              name="preferredEducationFields" 
-              placeholder={t('createPersonaPage.form.preferredEducationFields.placeholder')} 
-              value={formData.preferredEducationFields} 
-              onChange={(e) => onCSVChange('preferredEducationFields', e.target.value)} 
+            <Input
+              id="preferredEducationFields"
+              name="preferredEducationFields"
+              placeholder={t('createPersonaPage.form.preferredEducationFields.placeholder')}
+              value={formData.preferredEducationFields}
+              onChange={(e) => onCSVChange('preferredEducationFields', e.target.value)}
             />
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="requiredCertifications" className="font-medium" style={{ color: colors.text }}>
+              <Label
+                htmlFor="requiredCertifications"
+                className="font-medium"
+                style={{ color: colors.text }}
+              >
                 {t('createPersonaPage.form.requiredCertifications.label')}
               </Label>
-              <Input 
-                id="requiredCertifications" 
-                name="requiredCertifications" 
-                placeholder={t('createPersonaPage.form.requiredCertifications.placeholder')} 
-                value={formData.requiredCertifications} 
-                onChange={(e) => onCSVChange('requiredCertifications', e.target.value)} 
+              <Input
+                id="requiredCertifications"
+                name="requiredCertifications"
+                placeholder={t('createPersonaPage.form.requiredCertifications.placeholder')}
+                value={formData.requiredCertifications}
+                onChange={(e) => onCSVChange('requiredCertifications', e.target.value)}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="preferredCertifications" className="font-medium" style={{ color: colors.text }}>
+              <Label
+                htmlFor="preferredCertifications"
+                className="font-medium"
+                style={{ color: colors.text }}
+              >
                 {t('createPersonaPage.form.preferredCertifications.label')}
               </Label>
-              <Input 
-                id="preferredCertifications" 
-                name="preferredCertifications" 
-                placeholder={t('createPersonaPage.form.preferredCertifications.placeholder')} 
-                value={formData.preferredCertifications} 
-                onChange={(e) => onCSVChange('preferredCertifications', e.target.value)} 
+              <Input
+                id="preferredCertifications"
+                name="preferredCertifications"
+                placeholder={t('createPersonaPage.form.preferredCertifications.placeholder')}
+                value={formData.preferredCertifications}
+                onChange={(e) => onCSVChange('preferredCertifications', e.target.value)}
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="languageRequirements" className="font-medium" style={{ color: colors.text }}>
+            <Label
+              htmlFor="languageRequirements"
+              className="font-medium"
+              style={{ color: colors.text }}
+            >
               {t('createPersonaPage.form.languageRequirements.label')}
             </Label>
-            <Input 
-              id="languageRequirements" 
-              name="languageRequirements" 
-              placeholder={t('createPersonaPage.form.languageRequirements.placeholder')} 
-              value={formData.languageRequirements} 
-              onChange={(e) => onCSVChange('languageRequirements', e.target.value)} 
+            <Input
+              id="languageRequirements"
+              name="languageRequirements"
+              placeholder={t('createPersonaPage.form.languageRequirements.placeholder')}
+              value={formData.languageRequirements}
+              onChange={(e) => onCSVChange('languageRequirements', e.target.value)}
             />
           </div>
         </div>
 
         {/* Competencies Section */}
         <div className="space-y-6">
-          <ImprovedCompetencyList 
-            title={t('createPersonaPage.form.requiredCompetencies.title')} 
-            list={formData.requiredCompetencies} 
-            onChange={onUpdateRequiredCompetencies} 
-            requireMandatory 
+          <ImprovedCompetencyList
+            title={t('createPersonaPage.form.requiredCompetencies.title')}
+            list={formData.requiredCompetencies}
+            onChange={onUpdateRequiredCompetencies}
+            requireMandatory
           />
-          <ImprovedCompetencyList 
-            title={t('createPersonaPage.form.preferredCompetencies.title')} 
-            list={formData.preferredCompetencies} 
-            onChange={onUpdatePreferredCompetencies} 
+          <ImprovedCompetencyList
+            title={t('createPersonaPage.form.preferredCompetencies.title')}
+            list={formData.preferredCompetencies}
+            onChange={onUpdatePreferredCompetencies}
           />
         </div>
 
         {/* Work Conditions */}
-        <ImprovedWorkConditionsList 
-          title={t('createPersonaPage.form.workConditions.title')} 
-          list={formData.workConditions} 
-          onChange={onUpdateWorkConditions} 
+        <ImprovedWorkConditionsList
+          title={t('createPersonaPage.form.workConditions.title')}
+          list={formData.workConditions}
+          onChange={onUpdateWorkConditions}
         />
       </CardContent>
     </Card>

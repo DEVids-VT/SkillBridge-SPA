@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { spacing, layouts, typography } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Info, User, Edit3 } from 'lucide-react';
 
 export default function CreatePage() {
@@ -76,15 +75,13 @@ export default function CreatePage() {
                   {/* Info Button */}
                   <div className="relative group/tooltip">
                     <div 
-                      className="w-8 h-8 rounded-full flex items-center justify-center cursor-help transition-colors"
-                      className="bg-primary/40"
+                      className={cn("w-8 h-8 rounded-full flex items-center justify-center cursor-help transition-colors", "bg-primary/40")}
                     >
                       <Info className="h-4 w-4 text-primary-foreground" />
                     </div>
                     
                     {/* Tooltip */}
-                    <div className="absolute right-0 top-10 w-64 p-3 rounded-lg border opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-opacity z-10"
-                         className="bg-background border-border">
+                    <div className={cn("absolute right-0 top-10 w-64 p-3 rounded-lg border opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-opacity z-10", "bg-background border-border")}>
                       <p className={cn('text-xs', typography.body.sm)}>
                         {t('createPage.personaCard.infoTooltip')}
                       </p>
@@ -128,15 +125,13 @@ export default function CreatePage() {
                   {/* Info Button */}
                   <div className="relative group/tooltip">
                     <div 
-                      className="w-8 h-8 rounded-full flex items-center justify-center cursor-help transition-colors"
-                      className="bg-primary/40"
+                      className={cn("w-8 h-8 rounded-full flex items-center justify-center cursor-help transition-colors", "bg-primary/40")}
                     >
                       <Info className="h-4 w-4 text-primary-foreground" />
                     </div>
                     
                     {/* Tooltip */}
-                    <div className="absolute right-0 top-10 w-64 p-3 rounded-lg border opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-opacity z-10"
-                         className="bg-background border-border">
+                    <div className={cn("absolute right-0 top-10 w-64 p-3 rounded-lg border opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-opacity z-10", "bg-background border-border")}>
                       <p className={cn('text-xs', typography.body.sm)}>
                         {t('createPage.manualCard.infoTooltip')}
                       </p>

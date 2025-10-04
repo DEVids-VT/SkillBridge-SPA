@@ -115,7 +115,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
           <div className="h-full flex flex-col">
             {/* Header */}
             <div className={cn(sidebar.sections.header)}>
-              <h1 className="text-xl font-semibold text-white">{title}</h1>
+              <h1 className="text-xl font-semibold text-foreground">{title}</h1>
             </div>
 
             {/* Content Area */}
@@ -170,17 +170,17 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
           >
             {/* Header */}
             <div className={cn(sidebar.sections.header)}>
-              <h1 className="text-xl font-semibold text-white">{title}</h1>
+              <h1 className="text-xl font-semibold text-foreground">{title}</h1>
               
               {/* Close button for mobile */}
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="text-white hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white" 
+                className="text-foreground hover:bg-muted hover:text-foreground focus:bg-muted focus:text-foreground" 
                 onClick={close}
                 aria-label="Close sidebar"
               >
-                <X className="h-6 w-6 text-white" />
+                <X className="h-6 w-6 text-foreground" />
               </Button>
             </div>
 

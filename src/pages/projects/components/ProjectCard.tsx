@@ -83,17 +83,13 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
             {project.skills.slice(0, 4).map((skill, index) => (
               <Badge 
                 key={index} 
-                className={cn(
-                  components.tag, 
-                  components.tagColors.blue,
-                  "text-xs px-2 py-1"
-                )}
+                className="text-xs px-2 py-1 bg-primary/20 text-primary border border-primary/30"
               >
                 {skill}
               </Badge>
             ))}
             {project.skills.length > 4 && (
-              <Badge className={cn(components.tag, components.tagColors.blue, "text-xs px-2 py-1")}>
+              <Badge className="text-xs px-2 py-1 bg-primary/20 text-primary border border-primary/30">
                 +{project.skills.length - 4} {t('projectsPage.projectCard.more')}
               </Badge>
             )}

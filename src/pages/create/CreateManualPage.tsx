@@ -17,15 +17,14 @@ import {
   TaskEditorItem,
 } from './components/ProjectAssignmentManualForm';
 
-// Initial manual assignment state
+// Initial manual assignment state with sensible defaults
 const initialFormState: ProjectAssignmentManualFormState = {
   title: '',
   description: '',
   summary: '',
   learningBenefits: '',
   suggestedApproach: '',
-  level: '1',
-  status: '0',
+  level: '1', // Default to Intermediate
   deadline: '',
   skillIdsInput: '',
   tasks: [],
@@ -52,7 +51,8 @@ export default function CreateManualPage() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // simple validation
+
+    // Comprehensive validation
     if (
       !formData.title.trim() ||
       !formData.summary.trim() ||
@@ -62,26 +62,44 @@ export default function CreateManualPage() {
       setNotification({
         show: true,
         type: 'error',
-        title: 'Missing fields',
-        message: 'Please fill title, summary, learning benefits, and suggested approach.',
-      });
-      return;
-    }
-    if (!formData.deadline) {
-      setNotification({
-        show: true,
-        type: 'error',
-        title: 'Missing deadline',
-        message: 'Please select a deadline.',
+        title: t('createManualPage.notifications.error.title'),
+        message:
+          'Please fill in all required fields: title, summary, learning benefits, and suggested approach.',
       });
       return;
     }
 
+    if (!formData.deadline) {
+      setNotification({
+        show: true,
+        type: 'error',
+        title: t('createManualPage.notifications.error.title'),
+        message: 'Please select a deadline for the project.',
+      });
+      return;
+    }
+
+    // Validate deadline is in the future
+    const deadlineDate = new Date(formData.deadline);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (deadlineDate < today) {
+      setNotification({
+        show: true,
+        type: 'error',
+        title: t('createManualPage.notifications.error.title'),
+        message: 'Deadline must be today or in the future.',
+      });
+      return;
+    }
+
+    // Parse skills from comma-separated input
     const skills = formData.skillIdsInput
       .split(',')
       .map((s) => s.trim())
       .filter(Boolean);
 
+    // Build the payload according to backend requirements
     const payload: CreateProjectAssignmentRequest = {
       title: formData.title.trim(),
       description: formData.description?.trim() || undefined,
@@ -90,7 +108,7 @@ export default function CreateManualPage() {
       suggestedApproach: formData.suggestedApproach.trim(),
       level: Number(formData.level) as 0 | 1 | 2,
       deadline: new Date(formData.deadline).toISOString(),
-      status: Number(formData.status) as 0 | 1 | 2 | 3,
+      status: 0, // Backend will manage status, default to Draft (0)
       skills,
       tasks: formData.tasks.map((t, idx) => ({
         title: t.title.trim(),

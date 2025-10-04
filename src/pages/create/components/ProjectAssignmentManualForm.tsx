@@ -9,16 +9,18 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
 } from '@/components/ui/select';
 import { colors, cards } from '@/lib/design-system';
-import TaskManagementEditor from '@/pages/company-projects/components/TaskManagementEditor';
+import { ManualTaskEditor, ManualTaskItem } from './ManualTaskEditor';
 
 export interface TaskEditorItem {
   title: string;
   description?: string;
   sequence: number;
 }
+
+// Re-export for compatibility
+export type { ManualTaskItem };
 
 export interface ProjectAssignmentManualFormState {
   title: string;
@@ -27,7 +29,6 @@ export interface ProjectAssignmentManualFormState {
   learningBenefits: string;
   suggestedApproach: string;
   level: '0' | '1' | '2';
-  status: '0' | '1' | '2' | '3';
   deadline: string; // yyyy-MM-dd
   skillIdsInput: string; // comma separated GUIDs
   tasks: TaskEditorItem[];
@@ -48,152 +49,197 @@ export function ProjectAssignmentManualForm({
   onSubmit,
   submitting,
 }: Props) {
+  // Helper function to get display text for difficulty level
+  const getLevelDisplay = (level: string) => {
+    const levelMap: Record<string, string> = {
+      '0': '🟢 Beginner',
+      '1': '🟡 Intermediate',
+      '2': '🔴 Advanced',
+    };
+    return levelMap[level] || level;
+  };
+
   return (
     <form onSubmit={onSubmit} className="space-y-6">
-      {/* Basics */}
+      {/* Basic Information */}
       <div className={cards.base}>
         <div className={cards.header}>
-          <h2 className="text-2xl font-bold text-white">Project Assignment</h2>
+          <h2 className="text-2xl font-bold text-white">Basic Information</h2>
+          <p className="text-sm mt-1" style={{ color: colors.textMuted }}>
+            Define the core details of your project assignment
+          </p>
         </div>
         <div className={cards.body}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <Label htmlFor="title" className="text-white">
-                Title
+            <div className="md:col-span-2">
+              <Label htmlFor="title" className="text-white flex items-center gap-1">
+                Project Title
+                <span style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="title"
                 value={state.title}
                 onChange={(e) => onChange({ title: e.target.value })}
-                placeholder="e.g., Build a Landing Page"
+                placeholder="e.g., Build a Responsive Landing Page"
+                required
+                className="mt-1.5"
               />
+              <p className="text-xs mt-1.5" style={{ color: colors.textMuted }}>
+                A clear, descriptive title that summarizes the project
+              </p>
             </div>
             <div>
-              <Label className="text-white">Level</Label>
+              <Label className="text-white flex items-center gap-1">
+                Difficulty Level
+                <span style={{ color: colors.error }}>*</span>
+              </Label>
               <Select
                 value={state.level}
                 onValueChange={(v) => onChange({ level: v as '0' | '1' | '2' })}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select level" />
+                <SelectTrigger className="mt-1.5">
+                  <span style={{ color: state.level ? colors.text : colors.textMuted }}>
+                    {state.level ? getLevelDisplay(state.level) : 'Select difficulty level'}
+                  </span>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Difficulty</SelectLabel>
-                    <SelectItem value="0">Beginner</SelectItem>
-                    <SelectItem value="1">Intermediate</SelectItem>
-                    <SelectItem value="2">Advanced</SelectItem>
+                    <SelectItem value="0">🟢 Beginner</SelectItem>
+                    <SelectItem value="1">🟡 Intermediate</SelectItem>
+                    <SelectItem value="2">🔴 Advanced</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <Label className="text-white">Status</Label>
-              <Select
-                value={state.status}
-                onValueChange={(v) => onChange({ status: v as '0' | '1' | '2' | '3' })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Status</SelectLabel>
-                    <SelectItem value="0">Draft</SelectItem>
-                    <SelectItem value="1">Published</SelectItem>
-                    <SelectItem value="2">Completed</SelectItem>
-                    <SelectItem value="3">Cancelled</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="deadline" className="text-white">
+              <Label htmlFor="deadline" className="text-white flex items-center gap-1">
                 Deadline
+                <span style={{ color: colors.error }}>*</span>
               </Label>
               <Input
                 id="deadline"
                 type="date"
                 value={state.deadline}
                 onChange={(e) => onChange({ deadline: e.target.value })}
+                required
+                className="mt-1.5"
+                min={new Date().toISOString().split('T')[0]}
               />
+              <p className="text-xs mt-1.5" style={{ color: colors.textMuted }}>
+                The target completion date for this project
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Descriptions */}
+      {/* Project Details */}
       <div className={cards.base}>
         <div className={cards.header}>
-          <h3 className="text-xl font-semibold text-white">Descriptions</h3>
+          <h3 className="text-xl font-semibold text-white">Project Details</h3>
+          <p className="text-sm mt-1" style={{ color: colors.textMuted }}>
+            Provide comprehensive information about the project
+          </p>
         </div>
         <div className={cards.body}>
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
-              <Label htmlFor="summary" className="text-white">
+              <Label htmlFor="summary" className="text-white flex items-center gap-1">
                 Summary
+                <span style={{ color: colors.error }}>*</span>
               </Label>
               <Textarea
                 id="summary"
                 value={state.summary}
                 onChange={(e) => onChange({ summary: e.target.value })}
-                placeholder="Short summary"
+                placeholder="Provide a concise overview of the project in 2-3 sentences"
+                required
+                rows={3}
+                className="mt-1.5"
               />
+              <p className="text-xs mt-1.5" style={{ color: colors.textMuted }}>
+                A brief overview that candidates will see first
+              </p>
             </div>
             <div>
               <Label htmlFor="description" className="text-white">
-                Description (optional)
+                Detailed Description <span style={{ color: colors.textMuted }}>(optional)</span>
               </Label>
               <Textarea
                 id="description"
                 value={state.description ?? ''}
                 onChange={(e) => onChange({ description: e.target.value })}
-                placeholder="Detailed description"
+                placeholder="Provide additional context, background, or specific requirements..."
+                rows={4}
+                className="mt-1.5"
               />
+              <p className="text-xs mt-1.5" style={{ color: colors.textMuted }}>
+                Add more detailed information if needed
+              </p>
             </div>
             <div>
-              <Label htmlFor="learningBenefits" className="text-white">
+              <Label htmlFor="learningBenefits" className="text-white flex items-center gap-1">
                 Learning Benefits
+                <span style={{ color: colors.error }}>*</span>
               </Label>
               <Textarea
                 id="learningBenefits"
                 value={state.learningBenefits}
                 onChange={(e) => onChange({ learningBenefits: e.target.value })}
-                placeholder="What will candidates learn?"
+                placeholder="What skills and knowledge will candidates gain? List the key learning outcomes..."
+                required
+                rows={4}
+                className="mt-1.5"
               />
+              <p className="text-xs mt-1.5" style={{ color: colors.textMuted }}>
+                Help candidates understand what they'll learn
+              </p>
             </div>
             <div>
-              <Label htmlFor="suggestedApproach" className="text-white">
+              <Label htmlFor="suggestedApproach" className="text-white flex items-center gap-1">
                 Suggested Approach
+                <span style={{ color: colors.error }}>*</span>
               </Label>
               <Textarea
                 id="suggestedApproach"
                 value={state.suggestedApproach}
                 onChange={(e) => onChange({ suggestedApproach: e.target.value })}
-                placeholder="How to approach the assignment"
+                placeholder="Provide guidance on how to tackle this project. Include recommended steps, methodologies, or best practices..."
+                required
+                rows={4}
+                className="mt-1.5"
               />
+              <p className="text-xs mt-1.5" style={{ color: colors.textMuted }}>
+                Guide candidates on the recommended approach
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Skills */}
+      {/* Required Skills */}
       <div className={cards.base}>
         <div className={cards.header}>
-          <h3 className="text-xl font-semibold text-white">Skills</h3>
+          <h3 className="text-xl font-semibold text-white">Required Skills</h3>
+          <p className="text-sm mt-1" style={{ color: colors.textMuted }}>
+            Define the skills needed for this project
+          </p>
         </div>
         <div className={cards.body}>
           <Label htmlFor="skills" className="text-white">
-            Skill Ids (comma-separated GUIDs)
+            Skill Names <span style={{ color: colors.textMuted }}>(optional)</span>
           </Label>
           <Input
             id="skills"
             value={state.skillIdsInput}
             onChange={(e) => onChange({ skillIdsInput: e.target.value })}
-            placeholder="guid1, guid2, ..."
+            placeholder="e.g., React, TypeScript, CSS, REST API"
+            className="mt-1.5"
           />
-          <p className="text-sm mt-2" style={{ color: colors.textMuted }}>
-            Enter existing Skill IDs from your system (optional).
+          <p className="text-xs mt-1.5" style={{ color: colors.textMuted }}>
+            Enter skill names separated by commas. These will be matched with existing skills in the
+            system.
           </p>
         </div>
       </div>
@@ -201,34 +247,47 @@ export function ProjectAssignmentManualForm({
       {/* Tasks */}
       <div className={cards.base}>
         <div className={cards.header}>
-          <h3 className="text-xl font-semibold text-white">Tasks</h3>
+          <h3 className="text-xl font-semibold text-white">Project Tasks</h3>
+          <p className="text-sm mt-1" style={{ color: colors.textMuted }}>
+            Break down the project into manageable tasks
+          </p>
         </div>
         <div className={cards.body}>
-          <TaskManagementEditor
-            projectId="" // Empty for new projects, tasks won't be saved individually here
-            initialTasks={state.tasks.map((t, idx) => ({
-              id: String(idx + 1),
-              title: t.title,
-              description: t.description ?? '',
-              isCompleted: false,
-              sequence: t.sequence,
-            }))}
-            onTasksChange={(tasks) => {
-              const mapped = tasks.map((t, idx) => ({
-                title: t.title,
-                description: t.description,
-                sequence: t.sequence ?? idx + 1,
-              }));
-              onTasksChange(mapped);
-            }}
-            showSaveButton={false}
-          />
+          <ManualTaskEditor tasks={state.tasks} onTasksChange={onTasksChange} />
         </div>
       </div>
 
-      <div className="flex justify-end gap-3">
-        <Button type="submit" disabled={submitting}>
-          {submitting ? 'Creating...' : 'Create Assignment'}
+      {/* Submit Section */}
+      <div
+        className="flex justify-between items-center p-6 rounded-2xl border-2"
+        style={{
+          backgroundColor: colors.blueDark,
+          borderColor: colors.borderLight,
+        }}
+      >
+        <div>
+          <p className="text-sm font-medium text-white">Ready to create your project?</p>
+          <p className="text-xs mt-1" style={{ color: colors.textMuted }}>
+            Make sure all required fields are filled out before submitting
+          </p>
+        </div>
+        <Button
+          type="submit"
+          disabled={submitting}
+          className="px-8 py-2 h-11 text-base font-semibold"
+          style={{
+            backgroundColor: colors.blue,
+            color: colors.white,
+            opacity: submitting ? 0.6 : 1,
+          }}
+        >
+          {submitting ? (
+            <>
+              <span className="animate-pulse">Creating Assignment...</span>
+            </>
+          ) : (
+            'Create Assignment'
+          )}
         </Button>
       </div>
     </form>

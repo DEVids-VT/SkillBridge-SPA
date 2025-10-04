@@ -4,18 +4,17 @@ import { useCompanyProfile } from '@/pages/company/hooks/useCompanyProfile';
 import { CreateProjectAssignmentRequest, ProjectAssignmentResponse } from '../types';
 
 /**
- * Creates a new Project Assignment via POST /api/c/{companyId}/projects
+ * Creates a new Project Assignment via POST /api/p?companyId={companyId}
  *
- * NOTE: If this endpoint returns 404, verify the backend route configuration.
- * Common alternatives: `/p/${companyId}`, `/projects/${companyId}`, or `/g/${companyId}`
- * The endpoint should match the backend controller's [Route] attribute.
+ * This endpoint creates a project assignment for the specified company.
+ * The companyId is passed as a query parameter.
  */
 const createProjectAssignment = async (params: {
   companyId: string;
   data: CreateProjectAssignmentRequest;
 }): Promise<ProjectAssignmentResponse> => {
   const response = await axiosInstance.post<ProjectAssignmentResponse>(
-    `/c/${params.companyId}/projects`,
+    `/p?companyId=${params.companyId}`,
     params.data,
     {
       headers: { 'Content-Type': 'application/json' },

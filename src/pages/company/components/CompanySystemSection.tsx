@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { colors, typography } from "@/lib/design-system";
+import { typography } from "@/lib/design-system";
 import {
   Select,
   SelectContent,
@@ -22,7 +22,7 @@ export default function CompanySystemSection({ theme, onThemeChange }: CompanySy
       <div>
         <p className="text-sm font-medium mb-2">Theme Preferences</p>
         <Select value={theme} onValueChange={onThemeChange}>
-          <SelectTrigger className={`w-[200px] bg-transparent border border-[${colors.blue}]`}>
+          <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="Select theme" />
           </SelectTrigger>
           <SelectContent>
@@ -34,7 +34,7 @@ export default function CompanySystemSection({ theme, onThemeChange }: CompanySy
       </div>
 
       {/* Support */}
-      <Button variant="outline" className={`border-[${colors.blue}] text-[${colors.white}]`}>
+      <Button variant="outline" className="border-border text-foreground">
         Support
       </Button>
     </div>

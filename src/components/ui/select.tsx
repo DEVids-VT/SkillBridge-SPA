@@ -2,7 +2,6 @@ import * as React from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronDown, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { colors } from '@/lib/design-system';
 
 interface SelectProps {
   value: string;
@@ -59,21 +58,15 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps & {
         onClick={() => !disabled && setOpen(!open)}
         className={cn(
           'flex h-9 w-full items-center justify-between rounded-md border px-3 py-1 text-sm shadow-sm focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+          'bg-background border-border text-foreground',
           className
         )}
-        style={{
-          backgroundColor: colors.surface,
-          borderColor: colors.border,
-          color: colors.text,
-          ...style,
-        }}
         disabled={disabled}
         {...props}
       >
         {children}
         <ChevronDown 
-          className="h-4 w-4 opacity-70" 
-          style={{ color: colors.textMuted }}
+          className="h-4 w-4 opacity-70 text-muted-foreground" 
         />
       </button>
     );
@@ -88,7 +81,7 @@ interface SelectValueProps {
 const SelectValue: React.FC<SelectValueProps> = ({ placeholder }) => {
   const { value } = useSelectContext();
   return (
-    <span style={{ color: value ? colors.text : colors.textMuted }}>
+    <span className={value ? 'text-foreground' : 'text-muted-foreground'}>
       {value || placeholder}
     </span>
   );
@@ -148,15 +141,13 @@ const SelectContent: React.FC<SelectContentProps> = ({ className, children }) =>
       ref={contentRef}
       className={cn(
         'fixed z-[9999] min-w-[8rem] overflow-hidden rounded-md border shadow-md',
+        'bg-popover border-border text-popover-foreground',
         className
       )}
       style={{ 
         top: position.top, 
         left: position.left, 
         width: position.width,
-        backgroundColor: colors.surface,
-        borderColor: colors.border,
-        color: colors.text,
       }}
     >
       <div className="p-1">{children}</div>
@@ -187,27 +178,25 @@ const SelectItem: React.FC<SelectItemProps> = ({ className, children, value }) =
       onClick={handleClick}
       className={cn(
         'relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none transition-colors',
+        'text-popover-foreground hover:bg-accent hover:text-accent-foreground',
+        isSelected && 'bg-accent text-accent-foreground',
         className
       )}
-      style={{
-        backgroundColor: isSelected ? colors.surfaceLight : 'transparent',
-        color: colors.text,
-      }}
       onMouseEnter={(e) => {
         if (!isSelected) {
-          e.currentTarget.style.backgroundColor = `${colors.surfaceLight}80`; // 50% opacity
+          e.currentTarget.classList.add('bg-accent', 'text-accent-foreground');
         }
       }}
       onMouseLeave={(e) => {
         if (!isSelected) {
-          e.currentTarget.style.backgroundColor = 'transparent';
+          e.currentTarget.classList.remove('bg-accent', 'text-accent-foreground');
         }
       }}
     >
       <span>{children}</span>
       {isSelected && (
         <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-          <Check className="h-4 w-4" style={{ color: colors.accent }} />
+          <Check className="h-4 w-4 text-accent-foreground" />
         </span>
       )}
     </div>
@@ -231,8 +220,7 @@ interface SelectLabelProps {
 const SelectLabel: React.FC<SelectLabelProps> = ({ className, children }) => {
   return (
     <div 
-      className={cn('px-2 py-1.5 text-sm font-semibold', className)}
-      style={{ color: colors.textSecondary }}
+      className={cn('px-2 py-1.5 text-sm font-semibold text-muted-foreground', className)}
     >
       {children}
     </div>
@@ -242,8 +230,7 @@ const SelectLabel: React.FC<SelectLabelProps> = ({ className, children }) => {
 const SelectSeparator: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <div 
-      className={cn('-mx-1 my-1 h-px', className)} 
-      style={{ backgroundColor: colors.border }}
+      className={cn('-mx-1 my-1 h-px bg-border', className)} 
     />
   );
 };

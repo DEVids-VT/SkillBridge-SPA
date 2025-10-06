@@ -90,7 +90,7 @@ export default function CompanyFormStep1({
           >
             <SelectValue placeholder={t('welcome.companyForm.selectIndustry') as string} />
           </SelectTrigger>
-          <SelectContent style={{ backgroundColor: colors.surface, borderColor: colors.blue }}>
+          <SelectContent>
             {industries.map((industry) => (
               <SelectItem key={industry} value={industry}>
                 {industry}

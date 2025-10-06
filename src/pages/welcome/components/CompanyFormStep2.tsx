@@ -60,7 +60,7 @@ export default function CompanyFormStep2({
           >
             <SelectValue placeholder={t('welcome.companyForm.selectCompanySize') as string} />
           </SelectTrigger>
-          <SelectContent style={{ backgroundColor: colors.surface, borderColor: colors.blue }}>
+          <SelectContent>
             {companySizes.map((size) => (
               <SelectItem key={size} value={size}>
                 {size} {t('welcome.companyForm.employees')}

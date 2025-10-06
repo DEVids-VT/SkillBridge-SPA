@@ -30,7 +30,7 @@ export default function CandidateSystemSection({ theme, onThemeChange }: Candida
       <div>
         <p className="text-sm font-medium mb-2">Theme Preferences</p>
         <Select value={theme} onValueChange={handleThemeChange}>
-          <SelectTrigger className="w-[200px] bg-transparent border border-border">
+          <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="Select theme" />
           </SelectTrigger>
           <SelectContent>

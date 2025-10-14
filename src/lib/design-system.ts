@@ -146,7 +146,7 @@ export const sidebar = {
 
   // Navigation link styles - theme-aware
   navigation: {
-    base: 'flex items-center gap-4 px-2 py-3 rounded-lg text-base font-medium transition-colors no-underline hover:no-underline',
+    base: 'flex items-center gap-4 px-2 py-3 mr-2 rounded-lg text-base font-medium transition-colors no-underline hover:no-underline',
     default: 'text-sidebar-foreground hover:bg-sidebar-accent/20 hover:text-sidebar-foreground',
     active: 'bg-sidebar-primary text-sidebar-primary-foreground font-semibold',
     icon: 'size-5',
@@ -155,13 +155,13 @@ export const sidebar = {
   // Button styles for sidebar - theme-aware
   buttons: {
     // Primary action button (Login)
-    primary: 'w-full bg-sidebar-primary hover:bg-sidebar-primary/80 text-sidebar-primary-foreground font-medium transition-colors py-3 text-base',
+    primary: 'w-full bg-sidebar-primary hover:bg-sidebar-primary/80 text-sidebar-primary-foreground font-medium transition-colors py-3 text-base mr-2',
 
     // Secondary action button (Language switcher)
-    secondary: 'w-full justify-start gap-4 text-sidebar-foreground hover:text-sidebar-primary-foreground hover:bg-sidebar-accent/20 transition-colors py-3 text-base',
+    secondary: 'w-full justify-start gap-4 text-sidebar-foreground hover:text-sidebar-primary-foreground hover:bg-sidebar-accent/20 transition-colors py-3 text-base mr-2',
 
     // Danger action button (Logout)
-    danger: 'w-full justify-start gap-4 text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors py-3 text-base',
+    danger: 'w-full justify-start gap-4 text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors py-3 text-base mr-2',
 
     // Logo link
     logo: 'flex items-center text-xl font-semibold text-sidebar-foreground no-underline hover:no-underline hover:text-sidebar-primary-foreground transition-colors',

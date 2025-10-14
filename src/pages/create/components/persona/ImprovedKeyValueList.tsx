@@ -31,19 +31,30 @@ export function ImprovedKeyValueList({ title, list, onChange }: KeyValueListProp
       </div>
       <div className="space-y-3">
         {list.map((item, index) => (
-          <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <Input
-              placeholder="Key"
-              value={item.key}
-              onChange={(e) => updatePair(index, { key: e.target.value })}
-            />
-            <Input
-              placeholder="Value"
-              value={item.value}
-              onChange={(e) => updatePair(index, { value: e.target.value })}
-            />
-            <div>
-              <Button type="button" variant="outline" onClick={() => removePair(index)}>Remove</Button>
+          <div key={index} className="space-y-3 p-4 border border-border rounded-lg bg-card/50">
+            {/* First row: Key and Value */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <Input
+                  placeholder="Key"
+                  value={item.key}
+                  onChange={(e) => updatePair(index, { key: e.target.value })}
+                />
+              </div>
+              <div>
+                <Input
+                  placeholder="Value"
+                  value={item.value}
+                  onChange={(e) => updatePair(index, { value: e.target.value })}
+                />
+              </div>
+            </div>
+            
+            {/* Second row: Remove button */}
+            <div className="flex justify-end">
+              <Button type="button" variant="outline" size="sm" onClick={() => removePair(index)}>
+                Remove
+              </Button>
             </div>
           </div>
         ))}

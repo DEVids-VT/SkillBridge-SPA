@@ -43,55 +43,67 @@ export function ImprovedCompetencyList({ title, list, onChange, requireMandatory
       </div>
       <div className="space-y-4">
         {list.map((item, index) => (
-          <div key={index} className="grid grid-cols-1 md:grid-cols-6 gap-3 items-start">
-            <div className="md:col-span-2">
-              <Input
-                placeholder="Competency name"
-                value={item.name}
-                onChange={(e) => updateItem(index, { name: e.target.value })}
-              />
+          <div key={index} className="space-y-3 p-4 border border-border rounded-lg bg-card/50">
+            {/* First row: Name and Type */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <Input
+                  placeholder="Competency name"
+                  value={item.name}
+                  onChange={(e) => updateItem(index, { name: e.target.value })}
+                />
+              </div>
+              <div>
+                <Select value={item.type} onValueChange={(v) => updateItem(index, { type: v as CompetencyType })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {typeOptions.map((opt) => (
+                      <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-            <div>
-              <Select value={item.type} onValueChange={(v) => updateItem(index, { type: v as CompetencyType })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {typeOptions.map((opt) => (
-                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            
+            {/* Second row: Level and Description */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <Select value={item.requiredLevel} onValueChange={(v) => updateItem(index, { requiredLevel: v as ProficiencyLevel })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {levelOptions.map((opt) => (
+                      <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Input
+                  placeholder="Short description"
+                  value={item.description}
+                  onChange={(e) => updateItem(index, { description: e.target.value })}
+                />
+              </div>
             </div>
-            <div>
-              <Select value={item.requiredLevel} onValueChange={(v) => updateItem(index, { requiredLevel: v as ProficiencyLevel })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Level" />
-                </SelectTrigger>
-                <SelectContent>
-                  {levelOptions.map((opt) => (
-                    <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="md:col-span-1">
-              <Input
-                placeholder="Short description"
-                value={item.description}
-                onChange={(e) => updateItem(index, { description: e.target.value })}
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <label className="flex items-center gap-2 text-sm">
+            
+            {/* Third row: Checkbox and Remove button */}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 text-sm text-card-foreground">
                 <input
                   type="checkbox"
                   checked={item.isMandatory}
                   onChange={(e) => updateItem(index, { isMandatory: e.target.checked })}
+                  className="rounded border-border"
                 />
                 Mandatory
               </label>
-              <Button type="button" variant="outline" onClick={() => removeItem(index)}>Remove</Button>
+              <Button type="button" variant="outline" size="sm" onClick={() => removeItem(index)}>
+                Remove
+              </Button>
             </div>
           </div>
         ))}

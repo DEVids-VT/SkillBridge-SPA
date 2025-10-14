@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { colors } from '@/lib/design-system';
 import { BasicInfoTab } from './BasicInfoTab';
 import { SkillsTab } from './SkillsTab';
 import { DetailsTab } from './DetailsTab';
@@ -148,31 +147,28 @@ export function CandidateRequirementsForm(props: CandidateRequirementsFormProps)
           <div className="flex items-center space-x-4">
             {TAB_ORDER.map((tab, index) => (
               <div key={tab} className="flex items-center">
-                            <div 
-              className={cn(
-                "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors",
-                index <= currentTabIndex 
-                  ? "text-white" 
-                  : "text-gray-400"
-              )}
-              style={{
-                backgroundColor: index <= currentTabIndex ? colors.accent : colors.borderLight
-              }}
-            >
-              {index + 1}
-            </div>
-            {index < TAB_ORDER.length - 1 && (
-              <div 
-                className="w-12 h-1 mx-2 transition-colors"
-                style={{
-                  backgroundColor: index < currentTabIndex ? colors.accent : colors.borderLight
-                }}
-              />
-            )}
+                <div 
+                  className={cn(
+                    "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors",
+                    index <= currentTabIndex 
+                      ? "text-accent-foreground bg-accent" 
+                      : "text-muted-foreground bg-muted"
+                  )}
+                >
+                  {index + 1}
+                </div>
+                {index < TAB_ORDER.length - 1 && (
+                  <div 
+                    className={cn(
+                      "w-12 h-1 mx-2 transition-colors",
+                      index < currentTabIndex ? "bg-accent" : "bg-muted"
+                    )}
+                  />
+                )}
           </div>
             ))}
           </div>
-          <div className="text-sm" style={{ color: colors.textMuted }}>
+          <div className="text-sm text-muted-foreground">
             {t('createPersonaPage.form.stepCounter', { current: currentTabIndex + 1, total: TAB_ORDER.length })}
           </div>
           </div>
@@ -223,39 +219,30 @@ export function CandidateRequirementsForm(props: CandidateRequirementsFormProps)
       </Tabs>
 
       {/* Navigation Buttons */}
-      <div className="flex items-center justify-between pt-6 border-t" style={{ borderColor: colors.border }}>
+      <div className="flex items-center justify-between pt-6 border-t border-border">
         <Button
           onClick={handlePrevious}
           disabled={!canGoPrevious}
           variant="outline"
-          className="border text-white hover:opacity-80"
-          style={{ 
-            backgroundColor: colors.surface, 
-            borderColor: colors.border,
-            color: colors.text
-          }}
+          className="border-border text-card-foreground hover:bg-muted"
         >
           <ChevronLeft className="h-4 w-4 mr-2" />
           {t('createPersonaPage.form.navigation.previous')}
         </Button>
         
-        <div className="text-sm" style={{ color: colors.textMuted }}>
+        <div className="text-sm text-muted-foreground">
           {getTabTitle(activeTab)}
         </div>
 
         <Button
           onClick={handleNext}
           disabled={!canGoNext}
-          className="text-white hover:opacity-80"
-          style={{ 
-            backgroundColor: colors.accent,
-            color: colors.text
-          }}
+          className="bg-accent text-accent-foreground hover:bg-accent/90"
         >
           {t('createPersonaPage.form.navigation.next')}
           <ChevronRight className="h-4 w-4 ml-2" />
         </Button>
-        </div>
+      </div>
       </div>
   );
 }

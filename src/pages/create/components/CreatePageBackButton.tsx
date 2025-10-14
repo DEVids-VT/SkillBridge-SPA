@@ -12,7 +12,7 @@ export default function CreatePageBackButton({ onBack, label }: CreatePageBackBu
       <Button
         onClick={onBack}
         variant="ghost"
-        className="flex items-center gap-2 text-white"
+        className="flex items-center gap-2 text-foreground hover:text-white hover:bg-accent transition-colors"
       >
         <ArrowLeft className="h-5 w-5" />
         {label}

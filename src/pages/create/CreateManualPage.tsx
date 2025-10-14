@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useCreateProject } from './hooks/useCreateProject';
-import { spacing, colors } from '@/lib/design-system';
+import { spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import {
   CreatePageBackground,
@@ -143,7 +143,7 @@ export default function CreateManualPage() {
   const isFormValid = formData.description.trim().length > 0;
 
   return (
-    <div className="relative min-h-screen" style={{ backgroundColor: colors.dark }}>
+    <div className="relative min-h-screen bg-background">
       <CreatePageBackground variant="manual" />
 
       <div className={cn(spacing.container, spacing.section)}>

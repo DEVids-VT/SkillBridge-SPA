@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { HelpCircle } from 'lucide-react';
-import { colors } from '@/lib/design-system';
 import { Input } from '@/components/ui/input';
 import { ImprovedCompetencyList } from './ImprovedCompetencyList';
 import { ImprovedWorkConditionsList } from './ImprovedWorkConditionsList';
@@ -32,100 +31,125 @@ export function SkillsTab({
   const { t } = useTranslation('createProject');
 
   return (
-    <Card 
-      className="border"
-      style={{ 
-        backgroundColor: `${colors.surface}80`, // 50% opacity
-        borderColor: colors.border 
-      }}
-    >
+    <Card className="border border-border bg-card/80">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2" style={{ color: colors.text }}>
+        <CardTitle className="flex items-center gap-2 text-card-foreground">
           {title}
-          <HelpCircle className="h-4 w-4" style={{ color: colors.textMuted }} />
+          <HelpCircle className="h-4 w-4 text-muted-foreground" />
         </CardTitle>
-        <CardDescription style={{ color: colors.textSecondary }}>
+        <CardDescription className="text-muted-foreground">
           {description}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Skills and Certifications */}
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="preferredEducationFields" className="font-medium" style={{ color: colors.text }}>
-              {t('createPersonaPage.form.preferredEducationFields.label')}
-            </Label>
-            <Input 
-              id="preferredEducationFields" 
-              name="preferredEducationFields" 
-              placeholder={t('createPersonaPage.form.preferredEducationFields.placeholder')} 
-              value={formData.preferredEducationFields} 
-              onChange={(e) => onCSVChange('preferredEducationFields', e.target.value)} 
-            />
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="requiredCertifications" className="font-medium" style={{ color: colors.text }}>
-                {t('createPersonaPage.form.requiredCertifications.label')}
-              </Label>
-              <Input 
-                id="requiredCertifications" 
-                name="requiredCertifications" 
-                placeholder={t('createPersonaPage.form.requiredCertifications.placeholder')} 
-                value={formData.requiredCertifications} 
-                onChange={(e) => onCSVChange('requiredCertifications', e.target.value)} 
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="preferredCertifications" className="font-medium" style={{ color: colors.text }}>
-                {t('createPersonaPage.form.preferredCertifications.label')}
-              </Label>
-              <Input 
-                id="preferredCertifications" 
-                name="preferredCertifications" 
-                placeholder={t('createPersonaPage.form.preferredCertifications.placeholder')} 
-                value={formData.preferredCertifications} 
-                onChange={(e) => onCSVChange('preferredCertifications', e.target.value)} 
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="languageRequirements" className="font-medium" style={{ color: colors.text }}>
-              {t('createPersonaPage.form.languageRequirements.label')}
-            </Label>
-            <Input 
-              id="languageRequirements" 
-              name="languageRequirements" 
-              placeholder={t('createPersonaPage.form.languageRequirements.placeholder')} 
-              value={formData.languageRequirements} 
-              onChange={(e) => onCSVChange('languageRequirements', e.target.value)} 
-            />
-          </div>
+        
+        {/* Preferred Education Fields */}
+        <div className="space-y-2">
+          <Label htmlFor="preferredEducationFields" className="font-medium text-card-foreground">
+            {t('createPersonaPage.form.preferredEducationFields.label')}
+          </Label>
+          <Input
+            id="preferredEducationFields"
+            name="preferredEducationFields"
+            placeholder={t('createPersonaPage.form.preferredEducationFields.placeholder')}
+            value={formData.preferredEducationFields}
+            onChange={(e) => onCSVChange('preferredEducationFields', e.target.value)}
+            className="bg-card border-border text-card-foreground placeholder:text-muted-foreground"
+          />
+          <p className="text-sm text-muted-foreground">
+            {t('createPersonaPage.form.preferredEducationFields.help')}
+          </p>
         </div>
 
-        {/* Competencies Section */}
-        <div className="space-y-6">
-          <ImprovedCompetencyList 
-            title={t('createPersonaPage.form.requiredCompetencies.title')} 
-            list={formData.requiredCompetencies} 
-            onChange={onUpdateRequiredCompetencies} 
-            requireMandatory 
+        {/* Required Certifications */}
+        <div className="space-y-2">
+          <Label htmlFor="requiredCertifications" className="font-medium text-card-foreground">
+            {t('createPersonaPage.form.requiredCertifications.label')}
+          </Label>
+          <Input
+            id="requiredCertifications"
+            name="requiredCertifications"
+            placeholder={t('createPersonaPage.form.requiredCertifications.placeholder')}
+            value={formData.requiredCertifications}
+            onChange={(e) => onCSVChange('requiredCertifications', e.target.value)}
+            className="bg-card border-border text-card-foreground placeholder:text-muted-foreground"
           />
-          <ImprovedCompetencyList 
-            title={t('createPersonaPage.form.preferredCompetencies.title')} 
-            list={formData.preferredCompetencies} 
-            onChange={onUpdatePreferredCompetencies} 
+          <p className="text-sm text-muted-foreground">
+            {t('createPersonaPage.form.requiredCertifications.help')}
+          </p>
+        </div>
+
+        {/* Preferred Certifications */}
+        <div className="space-y-2">
+          <Label htmlFor="preferredCertifications" className="font-medium text-card-foreground">
+            {t('createPersonaPage.form.preferredCertifications.label')}
+          </Label>
+          <Input
+            id="preferredCertifications"
+            name="preferredCertifications"
+            placeholder={t('createPersonaPage.form.preferredCertifications.placeholder')}
+            value={formData.preferredCertifications}
+            onChange={(e) => onCSVChange('preferredCertifications', e.target.value)}
+            className="bg-card border-border text-card-foreground placeholder:text-muted-foreground"
+          />
+          <p className="text-sm text-muted-foreground">
+            {t('createPersonaPage.form.preferredCertifications.help')}
+          </p>
+        </div>
+
+        {/* Required Competencies */}
+        <div className="space-y-3">
+          <Label className="font-medium text-card-foreground">
+            {t('createPersonaPage.form.requiredCompetencies.label')}
+          </Label>
+          <ImprovedCompetencyList
+            title=""
+            list={formData.requiredCompetencies}
+            onChange={onUpdateRequiredCompetencies}
+          />
+        </div>
+
+        {/* Preferred Competencies */}
+        <div className="space-y-3">
+          <Label className="font-medium text-card-foreground">
+            {t('createPersonaPage.form.preferredCompetencies.label')}
+          </Label>
+          <ImprovedCompetencyList
+            title=""
+            list={formData.preferredCompetencies}
+            onChange={onUpdatePreferredCompetencies}
           />
         </div>
 
         {/* Work Conditions */}
-        <ImprovedWorkConditionsList 
-          title={t('createPersonaPage.form.workConditions.title')} 
-          list={formData.workConditions} 
-          onChange={onUpdateWorkConditions} 
-        />
+        <div className="space-y-3">
+          <Label className="font-medium text-card-foreground">
+            {t('createPersonaPage.form.workConditions.label')}
+          </Label>
+          <ImprovedWorkConditionsList
+            title=""
+            list={formData.workConditions}
+            onChange={onUpdateWorkConditions}
+          />
+        </div>
+
+        {/* Language Requirements */}
+        <div className="space-y-2">
+          <Label htmlFor="languageRequirements" className="font-medium text-card-foreground">
+            {t('createPersonaPage.form.languageRequirements.label')}
+          </Label>
+          <Input
+            id="languageRequirements"
+            name="languageRequirements"
+            placeholder={t('createPersonaPage.form.languageRequirements.placeholder')}
+            value={formData.languageRequirements}
+            onChange={(e) => onCSVChange('languageRequirements', e.target.value)}
+            className="bg-card border-border text-card-foreground placeholder:text-muted-foreground"
+          />
+          <p className="text-sm text-muted-foreground">
+            {t('createPersonaPage.form.languageRequirements.help')}
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

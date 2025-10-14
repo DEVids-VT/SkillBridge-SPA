@@ -1,6 +1,5 @@
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { colors, cards, typography } from '@/lib/design-system';
 import { useTranslation } from 'react-i18next';
 import { CreateManualForm, CreateManualFormErrors } from '../types';
 
@@ -18,8 +17,8 @@ export default function CreateManualFormComponent({
   const { t } = useTranslation('createProject');
 
   return (
-    <div className={cards.base}>
-      <div className={cards.header}>
+    <div className="border-2 border-border bg-card rounded-xl overflow-hidden shadow-sm hover:border-accent transition-colors">
+      <div className="p-6 border-b border-border">
         <h2 className="text-2xl font-bold text-card-foreground">
           <span 
             className="inline-block w-2 h-6 mr-3 rounded bg-accent"
@@ -28,7 +27,7 @@ export default function CreateManualFormComponent({
         </h2>
       </div>
       
-      <div className={cards.body}>
+      <div className="p-6">
         <div className="space-y-6">
           <div className="space-y-3">
             <Label htmlFor="description" className="text-card-foreground font-medium">
@@ -43,9 +42,9 @@ export default function CreateManualFormComponent({
               className={`min-h-40 resize-none bg-card border-border text-card-foreground ${formErrors.description ? 'border-destructive' : ''}`}
             />
             {formErrors.description && (
-              <p className="text-red-400 text-sm mt-1">{formErrors.description}</p>
+              <p className="text-destructive text-sm mt-1">{formErrors.description}</p>
             )}
-            <p className="text-gray-400 text-sm">
+            <p className="text-muted-foreground text-sm">
               {t('createManualPage.form.description.help')}
             </p>
           </div>

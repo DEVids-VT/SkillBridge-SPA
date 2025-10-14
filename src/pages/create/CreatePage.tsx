@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { spacing, layouts, typography } from '@/lib/design-system';
+import { spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Info, User, Edit3 } from 'lucide-react';
@@ -43,13 +43,13 @@ export default function CreatePage() {
 
       <div className={cn(spacing.container, spacing.section)}>
         {/* Page Header */}
-        <div className={layouts.pageHeader}>
-          <div className={layouts.pageHeaderBackground} />
-          <h1 className={layouts.pageTitle}>
+        <div className="text-center mb-16 relative">
+          <div className="absolute -top-10 left-0 right-0 h-20 bg-gradient-to-r from-primary to-secondary rounded-b-3xl -z-10" />
+          <h1 className="font-playfair text-4xl md:text-5xl font-bold text-white mb-6">
             <span className="text-accent">{t('createPage.header.title1')}</span>{' '}
             <span className="text-foreground">{t('createPage.header.title2')}</span>
           </h1>
-          <p className={layouts.pageDescription}>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-10">
             {t('createPage.header.subtitle')}
           </p>
         </div>
@@ -82,7 +82,7 @@ export default function CreatePage() {
                     
                     {/* Tooltip */}
                     <div className={cn("absolute right-0 top-10 w-64 p-3 rounded-lg border opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-opacity z-10", "bg-background border-border")}>
-                      <p className={cn('text-xs', typography.body.sm)}>
+                      <p className="text-xs text-muted-foreground">
                         {t('createPage.personaCard.infoTooltip')}
                       </p>
                     </div>
@@ -91,11 +91,11 @@ export default function CreatePage() {
 
                 {/* Card Content */}
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-bold mb-3 text-white">
+                  <h3 className="text-2xl font-bold mb-3 text-card-foreground">
                     {t('createPage.personaCard.title')}
                   </h3>
                   
-                  <p className={cn(typography.body.default, 'leading-relaxed mb-6 min-h-[60px] flex items-center')}>
+                  <p className="text-base text-muted-foreground leading-relaxed mb-6 min-h-[60px] flex items-center">
                     {t('createPage.personaCard.description')}
                   </p>
 
@@ -132,7 +132,7 @@ export default function CreatePage() {
                     
                     {/* Tooltip */}
                     <div className={cn("absolute right-0 top-10 w-64 p-3 rounded-lg border opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-opacity z-10", "bg-background border-border")}>
-                      <p className={cn('text-xs', typography.body.sm)}>
+                      <p className="text-xs text-muted-foreground">
                         {t('createPage.manualCard.infoTooltip')}
                       </p>
                     </div>
@@ -141,11 +141,11 @@ export default function CreatePage() {
 
                 {/* Card Content */}
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-bold mb-3 text-white">
+                  <h3 className="text-2xl font-bold mb-3 text-card-foreground">
                     {t('createPage.manualCard.title')}
                   </h3>
                   
-                  <p className={cn(typography.body.default, 'leading-relaxed mb-6 min-h-[60px] flex items-center')}>
+                  <p className="text-base text-muted-foreground leading-relaxed mb-6 min-h-[60px] flex items-center">
                     {t('createPage.manualCard.description')}
                   </p>
 

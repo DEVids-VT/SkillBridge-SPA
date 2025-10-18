@@ -9,7 +9,6 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
-import { colors } from '@/lib/design-system';
 
 // Industry options
 const industries = [
@@ -59,16 +58,16 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="companyName">
           {t('welcome.companyForm.companyName')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Input
           id="companyName"
           value={formData.companyName}
           onChange={(e) => onFieldChange('companyName', e.target.value)}
-          style={errors.companyName ? { borderColor: colors.error } : undefined}
+          className={errors.companyName ? 'border-destructive' : ''}
         />
         {errors.companyName && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.companyNameRequired')}
           </p>
         )}
@@ -77,7 +76,7 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="industry">
           {t('welcome.companyForm.industry')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Select
           value={formData.industry}
@@ -85,8 +84,7 @@ export default function CompanyFormStep1({
         >
           <SelectTrigger
             id="industry"
-            className="w-full"
-            style={errors.industry ? { borderColor: colors.error } : undefined}
+            className={`w-full ${errors.industry ? 'border-destructive' : ''}`}
           >
             <SelectValue placeholder={t('welcome.companyForm.selectIndustry') as string} />
           </SelectTrigger>
@@ -99,7 +97,7 @@ export default function CompanyFormStep1({
           </SelectContent>
         </Select>
         {errors.industry && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.industryRequired')}
           </p>
         )}
@@ -108,7 +106,7 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="activities">
           {t('welcome.companyForm.activities')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Textarea
           id="activities"
@@ -116,10 +114,10 @@ export default function CompanyFormStep1({
           value={formData.activities || ''}
           onChange={(e) => onFieldChange('activities', e.target.value)}
           rows={2}
-          style={errors.activities ? { borderColor: colors.error } : undefined}
+          className={errors.activities ? 'border-destructive' : ''}
         />
         {errors.activities && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.activitiesRequired')}
           </p>
         )}
@@ -128,17 +126,17 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="headquarters">
           {t('welcome.companyForm.headquarters')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Input
           id="headquarters"
           placeholder={t('welcome.companyForm.headquartersPlaceholder')}
           value={formData.headquarters || ''}
           onChange={(e) => onFieldChange('headquarters', e.target.value)}
-          style={errors.headquarters ? { borderColor: colors.error } : undefined}
+          className={errors.headquarters ? 'border-destructive' : ''}
         />
         {errors.headquarters && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.headquartersRequired')}
           </p>
         )}
@@ -147,7 +145,7 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="yearEstablished">
           {t('welcome.companyForm.yearEstablished')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Input
           id="yearEstablished"
@@ -157,10 +155,10 @@ export default function CompanyFormStep1({
           placeholder={t('welcome.companyForm.placeholders.yearEstablished')}
           value={formData.yearEstablished || ''}
           onChange={(e) => onFieldChange('yearEstablished', e.target.value)}
-          style={errors.yearEstablished ? { borderColor: colors.error } : undefined}
+          className={errors.yearEstablished ? 'border-destructive' : ''}
         />
         {errors.yearEstablished && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.yearEstablishedRequired')}
           </p>
         )}
@@ -169,7 +167,7 @@ export default function CompanyFormStep1({
       <div className="space-y-2">
         <Label htmlFor="technologies">
           {t('welcome.companyForm.technologies')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Input
           id="technologies"
@@ -179,14 +177,14 @@ export default function CompanyFormStep1({
             const techArray = e.target.value.split(', ').filter(Boolean);
             onTechnologiesChange(techArray);
           }}
-          style={errors.technologies ? { borderColor: colors.error } : undefined}
+          className={errors.technologies ? 'border-destructive' : ''}
         />
         {errors.technologies && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.technologiesRequired')}
           </p>
         )}
-        <p className="text-sm" style={{ color: colors.textMuted }}>
+        <p className="text-sm text-muted-foreground">
           {t('welcome.companyForm.technologiesHelp')}
         </p>
       </div>

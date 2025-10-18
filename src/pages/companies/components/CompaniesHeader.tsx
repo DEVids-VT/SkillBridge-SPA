@@ -17,13 +17,13 @@ export const CompaniesHeader = ({
   const { t } = useTranslation('companies');
 
   return (
-    <div className={layouts.pageHeader + ' text-white'}>
+    <div className={layouts.pageHeader + ' text-foreground'}>
       <div className={layouts.pageHeaderBackground}></div>
       <h1 className={layouts.pageTitle}>
-        <span className="text-[#ffd60a]">{t('companiesPage.header.title1')}</span>{' '}
-        <span className="text-white">{t('companiesPage.header.title2')}</span>
+        <span className="text-accent">{t('companiesPage.header.title1')}</span>{' '}
+        <span className="text-foreground">{t('companiesPage.header.title2')}</span>
       </h1>
-      <p className={layouts.pageDescription + ' text-gray-300'}>
+      <p className={layouts.pageDescription + ' text-muted-foreground'}>
         {t('companiesPage.header.subtitle')}
       </p>
 
@@ -33,19 +33,19 @@ export const CompaniesHeader = ({
           <Input
             type="text"
             placeholder={t('companiesPage.header.searchPlaceholder')}
-            className="h-14 pl-6 pr-12 rounded-full shadow-sm border border-[#003566] bg-[#001d3d] text-white placeholder-gray-400"
+            className="h-14 pl-6 pr-12 rounded-full shadow-sm border border-border bg-card text-foreground placeholder-muted-foreground"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <button
             type="submit"
-            className="absolute right-4 bg-[#ffc300] hover:bg-[#ffd60a] text-[#001d3d] rounded-full p-2 transition-colors"
+            className="absolute right-4 bg-accent hover:bg-accent/80 text-accent-foreground rounded-full p-2 transition-colors"
             aria-label={t('companiesPage.header.searchAriaLabel')}
           >
             <Search className="h-5 w-5" />
           </button>
         </div>
-        <div className="flex justify-center gap-4 mt-4 text-sm text-gray-400">
+        <div className="flex justify-center gap-4 mt-4 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <Building2 size={14} /> {t('companiesPage.header.topCompanies')}
           </span>

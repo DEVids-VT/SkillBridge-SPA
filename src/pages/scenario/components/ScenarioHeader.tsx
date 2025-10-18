@@ -10,38 +10,28 @@ interface ScenarioHeaderProps {
 
 export default function ScenarioHeader({ onBack, onShare, onDownload }: ScenarioHeaderProps) {
   return (
-    <div className={layouts.pageHeader}>
+    <div className="text-center mb-8 relative">
       <div className={layouts.pageHeaderBackground}></div>
       <div className="flex items-center justify-between">
         <Button
           onClick={onBack}
           variant="outline"
-          style={{ 
-            color: colors.white, 
-            borderColor: colors.blue, 
-            backgroundColor: 'transparent' 
-          }}
-          className="hover:opacity-80"
+          className="text-foreground border-border bg-transparent hover:opacity-80"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Create
         </Button>
         
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-2" style={{ color: colors.white }}>Scenario Generated</h1>
-          <p style={{ color: colors.white, opacity: 0.7 }}>Ready for implementation and testing</p>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">Scenario Generated</h1>
+          <p className="text-foreground opacity-70">Ready for implementation and testing</p>
         </div>
 
         <div className="flex space-x-2">
           <Button
             onClick={onShare}
             variant="outline"
-            style={{ 
-              color: colors.white, 
-              borderColor: colors.blue, 
-              backgroundColor: 'transparent' 
-            }}
-            className="hover:opacity-80"
+            className="text-foreground border-border bg-transparent hover:opacity-80"
           >
             <Share2 className="h-4 w-4 mr-2" />
             Share
@@ -49,12 +39,7 @@ export default function ScenarioHeader({ onBack, onShare, onDownload }: Scenario
           <Button
             onClick={onDownload}
             variant="outline"
-            style={{ 
-              color: colors.white, 
-              borderColor: colors.blue, 
-              backgroundColor: 'transparent' 
-            }}
-            className="hover:opacity-80"
+            className="text-foreground border-border bg-transparent hover:opacity-80"
           >
             <Download className="h-4 w-4 mr-2" />
             Download

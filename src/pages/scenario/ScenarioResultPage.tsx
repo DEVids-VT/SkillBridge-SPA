@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { spacing, colors } from '@/lib/design-system';
+import { spacing } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import {
   ScenarioLoadingState,
@@ -121,7 +121,7 @@ Your task is to:
   }
 
   return (
-    <div className={cn(spacing.container, spacing.section, 'relative min-h-screen')} style={{ backgroundColor: colors.dark }}>
+    <div className={cn(spacing.container, 'py-8 relative min-h-screen bg-background')}>
       <ScenarioBackground />
       
       <ScenarioHeader 

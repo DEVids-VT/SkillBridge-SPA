@@ -14,7 +14,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
   const { t } = useTranslation('landing');
 
   return (
-    <section className={cn('relative min-h-screen overflow-hidden bg-gradient-to-br from-[#000814] via-[#001d3d] to-[#003566]', 'py-20')}>
+    <section className={cn('relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-card to-primary', 'py-20')}>
       {/* Modern Dots Background Pattern */}
       <div className="absolute inset-0 opacity-20">
         <div
@@ -28,13 +28,13 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
       </div>
 
       {/* Gradient overlay for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#001d3d]/80 via-[#000814]/60 to-[#001d3d]/80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-card/80 via-background/60 to-card/80" />
 
       {/* Content Container */}
       <div className={cn('relative z-10', 'container mx-auto px-6 lg:px-8')}>
         {/* Section Header */}
         <div className="text-center mb-16 space-y-6">
-          <div className={cn(components.tag, components.tagColors.blue, 'inline-flex items-center space-x-2 border border-[#ffd60a]')}>
+          <div className={cn(components.tag, components.tagColors.blue, 'inline-flex items-center space-x-2 border border-accent')}>
             <Building2 className="h-4 w-4" />
             <span>{t('landingPage.companyMarquee.badge')}</span>
           </div>
@@ -43,7 +43,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
             {t('landingPage.companyMarquee.title')}
           </h2>
 
-          <p className={cn(typography.body.lg, 'text-[#ffd60a] max-w-3xl mx-auto leading-relaxed')}>
+          <p className={cn(typography.body.lg, 'text-accent max-w-3xl mx-auto leading-relaxed')}>
             {t('landingPage.companyMarquee.subtitle')}
           </p>
         </div>
@@ -69,10 +69,10 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
 
                 {/* Company Info */}
                 <div className="text-center space-y-1">
-                  <h3 className={cn(typography.body.default, 'text-sm font-semibold group-hover:text-[#ffd60a] transition-colors duration-300 line-clamp-1')}>
+                  <h3 className={cn(typography.body.default, 'text-sm font-semibold group-hover:text-accent transition-colors duration-300 line-clamp-1')}>
                     {company.name}
                   </h3>
-                  <p className={cn(typography.body.sm, 'text-[#ffd60a]')}>{company.industry}</p>
+                  <p className={cn(typography.body.sm, 'text-accent')}>{company.industry}</p>
                 </div>
               </div>
             </div>
@@ -83,7 +83,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
         <div className={cn(layouts.grid.cards3, 'max-w-4xl mx-auto mb-16')}>
           <div className={cn(cards.base, 'text-center backdrop-blur-sm')}>
             <div className={cards.body}>
-              <div className={cn(typography.heading[2], 'text-[#ffd60a] mb-2')}>50+</div>
+              <div className={cn(typography.heading[2], 'text-accent mb-2')}>50+</div>
               <div className={cn(typography.body.default, 'font-medium')}>
                 {t('landingPage.companyMarquee.stats.companies')}
               </div>
@@ -91,7 +91,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
           </div>
           <div className={cn(cards.base, 'text-center backdrop-blur-sm')}>
             <div className={cards.body}>
-              <div className={cn(typography.heading[2], 'text-[#ffd60a] mb-2')}>500+</div>
+              <div className={cn(typography.heading[2], 'text-accent mb-2')}>500+</div>
               <div className={cn(typography.body.default, 'font-medium')}>
                 {t('landingPage.companyMarquee.stats.projects')}
               </div>
@@ -99,7 +99,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
           </div>
           <div className={cn(cards.base, 'text-center backdrop-blur-sm')}>
             <div className={cards.body}>
-              <div className={cn(typography.heading[2], 'text-[#ffd60a] mb-2')}>95%</div>
+              <div className={cn(typography.heading[2], 'text-accent mb-2')}>95%</div>
               <div className={cn(typography.body.default, 'font-medium')}>
                 {t('landingPage.companyMarquee.stats.success')}
               </div>
@@ -113,7 +113,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
             <h3 className={typography.heading[3]}>
               {t('landingPage.companyMarquee.cta.title')}
             </h3>
-            <p className={cn(typography.body.lg, 'text-[#ffd60a] max-w-2xl mx-auto')}>
+            <p className={cn(typography.body.lg, 'text-accent max-w-2xl mx-auto')}>
               {t('landingPage.companyMarquee.cta.subtitle')}
             </p>
           </div>
@@ -122,7 +122,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
             <Button
               asChild
               size="lg"
-              className="bg-[#ffc300] hover:bg-[#ffd60a] text-[#001d3d] px-8 py-4 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="bg-accent hover:bg-accent/80 text-accent-foreground px-8 py-4 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               <Link to="/companies" className="flex items-center gap-2">
                 {t('landingPage.companyMarquee.cta.joinButton')}
@@ -134,7 +134,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
               asChild
               variant="outline"
               size="lg"
-              className="border-2 border-[#003566] hover:border-[#ffd60a] text-white hover:text-[#ffd60a] bg-[#001d3d]/80 backdrop-blur-sm px-8 py-4 text-lg font-medium rounded-xl transition-all duration-300"
+              className="border-2 border-primary hover:border-accent text-foreground hover:text-accent bg-card/80 backdrop-blur-sm px-8 py-4 text-lg font-medium rounded-xl transition-all duration-300"
             >
               <Link to="/about">{t('landingPage.companyMarquee.cta.learnMoreButton')}</Link>
             </Button>
@@ -143,7 +143,7 @@ export const CompanyMarquee = ({ companies }: CompanyMarqueeProps) => {
       </div>
 
       {/* Reduced Floating Elements - Only one static bubble */}
-      <div className="absolute top-1/4 right-16 w-20 h-20 bg-[#ffc300] rounded-full mix-blend-multiply filter blur-xl opacity-40" />
+      <div className="absolute top-1/4 right-16 w-20 h-20 bg-accent rounded-full mix-blend-multiply filter blur-xl opacity-40" />
     </section>
   );
 };

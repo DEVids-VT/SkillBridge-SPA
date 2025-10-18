@@ -47,7 +47,7 @@ export default function CompanyFormStep2({
       <div className="space-y-2">
         <Label htmlFor="companySize">
           {t('welcome.companyForm.companySize')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Select
           value={formData.companySize}
@@ -69,7 +69,7 @@ export default function CompanyFormStep2({
           </SelectContent>
         </Select>
         {errors.companySize && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.companySizeRequired')}
           </p>
         )}
@@ -78,7 +78,7 @@ export default function CompanyFormStep2({
       <div className="space-y-2">
         <Label htmlFor="website">
           {t('welcome.companyForm.website')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Input
           id="website"
@@ -89,7 +89,7 @@ export default function CompanyFormStep2({
           style={errors.website ? { borderColor: colors.error } : undefined}
         />
         {errors.website && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.websiteRequired')}
           </p>
         )}
@@ -98,7 +98,7 @@ export default function CompanyFormStep2({
       <div className="space-y-2">
         <Label htmlFor="employeesWorldwide">
           {t('welcome.companyForm.globalEmployees')}
-          <span className="ml-1" style={{ color: colors.error }}>*</span>
+          <span className="ml-1 text-destructive">*</span>
         </Label>
         <Input
           id="employeesWorldwide"
@@ -110,7 +110,7 @@ export default function CompanyFormStep2({
           style={errors.globalEmployees ? { borderColor: colors.error } : undefined}
         />
         {errors.globalEmployees && (
-          <p className="text-sm mt-1" style={{ color: colors.error }}>
+          <p className="text-sm mt-1 text-destructive">
             {t('welcome.companyForm.globalEmployeesRequired')}
           </p>
         )}
@@ -126,7 +126,7 @@ export default function CompanyFormStep2({
             checked={formData.hasOfficesInBulgaria || false}
             onCheckedChange={(checked) => onCheckboxChange('hasOfficesInBulgaria', Boolean(checked))}
           />
-          <span className="text-sm" style={{ color: colors.textSecondary }}>
+          <span className="text-sm text-muted-foreground">
             {t('welcome.companyForm.hasOfficesInBulgaria')}
           </span>
         </div>
@@ -161,7 +161,7 @@ export default function CompanyFormStep2({
               onBulgarianOfficesChange(officesArray);
             }}
           />
-          <p className="text-sm" style={{ color: colors.textMuted }}>
+          <p className="text-sm text-muted-foreground">
             {t('welcome.companyForm.bulgarianOfficesHelp')}
           </p>
         </div>

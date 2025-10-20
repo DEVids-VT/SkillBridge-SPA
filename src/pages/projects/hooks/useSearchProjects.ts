@@ -1,29 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '@/components/axios-interceptor/AxiosInterceptor';
-import { SearchProjectsRequest, SearchProjectsResponse, PaginationMetadata } from '../types';
+import {
+  SearchProjectsRequest,
+  SearchProjectsResponse,
+  PaginationMetadata,
+  ProjectResponse,
+} from '../types';
 
 export interface Skill {
   id: string;
   name: string;
   description: string;
-}
-
-export interface ProjectResponse {
-  id: string;
-  title: string;
-  description: string;
-  summary: string;
-  learningBenefits: string;
-  suggestedApproach: string;
-  level: number;
-  deadline: string;
-  status: number;
-  companyId: string;
-  companyName: string;
-  companySector?: string;
-  skills: Skill[];
-  createdAt: string;
-  updatedAt: string;
 }
 
 /**
@@ -32,7 +19,7 @@ export interface ProjectResponse {
  * Query Parameters:
  * - Title: Filter by project title (partial match)
  * - Level: Filter by difficulty level (0=Beginner, 1=Intermediate, 2=Advanced)
- * - DeadlineAfter: Only show projects with deadline after this date (ISO string)
+ * - DurationAfter: Only show projects with duration after this date (ISO string)
  * - CompanyName: Filter by company name
  * - CompanySector: Filter by company sector
  * - ProjectSkills: Array of skill names to filter by
@@ -47,7 +34,7 @@ const searchProjects = async (filters: SearchProjectsRequest): Promise<SearchPro
   // Add filter parameters
   if (filters.title) params.append('Title', filters.title);
   if (filters.level !== undefined) params.append('Level', String(filters.level));
-  if (filters.deadlineAfter) params.append('DeadlineAfter', filters.deadlineAfter);
+  if (filters.durationAfter) params.append('DurationAfter', filters.durationAfter);
   if (filters.companyName) params.append('CompanyName', filters.companyName);
   if (filters.companySector) params.append('CompanySector', filters.companySector);
   if (filters.projectSkills && filters.projectSkills.length > 0) {

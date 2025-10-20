@@ -14,14 +14,14 @@ interface ProjectsFilterSidebarProps {
   companyName: string;
   companySector: string;
   selectedSkills: string[];
-  deadlineAfter?: Date;
+  durationAfter?: Date;
   isCompany: boolean;
   onSearchChange: (query: string) => void;
   onLevelChange: (level?: ProjectAssignmentLevel) => void;
   onCompanyNameChange: (name: string) => void;
   onCompanySectorChange: (sector: string) => void;
   onSkillsChange: (skills: string[]) => void;
-  onDeadlineAfterChange: (date?: Date) => void;
+  onDurationAfterChange: (date?: Date) => void;
   onClearFilters: () => void;
   availableSkills?: string[];
 }
@@ -32,14 +32,14 @@ export default function ProjectsFilterSidebar({
   companyName,
   companySector,
   selectedSkills,
-  deadlineAfter,
+  durationAfter,
   isCompany,
   onSearchChange,
   onLevelChange,
   onCompanyNameChange,
   onCompanySectorChange,
   onSkillsChange,
-  onDeadlineAfterChange,
+  onDurationAfterChange,
   onClearFilters,
   availableSkills = [],
 }: ProjectsFilterSidebarProps) {
@@ -94,9 +94,9 @@ export default function ProjectsFilterSidebar({
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value) {
-      onDeadlineAfterChange(new Date(value));
+      onDurationAfterChange(new Date(value));
     } else {
-      onDeadlineAfterChange(undefined);
+      onDurationAfterChange(undefined);
     }
   };
 
@@ -106,7 +106,7 @@ export default function ProjectsFilterSidebar({
     companyName ||
     companySector ||
     selectedSkills.length > 0 ||
-    deadlineAfter;
+    durationAfter;
 
   return (
     <div className="space-y-6">
@@ -273,21 +273,21 @@ export default function ProjectsFilterSidebar({
         </div>
       )}
 
-      {/* Deadline After filter */}
+      {/* Duration After filter */}
       <div>
         <label className="text-sm font-medium mb-2 block text-white">
-          {t('projectsPage.filters.deadlineAfter') || 'Deadline After'}
+          {t('projectsPage.filters.durationAfter') || 'Duration After'}
         </label>
         <Input
           type="date"
           className="bg-transparent border-white/20 text-white"
-          value={formatDateForInput(deadlineAfter)}
+          value={formatDateForInput(durationAfter)}
           onChange={handleDateChange}
         />
-        {deadlineAfter && (
+        {durationAfter && (
           <p className="text-xs mt-1" style={{ color: colors.textSecondary }}>
             {t('projectsPage.filters.showingProjectsAfter') || 'Showing projects after'}{' '}
-            {deadlineAfter.toLocaleDateString()}
+            {durationAfter.toLocaleDateString()}
           </p>
         )}
       </div>

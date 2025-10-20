@@ -29,7 +29,7 @@ export interface ProjectAssignmentManualFormState {
   learningBenefits: string;
   suggestedApproach: string;
   level: '0' | '1' | '2';
-  deadline: string; // yyyy-MM-dd
+  duration: string; // Timespan string
   skillIdsInput: string; // comma separated GUIDs
   tasks: TaskEditorItem[];
 }
@@ -113,21 +113,21 @@ export function ProjectAssignmentManualForm({
               </Select>
             </div>
             <div>
-              <Label htmlFor="deadline" className="text-white flex items-center gap-1">
-                Deadline
+              <Label htmlFor="duration" className="text-white flex items-center gap-1">
+                Duration
                 <span style={{ color: colors.error }}>*</span>
               </Label>
               <Input
-                id="deadline"
-                type="date"
-                value={state.deadline}
-                onChange={(e) => onChange({ deadline: e.target.value })}
+                id="duration"
+                type="text"
+                value={state.duration}
+                onChange={(e) => onChange({ duration: e.target.value })}
+                placeholder="e.g., 2 weeks, 1 month, 30 days"
                 required
                 className="mt-1.5"
-                min={new Date().toISOString().split('T')[0]}
               />
               <p className="text-xs mt-1.5" style={{ color: colors.textMuted }}>
-                The target completion date for this project
+                The expected timespan for this project (e.g., "2 weeks", "1 month")
               </p>
             </div>
           </div>

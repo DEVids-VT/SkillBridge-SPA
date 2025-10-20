@@ -26,7 +26,7 @@ export interface ProjectDetailData {
   learningBenefits: string;
   suggestedApproach: string;
   level: number;
-  deadline: string;
+  duration: string;
   status: number;
   companyId: string;
   companyName: string;

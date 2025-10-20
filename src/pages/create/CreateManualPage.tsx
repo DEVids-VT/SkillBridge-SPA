@@ -25,7 +25,7 @@ const initialFormState: ProjectAssignmentManualFormState = {
   learningBenefits: '',
   suggestedApproach: '',
   level: '1', // Default to Intermediate
-  deadline: '',
+  duration: '',
   skillIdsInput: '',
   tasks: [],
 };
@@ -69,26 +69,12 @@ export default function CreateManualPage() {
       return;
     }
 
-    if (!formData.deadline) {
+    if (!formData.duration) {
       setNotification({
         show: true,
         type: 'error',
         title: t('createManualPage.notifications.error.title'),
-        message: 'Please select a deadline for the project.',
-      });
-      return;
-    }
-
-    // Validate deadline is in the future
-    const deadlineDate = new Date(formData.deadline);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (deadlineDate < today) {
-      setNotification({
-        show: true,
-        type: 'error',
-        title: t('createManualPage.notifications.error.title'),
-        message: 'Deadline must be today or in the future.',
+        message: 'Please specify a duration for the project.',
       });
       return;
     }
@@ -107,7 +93,7 @@ export default function CreateManualPage() {
       learningBenefits: formData.learningBenefits.trim(),
       suggestedApproach: formData.suggestedApproach.trim(),
       level: Number(formData.level) as 0 | 1 | 2,
-      deadline: new Date(formData.deadline).toISOString(),
+      duration: formData.duration.trim(),
       status: 0, // Backend will manage status, default to Draft (0)
       skills,
       tasks: formData.tasks.map((t, idx) => ({

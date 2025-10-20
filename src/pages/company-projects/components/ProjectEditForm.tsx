@@ -26,7 +26,7 @@ export default function ProjectEditForm({ project }: ProjectEditFormProps) {
     learningBenefits: '',
     suggestedApproach: '',
     level: 0,
-    deadline: '',
+    duration: '',
     status: 0,
     skills: [] as string[],
   });
@@ -48,7 +48,7 @@ export default function ProjectEditForm({ project }: ProjectEditFormProps) {
         learningBenefits: (project as any)?.learningBenefits || '',
         suggestedApproach: (project as any)?.suggestedApproach || '',
         level: (project as any)?.level ?? 0,
-        deadline: project.deadline ? new Date(project.deadline).toISOString().split('T')[0] : '',
+        duration: project.duration || '',
         status: project.status || 0,
         skills: projectSkills,
       });
@@ -97,7 +97,7 @@ export default function ProjectEditForm({ project }: ProjectEditFormProps) {
 
     const updateData: UpdateProjectRequest = {
       ...formData,
-      deadline: formData.deadline ? new Date(formData.deadline).toISOString() : '',
+      duration: formData.duration,
       skills: formData.skills,
     };
 
@@ -152,12 +152,13 @@ export default function ProjectEditForm({ project }: ProjectEditFormProps) {
             </div>
             <div>
               <label className="block text-sm mb-2" style={{ color: colors.textSecondary }}>
-                Deadline
+                Duration
               </label>
               <Input
-                type="date"
-                value={formData.deadline}
-                onChange={handleInputChange('deadline')}
+                type="text"
+                placeholder="e.g., 2 weeks, 1 month"
+                value={formData.duration}
+                onChange={handleInputChange('duration')}
                 className="bg-transparent"
                 style={{ borderColor: colors.blue, color: colors.white }}
               />

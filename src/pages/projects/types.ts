@@ -9,7 +9,7 @@ export interface Project {
   skills: string[];
   postedDate: string;
   learningBenefits: string;
-  deadline: string;
+  duration: string;
 }
 
 export interface CategoryFilter {
@@ -28,7 +28,7 @@ export enum ProjectAssignmentLevel {
 export interface SearchProjectFilters {
   title?: string;
   level?: ProjectAssignmentLevel;
-  deadlineAfter?: string; // ISO date string
+  durationAfter?: string; // Timespan string
   companyName?: string;
   companySector?: string;
   projectSkills?: string[]; // Array of skill names
@@ -48,8 +48,31 @@ export interface SearchProjectsRequest extends SearchProjectFilters {
   pageSize?: number;
 }
 
+// Backend project response interface
+export interface ProjectResponse {
+  id: string;
+  title: string;
+  description: string;
+  summary: string;
+  learningBenefits: string;
+  suggestedApproach: string;
+  level: number;
+  duration: string;
+  status: number;
+  companyId: string;
+  companyName: string;
+  companySector?: string;
+  skills: Array<{
+    id: string;
+    name: string;
+    description: string;
+  }>;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // Search response with pagination
 export interface SearchProjectsResponse {
-  data: Project[];
+  data: ProjectResponse[];
   pagination: PaginationMetadata;
 }

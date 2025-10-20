@@ -20,7 +20,7 @@ const ProjectsBoardPage = () => {
   const [companyName, setCompanyName] = useState('');
   const [companySector, setCompanySector] = useState('');
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const [deadlineAfter, setDeadlineAfter] = useState<Date | undefined>(undefined);
+  const [durationAfter, setDurationAfter] = useState<Date | undefined>(undefined);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +34,7 @@ const ProjectsBoardPage = () => {
       companyName: companyName || undefined,
       companySector: companySector || undefined,
       projectSkills: selectedSkills.length > 0 ? selectedSkills : undefined,
-      deadlineAfter: deadlineAfter?.toISOString(),
+      durationAfter: durationAfter?.toISOString(),
       pageNumber: currentPage,
       pageSize,
     }),
@@ -44,7 +44,7 @@ const ProjectsBoardPage = () => {
       companyName,
       companySector,
       selectedSkills,
-      deadlineAfter,
+      durationAfter,
       currentPage,
       pageSize,
     ]
@@ -59,7 +59,7 @@ const ProjectsBoardPage = () => {
     const skillsSet = new Set<string>();
     searchResponse.data.forEach((project) => {
       project.skills?.forEach((skill) => {
-        if (skill.name) skillsSet.add(skill.name);
+        skillsSet.add(skill.name);
       });
     });
     return Array.from(skillsSet).sort();
@@ -78,7 +78,7 @@ const ProjectsBoardPage = () => {
       category: 'development', // Backend doesn't provide category yet, default to development
       skills: project.skills.map((skill) => skill.name),
       postedDate: new Date(project.createdAt).toISOString(),
-      deadline: new Date(project.deadline).toISOString(),
+      duration: project.duration, // Use duration directly as it's now a timespan string
       learningBenefits: project.learningBenefits,
     }));
   }, [searchResponse?.data]);
@@ -86,7 +86,7 @@ const ProjectsBoardPage = () => {
   // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedLevel, companyName, companySector, selectedSkills, deadlineAfter]);
+  }, [searchQuery, selectedLevel, companyName, companySector, selectedSkills, durationAfter]);
 
   // Handler functions for the filter sidebar
   const handleClearFilters = () => {
@@ -95,7 +95,7 @@ const ProjectsBoardPage = () => {
     setCompanyName('');
     setCompanySector('');
     setSelectedSkills([]);
-    setDeadlineAfter(undefined);
+    setDurationAfter(undefined);
     setCurrentPage(1);
   };
 
@@ -115,14 +115,14 @@ const ProjectsBoardPage = () => {
           companyName={companyName}
           companySector={companySector}
           selectedSkills={selectedSkills}
-          deadlineAfter={deadlineAfter}
+          durationAfter={durationAfter}
           isCompany={isCompany}
           onSearchChange={setSearchQuery}
           onLevelChange={setSelectedLevel}
           onCompanyNameChange={setCompanyName}
           onCompanySectorChange={setCompanySector}
           onSkillsChange={setSelectedSkills}
-          onDeadlineAfterChange={setDeadlineAfter}
+          onDurationAfterChange={setDurationAfter}
           onClearFilters={handleClearFilters}
           availableSkills={availableSkills}
         />

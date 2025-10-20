@@ -12,7 +12,7 @@ export interface ProjectDetail {
   id: string;
   title: string;
   description: string;
-  deadline: string;
+  duration: string;
   status: number;
   companyId: string;
   companyName: string;

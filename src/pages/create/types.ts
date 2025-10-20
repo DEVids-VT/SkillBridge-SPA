@@ -65,12 +65,34 @@ export interface CreateProjectHeaderProps {
 // Manual form type definition
 export interface CreateManualForm {
   description: string;
+  duration: string; // TimeSpan string from predefined options
 }
 
 // Manual form errors
 export interface CreateManualFormErrors {
   description?: string;
+  duration?: string;
 }
+
+// Predefined duration options with TimeSpan values
+export const DURATION_OPTIONS = [
+  { label: '1 Day', value: '1.00:00:00' },
+  { label: '3 Days', value: '3.00:00:00' },
+  { label: '1 Week', value: '7.00:00:00' },
+  { label: '2 Weeks', value: '14.00:00:00' },
+  { label: '3 Weeks', value: '21.00:00:00' },
+  { label: '1 Month', value: '30.00:00:00' },
+  { label: '6 Weeks', value: '42.00:00:00' },
+  { label: '2 Months', value: '60.00:00:00' },
+  { label: '3 Months', value: '90.00:00:00' },
+  { label: '6 Months', value: '180.00:00:00' },
+] as const;
+
+// Helper function to get the label for a given TimeSpan value
+export const getDurationLabel = (value: string): string => {
+  const option = DURATION_OPTIONS.find((opt) => opt.value === value);
+  return option ? option.label : value;
+};
 
 // Manual project assignment creation types
 export interface CreateAssignmentTaskRequest {
@@ -90,7 +112,7 @@ export interface CreateProjectAssignmentRequest {
   learningBenefits: string;
   suggestedApproach: string;
   level: ProjectAssignmentLevel;
-  deadline: string; // ISO string
+  duration: string; // Timespan string
   status: ProjectAssignmentStatus;
   skills: string[]; // Array of skill name strings or IDs
   tasks: CreateAssignmentTaskRequest[];
@@ -124,7 +146,7 @@ export interface ProjectAssignmentResponse {
   learningBenefits: string;
   suggestedApproach: string;
   level: ProjectAssignmentLevel;
-  deadline: string;
+  duration: string;
   status: ProjectAssignmentStatus;
   companyId: string;
   companyName: string;

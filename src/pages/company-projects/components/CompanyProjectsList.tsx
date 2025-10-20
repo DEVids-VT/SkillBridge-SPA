@@ -16,15 +16,6 @@ export const CompanyProjectsList = () => {
   const companyId = companyProfile?.id;
   const { data: projects, isLoading, error } = useCompanyProjects(companyId);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    }).format(date);
-  };
-
   if (loadingProfile || isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
@@ -129,7 +120,7 @@ export const CompanyProjectsList = () => {
                   style={{ color: colors.textSecondary }}
                 >
                   <Calendar size={12} />
-                  <span>{formatDate(project.deadline)}</span>
+                  <span>Duration: {project.duration}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <CheckCircle2 size={12} className="text-green-400" />

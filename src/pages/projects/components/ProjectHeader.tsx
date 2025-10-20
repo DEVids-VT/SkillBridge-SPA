@@ -1,23 +1,11 @@
 import { Calendar, Building2 } from 'lucide-react';
 import { colors } from '@/lib/design-system';
 
-// Helper function to format date
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(date);
-};
-
-// Helper to calculate days remaining
-const getDaysRemaining = (deadlineString: string) => {
-  const deadline = new Date(deadlineString);
-  const now = new Date();
-  const diffTime = deadline.getTime() - now.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays;
+// Helper to parse duration string to display info
+const parseDuration = (durationString: string) => {
+  // For now, just display the duration string as-is
+  // In the future, this could parse timespan formats like "2 weeks", "1 month", etc.
+  return durationString;
 };
 
 // Status badge component
@@ -45,14 +33,14 @@ interface ProjectHeaderProps {
   project: {
     title: string;
     companyName: string;
-    deadline: string;
+    duration: string;
     status: number;
     description: string;
   };
 }
 
 export default function ProjectHeader({ project }: ProjectHeaderProps) {
-  const daysRemaining = getDaysRemaining(project.deadline);
+  const durationDisplay = parseDuration(project.duration);
 
   return (
     <div className="mb-8">
@@ -76,14 +64,7 @@ export default function ProjectHeader({ project }: ProjectHeaderProps) {
                 <span className="text-blue-400">{project.companyName}</span>
                 <div className="flex items-center">
                   <Calendar size={16} className="text-gray-400 mr-1.5" />
-                  <span className="text-gray-400">
-                    {formatDate(project.deadline)}
-                    <span
-                      className={`ml-1 ${daysRemaining < 7 ? 'text-red-400' : 'text-yellow-400'}`}
-                    >
-                      ({daysRemaining} days left)
-                    </span>
-                  </span>
+                  <span className="text-gray-400">Duration: {durationDisplay}</span>
                 </div>
                 <StatusBadge status={project.status} />
               </div>

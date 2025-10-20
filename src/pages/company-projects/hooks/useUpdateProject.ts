@@ -11,7 +11,7 @@ export interface UpdateProjectRequest {
   learningBenefits: string;
   suggestedApproach: string;
   level: number;
-  deadline: string; // ISO string
+  duration: string; // Timespan string
   status: number;
   skills: string[]; // Array of skill names as strings
 }

@@ -11,7 +11,7 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  deadline: string;
+  duration: string;
   status: number;
   companyId: string;
   companyName: string;

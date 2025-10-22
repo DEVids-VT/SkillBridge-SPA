@@ -145,7 +145,8 @@
     "actions": {
       "startNow": "Започни Сега",
       "saveProject": "Запази Проект",
-      "viewCompanyProfile": "Виж Профила на Компанията"
+      "viewCompanyProfile": "Виж Профила на Компанията",
+      "backToProjects": "Назад към проектите"
     }
   }
 }

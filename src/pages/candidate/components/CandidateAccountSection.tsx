@@ -15,17 +15,10 @@ interface CandidateAccountSectionProps {
     githubConnection: string | null;
   };
   setUser: React.Dispatch<React.SetStateAction<any>>;
-  onEditField: (field: {
-    field: 'fullName' | 'username' | 'githubConnection';
-    title: string;
-  }) => void;
+  onEditDetails: () => void;
 }
 
-export default function CandidateAccountSection({
-  user,
-  setUser,
-  onEditField,
-}: CandidateAccountSectionProps) {
+export default function CandidateAccountSection({ user, setUser, onEditDetails }: CandidateAccountSectionProps) {
   const updateProfile = useUpdateUserProfile();
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
@@ -82,18 +75,9 @@ export default function CandidateAccountSection({
       </div>
 
       {/* Full Name */}
-      <div className="flex justify-between items-center">
-        <div>
-          <p className="text-sm font-medium">Full Name</p>
-          <p className={typography.body.sm}>{user.fullName}</p>
-        </div>
-        <Button
-          variant="outline"
-          className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: 'fullName', title: 'Change full name' })}
-        >
-          Edit
-        </Button>
+      <div>
+        <p className="text-sm font-medium">Full Name</p>
+        <p className={typography.body.sm}>{user.fullName}</p>
       </div>
 
       {/* Email */}
@@ -103,18 +87,9 @@ export default function CandidateAccountSection({
       </div>
 
       {/* Username */}
-      <div className="flex justify-between items-center">
-        <div>
-          <p className="text-sm font-medium">Username</p>
-          <p className={typography.body.sm}>{user.username}</p>
-        </div>
-        <Button
-          variant="outline"
-          className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: 'username', title: 'Change username' })}
-        >
-          Change
-        </Button>
+      <div>
+        <p className="text-sm font-medium">Username</p>
+        <p className={typography.body.sm}>{user.username}</p>
       </div>
 
       {/* CV Upload */}
@@ -165,19 +140,18 @@ export default function CandidateAccountSection({
       </div>
 
       {/* GitHub Connection */}
-      <div className="flex justify-between items-center">
-        <div>
-          <p className="text-sm font-medium">GitHub Connection</p>
-          {user.githubConnection ? (
-            <p className={typography.body.sm}>{user.githubConnection}</p>
-          ) : null}
-        </div>
+      <div>
+        <p className="text-sm font-medium">GitHub Connection</p>
+        {user.githubConnection ? <p className={typography.body.sm}>{user.githubConnection}</p> : null}
+      </div>
+
+      {/* Edit Details Button */}
+      <div className="pt-2">
         <Button
-          variant="outline"
-          className={`border-[${colors.blue}] text-[${colors.white}]`}
-          onClick={() => onEditField({ field: 'githubConnection', title: 'Set GitHub connection' })}
+          onClick={onEditDetails}
+          className={`bg-[${colors.orange}] text-[${colors.blueDark}] hover:bg-[${colors.yellow}]`}
         >
-          {user.githubConnection ? 'Change' : 'Connect'}
+          Edit details
         </Button>
       </div>
     </div>

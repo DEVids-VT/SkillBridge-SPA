@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { colors } from '@/lib/design-system';
 import CandidateEditModal from '@/components/ui/EditProfileModal';
+import { CandidateEditDialog } from './components';
 import { useUserCredentials } from '@/hooks/useUserCredentials';
 import { useUpdateUserProfile, useUserProfile } from './hooks/useUserProfile';
 import { mergeAndSaveUserProfile } from './hooks/userProfileStorage';
@@ -35,6 +36,7 @@ export default function CandidateProfilePage() {
     field: 'fullName' | 'username' | 'githubConnection';
     title: string;
   }>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   // Sync basic session details
   useEffect(() => {
@@ -63,7 +65,11 @@ export default function CandidateProfilePage() {
       className="w-full py-10 px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 2xl:px-96 space-y-10"
       style={{ backgroundColor: colors.dark, color: colors.white }}
     >
-      <CandidateAccountSection user={user} setUser={setUser} onEditField={setEditField} />
+      <CandidateAccountSection
+        user={user}
+        setUser={setUser}
+        onEditDetails={() => setIsEditDialogOpen(true)}
+      />
 
       <CandidateSubscriptionSection subscription={user.subscription} />
 
@@ -72,7 +78,7 @@ export default function CandidateProfilePage() {
         onThemeChange={(val) => setUser((prev) => ({ ...prev, theme: val }))}
       />
 
-      {/* Modal */}
+      {/* Image/file-specific modal (avatar, cv) and small field edits if any remain */}
       <CandidateEditModal
         isOpen={!!editField}
         onClose={() => setEditField(null)}
@@ -93,6 +99,31 @@ export default function CandidateProfilePage() {
           } else {
             setUser((prev) => ({ ...prev, [editField.field]: newValue }));
           }
+        }}
+      />
+
+      {/* Unified edit dialog */}
+      <CandidateEditDialog
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        values={{
+          fullName: user.fullName,
+          username: user.username,
+          githubConnection: user.githubConnection,
+        }}
+        onSave={async (changes) => {
+          // Only GitHub connection needs API; other fields are local-only in this page
+          if (typeof changes.githubConnection !== 'undefined') {
+            const updated = await updateProfile.mutateAsync({
+              gitHubConnection: changes.githubConnection,
+            });
+            mergeAndSaveUserProfile({
+              id: updated.id,
+              gitHubConnection: updated.gitHubConnection ?? undefined,
+            });
+            changes.githubConnection = updated.gitHubConnection ?? changes.githubConnection ?? null;
+          }
+          setUser((prev) => ({ ...prev, ...changes }));
         }}
       />
     </div>

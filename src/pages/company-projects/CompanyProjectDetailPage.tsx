@@ -43,9 +43,9 @@ export const CompanyProjectDetailPage = () => {
   const tabs = useMemo(
     () =>
       [
-        { id: 'view', label: 'View', icon: Eye },
-        { id: 'edit', label: 'Edit', icon: Pencil },
         { id: 'candidates', label: 'Candidates', icon: Users },
+        { id: 'edit', label: 'Edit', icon: Pencil },
+        { id: 'view', label: 'View', icon: Eye },
       ] as const,
     []
   );
@@ -59,7 +59,7 @@ export const CompanyProjectDetailPage = () => {
         />
 
         <div>
-          <Tabs defaultValue="view" className="w-full">
+          <Tabs defaultValue="candidates" className="w-full">
             <TabsList className="mb-4 w-full" style={{ backgroundColor: colors.blueDark }}>
               {tabs.map(({ id, label, icon: Icon }) => (
                 <TabsTrigger key={id} value={id} className="gap-2" style={{ color: colors.white }}>

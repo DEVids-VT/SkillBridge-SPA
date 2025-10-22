@@ -145,7 +145,8 @@
     "actions": {
       "startNow": "Start Now",
       "saveProject": "Save Project",
-      "viewCompanyProfile": "View Company Profile"
+      "viewCompanyProfile": "View Company Profile",
+      "backToProjects": "Back to projects"
     }
   }
 }

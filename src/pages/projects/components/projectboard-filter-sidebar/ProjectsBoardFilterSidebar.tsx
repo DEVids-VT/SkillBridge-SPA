@@ -1,52 +1,89 @@
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useCallback, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { colors } from '@/lib/design-system';
 import { Plus, X, Search, CheckSquare, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RoutePage } from '@/types/enums/RoutePage';
-import { ProjectAssignmentLevel } from '../types';
+import { ProjectAssignmentLevel } from '../../types';
 
 interface ProjectsFilterSidebarProps {
-  searchQuery: string;
-  selectedLevel?: ProjectAssignmentLevel;
-  companyName: string;
-  companySector: string;
-  selectedSkills: string[];
-  durationAfter?: Date;
   isCompany: boolean;
-  onSearchChange: (query: string) => void;
-  onLevelChange: (level?: ProjectAssignmentLevel) => void;
-  onCompanyNameChange: (name: string) => void;
-  onCompanySectorChange: (sector: string) => void;
-  onSkillsChange: (skills: string[]) => void;
-  onDurationAfterChange: (date?: Date) => void;
-  onClearFilters: () => void;
   availableSkills?: string[];
 }
 
-export default function ProjectsFilterSidebar({
-  searchQuery,
-  selectedLevel,
-  companyName,
-  companySector,
-  selectedSkills,
-  durationAfter,
+export default function ProjectsBoardFilterSidebar({
   isCompany,
-  onSearchChange,
-  onLevelChange,
-  onCompanyNameChange,
-  onCompanySectorChange,
-  onSkillsChange,
-  onDurationAfterChange,
-  onClearFilters,
   availableSkills = [],
 }: ProjectsFilterSidebarProps) {
   const { t } = useTranslation('project');
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [showLevelDropdown, setShowLevelDropdown] = useState(false);
   const [showSkillsDropdown, setShowSkillsDropdown] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+
+  // Read current values from URL params
+  const searchQuery = searchParams.get('title') || '';
+  const selectedLevel = searchParams.get('level')
+    ? parseInt(searchParams.get('level')!)
+    : undefined;
+  const companyName = searchParams.get('companyName') || '';
+  const companySector = searchParams.get('companySector') || '';
+  const selectedSkills = searchParams.getAll('projectSkills') || [];
+  const durationAfter = searchParams.get('deadlineAfter')
+    ? new Date(searchParams.get('deadlineAfter')!)
+    : undefined;
+
+  // Initialize search input from URL
+  useEffect(() => {
+    setSearchInput(searchQuery);
+  }, [searchQuery]);
+
+  // Debounce search input
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      updateSearchParam('title', searchInput || undefined);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  // Helper function to update search params
+  const updateSearchParam = useCallback(
+    (key: string, value: string | undefined) => {
+      setSearchParams(
+        (prev) => {
+          const newParams = new URLSearchParams(prev);
+          if (value) {
+            newParams.set(key, value);
+          } else {
+            newParams.delete(key);
+          }
+          return newParams;
+        },
+        { replace: true }
+      );
+    },
+    [setSearchParams]
+  );
+
+  // Helper function to update array search params
+  const updateArraySearchParam = useCallback(
+    (key: string, values: string[]) => {
+      setSearchParams(
+        (prev) => {
+          const newParams = new URLSearchParams(prev);
+          newParams.delete(key); // Remove all existing
+          values.forEach((value) => newParams.append(key, value));
+          return newParams;
+        },
+        { replace: true }
+      );
+    },
+    [setSearchParams]
+  );
 
   const levels = [
     { value: ProjectAssignmentLevel.Beginner, label: 'Beginner' },
@@ -67,15 +104,18 @@ export default function ProjectsFilterSidebar({
   };
 
   const handleLevelSelect = (level?: ProjectAssignmentLevel) => {
-    onLevelChange(level);
+    updateSearchParam('level', level !== undefined ? String(level) : undefined);
     setShowLevelDropdown(false);
   };
 
   const handleSkillToggle = (skill: string) => {
     if (selectedSkills.includes(skill)) {
-      onSkillsChange(selectedSkills.filter((s) => s !== skill));
+      updateArraySearchParam(
+        'projectSkills',
+        selectedSkills.filter((s) => s !== skill)
+      );
     } else {
-      onSkillsChange([...selectedSkills, skill]);
+      updateArraySearchParam('projectSkills', [...selectedSkills, skill]);
     }
   };
 
@@ -93,11 +133,12 @@ export default function ProjectsFilterSidebar({
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value) {
-      onDurationAfterChange(new Date(value));
-    } else {
-      onDurationAfterChange(undefined);
-    }
+    updateSearchParam('deadlineAfter', value || undefined);
+  };
+
+  const handleClearFilters = () => {
+    setSearchParams(new URLSearchParams(), { replace: true });
+    setSearchInput('');
   };
 
   const hasActiveFilters =
@@ -120,13 +161,13 @@ export default function ProjectsFilterSidebar({
           <Input
             placeholder={t('projectsPage.filters.searchPlaceholder') || 'Search projects...'}
             className="pl-8 bg-transparent border-white/20 text-white placeholder:text-gray-400"
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
-          {searchQuery && (
+          {searchInput && (
             <button
               className="absolute right-2 top-2.5 text-gray-400 hover:text-white"
-              onClick={() => onSearchChange('')}
+              onClick={() => setSearchInput('')}
             >
               <X className="h-4 w-4" />
             </button>
@@ -188,7 +229,7 @@ export default function ProjectsFilterSidebar({
           placeholder={t('projectsPage.filters.companyNamePlaceholder') || 'Filter by company...'}
           className="bg-transparent border-white/20 text-white placeholder:text-gray-400"
           value={companyName}
-          onChange={(e) => onCompanyNameChange(e.target.value)}
+          onChange={(e) => updateSearchParam('CompanyName', e.target.value || undefined)}
         />
       </div>
 
@@ -203,7 +244,7 @@ export default function ProjectsFilterSidebar({
           }
           className="bg-transparent border-white/20 text-white placeholder:text-gray-400"
           value={companySector}
-          onChange={(e) => onCompanySectorChange(e.target.value)}
+          onChange={(e) => updateSearchParam('CompanySector', e.target.value || undefined)}
         />
       </div>
 
@@ -297,7 +338,7 @@ export default function ProjectsFilterSidebar({
         <Button
           variant="outline"
           size="sm"
-          onClick={onClearFilters}
+          onClick={handleClearFilters}
           className="w-full mt-4 border-white/20 text-white hover:bg-white/10 hover:text-white"
         >
           {t('projectsPage.filters.clear') || 'Clear Filters'}

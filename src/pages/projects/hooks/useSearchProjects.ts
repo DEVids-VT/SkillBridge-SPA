@@ -1,11 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '@/components/axios-interceptor/AxiosInterceptor';
-import {
-  SearchProjectsRequest,
-  SearchProjectsResponse,
-  PaginationMetadata,
-  ProjectResponse,
-} from '../types';
+import { PaginationMetadata, ProjectResponse } from '../types';
+import { buildUrl } from '@/utils/page';
 
 export interface Skill {
   id: string;
@@ -13,80 +9,43 @@ export interface Skill {
   description: string;
 }
 
-/**
- * Searches for projects with filtering and pagination via GET /api/p/search
- *
- * Query Parameters:
- * - Title: Filter by project title (partial match)
- * - Level: Filter by difficulty level (0=Beginner, 1=Intermediate, 2=Advanced)
- * - DurationAfter: Only show projects with duration after this date (ISO string)
- * - CompanyName: Filter by company name
- * - CompanySector: Filter by company sector
- * - ProjectSkills: Array of skill names to filter by
- * - pageNumber: Page number (default: 1)
- * - pageSize: Page size (default: 10)
- *
- * Returns pagination metadata via X-Pagination header
- */
-const searchProjects = async (filters: SearchProjectsRequest): Promise<SearchProjectsResponse> => {
-  const params = new URLSearchParams();
+const PAGE_SIZE_PARAM_KEY = 'pageSize';
+export const PAGE_SEARCH_PARAM_KEY = 'pageNumber';
+export const PROJECT_PAGE_SIZE = 9;
 
-  // Add filter parameters
-  if (filters.title) params.append('Title', filters.title);
-  if (filters.level !== undefined) params.append('Level', String(filters.level));
-  if (filters.durationAfter) params.append('DurationAfter', filters.durationAfter);
-  if (filters.companyName) params.append('CompanyName', filters.companyName);
-  if (filters.companySector) params.append('CompanySector', filters.companySector);
-  if (filters.projectSkills && filters.projectSkills.length > 0) {
-    filters.projectSkills.forEach((skill) => params.append('ProjectSkills', skill));
-  }
+export interface IFetchProjectsResponse {
+  projects: ProjectResponse[];
+  pagination: PaginationMetadata;
+}
 
-  // Add pagination parameters
-  params.append('pageNumber', String(filters.pageNumber || 1));
-  params.append('pageSize', String(filters.pageSize || 10));
+const fetchProjects = async (
+  page: number,
+  searchParams: URLSearchParams
+): Promise<IFetchProjectsResponse> => {
+  // Create a copy to avoid mutating the original
+  const params = new URLSearchParams(searchParams);
+  params.set(PAGE_SEARCH_PARAM_KEY, `${page}`);
+  params.set(PAGE_SIZE_PARAM_KEY, `${PROJECT_PAGE_SIZE}`);
 
-  const response = await axiosInstance.get<ProjectResponse[]>(`/p/search?${params.toString()}`);
+  const response = await axiosInstance.get<ProjectResponse[]>(buildUrl('/p/search', params));
+  console.log('Response Headers:', response.headers);
 
-  // Extract pagination metadata from X-Pagination header
-  let pagination: PaginationMetadata = {
-    currentPage: filters.pageNumber || 1,
-    pageSize: filters.pageSize || 10,
-    totalPages: 1,
-    totalCount: response.data.length,
-  };
-
-  const paginationHeader = response.headers['x-pagination'];
-  if (paginationHeader) {
-    try {
-      const parsed = JSON.parse(paginationHeader);
-      pagination = {
-        currentPage: parsed.CurrentPage || parsed.currentPage,
-        pageSize: parsed.PageSize || parsed.pageSize,
-        totalPages: parsed.TotalPages || parsed.totalPages,
-        totalCount: parsed.TotalCount || parsed.totalCount,
-      };
-    } catch (error) {
-      console.error('Failed to parse pagination header:', error);
-    }
-  }
+  const pagination: PaginationMetadata = JSON.parse(response.headers['x-pagination']);
+  console.log('Pagination Metadata:', pagination);
 
   return {
-    data: response.data,
+    projects: response.data,
     pagination,
   };
 };
 
-/**
- * Hook to search and filter projects with pagination support
- *
- * @param filters - Search filters and pagination parameters
- * @param enabled - Whether to enable the query (default: true)
- */
-export const useSearchProjects = (filters: SearchProjectsRequest, enabled: boolean = true) => {
-  return useQuery<SearchProjectsResponse, Error>({
-    queryKey: ['projects', 'search', filters],
-    queryFn: () => searchProjects(filters),
-    enabled,
-    staleTime: 1000 * 60, // 1 minute
+export const useSearchProjects = (page: number, searchParams: URLSearchParams) => {
+  // Convert searchParams to a stable string for query key
+  const searchParamsString = searchParams.toString();
+
+  return useQuery({
+    queryKey: ['project_search', page, searchParamsString],
+    queryFn: () => fetchProjects(page, searchParams),
+    placeholderData: keepPreviousData,
   });
 };

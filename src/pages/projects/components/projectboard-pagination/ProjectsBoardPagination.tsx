@@ -1,21 +1,25 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { colors } from '@/lib/design-system';
-import { PaginationMetadata } from '../types';
+import { PaginationMetadata } from '../../types';
 
 interface PaginationProps {
   pagination: PaginationMetadata;
   onPageChange: (page: number) => void;
 }
 
-export function Pagination({ pagination, onPageChange }: PaginationProps) {
-  const { currentPage, totalPages, totalCount, pageSize } = pagination;
+export function ProjectsBoardPagination({ pagination, onPageChange }: PaginationProps) {
+  const {
+    CurrentPage: currentPage,
+    PageSize: pageSize,
+    TotalCount: totalCount,
+    TotalPages: totalPages,
+  } = pagination;
 
-  // Calculate display information
   const startItem = (currentPage - 1) * pageSize + 1;
+  console.log('Start Item:', startItem);
   const endItem = Math.min(currentPage * pageSize, totalCount);
 
-  // Generate page numbers to display
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
     const maxPagesToShow = 7;
@@ -136,4 +140,4 @@ export function Pagination({ pagination, onPageChange }: PaginationProps) {
   );
 }
 
-export default Pagination;
+export default ProjectsBoardPagination;

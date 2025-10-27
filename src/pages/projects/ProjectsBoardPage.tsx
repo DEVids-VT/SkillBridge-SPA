@@ -1,75 +1,53 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { colors } from '@/lib/design-system';
 import { useOnboarding } from '@/contexts/OnboardingContext';
-import { ActiveSidebar } from '@/pages/dashboard/components/ActiveSidebar';
+import { ActiveSidebar } from '@/components/layout/ActiveSidebar';
 import { ProjectsList, ProjectsFilterSidebar, Pagination } from './components';
-import { ProjectAssignmentLevel, SearchProjectsRequest } from './types';
-import { useSearchProjects } from './hooks/useSearchProjects';
+import { useSearchProjects, PAGE_SEARCH_PARAM_KEY } from './hooks/useSearchProjects';
+import { useSearchParams } from 'react-router-dom';
+import { validatePage } from '@/utils/page';
+import ProjectsBoardFilterSidebar from './components/projectboard-filter-sidebar/ProjectsBoardFilterSidebar';
+import ProjectsBoardPagination from './components/projectboard-pagination/ProjectsBoardPagination';
+import { log } from 'console';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ProjectsBoardPage = () => {
   const { t } = useTranslation('project');
   const { onboardingData } = useOnboarding();
-
-  // Check if the user is a company
   const isCompany = onboardingData.role === 'company';
 
-  // Filter state matching backend SearchProjectAssignmentRequest
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedLevel, setSelectedLevel] = useState<ProjectAssignmentLevel | undefined>(undefined);
-  const [companyName, setCompanyName] = useState('');
-  const [companySector, setCompanySector] = useState('');
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const [durationAfter, setDurationAfter] = useState<Date | undefined>(undefined);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(12); // Fixed page size
-
-  // Build search request
-  const searchRequest: SearchProjectsRequest = useMemo(
-    () => ({
-      title: searchQuery || undefined,
-      level: selectedLevel,
-      companyName: companyName || undefined,
-      companySector: companySector || undefined,
-      projectSkills: selectedSkills.length > 0 ? selectedSkills : undefined,
-      durationAfter: durationAfter?.toISOString(),
-      pageNumber: currentPage,
-      pageSize,
-    }),
-    [
-      searchQuery,
-      selectedLevel,
-      companyName,
-      companySector,
-      selectedSkills,
-      durationAfter,
-      currentPage,
-      pageSize,
-    ]
-  );
+  // Get current page from URL params
+  const currentPage = (() => {
+    const pageParam = searchParams.get(PAGE_SEARCH_PARAM_KEY);
+    if (!pageParam) return 1;
+    return validatePage(Number.MAX_VALUE, Number(pageParam));
+  })();
 
   // Fetch projects from API with search and pagination
-  const { data: searchResponse, isLoading, error } = useSearchProjects(searchRequest);
+  const queryClient = useQueryClient();
+  const { data: searchResponse, isLoading, error } = useSearchProjects(currentPage, searchParams);
+  console.log(JSON.stringify(searchResponse));
 
   // Extract all unique skills from the current results for the skills filter
   const availableSkills = useMemo(() => {
-    if (!searchResponse?.data) return [];
+    if (!searchResponse?.projects) return [];
     const skillsSet = new Set<string>();
-    searchResponse.data.forEach((project) => {
+    searchResponse.projects.forEach((project) => {
       project.skills?.forEach((skill) => {
         skillsSet.add(skill.name);
       });
     });
     return Array.from(skillsSet).sort();
-  }, [searchResponse?.data]);
+  }, [searchResponse?.projects]);
 
   // Transform API projects to match the format expected by our components
   const projects = useMemo(() => {
-    if (!searchResponse?.data) return [];
+    if (!searchResponse?.projects) return [];
 
-    return searchResponse.data.map((project) => ({
+    return searchResponse.projects.map((project) => ({
       id: project.id,
       company: project.companyName,
       logo: `/images/companies/${project.companyName.toLowerCase().replace(/\s/g, '_')}_logo.png`,
@@ -81,51 +59,30 @@ const ProjectsBoardPage = () => {
       duration: project.duration, // Use duration directly as it's now a timespan string
       learningBenefits: project.learningBenefits,
     }));
-  }, [searchResponse?.data]);
-
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, selectedLevel, companyName, companySector, selectedSkills, durationAfter]);
-
-  // Handler functions for the filter sidebar
-  const handleClearFilters = () => {
-    setSearchQuery('');
-    setSelectedLevel(undefined);
-    setCompanyName('');
-    setCompanySector('');
-    setSelectedSkills([]);
-    setDurationAfter(undefined);
-    setCurrentPage(1);
-  };
+  }, [searchResponse?.projects]);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    setSearchParams(
+      (prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set(PAGE_SEARCH_PARAM_KEY, String(page));
+        return newParams;
+      },
+      { replace: true }
+    );
     // Scroll to top when page changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    queryClient.refetchQueries({ queryKey: ['project_search', currentPage] });
+  }, [searchParams]);
 
   return (
     <div className="flex h-full min-h-0" style={{ backgroundColor: colors.bgSlate900 }}>
       {/* Left Sidebar - Responsive */}
       <ActiveSidebar title={t('projectsPage.filters.title')}>
-        <ProjectsFilterSidebar
-          searchQuery={searchQuery}
-          selectedLevel={selectedLevel}
-          companyName={companyName}
-          companySector={companySector}
-          selectedSkills={selectedSkills}
-          durationAfter={durationAfter}
-          isCompany={isCompany}
-          onSearchChange={setSearchQuery}
-          onLevelChange={setSelectedLevel}
-          onCompanyNameChange={setCompanyName}
-          onCompanySectorChange={setCompanySector}
-          onSkillsChange={setSelectedSkills}
-          onDurationAfterChange={setDurationAfter}
-          onClearFilters={handleClearFilters}
-          availableSkills={availableSkills}
-        />
+        <ProjectsBoardFilterSidebar isCompany={isCompany} availableSkills={availableSkills} />
       </ActiveSidebar>
 
       {/* Main Content Area */}
@@ -151,7 +108,10 @@ const ProjectsBoardPage = () => {
 
           {/* Pagination */}
           {searchResponse?.pagination && !isLoading && !error && (
-            <Pagination pagination={searchResponse.pagination} onPageChange={handlePageChange} />
+            <ProjectsBoardPagination
+              pagination={searchResponse.pagination}
+              onPageChange={handlePageChange}
+            />
           )}
         </main>
       </div>

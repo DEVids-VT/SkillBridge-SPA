@@ -34,12 +34,12 @@ export interface SearchProjectFilters {
   projectSkills?: string[]; // Array of skill names
 }
 
-// Pagination metadata from X-Pagination header
+// Pagination metadata from X-Pagination header (backend returns Pascal case)
 export interface PaginationMetadata {
-  currentPage: number;
-  pageSize: number;
-  totalPages: number;
-  totalCount: number;
+  CurrentPage: number;
+  PageSize: number;
+  TotalPages: number;
+  TotalCount: number;
 }
 
 // Search request with pagination

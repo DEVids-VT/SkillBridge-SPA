@@ -73,11 +73,6 @@ const ProjectsBoardPage = () => {
     // Scroll to top when page changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  useEffect(() => {
-    queryClient.refetchQueries({ queryKey: ['project_search', currentPage] });
-  }, [searchParams]);
-
   return (
     <div className="flex h-full min-h-0" style={{ backgroundColor: colors.bgSlate900 }}>
       {/* Left Sidebar - Responsive */}

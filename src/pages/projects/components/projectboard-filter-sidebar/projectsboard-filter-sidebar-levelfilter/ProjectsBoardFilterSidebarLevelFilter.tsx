@@ -1,24 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { ProjectAssignmentLevel } from '../../../types';
+import { ProjectAssignmentLevel } from '@/types/enums/ProjectAssignmentLevel';
 
 interface ProjectsBoardFilterSidebarLevelFilterProps {
-  /**
-   * Currently selected level value
-   */
   selectedLevel?: ProjectAssignmentLevel;
-  /**
-   * Callback function called when the level selection changes
-   */
+
   onLevelChange: (level?: ProjectAssignmentLevel) => void;
-  /**
-   * Whether the dropdown is open (controlled by parent)
-   */
+
   isOpen?: boolean;
-  /**
-   * Callback for dropdown toggle
-   */
+
   onToggle?: () => void;
 }
 

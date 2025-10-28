@@ -5,11 +5,11 @@ import { colors } from '@/lib/design-system';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { RoutePage } from '@/types/enums/RoutePage';
-import { ProjectAssignmentLevel } from '../../types';
 import ProjectsBoardFilterSidebarSearchInput from './projectsboard-filter-sidebar-searchinput/ProjectsBoardFilterSidebarSearchInput';
 import ProjectsBoardFilterSidebarLevelFilter from './projectsboard-filter-sidebar-levelfilter/ProjectsBoardFilterSidebarLevelFilter';
 import ProjectsBoardFilterSidebarCompanyNameFilter from './projectsboard-filter-sidebar-companynamefilter/ProjectsBoardFilterSidebarCompanyNameFilter';
 import ProjectsBoardFilterSidebarCompanySectorFilter from './projectsboard-filter-sidebar-companysectorfilter/ProjectsBoardFilterSidebarCompanySectorFilter';
+import { ProjectAssignmentLevel } from '@/types/enums/ProjectAssignmentLevel';
 
 interface ProjectsFilterSidebarProps {
   isCompany: boolean;

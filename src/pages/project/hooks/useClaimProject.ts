@@ -42,17 +42,11 @@ export interface ClaimProjectResponse {
   completedAt: string | null;
 }
 
-/**
- * Claims a project for the current user
- */
 const claimProject = async (request: ClaimProjectRequest): Promise<ClaimProjectResponse> => {
   const response = await axiosInstance.post('/user/projects/claim', request);
   return response.data;
 };
 
-/**
- * Hook to claim a project and manage the mutation state
- */
 export const useClaimProject = () => {
   const queryClient = useQueryClient();
 

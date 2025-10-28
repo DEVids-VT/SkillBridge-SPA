@@ -1,10 +1,10 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { colors } from '@/lib/design-system';
-import { PaginationMetadata } from '../../types';
+import { IPaginationHeader } from '@/types/pagination/IPaginationHeader';
 
 interface PaginationProps {
-  pagination: PaginationMetadata;
+  pagination: IPaginationHeader;
   onPageChange: (page: number) => void;
 }
 

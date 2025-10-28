@@ -1,6 +1,8 @@
 import { cn } from '@/lib/utils';
 import { colors, cards, typography } from '@/lib/design-system';
 import { Badge } from '@/components/ui/badge';
+import { IProjectAssignment } from '@/types/interfaces/projectassignment/IProjectAssignment';
+import { ISkill } from '@/types/interfaces/skill/ISkill';
 
 // Status badge component
 const StatusBadge = ({ status }: { status: number }) => {
@@ -24,10 +26,8 @@ const StatusBadge = ({ status }: { status: number }) => {
 };
 
 interface ProjectCompanyInfoProps {
-  project: {
-    companyName: string;
-    status: number;
-    skills: Array<{ id: string; name: string }>;
+  project: Pick<IProjectAssignment, 'companyName' | 'status' | 'skills'> & {
+    skills: Array<Pick<ISkill, 'id' | 'name'>>;
   };
 }
 

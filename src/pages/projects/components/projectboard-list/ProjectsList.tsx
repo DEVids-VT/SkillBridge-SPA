@@ -1,16 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import { Project, CategoryFilter } from '../types';
 import { colors } from '@/lib/design-system';
-import { ProjectCard } from './ProjectCard';
+import { ProjectCard } from './projectboard-list-card/ProjectCard';
 import { Briefcase } from 'lucide-react';
+import { IProjectAssignment } from '@/types/interfaces/projectassignment/IProjectAssignment';
 
 interface ProjectsListProps {
-  projects: Project[];
-  categories: CategoryFilter[];
+  projects: IProjectAssignment[] | undefined;
   isLoading?: boolean;
 }
 
-export const ProjectsList = ({ projects, categories, isLoading = false }: ProjectsListProps) => {
+export const ProjectsList = ({ projects, isLoading = false }: ProjectsListProps) => {
   const { t } = useTranslation('project');
 
   // Show skeleton loader if loading
@@ -46,7 +45,7 @@ export const ProjectsList = ({ projects, categories, isLoading = false }: Projec
   }
 
   // Empty state
-  if (projects.length === 0) {
+  if (!projects || projects.length === 0) {
     return (
       <div className="py-12 text-center">
         <div
@@ -79,7 +78,7 @@ export const ProjectsList = ({ projects, categories, isLoading = false }: Projec
       {/* Responsive grid layout */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} categories={categories} />
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
     </div>

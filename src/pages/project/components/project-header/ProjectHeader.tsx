@@ -1,5 +1,6 @@
 import { Calendar, Building2 } from 'lucide-react';
 import { colors } from '@/lib/design-system';
+import { IProjectAssignment } from '@/types/interfaces/projectassignment/IProjectAssignment';
 
 // Helper to parse duration string to display info
 const parseDuration = (durationString: string) => {
@@ -30,13 +31,10 @@ const StatusBadge = ({ status }: { status: number }) => {
 };
 
 interface ProjectHeaderProps {
-  project: {
-    title: string;
-    companyName: string;
-    duration: string;
-    status: number;
-    description: string;
-  };
+  project: Pick<
+    IProjectAssignment,
+    'title' | 'companyName' | 'duration' | 'status' | 'description'
+  >;
 }
 
 export default function ProjectHeader({ project }: ProjectHeaderProps) {

@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { cards, colors, components } from '@/lib/design-system';
 import {
   Briefcase,
@@ -16,16 +15,14 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
-import { Project, CategoryFilter } from '../types';
+import { IProjectAssignment } from '@/types/interfaces/projectassignment/IProjectAssignment';
 
 interface ProjectCardProps {
-  project: Project;
-  categories: CategoryFilter[];
+  project: IProjectAssignment;
 }
 
-export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
+export const ProjectCard = ({ project }: ProjectCardProps) => {
   const { t } = useTranslation('project');
-  const [expanded, setExpanded] = useState(false);
 
   // Derive banner image (use project ID as seed for consistent unique images)
   const bannerUrl = useMemo(() => {
@@ -34,32 +31,6 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
       project.id || Math.abs(project.title.split('').reduce((a, b) => a + b.charCodeAt(0), 0));
     return `https://picsum.photos/seed/${seed}/800/300`;
   }, [project.id, project.title]);
-
-  const postedLabel = useMemo(() => {
-    const date = new Date(project.postedDate);
-    const now = new Date();
-    const diffTime = Math.abs(now.getTime() - date.getTime());
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    if (diffDays <= 0) return t('projectsPage.projectCard.today');
-    if (diffDays === 1) return t('projectsPage.projectCard.oneDayAgo');
-    return `${diffDays} ${t('projectsPage.projectCard.daysAgo')}`;
-  }, [project.postedDate, t]);
-
-  // Compute remaining time progress (time left until deadline)
-  const { percentLeft, daysLeft, deadlineLabel } = useMemo(() => {
-    const now = new Date();
-    const deadline = new Date(project.deadline);
-    const posted = new Date(project.postedDate);
-    const total = Math.max(1, deadline.getTime() - posted.getTime());
-    const remaining = Math.max(0, deadline.getTime() - now.getTime());
-    const pct = Math.min(100, Math.max(0, (remaining / total) * 100));
-    const days = Math.ceil(remaining / (1000 * 60 * 60 * 24));
-    const label =
-      days <= 0
-        ? t('projectsPage.projectCard.deadlinePassed')
-        : `${days} ${t('projectsPage.projectCard.daysLeft')}`;
-    return { percentLeft: pct, daysLeft: days, deadlineLabel: label };
-  }, [project.deadline, project.postedDate, t]);
 
   // Map some common tech keywords to icons
   const techIconFor = (skill: string) => {
@@ -98,20 +69,9 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
           style={{ backgroundColor: colors.blue, color: colors.yellow }}
         >
           <div className="w-6 h-6 rounded bg-black/30 backdrop-blur flex items-center justify-center overflow-hidden">
-            {project.logo ? (
-              <img
-                src={project.logo}
-                alt={`${project.company} ${t('projectsPage.projectCard.companyLogoAlt')}`}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-            ) : (
-              <Briefcase className="w-4 h-4 text-gray-300" />
-            )}
+            <Briefcase className="w-4 h-4 text-gray-300" />
           </div>
-          <span className="max-w-[160px] truncate">{project.company}</span>
+          <span className="max-w-[160px] truncate">{project.companyName}</span>
         </div>
       </div>
 
@@ -137,26 +97,12 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
             >
               <span className="inline-flex items-center">
                 <Clock className="w-3 h-3 mr-1" />
-                {postedLabel}
+                {project.duration}
               </span>
               <span className="mx-1">•</span>
-              <span className="inline-flex items-center">
-                <Calendar className="w-3 h-3 mr-1" />
-                {deadlineLabel}
-              </span>
             </div>
           </div>
         </div>
-
-        {/* Progress bar (time remaining) */}
-        <div className="space-y-1">
-          <Progress value={percentLeft} trackColor={colors.blue} indicatorColor={colors.orange} />
-          <div className="flex justify-between text-[11px]" style={{ color: colors.textSecondary }}>
-            <span>{t('projectsPage.projectCard.timeRemaining')}</span>
-            <span>{Math.max(0, Math.min(100, Math.round(percentLeft)))}%</span>
-          </div>
-        </div>
-
         {/* Skills with icons */}
         <div className="flex flex-wrap gap-1.5">
           {project.skills.slice(0, 4).map((skill, index) => (
@@ -168,8 +114,8 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
                 'text-[11px] px-2 py-1 inline-flex items-center'
               )}
             >
-              {techIconFor(skill)}
-              {skill}
+              {techIconFor(skill.name)}
+              {skill.name}
             </Badge>
           ))}
           {project.skills.length > 4 && (
@@ -179,40 +125,6 @@ export const ProjectCard = ({ project, categories }: ProjectCardProps) => {
               +{project.skills.length - 4} {t('projectsPage.projectCard.more')}
             </Badge>
           )}
-        </div>
-
-        {/* Expandable description preview */}
-        <div className="text-xs" style={{ color: colors.text }}>
-          <p
-            className={cn(
-              'overflow-hidden transition-all duration-300',
-              expanded ? 'line-clamp-none' : 'line-clamp-2'
-            )}
-          >
-            {project.description}
-          </p>
-          <button
-            type="button"
-            className="mt-2 inline-flex items-center gap-1 text-[11px] underline underline-offset-2"
-            style={{ color: colors.yellow }}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setExpanded((v) => !v);
-            }}
-          >
-            {expanded ? (
-              <>
-                {t('projectsPage.projectCard.showLess')}
-                <ChevronUp className="w-3 h-3" />
-              </>
-            ) : (
-              <>
-                {t('projectsPage.projectCard.showMore')}
-                <ChevronDown className="w-3 h-3" />
-              </>
-            )}
-          </button>
         </div>
       </div>
     </Link>

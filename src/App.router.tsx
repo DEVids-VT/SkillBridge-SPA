@@ -10,7 +10,7 @@ import WelcomeLayout from './pages/welcome/WelcomeLayout';
 import OnboardingGuard from './components/authorize-route/OnboardingGuard';
 import RoleGuard from './components/authorize-route/RoleGuard';
 import ProjectsBoardPage from './pages/projects/ProjectsBoardPage.tsx';
-import ProjectPage from './pages/projects/ProjectPage.tsx';
+import ProjectPage from './pages/project/Project.tsx';
 import { CreatePage, CreatePersonaPage, CreateManualPage } from './pages/create';
 import CompanyProfilePage from './pages/company/CompanyProfilePage';
 import CandidateProfilePage from './pages/candidate/CandidateProfilePage';

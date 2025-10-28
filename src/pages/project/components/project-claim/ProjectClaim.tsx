@@ -1,32 +1,22 @@
 import { cn } from '@/lib/utils';
 import { colors, cards, typography } from '@/lib/design-system';
 import { Trophy, Loader2 } from 'lucide-react';
-
-// Helper to calculate days remaining
-const getDaysRemaining = (deadlineString: string) => {
-  const deadline = new Date(deadlineString);
-  const now = new Date();
-  const diffTime = deadline.getTime() - now.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays;
-};
+import { IProjectAssignment } from '@/types/interfaces/projectassignment/IProjectAssignment';
 
 interface ProjectClaimSectionProps {
-  project: {
-    deadline: string;
-  };
+  project: Pick<IProjectAssignment, 'duration'>;
   isClaimingProject: boolean;
   claimError: Error | null;
   onClaimProject: () => void;
 }
 
-export default function ProjectClaimSection({
+export default function ProjectClaim({
   project,
   isClaimingProject,
   claimError,
   onClaimProject,
 }: ProjectClaimSectionProps) {
-  const daysRemaining = getDaysRemaining(project.deadline);
+  const daysRemaining = project.duration;
 
   return (
     <div className={cn(cards.base, 'mb-6')}>

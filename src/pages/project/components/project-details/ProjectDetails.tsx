@@ -2,41 +2,13 @@ import { cn } from '@/lib/utils';
 import { colors, cards, typography } from '@/lib/design-system';
 import { Badge } from '@/components/ui/badge';
 import { Clock } from 'lucide-react';
-
-// Helper function to format date safely
-const formatDate = (dateString?: string) => {
-  if (!dateString) return 'Not set';
-  const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) return 'Not set';
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(date);
-};
-
-// Helper to calculate days remaining safely
-const getDaysRemaining = (deadlineString?: string) => {
-  if (!deadlineString) return null;
-  const deadline = new Date(deadlineString);
-  if (Number.isNaN(deadline.getTime())) return null;
-  const now = new Date();
-  const diffTime = deadline.getTime() - now.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays;
-};
+import { IProjectAssignment } from '@/types/interfaces/projectassignment/IProjectAssignment';
 
 interface ProjectDetailsProps {
-  project: {
-    description: string;
-    skills: Array<{ id: string; name: string; description?: string }>;
-    deadline?: string;
-  };
+  project: Pick<IProjectAssignment, 'description' | 'skills' | 'duration'>;
 }
 
 export default function ProjectDetails({ project }: ProjectDetailsProps) {
-  const daysRemaining = getDaysRemaining(project.deadline);
-
   return (
     <div className={cn(cards.base, 'mb-6')}>
       <div className={cards.header}>
@@ -98,14 +70,7 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
             <h4 className={typography.heading[5] + ' mb-2'}>Deadline</h4>
             <div className="flex items-center gap-2 text-gray-300">
               <Clock size={18} className="text-gray-400" />
-              <span>{formatDate(project.deadline)}</span>
-              {typeof daysRemaining === 'number' && (
-                <span
-                  className={`ml-2 px-2 py-1 rounded text-sm ${daysRemaining < 7 ? 'bg-red-900 text-red-300' : 'bg-yellow-900 text-yellow-300'}`}
-                >
-                  {daysRemaining <= 0 ? 'Deadline passed' : `${daysRemaining} days remaining`}
-                </span>
-              )}
+              <span>{project.duration}</span>
             </div>
           </div>
         </div>

@@ -157,7 +157,7 @@ I'm working on a project titled "${project.title}" which requires me to ${projec
 ## Project Details
 - Level: ${['Beginner', 'Intermediate', 'Advanced'][project.level]}
 - Skills Required: ${skillsList}
-- Deadline: ${new Date(project.deadline).toLocaleDateString()}
+- Duration: ${project.duration}
 - Company: ${project.companyName}
 
 ## Project Description
@@ -260,7 +260,7 @@ I'm particularly interested in understanding [specific aspect you're curious abo
                     <div className="flex items-center">
                       <Calendar size={16} className="text-gray-400 mr-1.5" />
                       <span className="text-gray-400">
-                        {formatDate(project.deadline)}
+                        {project.duration}
                         <span className="ml-1 text-red-400">({daysRemaining} days left)</span>
                       </span>
                     </div>

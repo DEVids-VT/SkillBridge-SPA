@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { colors, typography } from '@/lib/design-system';
-import { ProjectDetail } from '@/pages/projects/hooks/useProjectDetail';
+import { ProjectDetail } from '@/pages/project/hooks/useProjectDetail';
 import { useUpdateProject, UpdateProjectRequest } from '../hooks/useUpdateProject';
 
 interface ProjectEditFormProps {

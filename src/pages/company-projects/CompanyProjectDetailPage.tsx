@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { colors } from '@/lib/design-system';
 import { Eye, Pencil, Users } from 'lucide-react';
-import { useProjectDetail } from '@/pages/projects/hooks/useProjectDetail';
+import { useProjectDetail } from '@/pages/project/hooks/useProjectDetail';
 import ProjectPageHeader from './components/ProjectPageHeader';
 import CandidatePreviewTab from './components/CandidatePreviewTab';
 import ProjectEditForm from './components/ProjectEditForm';

@@ -8,14 +8,6 @@ export const ProjectsList = () => {
   const { data: userProjects, isLoading, error } = useUserProjects();
 
   // Helper function to format date
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    }).format(date);
-  };
 
   // Show loading state
   if (isLoading) {
@@ -113,7 +105,7 @@ export const ProjectsList = () => {
                 {/* Due Date */}
                 <div className="flex items-center gap-1 text-xs text-gray-400">
                   <Calendar size={12} />
-                  <span>{formatDate(projectAssignment.deadline)}</span>
+                  <span>{projectAssignment.duration}</span>
                 </div>
 
                 {/* Completion Rate */}

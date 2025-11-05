@@ -3,8 +3,6 @@ import { RoutePage } from './types/enums/RoutePage';
 import Dashboard from './pages/dashboard/Dashboard';
 import { WelcomeState, ProjectDetail } from './pages/dashboard/components';
 import { CompanyProjectDetailPage } from './pages/company-projects';
-import CompaniesPage from './pages/companies/CompaniesPage.tsx';
-import AboutPage from './pages/about/AboutPage.tsx';
 import WelcomePage from './pages/welcome/WelcomePage';
 import CreateCandidateProfilePage from './pages/welcome/CreateCandidateProfilePage';
 import Layout from './components/layout/Layout';
@@ -12,9 +10,8 @@ import WelcomeLayout from './pages/welcome/WelcomeLayout';
 import OnboardingGuard from './components/authorize-route/OnboardingGuard';
 import RoleGuard from './components/authorize-route/RoleGuard';
 import ProjectsBoardPage from './pages/projects/ProjectsBoardPage.tsx';
-import ProjectPage from './pages/projects/ProjectPage.tsx';
+import ProjectPage from './pages/project/Project.tsx';
 import { CreatePage, CreatePersonaPage, CreateManualPage } from './pages/create';
-import QuizResultPage from './pages/quiz/QuizResultPage';
 import CompanyProfilePage from './pages/company/CompanyProfilePage';
 import CandidateProfilePage from './pages/candidate/CandidateProfilePage';
 
@@ -39,8 +36,6 @@ export const router = createBrowserRouter(
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path={RoutePage.PROJECTS} element={<ProjectsBoardPage />} />
         <Route path={RoutePage.PROJECT_DETAIL} element={<ProjectPage />} />{' '}
-        <Route path={RoutePage.COMPANIES} element={<CompaniesPage />} />
-        <Route path={RoutePage.ABOUT} element={<AboutPage />} />
         {/* Create flow routes */}
         <Route path={RoutePage.CREATE} element={<CreatePage />} />
         <Route path={RoutePage.CREATE_PERSONA} element={<CreatePersonaPage />} />
@@ -50,8 +45,6 @@ export const router = createBrowserRouter(
           path={RoutePage.CREATE_PROJECT}
           element={<Navigate to={RoutePage.CREATE} replace />}
         />
-        {/* Result pages */}
-        <Route path={RoutePage.QUIZ_DETAIL} element={<QuizResultPage />} />
         {/* Profile routes - role-based access */}
         <Route
           path={RoutePage.COMPANY_PROFILE}

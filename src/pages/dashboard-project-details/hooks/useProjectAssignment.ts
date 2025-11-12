@@ -1,40 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '@/components/axios-interceptor/AxiosInterceptor';
+import { IProjectAssignment } from '@/types/interfaces/projectassignment/IProjectAssignment';
+import { ITask } from '@/types/interfaces/task/ITask';
 
-export interface ProjectDetailSkill {
-  id: string;
-  name: string;
-  description: string;
-}
-
-export interface ProjectDetailTask {
-  id: string;
-  title: string;
-  description: string;
-  isCompleted: boolean;
-  sequence: number;
-  projectAssignmentId: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface ProjectDetailData {
-  id: string;
-  title: string;
-  description: string;
-  summary: string;
-  learningBenefits: string;
-  suggestedApproach: string;
-  level: number;
-  duration: string;
-  status: number;
-  companyId: string;
-  companyName: string;
-  skills: ProjectDetailSkill[];
-  tasks: ProjectDetailTask[];
-  createdAt: string;
-  updatedAt: string;
-}
+export type ProjectDetailData = IProjectAssignment & {
+  tasks: ITask[];
+};
 
 /**
  * Fetches a single project assignment by ID from the API

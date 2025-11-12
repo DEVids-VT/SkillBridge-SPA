@@ -1,11 +1,9 @@
 import { createBrowserRouter, createRoutesFromChildren, Route, Navigate } from 'react-router-dom';
 import { RoutePage } from './types/enums/RoutePage';
-import Dashboard from './pages/dashboard/Dashboard';
-import { WelcomeState, ProjectDetail } from './pages/dashboard/components';
+import Dashboard from './layouts/dashboard-layout/DashboardLayout.tsx';
 import { CompanyProjectDetailPage } from './pages/company-projects';
 import WelcomePage from './pages/welcome/WelcomePage';
 import CreateCandidateProfilePage from './pages/welcome/CreateCandidateProfilePage';
-import Layout from './components/layout/Layout';
 import WelcomeLayout from './pages/welcome/WelcomeLayout';
 import OnboardingGuard from './components/authorize-route/OnboardingGuard';
 import RoleGuard from './components/authorize-route/RoleGuard';
@@ -14,6 +12,9 @@ import ProjectPage from './pages/project/Project.tsx';
 import { CreatePage, CreatePersonaPage, CreateManualPage } from './pages/create';
 import CompanyProfilePage from './pages/company/CompanyProfilePage';
 import CandidateProfilePage from './pages/candidate/CandidateProfilePage';
+import { DashboardWelcome } from './pages/dashboard-welcome/DashboardWelcome.tsx';
+import { DashboardProjectDetails } from './pages/dashboard-project-details/DashboardProjectDetails.tsx';
+import Layout from './layouts/global-layout/Layout.tsx';
 
 export const router = createBrowserRouter(
   createRoutesFromChildren(
@@ -28,8 +29,8 @@ export const router = createBrowserRouter(
       >
         {/* Dashboard with nested routes */}
         <Route path="dashboard" element={<Dashboard />}>
-          <Route index element={<WelcomeState />} />
-          <Route path="project/:projectId" element={<ProjectDetail />} />
+          <Route index element={<DashboardWelcome />} />
+          <Route path="project/:projectId" element={<DashboardProjectDetails />} />
           <Route path="company/project/:projectId" element={<CompanyProjectDetailPage />} />
         </Route>
         {/* Main routes */}

@@ -1,7 +1,7 @@
 import { Lightbulb } from 'lucide-react';
 import { colors } from '@/lib/design-system';
 
-export const WelcomeState = () => {
+export const DashboardWelcome = () => {
   return (
     <div className="h-full flex items-center justify-center">
       <div className="text-center max-w-md">

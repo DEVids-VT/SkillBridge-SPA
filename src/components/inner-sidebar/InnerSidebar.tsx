@@ -15,12 +15,12 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocation } from 'react-router-dom';
 
-interface ActiveSidebarProps {
+interface ProjectSidebarProps {
   title: string;
   children: ReactNode;
 }
 
-export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
+export const InnerSidebar = ({ title, children }: ProjectSidebarProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { isOpen, close } = useActiveSidebar();
   const [isMobile, setIsMobile] = useState(
@@ -35,7 +35,7 @@ export const ActiveSidebar = ({ title, children }: ActiveSidebarProps) => {
 
   // Debug logging
   useEffect(() => {
-    console.log('ActiveSidebar render - isOpen:', isOpen, 'isMobile:', isMobile);
+    console.log('ProjectSidebar render - isOpen:', isOpen, 'isMobile:', isMobile);
   }, [isOpen, isMobile]);
 
   // Update mobile state when window resizes

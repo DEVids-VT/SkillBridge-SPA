@@ -2,9 +2,9 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, Sidebar as SidebarIcon } from 'lucide-react';
-import Sidebar from './Sidebar';
 import { useActiveSidebar } from '@/contexts/ActiveSidebarContext';
 import { colors } from '@/lib/design-system';
+import Sidebar from './components/sidebar/Sidebar';
 
 export function Layout() {
   const location = useLocation();

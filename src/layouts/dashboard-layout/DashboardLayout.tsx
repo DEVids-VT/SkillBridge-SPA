@@ -1,20 +1,25 @@
 import { Outlet } from 'react-router-dom';
-import { ActiveSidebar, ProjectsList } from './components';
-import { CompanyProjectsList } from '@/pages/company-projects';
 import { colors } from '@/lib/design-system';
 import { useTranslation } from 'react-i18next';
 import { useOnboarding } from '@/contexts/OnboardingContext';
+import { InnerSidebar } from '@/components/inner-sidebar/InnerSidebar';
+import { DashboardSidebarProjectsList } from './components/dashboard-sidebar-candidate-projects-list/DashboardSidebarCandidateProjectsList';
+import { DashboardSidebarCompanyProjectsList } from './components/dashboard-sidebar-company-projects-list/DashboardSidebarCompanyProjectsList';
 
-const Dashboard = () => {
+const DashboardLayout = () => {
   const { t } = useTranslation('landing');
   const { onboardingData } = useOnboarding();
 
   return (
     <div className="flex relative h-full min-h-0" style={{ backgroundColor: colors.bgSlate900 }}>
       {/* Left Sidebar - Responsive */}
-      <ActiveSidebar title={t('activeProjects', 'Active projects')}>
-        {onboardingData.role === 'company' ? <CompanyProjectsList /> : <ProjectsList />}
-      </ActiveSidebar>
+      <InnerSidebar title={t('activeProjects', 'Active projects')}>
+        {onboardingData.role === 'company' ? (
+          <DashboardSidebarCompanyProjectsList />
+        ) : (
+          <DashboardSidebarProjectsList />
+        )}
+      </InnerSidebar>
 
       {/* Main Content Area */}
       <div
@@ -25,12 +30,12 @@ const Dashboard = () => {
           backgroundColor: colors.dark,
         }}
       >
-        <main className="p-6">
+        <div className="p-6">
           <Outlet />
-        </main>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default DashboardLayout;

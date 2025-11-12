@@ -3,9 +3,9 @@ import { Calendar, Loader2, CheckCircle2 } from 'lucide-react';
 import { colors } from '@/lib/design-system';
 import { useCompanyProfile } from '@/pages/company/hooks/useCompanyProfile';
 import { useTranslation } from 'react-i18next';
-import { useCompanyProjects } from '@/layouts/dashboard-layout/hooks/useCompanyProjects';
+import { useCompanyProjects } from '../../hooks/useCompanyProjects';
 
-export const CompanyProjectsList = () => {
+export const DashboardSidebarCompanyProjectsList = () => {
   const { t } = useTranslation('project');
   const { projectId } = useParams();
   const {
@@ -14,7 +14,7 @@ export const CompanyProjectsList = () => {
     error: profileError,
   } = useCompanyProfile();
   const companyId = companyProfile?.id;
-  const { data: projects, isLoading, error } = useCompanyProjects(companyId);
+  const { data: projects, isLoading, error } = useCompanyProjects(companyId); //FIX IDS IN BACKEND (COMPANY ID SHOULD MATCH USER ID)
 
   if (loadingProfile || isLoading) {
     return (

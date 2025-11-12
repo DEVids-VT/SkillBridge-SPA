@@ -1,39 +1,12 @@
 // filepath: src/pages/company/hooks/useCompanyProjects.ts
 import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '@/components/axios-interceptor/AxiosInterceptor';
+import { IProjectAssignment } from '@/types/interfaces/projectassignment/IProjectAssignment';
+import { ITask } from '@/types/interfaces/task/ITask';
 
-export interface Skill {
-  id: string;
-  name: string;
-  description: string;
-}
-
-export interface CompanyProject {
-  id: string;
-  title: string;
-  description: string;
-  summary?: string;
-  learningBenefits?: string;
-  suggestedApproach?: string;
-  level?: number;
-  duration: string;
-  status: number;
-  companyId: string;
-  companyName: string;
-  skills: Skill[];
-  tasks?: Array<{
-    id: string;
-    title: string;
-    description: string;
-    isCompleted: boolean;
-    sequence: number;
-    projectAssignmentId: string;
-    createdAt: string;
-    updatedAt: string;
-  }>;
-  createdAt: string;
-  updatedAt: string;
-}
+export type CompanyProject = IProjectAssignment & {
+  tasks?: ITask[];
+};
 
 /**
  * Fetches company projects from the API

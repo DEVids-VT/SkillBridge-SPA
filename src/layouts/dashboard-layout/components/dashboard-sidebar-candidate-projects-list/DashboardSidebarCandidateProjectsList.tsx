@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
 import { Calendar, CheckCircle2, Loader2 } from 'lucide-react';
 import { colors } from '@/lib/design-system';
-import { useUserProjects } from '../hooks/useUserProjects';
+import { useUserProjects } from '../../hooks/useUserProjects';
 
-export const ProjectsList = () => {
+export const DashboardSidebarProjectsList = () => {
   const { projectId } = useParams();
   const { data: userProjects, isLoading, error } = useUserProjects();
 

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosInstance } from '@/components/axios-interceptor/AxiosInterceptor';
-import { UserProject } from '../../dashboard/hooks/useUserProjects';
+import { UserProject } from '../../dashboard-layout/hooks/useUserProjects';
 
 export interface ClaimProjectRequest {
   projectAssignmentId: string;
